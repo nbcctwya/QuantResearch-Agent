@@ -1,0 +1,155 @@
+{
+  "created_at": "2026-10-08T16:52:47.983314+00:00",
+  "scope": "validation-only net equity curves; not an average of seed portfolios",
+  "sources": [
+    {
+      "method": "sp500_raw_excess_seeds012",
+      "metrics": {
+        "IC": 0.035564249296136975,
+        "ICIR": 0.185536457575659,
+        "RankIC": 0.03937881751737362,
+        "RankICIR": 0.20718124925790518,
+        "RankIC_2021": 0.045458505687434037,
+        "RankIC_2022": 0.03315084426999464,
+        "AR": 0.0061511288091204985,
+        "STD": 0.2938902998246393,
+        "MDD": -0.2920053658495553,
+        "Sharpe": 0.020865907594254714,
+        "Sortino": 0.02961303630081475,
+        "Calmar": 0.021065122523432105,
+        "num_test_days": 498
+      },
+      "curve_sha256": "24d3d6792df63cf334b1f1a30e7f91994a59238e82effb986d0a2e49d10f810b",
+      "prediction_sha256": "f3b17a77203dfe3be98cf032c41748c3370624a624272a5f139c542d4f170589",
+      "rows": 498,
+      "code": {
+        "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+        "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+        "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+        "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+        "research/data.py": "229487d397c144e5132488788cc2dced6d0bd53e3509aaa7e2d049a155be09bf",
+        "research/diagnostics.py": "fd720fc57d2812fa0e091d5cfd3a6279fa2c440050457d7d65b7f948274042b6",
+        "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+        "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+        "research/models.py": "82a503d926952cb8125e04baa4ece6a1fef8f2743ebef53d0c17df50320fd32a",
+        "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+        "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+        "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+        "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+        "research/risk_regime.py": "f346c8320992c8c68123a2294eb8ef6797ee284e9d353b8ca202d39532e52152",
+        "research/runner.py": "0ce16ecf105f1a0b89ecd282e1da8a53a14d008d40ddb6694cda0c2b04136993",
+        "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+        "research/snapshot.py": "9286cfb0a39e0504c7cdbe04ec07054fc6244a85906e9f44d48701a009420a05",
+        "research/train.py": "a483dd1ad580997d216d2d72db4db986b58dec7c3e36917cf8da4f1b56f7c93b"
+      },
+      "scope": "purged validation 2021-2022 only",
+      "seeds": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "method": "sp500_independent_regime_seeds012",
+      "metrics": {
+        "IC": 0.03838451470905951,
+        "ICIR": 0.19733226498154186,
+        "RankIC": 0.043405000062739486,
+        "RankICIR": 0.22374229518287178,
+        "RankIC_2021": 0.033329260953986355,
+        "RankIC_2022": 0.05372648890585243,
+        "AR": 0.10440551300474321,
+        "STD": 0.2409857333869807,
+        "MDD": -0.1725423749576689,
+        "Sharpe": 0.41208743571971845,
+        "Sortino": 0.6017535878040394,
+        "Calmar": 0.6051007065966132,
+        "num_test_days": 498
+      },
+      "curve_sha256": "35a2e7312478c3aed61e6fdb6240465cedff620f278100985db41f90030a0543",
+      "prediction_sha256": "4e34b78c24836526c21a2752800f7a0b926748efe217f2ce92a18e9d513a5366",
+      "rows": 498,
+      "code": {
+        "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+        "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+        "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+        "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+        "research/data.py": "229487d397c144e5132488788cc2dced6d0bd53e3509aaa7e2d049a155be09bf",
+        "research/diagnostics.py": "fd720fc57d2812fa0e091d5cfd3a6279fa2c440050457d7d65b7f948274042b6",
+        "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+        "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+        "research/models.py": "82a503d926952cb8125e04baa4ece6a1fef8f2743ebef53d0c17df50320fd32a",
+        "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+        "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+        "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+        "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+        "research/risk_regime.py": "f346c8320992c8c68123a2294eb8ef6797ee284e9d353b8ca202d39532e52152",
+        "research/runner.py": "0ce16ecf105f1a0b89ecd282e1da8a53a14d008d40ddb6694cda0c2b04136993",
+        "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+        "research/snapshot.py": "9286cfb0a39e0504c7cdbe04ec07054fc6244a85906e9f44d48701a009420a05",
+        "research/train.py": "a483dd1ad580997d216d2d72db4db986b58dec7c3e36917cf8da4f1b56f7c93b"
+      },
+      "scope": "purged validation 2021-2022 only",
+      "seeds": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "method": "sp500_factor_regime_seeds012",
+      "metrics": {
+        "IC": 0.03969660599177324,
+        "ICIR": 0.20118334286746867,
+        "RankIC": 0.04598551355006068,
+        "RankICIR": 0.23229394973631354,
+        "RankIC_2021": 0.03485799136000042,
+        "RankIC_2022": 0.05738443872036631,
+        "AR": 0.09534959388934339,
+        "STD": 0.23986389487323423,
+        "MDD": -0.18452829510924584,
+        "Sharpe": 0.37968855708204713,
+        "Sortino": 0.5500842374716423,
+        "Calmar": 0.5167207220599627,
+        "num_test_days": 498
+      },
+      "curve_sha256": "ce51bb9840e2641d0d7a2fd878ac0f0b3f2e9f7ba128d4c2fb878c5d135be029",
+      "prediction_sha256": "c3e2a441b4b429aaa27530d0852d0205a541194bae5f49d77fec59ff52fea5e3",
+      "rows": 498,
+      "code": {
+        "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+        "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+        "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+        "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+        "research/data.py": "229487d397c144e5132488788cc2dced6d0bd53e3509aaa7e2d049a155be09bf",
+        "research/diagnostics.py": "fd720fc57d2812fa0e091d5cfd3a6279fa2c440050457d7d65b7f948274042b6",
+        "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+        "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+        "research/models.py": "82a503d926952cb8125e04baa4ece6a1fef8f2743ebef53d0c17df50320fd32a",
+        "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+        "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+        "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+        "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+        "research/risk_regime.py": "f346c8320992c8c68123a2294eb8ef6797ee284e9d353b8ca202d39532e52152",
+        "research/runner.py": "0ce16ecf105f1a0b89ecd282e1da8a53a14d008d40ddb6694cda0c2b04136993",
+        "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+        "research/snapshot.py": "9286cfb0a39e0504c7cdbe04ec07054fc6244a85906e9f44d48701a009420a05",
+        "research/train.py": "a483dd1ad580997d216d2d72db4db986b58dec7c3e36917cf8da4f1b56f7c93b"
+      },
+      "scope": "purged validation 2021-2022 only",
+      "seeds": [
+        0,
+        1,
+        2
+      ]
+    }
+  ],
+  "data_sha256": "e02e66607995f469092b7bf7db557c6baf87417482a2e15b5e75f0ce4f4acbac",
+  "holdout_opened": false,
+  "rendered_artifacts": {
+    "plot_sp500_seed_validation.py": "0e5e14257a8faa1ab83fccfb26c05c478a2bfeac6d2793bfc68b43d2ed821f9e",
+    "sp500_seed_validation.png": "de442bde64d26082ecd81e7deb15322091b35503836d90201fc0fa4ff0b76e04",
+    "sp500_seed_validation.svg": "069498bfd0582bf1e69edea8f06f1e4c2a3a565327428e877d4dbb325674bde0"
+  },
+  "svg_export": "fixed hashsalt, no timestamp metadata, trailing whitespace removed"
+}

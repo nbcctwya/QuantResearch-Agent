@@ -61,6 +61,10 @@ PLE 默认从当前已剔除边界日、已应用训练历史范围的训练行�
 
 `risk_overlay` 的 `alpha_source` 对照直接复用指定收益模型的 checkpoint，同时冻结收益与风险网络。只拟合训练特征上的风险状态统计，不再训练收益网络或重新选择收益模型 epoch；这样可在同一收益信号上比较不同惩罚。`fixed_alpha.json` 保存真实来源、epoch 和 checkpoint 哈希，来源被修改时拒绝恢复或测试。五种子确认让收益来源跟随对应种子，缺失来源会按其原配置训练，风险来源继续保留原种子。评分模型的 checkpoint 包含两套网络及已拟合统计，恢复不会重新拟合。零惩罚完整验证复算作为审计单独保存，不参与选模。
 
+`alpha_opportunity_strength>0` 进一步检验收益信号强弱能否调节风险惩罚。只允许冻结收益来源：用所选训练日期的收益预测计算 `a_t=log(max(std(alpha_t, correction=0),1e-6))`，按训练中位数与 IQR 尺度拟合 buffer，再使用 `1 - strength*tanh((a_t-center)/(scale*temperature))`。收益预测更分散时惩罚变轻，更接近时惩罚变重；它可以与原风险状态乘数相乘。乘数有上下界，原静态/风险状态对照及 checkpoint 字段保持兼容。
+
+这里的预测分散度只是待验证的机会代理，不代表已经证明的信号质量。统计拟合只访问冻结模型的训练期特征预测，恢复、验证和测试不重新拟合。`alpha_opportunity.json` 保存真实收益来源种子、checkpoint 哈希、训练日期和统计量哈希；`valid/alpha_opportunity/` 记录每日乘数、总惩罚及年份均值。所有方案仍用原 Top30 回测、持仓比例和费用计算十项指标。
+
 `python -m research.diagnostics --trained research/artifacts/trials/<id>` 只读取剔除边界日的验证集，检查风险预测与绝对误差的日均 RankIC、预测风险分档、80% 区间覆盖率和年份稳定性。新风险/分位数 trial 也会自动保存 `valid/calibration/` 诊断。诊断使用 CPU float32，正式排序与回测仍使用对应 trial 保存的预测；不以诊断分数替换正式预测。超额收益诊断中的真实截面均值只用于定义已实现的验证目标，不参与模型预测。
 
 `scores_blend` 将同市场模型的预测按固定权重组合，比较原始分数、当日截面 z-score 和截面排名归一化。组件配置、权重、归一化方式、平滑系数和模型哈希都写入实验配置/`components.json`。五种子确认会为每个组件设置对应的组合种子，训练缺失组件并复用已完成的组件；每个种子的组合分数仍按 `avg_none` 平均并重新回测。
