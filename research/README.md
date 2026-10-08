@@ -35,6 +35,8 @@ worker 需要正常访问 CUDA。当前操作系统的受限沙箱会阻止 GPU�
 
 来源：[表格残差网络研究](https://arxiv.org/abs/2106.11959)、[TabM 论文](https://arxiv.org/abs/2410.24210)、[TabM 官方实现](https://github.com/yandex-research/tabm)、[LightGBM 排序目标文档](https://lightgbm.readthedocs.io/en/stable/Parameters.html)、[TimeMixer 官方实现](https://github.com/kwuking/TimeMixer)，以及 `references/papers` 中的 MASTER、FactorVAE、TimeMixer 等论文总结。这里的 BatchEnsemble、时序混合和因子聚合是适配股票任务的实验方案，不宣称完整复现论文模型。
 
+新增风险感知路线：同时预测 5 日收益均值与条件方差，使用 Gaussian NLL 和排序损失联合训练，再比较均值排序、收益/标准差排序及均值减风险惩罚排序。该方案借鉴 [输入相关不确定性研究](https://arxiv.org/abs/1703.04977)，在本任务中的效用需要实验验证。其原始收益训练标签仅取已剔除边界日的训练期，标准差只在这些训练样本上拟合，再截断到 ±8 倍尺度；验证/测试指标仍使用原始收益、原 baseline 公式和策略。预测函数不读取标签，测试阶段不重新拟合尺度。
+
 checkpoint 仅按验证 RankIC 与年份稳定性选择。整个方法的晋级按验证排序、扣费 AR 和 Sharpe 的百分位排序组合，权重 0.5/0.25/0.25。搜索结束后先写 `selection_lock.json` 冻结方案，再确认 5 个种子并打开测试集。搜索过程不读取新模型的测试表现。
 
 `control.json` 可调整研究时长、种子和单任务超时；设 `stop=true` 会结束当前自有训练进程。`extra_candidates.json` 可追加新配置。暂停/终止请求仍需要由控制方明确发出，worker 不会自行根据假设暂停。

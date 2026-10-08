@@ -88,6 +88,24 @@ class EnsembleLinear(nn.Module):
         return self.shared(x*self.input_scale) * self.output_scale + self.bias
 
 
+class RiskAwareRanker(StockRanker):
+    """Fit conditional mean and variance, then rank with an ex ante risk penalty."""
+    def __init__(self, config):
+        super().__init__({**config,"family":config.get("encoder","residual")})
+        width = config.get("width",128)
+        self.output = nn.Sequential(nn.LayerNorm(width),nn.Linear(width,2))
+        self.risk_exponent = config.get("risk_exponent",0.0)
+        self.risk_penalty = config.get("risk_penalty",0.0)
+
+    def forward(self, stock, context):
+        output = super().forward(stock,context).float()
+        mean = output[:,0]
+        log_variance = output[:,1].clamp(-6,4)
+        sigma = torch.exp(0.5*log_variance).clamp_min(0.05)
+        score = mean/sigma.pow(self.risk_exponent)-self.risk_penalty*sigma
+        return {"mean":mean,"log_variance":log_variance,"score":score}
+
+
 class BatchEnsembleRanker(nn.Module):
     """BatchEnsemble adaptation inspired by TabM, not an exact paper reproduction."""
     def __init__(self, config):
@@ -126,6 +144,8 @@ class MasterControl(nn.Module):
 
 
 def make_model(config):
+    if config["family"] == "risk_aware":
+        return RiskAwareRanker(config)
     if config["family"] == "batch_ensemble":
         return BatchEnsembleRanker(config)
     if config["family"] == "master_control":
@@ -135,7 +155,25 @@ def make_model(config):
     raise ValueError(config["family"])
 
 
+def uses_temporal_data(config):
+    return config["family"] in ("temporal_mixer","master_control") or (
+        config["family"] == "risk_aware" and config.get("encoder","residual") == "temporal_mixer")
+
+
+def prediction_scores(predictions):
+    if isinstance(predictions,dict):
+        return predictions["score"].float()
+    predictions = predictions.float()
+    return predictions.mean(1) if predictions.ndim == 2 else predictions
+
+
 def rank_loss(predictions, labels, objective):
+    if isinstance(predictions,dict):
+        nll = F.gaussian_nll_loss(predictions["mean"],labels,torch.exp(predictions["log_variance"]))
+        if objective == "gaussian_nll":
+            return nll
+        ranking_objective = "corr" if objective == "gaussian_nll_rank" else objective
+        return 0.7*nll+0.3*rank_loss(predictions["score"],labels,ranking_objective)
     scores = predictions.mean(1) if predictions.ndim == 2 else predictions
     targets = labels[:, None].expand_as(predictions) if predictions.ndim == 2 else labels
     mse = F.mse_loss(predictions, targets)

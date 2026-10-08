@@ -12,7 +12,7 @@ from datasets.sampler import WindowSampler
 
 from research import ROOT
 from research.data import DailyData, window_row_indices
-from research.models import make_model
+from research.models import make_model,rank_loss,prediction_scores
 from research.protocol import portfolio_metrics
 from research.common import config_id,write_json
 
@@ -78,6 +78,26 @@ class IntegrityTests(unittest.TestCase):
             expected = model(stock,context)[order]
             actual = model(stock[order],context[order])
         torch.testing.assert_close(actual,expected,atol=1e-5,rtol=1e-5)
+
+    def test_risk_forecast_trains_both_heads_and_inference_uses_only_inputs(self):
+        torch.manual_seed(4)
+        model = make_model({"family":"risk_aware","width":32,"depth":1,"dropout":0.0,
+                            "context":True,"market_gate":True,"risk_penalty":0.25})
+        stock,context = torch.randn(20,1,158),torch.randn(20,76)
+        targets = torch.linspace(-2,2,20)
+        predictions = model(stock,context)
+        loss = rank_loss(predictions,targets,"gaussian_nll_rank")
+        loss.backward()
+        gradient = model.output[-1].weight.grad
+        self.assertTrue(torch.isfinite(loss))
+        self.assertTrue(torch.isfinite(gradient).all())
+        self.assertTrue((gradient.abs().sum(1)>0).all())
+        model.eval()
+        with torch.no_grad():
+            before = prediction_scores(model(stock,context))
+            targets.fill_(1000000)
+            after = prediction_scores(model(stock,context))
+        torch.testing.assert_close(before,after)
 
     def test_interrupted_trial_is_queued_for_resume_and_completed_trial_is_not(self):
         from research.runner import recover_interrupted

@@ -15,7 +15,7 @@ import torch
 from . import ARTIFACTS
 from .common import code_fingerprint, config_id, now, write_json
 from .data import DailyData
-from .models import make_model, rank_loss
+from .models import make_model, rank_loss, prediction_scores, uses_temporal_data
 from .protocol import evaluate_predictions, prediction_metrics, raw_labels
 
 
@@ -57,20 +57,31 @@ def neural_predict(model, data, amp):
             with torch.autocast(device_type=data.device.type, dtype=torch.bfloat16,
                                 enabled=amp and data.device.type == "cuda"):
                 prediction = model(stock, context)
-            if prediction.ndim == 2:
-                prediction = prediction.mean(1)
-            result.append(prediction.float().cpu().numpy())
+            result.append(prediction_scores(prediction).cpu().numpy())
     return np.concatenate(result)
 
 
 def train_neural(config, destination):
     if not torch.cuda.is_available():
         raise RuntimeError("CUDA is required for neural trials; run the authorized worker with GPU access")
-    temporal = config["family"] in ("temporal_mixer", "master_control")
+    temporal = uses_temporal_data(config)
     common = {"purge_days": config.get("purge_days", 5), "temporal": temporal, "device": "cuda"}
     train = DailyData(config["market"], "train", train_start=config.get("train_start"),
                       limit_days=config.get("smoke_train_days"), **common)
     valid = DailyData(config["market"], "valid", limit_days=config.get("smoke_valid_days"), **common)
+    if config["family"] == "risk_aware" or config.get("target_kind") == "raw_standardized":
+        selected = train.selected_positions()
+        returns = raw_labels(config["market"],train.index[selected]).to_numpy(dtype=np.float32)
+        if not np.isfinite(returns).all():
+            raise ValueError("Non-finite selected raw training targets")
+        scale = float(returns.astype(np.float64).std(ddof=1))
+        if scale <= 0 or not np.isfinite(scale):
+            raise ValueError("Degenerate training target scale")
+        train.labels = np.full(len(train.labels),np.nan,dtype=np.float32)
+        train.labels[selected] = np.clip(returns/scale,-8,8)
+        write_json(destination/"target_transform.json",{
+            "kind":"raw_standardized","scale":scale,"fit_split":"selected purged training dates only",
+            "clipping":[-8,8],"train_samples":len(selected),"test_targets_used":False})
     free_bytes, _ = torch.cuda.mem_get_info()
     budget = int(free_bytes*0.7)
     used = train.preload(budget)
@@ -113,7 +124,8 @@ def train_neural(config, destination):
             optimizer.zero_grad(set_to_none=True)
             with torch.autocast("cuda", dtype=torch.bfloat16, enabled=amp):
                 predictions = model(stock, context)
-            loss = rank_loss(predictions.float(), label.float(), config.get("objective","mse"))*weights[day]
+            predictions = {key:value.float() for key,value in predictions.items()} if isinstance(predictions,dict) else predictions.float()
+            loss = rank_loss(predictions,label.float(),config.get("objective","mse"))*weights[day]
             if not torch.isfinite(loss):
                 raise ValueError("Non-finite training loss")
             loss.backward()
@@ -235,7 +247,7 @@ def train_flat(config, destination):
 
 
 def predict_test(config, trained, destination):
-    temporal = config["family"] in ("temporal_mixer","master_control")
+    temporal = uses_temporal_data(config)
     device = "cuda" if config["family"] not in ("ridge","lgbm") else "cpu"
     test = DailyData(config["market"], "test", purge_days=0, temporal=temporal, device=device)
     if config["family"] in ("ridge","lgbm"):
