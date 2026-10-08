@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-10-08T22:13:39.299478+00:00",
+  "created_at": "2026-10-08T22:48:05.636725+00:00",
   "scope": "complete purged validation; implementation audits excluded from search trial counts; test sealed",
   "planned_full_trials": 20,
   "completed_full_trials": 20,
@@ -7749,7 +7749,7 @@
         "queued_at": "2026-10-08T22:06:19.978963+00:00"
       },
       "planned": 9,
-      "completed": 8,
+      "completed": 9,
       "experiments": [
         {
           "name": "csi300_opportunity_risk_seeds012_with_historical_beta",
@@ -9878,6 +9878,272 @@
             "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
           },
           "prediction_sha256": "c678921cb97dfda69580b5635f2e918f13206052886ee0b6adb6a35099d0a779"
+        },
+        {
+          "name": "sp500_factor_regime_seeds012_with_historical_idiosyncratic_volatility",
+          "id": "cc8277bf2f3e36c2",
+          "config": {
+            "market": "sp500",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "scores_blend",
+            "objective": "signal_blend",
+            "sources": [
+              {
+                "market": "sp500",
+                "seed": 0,
+                "purge_days": 5,
+                "family": "risk_overlay",
+                "objective": "frozen_risk_scoring",
+                "alpha_source": {
+                  "seed": 0,
+                  "purge_days": 5,
+                  "width": 128,
+                  "depth": 2,
+                  "dropout": 0.1,
+                  "context": true,
+                  "market_gate": true,
+                  "lr": 0.0005,
+                  "epochs": 60,
+                  "patience": 8,
+                  "target_kind": "raw_excess_standardized",
+                  "family": "residual",
+                  "objective": "mixed",
+                  "market": "sp500",
+                  "days_per_update": 4
+                },
+                "risk_source": {
+                  "seed": 0,
+                  "purge_days": 5,
+                  "family": "factor_gaussian",
+                  "encoder": "residual",
+                  "width": 128,
+                  "depth": 2,
+                  "dropout": 0.1,
+                  "context": true,
+                  "market_gate": true,
+                  "lr": 0.0005,
+                  "epochs": 60,
+                  "patience": 8,
+                  "days_per_update": 4,
+                  "objective": "gaussian_nll_rank",
+                  "risk_exponent": 0.0,
+                  "risk_penalty": 0.0,
+                  "factor_loading_bound": 2.0,
+                  "target_kind": "raw_standardized",
+                  "factor_rank": 4,
+                  "market": "sp500"
+                },
+                "risk_penalty": 0.05,
+                "risk_regime_strength": 0.5,
+                "risk_regime_temperature": 1.0
+              },
+              {
+                "market": "sp500",
+                "seed": 0,
+                "purge_days": 5,
+                "family": "historical_risk",
+                "objective": "past_price_risk_score",
+                "alpha_source": {
+                  "seed": 0,
+                  "purge_days": 5,
+                  "width": 128,
+                  "depth": 2,
+                  "dropout": 0.1,
+                  "context": true,
+                  "market_gate": true,
+                  "lr": 0.0005,
+                  "epochs": 60,
+                  "patience": 8,
+                  "target_kind": "raw_excess_standardized",
+                  "family": "residual",
+                  "objective": "mixed",
+                  "market": "sp500",
+                  "days_per_update": 4
+                },
+                "risk_window": 120,
+                "risk_min_observations": 60,
+                "alpha_norm": "cs_z",
+                "historical_risk_mode": "idiosyncratic_volatility",
+                "risk_penalty": 1.0
+              }
+            ],
+            "weights": [
+              0.5,
+              0.5
+            ],
+            "score_norm": "cs_z",
+            "ewm_alpha": 1.0,
+            "max_gap": 5
+          },
+          "learned_source": "sp500_factor_regime_seeds012",
+          "historical_risk_mode": "idiosyncratic_volatility",
+          "validation": {
+            "IC": 0.03883759971031593,
+            "ICIR": 0.20383463173669478,
+            "RankIC": 0.0424585532649677,
+            "RankICIR": 0.22049394310844744,
+            "RankIC_2021": 0.03206020514183309,
+            "RankIC_2022": 0.05311051963500803,
+            "AR": 0.17681039925760778,
+            "STD": 0.21480095336262603,
+            "MDD": -0.151745204833595,
+            "Sharpe": 0.7579469486144709,
+            "Sortino": 1.1536057457744706,
+            "Calmar": 1.1651794826169266,
+            "num_test_days": 498
+          },
+          "seconds": 33.42307970699039,
+          "run": {
+            "status": "complete",
+            "started_at": "2026-10-08T22:13:35.691187+00:00",
+            "id": "cc8277bf2f3e36c2",
+            "code": {
+              "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+              "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+              "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+              "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+              "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+              "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+              "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+              "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+              "research/historical_risk.py": "26ecb9bba3ac760d7b17981d0f0f44be8636a80b72e6dc9262689355cc7094ea",
+              "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+              "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+              "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+              "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+              "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+              "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+              "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+              "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+              "research/risk_regime.py": "968b1c729435ba192873489a8aa4e53dc90d033f42b6e80caa12fbd5157e4054",
+              "research/runner.py": "71686572938a5c543766f256693321bc84645270fc6550019e53788ce4e06b09",
+              "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+              "research/snapshot.py": "3695b5ef158ab7d6f5ea00ebbed2a8ef228b62c96246fcb13785f71ca31b4348",
+              "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+              "research/train.py": "0d9c84cfdd49243ac123e7d89260f89ed5ec0e3a85c82741b48800f580091f0b"
+            },
+            "device": "coordinator",
+            "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/f1a32b439d2001f046906494/research",
+            "versions": {
+              "torch": "2.8.0+cu129",
+              "pyqlib": "0.9.7",
+              "numpy": "2.4.4",
+              "pandas": "2.3.3",
+              "scipy": "1.17.1",
+              "scikit-learn": "1.8.0",
+              "lightgbm": "4.6.0"
+            },
+            "selection": "validation only; 5 boundary days purged by default",
+            "smoke": false,
+            "completed_at": "2026-10-08T22:14:09.114182+00:00"
+          },
+          "components": {
+            "sources": [
+              {
+                "id": "7e51429bda508980",
+                "config": {
+                  "market": "sp500",
+                  "seed": 0,
+                  "purge_days": 5,
+                  "family": "risk_overlay",
+                  "objective": "frozen_risk_scoring",
+                  "alpha_source": {
+                    "seed": 0,
+                    "purge_days": 5,
+                    "width": 128,
+                    "depth": 2,
+                    "dropout": 0.1,
+                    "context": true,
+                    "market_gate": true,
+                    "lr": 0.0005,
+                    "epochs": 60,
+                    "patience": 8,
+                    "target_kind": "raw_excess_standardized",
+                    "family": "residual",
+                    "objective": "mixed",
+                    "market": "sp500",
+                    "days_per_update": 4
+                  },
+                  "risk_source": {
+                    "seed": 0,
+                    "purge_days": 5,
+                    "family": "factor_gaussian",
+                    "encoder": "residual",
+                    "width": 128,
+                    "depth": 2,
+                    "dropout": 0.1,
+                    "context": true,
+                    "market_gate": true,
+                    "lr": 0.0005,
+                    "epochs": 60,
+                    "patience": 8,
+                    "days_per_update": 4,
+                    "objective": "gaussian_nll_rank",
+                    "risk_exponent": 0.0,
+                    "risk_penalty": 0.0,
+                    "factor_loading_bound": 2.0,
+                    "target_kind": "raw_standardized",
+                    "factor_rank": 4,
+                    "market": "sp500"
+                  },
+                  "risk_penalty": 0.05,
+                  "risk_regime_strength": 0.5,
+                  "risk_regime_temperature": 1.0
+                },
+                "prediction_sha256": "2421eab7493e593fe8de5a7af4d4eb976064cbba44f2ff6d6c6d9fe9d668fd16",
+                "model_sha256": {
+                  "best.pt": "65a36386d89fc84bfef1cb6cc0ba22c65746440f3840ed62092a84dac1f33c35"
+                }
+              },
+              {
+                "id": "5502d7d5499ecb94",
+                "config": {
+                  "market": "sp500",
+                  "seed": 0,
+                  "purge_days": 5,
+                  "family": "historical_risk",
+                  "objective": "past_price_risk_score",
+                  "alpha_source": {
+                    "seed": 0,
+                    "purge_days": 5,
+                    "width": 128,
+                    "depth": 2,
+                    "dropout": 0.1,
+                    "context": true,
+                    "market_gate": true,
+                    "lr": 0.0005,
+                    "epochs": 60,
+                    "patience": 8,
+                    "target_kind": "raw_excess_standardized",
+                    "family": "residual",
+                    "objective": "mixed",
+                    "market": "sp500",
+                    "days_per_update": 4
+                  },
+                  "risk_window": 120,
+                  "risk_min_observations": 60,
+                  "alpha_norm": "cs_z",
+                  "historical_risk_mode": "idiosyncratic_volatility",
+                  "risk_penalty": 1.0
+                },
+                "prediction_sha256": "73c7fa57b4025fbc0dfda4c52174488c8dd2480e87d90e6b1f9e438264eef62f",
+                "model_sha256": {
+                  "components.json": "1ef4fc646f55b8f54c5e945c7fb3fcd10551ab7f777b962e88990d2f5a985490"
+                }
+              }
+            ],
+            "weights": [
+              0.5,
+              0.5
+            ],
+            "score_norm": "cs_z",
+            "ewm_alpha": 1.0,
+            "max_gap": 5,
+            "selection": "validation only; each component uses the mixture's seed",
+            "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+          },
+          "prediction_sha256": "78bf8b26d47f822cd227a0a2edab94afe48a74cb2914fb247bc05155760d40fc"
         }
       ]
     }

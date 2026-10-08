@@ -11,5 +11,11 @@
     3,
     4
   ],
-  "stop": false
+  "stop": false,
+  "validation_shortlist_per_market": 12,
+  "validation_seeds": [
+    0,
+    1,
+    2
+  ]
 }

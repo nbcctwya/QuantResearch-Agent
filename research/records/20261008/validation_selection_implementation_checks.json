@@ -1,0 +1,150 @@
+{
+  "created_at": "2026-10-08T22:48:03.784219+00:00",
+  "scope": "validation-only implementation and restart audit; six existing ensemble methods recomputed, not six new model fits or extra unique seed studies",
+  "cpu": {
+    "created_at": "2026-10-08T22:45:37.364133+00:00",
+    "passed": true,
+    "tests": 108,
+    "previous_tests": 89,
+    "new_selection_tests": 19,
+    "code": {
+      "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+      "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+      "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+      "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+      "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+      "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+      "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+      "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+      "research/historical_risk.py": "26ecb9bba3ac760d7b17981d0f0f44be8636a80b72e6dc9262689355cc7094ea",
+      "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+      "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+      "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+      "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+      "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+      "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+      "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+      "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+      "research/risk_regime.py": "968b1c729435ba192873489a8aa4e53dc90d033f42b6e80caa12fbd5157e4054",
+      "research/runner.py": "07294d927a94982c0f9828cac9161367b5af93334a95bead72045898fd86acd8",
+      "research/selection.py": "474ccc8e789823104aa54ba2a7ea0d88044ac6146afe76f3911db90323253850",
+      "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+      "research/snapshot.py": "3695b5ef158ab7d6f5ea00ebbed2a8ef228b62c96246fcb13785f71ca31b4348",
+      "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+      "research/train.py": "fd29ae8c0ccfc5b59129c6223692ff4ff001c87a081b0995ad70e0e554540fd5"
+    },
+    "executing_package": "/tmp/kbs-validation-selection-20261009/research",
+    "verified_bundle": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/e45324989b5cf7885dde32cd",
+    "log_sha256": "9d0252ff311c8433261ff87d900066e30b9c2d23e7a083ae0dfc7b5af6915c72",
+    "test_source_sha256": "9b96d8e25c95f6a46083625ce3b869e596c3ccf1d110e275740995f18cc1484a"
+  },
+  "real_preview_report": "validation_selection_checks.json",
+  "install": {
+    "installed_at": "2026-10-08T22:46:57.034894+00:00",
+    "bundle": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/e45324989b5cf7885dde32cd",
+    "code": {
+      "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+      "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+      "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+      "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+      "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+      "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+      "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+      "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+      "research/historical_risk.py": "26ecb9bba3ac760d7b17981d0f0f44be8636a80b72e6dc9262689355cc7094ea",
+      "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+      "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+      "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+      "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+      "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+      "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+      "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+      "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+      "research/risk_regime.py": "968b1c729435ba192873489a8aa4e53dc90d033f42b6e80caa12fbd5157e4054",
+      "research/runner.py": "07294d927a94982c0f9828cac9161367b5af93334a95bead72045898fd86acd8",
+      "research/selection.py": "474ccc8e789823104aa54ba2a7ea0d88044ac6146afe76f3911db90323253850",
+      "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+      "research/snapshot.py": "3695b5ef158ab7d6f5ea00ebbed2a8ef228b62c96246fcb13785f71ca31b4348",
+      "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+      "research/train.py": "fd29ae8c0ccfc5b59129c6223692ff4ff001c87a081b0995ad70e0e554540fd5"
+    },
+    "coordinator_pid": 523056,
+    "coordinator_paused_seconds": 0.002971062989672646,
+    "preserved_child": {
+      "id": "dc9fee7ad3089ec1",
+      "market": "sp500",
+      "family": "temporal_mixer",
+      "seed": 0,
+      "pid": 536321,
+      "phase": "search",
+      "started_at": "2026-10-08T22:46:56.949615+00:00",
+      "log": "/home/nbcctwya/kbs-workspace/research/artifacts/trials/dc9fee7ad3089ec1/console.log",
+      "code_bundle": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/f1a32b439d2001f046906494"
+    },
+    "original_campaign_started_epoch": 1791454661.9262576,
+    "passed_cpu_tests": 108,
+    "real_validation_ensembles": 6,
+    "child_signal_sent": false
+  },
+  "initial_harness_checks": [
+    {
+      "file": "/home/nbcctwya/kbs-workspace/research/artifacts/study/validation_selection_checks_initial.log",
+      "sha256": "db3b3e1edfd610ea7a71883aa5d5f0284c5756986e98c3118615d72f62865a84",
+      "reason": "The preview harness omitted IDs normally supplied by production read_results; corrected the harness without changing the selector.",
+      "final_error": "KeyError: 'id'",
+      "classified_as_model_trial_failure": false
+    },
+    {
+      "file": "/home/nbcctwya/kbs-workspace/research/artifacts/study/validation_selection_checks_reference_path_initial.log",
+      "sha256": "4ba2d161b9fcedb62dd8d0323141864a5e8ef262cb8620186ee04e1b294aaa02",
+      "reason": "All six actual backtests completed; the harness looked for three older reference ensembles in validation_checks instead of study/seed_validation. Corrected the reference path and reused all six completed backtests.",
+      "final_error": "FileNotFoundError: [Errno 2] No such file or directory: '/home/nbcctwya/kbs-workspace/research/artifacts/validation_checks/csi300_ple16_no_raw_seeds012/predictions.pkl'",
+      "classified_as_model_trial_failure": false
+    }
+  ],
+  "original_completed_backtests": [
+    {
+      "event": "backtest_complete",
+      "market": "csi300",
+      "seconds": 24.556970225996338
+    },
+    {
+      "event": "backtest_complete",
+      "market": "csi300",
+      "seconds": 22.663048507994972
+    },
+    {
+      "event": "backtest_complete",
+      "market": "csi300",
+      "seconds": 22.419918951985892
+    },
+    {
+      "event": "backtest_complete",
+      "market": "sp500",
+      "seconds": 38.117143784998916
+    },
+    {
+      "event": "backtest_complete",
+      "market": "sp500",
+      "seconds": 36.10665010299999
+    },
+    {
+      "event": "backtest_complete",
+      "market": "sp500",
+      "seconds": 35.576835909014335
+    }
+  ],
+  "restart_extra_backtests": 0,
+  "new_model_holdout_records": 0,
+  "official_selection_plan_exists": false,
+  "notes": [
+    "Validation shortlist size 12 per market, three validation seeds, three promotions per market and five final seeds are fixed in control before final search selection.",
+    "Search proposals and single-checkpoint selection are unchanged; only final candidate confirmation changes.",
+    "All ten actual validation-ensemble metrics use baseline computation; metric averaging is never substituted for backtesting.",
+    "Balanced validation utility does not use holdout baseline thresholds; ties and metric directions are explicit.",
+    "Preview winners are representative pipeline checks, not official candidates or a finalized research result.",
+    "Protocol evidence hashes baseline evaluator source files and four dataset manifests, not the full cached data arrays.",
+    "Preexisting fits retain their original training source records; the new evaluation package is not attributed retroactively.",
+    "Older lock formats remain readable for compatibility; every new coordinator lock includes the complete validation and five-seed evidence requirements."
+  ]
+}

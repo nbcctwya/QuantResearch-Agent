@@ -14,10 +14,12 @@
     "Frozen mixture-risk sources on identical alpha checkpoints; both-market GPU recovery and complete zero-penalty reproduction; twelve full controls complete and eight paired seed checks queued",
     "Optional exponential moving average of neural parameters; raw optimizer trajectory preserved; full checkpoint recovery and disabled-policy compatibility verified before eight matched full controls",
     "Twelve three-seed score-scale validation ensemble diagnostics using the unchanged baseline avg_none and identical float64 identity controls; two normalized forecast methods queued",
-    "Fixed-df Student-t return distributions with total-variance scoring and true intervals; isolated implementation, eighty CPU checks and both-market exact GPU recovery before twelve full candidates were queued against four existing float64 Gaussian controls"
+    "Fixed-df Student-t return distributions with total-variance scoring and true intervals; isolated implementation, eighty CPU checks and both-market exact GPU recovery before twelve full candidates were queued against four existing float64 Gaussian controls",
+    "Past-price beta/total-volatility/idiosyncratic-volatility scoring: twenty complete matched validation controls and twenty actual three-seed averages; CSI300 downside and SP500 ranking/return tradeoffs preserved",
+    "Validation-first recoverable method selection: fixed twelve-method shortlist per market, actual three-seed avg_none baseline backtests and ten-metric Pareto/percentile selection; complete frozen five-seed evidence required before test access"
   ],
   "checks": {
-    "cpu_tests": 80,
+    "cpu_tests": 108,
     "factor_gpu_smoke_markets": [
       "csi300",
       "sp500"
@@ -61,7 +63,10 @@
     "student_exact_interrupted_recovery": true,
     "student_initial_precision_failure_preserved": true,
     "ema_full_disabled_validation_reproduction_markets": 2,
-    "frozen_mixture_risk_paired_ensembles": 4
+    "frozen_mixture_risk_paired_ensembles": 4,
+    "validation_selection_new_checks": 19,
+    "validation_selection_real_ensembles": 6,
+    "validation_selection_restart_extra_backtests": 0
   },
   "seed_validation_checks": {
     "created_at": "2026-10-08T14:49:55.956676+00:00",
@@ -6380,18 +6385,18 @@
       }
     }
   ],
-  "updated_at": "2026-10-08T21:24:10.550078+00:00",
+  "updated_at": "2026-10-08T22:49:13.943609+00:00",
   "risk_regime_validation_checks": "risk_regime_validation_checks.json",
   "opportunity_validation_checks": "opportunity_validation_checks.json",
-  "snapshot_runs": 251,
+  "snapshot_runs": 309,
   "conditional_mixture_study": {
     "planned": 18,
     "completed": 18,
     "report": "mixture_validation_checks.json",
     "paired_seeds_report": "mixture_seed_validation_checks.json"
   },
-  "seed_validation_ensembles_at_snapshot": 15,
-  "remaining": "Finish matched EMA and Student-t controls, investigate validation tradeoffs and seed stability; continue autonomous validation search; freeze and run five-seed holdout confirmation after the original deadline",
+  "seed_validation_ensembles_at_snapshot": 35,
+  "remaining": "Continue autonomous validation search to the original deadline; freeze 12 candidate methods per market and confirm actual three-seed validation ensembles, then lock three methods per market and complete all five-seed fits before any holdout inference. Exceeding all baselines remains unproven.",
   "native_history_study": "history_validation_checks.json",
   "frozen_mixture_risk_study": "mixture_risk_validation_checks.json",
   "frozen_mixture_risk_seed_followups": "mixture_risk_seed_followups.json",
@@ -6400,11 +6405,15 @@
   "ema_study": "ema_validation_checks.json",
   "score_scale_study": "score_scale_validation_checks.json",
   "score_scale_method_design": "score_scale_method_design.json",
-  "code_packages_at_snapshot": 24,
+  "code_packages_at_snapshot": 26,
   "frozen_mixture_risk_seed_checks_complete": 8,
   "frozen_mixture_risk_paired_report": "mixture_risk_seed_validation_checks.json",
   "ema_controls_complete_at_report": 5,
   "student_study": "student_validation_checks.json",
   "student_new_candidates": 12,
-  "student_new_runs_complete_at_report": 0
+  "student_new_runs_complete_at_report": 0,
+  "validation_selection_study": "validation_selection_implementation_checks.json",
+  "historical_risk_study": "historical_risk_validation_checks.json",
+  "historical_risk_complete_controls": 20,
+  "historical_risk_complete_three_seed_ensembles": 20
 }

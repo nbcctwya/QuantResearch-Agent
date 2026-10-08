@@ -97,11 +97,13 @@ PLE 默认从当前已剔除边界日、已应用训练历史范围的训练行�
 
 信号平滑是逐股票的因果 EMA：仅使用当前及更早日期的预测；从当前划分第一天重新开始，超过指定交易日间隔后重置。预测不需要未来真实标签，测试时采用冻结的权重与变换。归一化或平滑会改变模型信号，回测策略及费用不变。自适应搜索约 80% 的提案继续训练模型，约 20% 检验组合或冻结收益信号的评分；冻结评分模型不进入训练候选池。测试缓存要求完整源码哈希匹配，包含数值编码和风险状态变换。
 
-checkpoint 仅按验证 RankIC 与年份稳定性选择。整个方法的晋级按验证排序、扣费 AR 和 Sharpe 的百分位排序组合，权重 0.5/0.25/0.25。搜索结束后先写 `selection_lock.json` 冻结方案，再确认 5 个种子并打开测试集。搜索过程不读取新模型的测试表现。
+checkpoint 继续按验证 RankIC 与年份稳定性选择，搜索提案继续使用验证排序、扣费 AR 和 Sharpe 的 0.5/0.25/0.25 百分位组合。搜索结束后，每个市场按这个组合和全部十项指标的等权百分位交替取 12 个候选，冻结 `validation_confirmation_plan.json` 及其评估代码。仅在配置为无作用变换、seed 0 预测及 dtype 完全相同时合并重复候选；截面归一化方法保持独立。
 
-选模锁同时固定 Python 代码包及其 manifest/源码哈希。确认阶段 coordinator 从该包重新启动，所有确认训练、单种子测试和最终集成回测都使用同一代码包；其间的工作区修改不进入最终计算。每次使用前核验包的完整性，测试入口也要求从该包执行。锁中的测试已观测标记按既有新模型测试记录填写，避免把以后可能进行的研究波次误记为首次测试。
+先补齐候选的 0/1/2 三个种子，实际平均预测并重跑原 baseline 排序与 Top30 回测。按十项指标的 Pareto 前沿优先、等权平均百分位其次、最低单项百分位和配置 ID 依次处理平局；STD 越低越好，负值 MDD 及其他指标越高越好。不使用测试 baseline 数值选择验证候选。每个市场晋级 3 个方法后才写 `selection_lock.json`，补齐并核验其 0–4 五个种子，再打开测试集。未完成或失败的三种子候选会记录并排除；五种子不完整时禁止测试。搜索和这两轮确认均可恢复。
 
-测试入口检查配置及种子是否属于冻结方案或其组件。组件的模型哈希发生变化会拒绝组合测试；测试缓存也记录配置、模型哈希与代码哈希。最终比较总是保留十项指标，缺失或非有限值会判定该项未超过 baseline。
+验证确认计划先固定 Python 代码包及其 manifest/源码哈希，选模锁沿用同一包。确认阶段 coordinator 从该包重新启动，所有新增确认训练、验证集成、单种子测试和最终集成回测都使用同一代码包。既有训练保留原始源码记录，不将新的评估包归到旧训练。每次使用前核验包的完整性，测试入口也要求从该包执行。首次计划只允许在尚未观测新模型测试结果时建立。
+
+测试入口检查配置及种子是否属于冻结方案或其组件，并核验验证计划、三种子选模报告、五种子模型及预测证据、两份 baseline 评估源码、四份训练/验证缓存 manifest 和数值库版本。缓存 manifest 核验不等同于重算全部数据数组的哈希。组件的模型哈希发生变化会拒绝组合测试；测试缓存也记录配置、模型哈希与代码哈希。最终比较总是保留十项指标，缺失或非有限值会判定该项未超过 baseline。
 
 `control.json` 可调整研究时长、种子和单任务超时；设 `stop=true` 会结束当前自有训练进程。`extra_candidates.json` 可追加新配置。暂停/终止请求仍需要由控制方明确发出，worker 不会自行根据假设暂停。
 
@@ -110,7 +112,9 @@ checkpoint 仅按验证 RankIC 与年份稳定性选择。整个方法的晋级�
 - `STATUS.md`：当前任务和验证结果。
 - `study/state.json`、`study/validation_leaderboard.csv`：状态与排行榜。
 - `trials/<id>/`：配置、epoch 日志、断点、验证预测、Qlib report、净值和指标。
+- `study/validation_confirmation_plan.json`、`study/validation_confirmation_progress.json`：测试前固定候选及真实三种子评估。
 - `study/selection_lock.json`：打开测试集前的选模记录。
+- `study/five_seed_confirmation.json`：全部晋级方法的五种子模型与验证产物证据。
 - `holdout/<id>/`、`study/holdout_summary.json`：最终种子/集成结果与 baseline 逐项比较。
 
 worker 使用文件锁，避免重复占用算力。神经网络每轮保存可恢复的模型、优化器和随机状态；完成实验自动跳过。机器或会话停止后，需要在运行环境恢复后重新启动 worker。报告明确区分验证结果、smoke 测试和完整测试结果；失败实验保留日志，不伪造指标。
@@ -134,6 +138,10 @@ EMA 实现通过 72 项 CPU 检查、四类真实 GPU 训练与精确中断恢�
 20 组历史风险完整实验及 20 组真实三种子集成均已完成，并核验同一收益来源的归一化对照。SP500 的 beta 惩罚 0.5 相对仅归一化对照，AR 从 `0.03130` 到 `0.10612`、STD 从 `0.29038` 到 `0.20768`、MDD 从 `-0.28641` 到 `-0.15555`，ICIR 小幅下降；惩罚 1.0 进一步降低 STD 至 `0.15859`、改善 MDD 至 `-0.11719`，AR 为 `0.09924`，排序指标下降。CSI300 的强惩罚在三种子复核中显著损失收益，负结果完整保留。另预先定义六组历史风险组合和九组学习型/历史风险组合，均只用于验证搜索。结果来自 2021–2022 验证，未证明测试集超过 baseline；[三种子收益/风险图](records/20261008/historical_risk_seeds012.png) 与 [全部指标](records/20261008/historical_risk_seed_validation_metrics.csv) 可直接查阅。
 
 历史风险工作脚本在完成结果移入正式目录后可重复执行，复用 20 组实际结果，80 个预测/配置证据文件的哈希与修改时间保持一致，不重复训练和回测。重做时需按设计设置 `KBS_RESEARCH_WORKSPACE_ROOT`，从记录的冻结包加载核心代码；即使工作区源码哈希相同，工作脚本也拒绝从工作区包启动。此启动拒绝和修正后的通过记录保留在检查报告中，原工作脚本的已记录版本另行归档。
+
+验证筛选流程通过 108 项 CPU 检查，其中新增 19 项覆盖真实预测平均、指标方向、重复方法、篡改拒绝、恢复和测试入口。六个代表性方案的三种子平均预测及 dtype 与原集成完全相同，原 baseline 回测重算的十项指标最大差异为 `3.56e-15`。恢复后不重复训练或回测，90 个来源文件和 42 个集成文件的哈希与修改时间保持一致。这六组复算不增加独立训练次数或既有 35 组三种子研究的计数，也不构成正式 shortlist 或最终选模。初次检查脚本遗漏生产读取函数补充的目录 ID，以及误用旧结果路径，均保留日志并修正；没有修改模型或放宽容差。
+
+重做筛选检查时，从 [已保存源码包](records/20261008/code_snapshots/e45324989b5cf7885dde32cd/manifest.json) 对应的本机冻结包启动 `records/20261008/check_validation_selection.py`，并设置 `KBS_RESEARCH_WORKSPACE_ROOT`。检查只允许在正式确认计划和新模型测试都未建立时执行；它复用既有三种子训练，保存 [实际核验结果](records/20261008/validation_selection_checks.json)，不会创建正式选模锁。
 
 可重做验证汇总：`python -m research.records.20261008.summarize_mixture_validation`、`python -m research.records.20261008.summarize_history_and_risk`、`python -m research.records.20261008.summarize_ema_validation`、`python -m research.records.20261008.summarize_student_validation`、`python -m research.records.20261008.summarize_historical_risk_validation`。`python -m research.records.20261008.check_mixture_seed_validation` 及 `python -m research.records.20261008.check_mixture_risk_seed_validation` 从三个种子的实际验证预测重新平均并回测，保存来源及 checkpoint 哈希；缺失的种子记录为 pending。冻结风险评分复核中的收益模型跟随种子，风险来源继续共用 seed 0，报告保留这一差异。
 
