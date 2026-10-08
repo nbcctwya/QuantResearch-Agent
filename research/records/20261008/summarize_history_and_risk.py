@@ -76,6 +76,21 @@ def summarize():
             assert record["fixed_alpha.json"]["checkpoint_sha256"] == control["fixed_alpha.json"]["checkpoint_sha256"]
             record["matched_one_component"] = {"id": control["id"], "deltas": {
                 key: record["validation"][key] - control["validation"][key] for key in METRICS}}
+    findings = None
+    if len(risks) == len(risk_design["comparisons"]):
+        def values(market, components, strength):
+            record = next(r for r in risks if r["market"] == market and r["risk_components"] == components
+                          and r["risk_regime_strength"] == strength)
+            return {key: record["validation"][key] for key in METRICS}
+        findings = {
+            "scope": "seed-0 validation; paired alpha seeds queued; risk source remains seed 0",
+            "csi300_static": {"one_component": values("csi300", 1, 0.0),
+                              "two_components": values("csi300", 2, 0.0)},
+            "csi300_interpretation": "two components improve AR and ranking, with a small STD increase",
+            "sp500_one_component": {"static": values("sp500", 1, 0.0),
+                                    "regime": values("sp500", 1, 0.5)},
+            "sp500_interpretation": "one-component regime scoring has the best RankIC, AR and STD within these controls; two-component regime scoring has slightly better MDD",
+            "holdout_success_established": False}
     write_json(DESTINATION / "mixture_risk_validation_checks.json", {
         "created_at": now(), "scope": "purged validation 2021-2022; no new-model test outputs",
         "planned": len(risk_design["comparisons"]), "completed": len(risks), "design": risk_design,
@@ -84,7 +99,8 @@ def summarize():
         "notes": ["The alpha checkpoint is identical across all risk-source controls within each market.",
                   "Risk sources are complete seed-0 models; only component count and static/regime scoring vary.",
                   "Density improvement is not evidence of improved portfolio performance.",
-                  "Smoke/reproduction audits are excluded from search and promotion."], "experiments": risks})
+                  "Smoke/reproduction audits are excluded from search and promotion."],
+        "current_findings": findings, "experiments": risks})
     pd.DataFrame([{"id": r["id"], "market": r["market"], "risk_components": r["risk_components"],
                    "regime_strength": r["risk_regime_strength"], "seconds": r["seconds"], **r["validation"]}
                   for r in risks], columns=["id", "market", "risk_components", "regime_strength", "seconds", *METRICS]

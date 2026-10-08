@@ -77,6 +77,15 @@ def summarize():
               'cpu_checks':json.loads((ARTIFACTS/'study/mixture_checks.json').read_text()),
               'gpu_recovery':json.loads((ARTIFACTS/'study/mixture_resume_checks.json').read_text()),
               'experiments':records}
+    paired_path = destination/'mixture_seed_validation_checks.json'
+    if paired_path.exists():
+        paired = json.loads(paired_path.read_text())
+        output['current_findings'] = {
+            'scope':'validation only; no holdout-baseline success established',
+            'matched_full_controls_complete':len(records),
+            'paired_csi300_ensembles':paired['completed_ensembles'],
+            'three_seed_result':'two components improve ranking and slightly reduce STD, but avg_none AR, MDD, Sharpe, Sortino and Calmar deteriorate versus one component' if paired.get('comparison') else 'paired seed evidence incomplete',
+            'comparison':paired.get('comparison')}
     write_json(destination/'mixture_validation_checks.json',output)
     pd.DataFrame(rows).to_csv(destination/'mixture_validation_metrics.csv',index=False)
     print(json.dumps({'completed':len(records),'planned':output['planned'],'scope':output['scope']}))

@@ -11,7 +11,7 @@
     "Bounded alpha-dispersion risk conditioning; fourteen full controls, four matched CSI300 seed checks and five new three-seed validation ensembles completed",
     "Conditional shared-encoder Gaussian mixtures; all eighteen matched full controls and both CSI300 three-seed ensembles complete; ranking gains do not transfer to ensemble portfolio returns",
     "Native 8/16/32-day history controls with identity or PLE input; exact native-window and legacy prediction checks, four GPU/interruption cases, and twelve full validation controls queued",
-    "Frozen mixture-risk sources on identical alpha checkpoints; both-market GPU recovery and complete zero-penalty baseline reproduction; twelve full controls queued"
+    "Frozen mixture-risk sources on identical alpha checkpoints; both-market GPU recovery and complete zero-penalty reproduction; twelve full controls complete and eight paired seed checks queued"
   ],
   "checks": {
     "cpu_tests": 66,
@@ -3330,13 +3330,14 @@
     },
     {
       "name": "frozen_mixture_risk",
-      "status": "implemented and audited; twelve matched full validation controls queued",
-      "evidence": "Both markets reproduce identical complete alpha predictions at zero penalty; all ten baseline metrics differ by at most 3.11e-15. Same alpha checkpoint, penalty 0.05 and baseline strategy for one/two/four components and static/regime scoring."
+      "status": "twelve matched controls complete; eight paired alpha-seed checks queued",
+      "evidence": "Both markets reproduce identical complete alpha predictions at zero penalty; all ten baseline metrics differ by at most 3.11e-15. Same alpha checkpoint, penalty 0.05 and baseline strategy for one/two/four components and static/regime scoring.",
+      "result": "CSI300 two-component static scoring improves AR with a small STD increase. SP500 one-component regime scoring is strongest within these controls; adding components is not consistently beneficial."
     }
   ],
-  "interpretation": "All eighteen mixture architecture/target controls and paired CSI300 seeds are complete. Two components improve RankIC in each seed, but their actual avg_none ensemble has lower validation portfolio returns than one component. The next controlled hypotheses are frozen mixture variance and native 16/32-day feature histories. Test remains sealed; exceeding all baseline envelopes is unproven.",
-  "full_validation_runs_in_snapshot": 220,
-  "snapshot_at": "2026-10-08T19:20:02.142631+00:00",
+  "interpretation": "The conditional mixture mean-score ensemble improves ranking but loses portfolio returns versus one component. Twelve matched frozen-risk controls show a small CSI300 two-component static benefit with slightly higher volatility; SP500 favors one component with risk-regime scaling. Eight paired alpha-seed checks are queued before trusting these seed-0 results. Full native history controls are running. Test remains sealed and the full baseline objective is unproven.",
+  "full_validation_runs_in_snapshot": 229,
+  "snapshot_at": "2026-10-08T19:35:19.289452+00:00",
   "verification_code": {
     "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
     "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
@@ -3407,10 +3408,10 @@
       }
     }
   ],
-  "updated_at": "2026-10-08T19:20:02.261403+00:00",
+  "updated_at": "2026-10-08T19:36:44.873423+00:00",
   "risk_regime_validation_checks": "risk_regime_validation_checks.json",
   "opportunity_validation_checks": "opportunity_validation_checks.json",
-  "snapshot_runs": 220,
+  "snapshot_runs": 229,
   "conditional_mixture_study": {
     "planned": 18,
     "completed": 18,
@@ -3418,7 +3419,10 @@
     "paired_seeds_report": "mixture_seed_validation_checks.json"
   },
   "seed_validation_ensembles_at_snapshot": 11,
-  "remaining": "Complete twelve frozen mixture-risk and twelve native history controls; continue validation search; freeze and run five-seed holdout confirmation after the original search deadline",
+  "remaining": "Complete twelve native history controls and eight paired frozen-risk seed checks; continue validation search; freeze and run five-seed holdout confirmation after the original deadline",
   "native_history_study": "history_validation_checks.json",
-  "frozen_mixture_risk_study": "mixture_risk_validation_checks.json"
+  "frozen_mixture_risk_study": "mixture_risk_validation_checks.json",
+  "frozen_mixture_risk_seed_followups": "mixture_risk_seed_followups.json",
+  "frozen_mixture_risk_controls_complete": 12,
+  "native_history_controls_complete_at_report": 3
 }

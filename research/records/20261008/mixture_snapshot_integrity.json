@@ -1,8 +1,8 @@
 {
-  "created_at": "2026-10-08T19:20:50.061311+00:00",
-  "previous_commit": "a598e07f67bf4a6685bff45026b0da71d32ebc6f",
-  "previous_runs": 199,
-  "snapshot_runs": 220,
+  "created_at": "2026-10-08T19:35:19.903497+00:00",
+  "previous_commit": "d642c1f520b2dd7dd3a3b3a2d4379c0f8adb3a5c",
+  "previous_runs": 220,
+  "snapshot_runs": 229,
   "previous_records_unchanged": true,
   "previous_metric_rows_exactly_unchanged": true,
   "previous_seed_ensemble_records_unchanged": true,
@@ -114,10 +114,10 @@
     }
   ],
   "every_source_matches_saved_manifest": true,
-  "runs_with_exact_saved_package": 165,
+  "runs_with_exact_saved_package": 174,
   "earlier_runs_without_saved_package": 55,
-  "earlier_run_note": "Early experiments predate immutable launch-time package storage; retain their recorded source hashes without inventing a reconstructed package.",
+  "earlier_run_note": "Early experiments predate immutable launch-time packages; recorded source hashes are retained without inventing reconstructed packages.",
   "selection_lock_exists": false,
   "new_model_holdout_records": 0,
-  "scope": "saved validation records, exact launch-time packages and preserved earlier evidence"
+  "scope": "completed full validation only; previous evidence preserved"
 }

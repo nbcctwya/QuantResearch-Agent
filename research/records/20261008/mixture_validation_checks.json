@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-10-08T19:13:25.819877+00:00",
+  "created_at": "2026-10-08T19:32:43.490925+00:00",
   "scope": "purged validation 2021-2022 only; smoke excluded; no new-model test outputs read",
   "planned": 18,
   "completed": 18,
@@ -4784,7 +4784,6 @@
     "scope": "validation only; no holdout-baseline success established",
     "matched_full_controls_complete": 18,
     "paired_csi300_ensembles": 2,
-    "seed0_two_components_better_all_ten": true,
     "three_seed_result": "two components improve ranking and slightly reduce STD, but avg_none AR, MDD, Sharpe, Sortino and Calmar deteriorate versus one component",
     "comparison": {
       "deltas_two_minus_one": {
