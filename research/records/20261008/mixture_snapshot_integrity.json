@@ -1,32 +1,123 @@
 {
-  "created_at": "2026-10-08T18:23:29.798418+00:00",
-  "previous_commit": "5df3e440805fc31d0e0fe5bfe9f238be49cd7b0c",
-  "previous_runs": 195,
-  "snapshot_runs": 199,
+  "created_at": "2026-10-08T19:20:50.061311+00:00",
+  "previous_commit": "a598e07f67bf4a6685bff45026b0da71d32ebc6f",
+  "previous_runs": 199,
+  "snapshot_runs": 220,
   "previous_records_unchanged": true,
+  "previous_metric_rows_exactly_unchanged": true,
+  "previous_seed_ensemble_records_unchanged": true,
   "checked_code_packages": [
-    "13f8e16a1375d73febfb9ba3",
-    "142df20a0739454788cd6e3c",
-    "3a49c0393b2ab3a17c961146",
-    "5466ec072309c38df40d219a",
-    "5a5dfbcbc37fbe080a9fa332",
-    "614f9adbcb035b87d185e2a8",
-    "7b3af6d4d18d01957f7f0707",
-    "8f38dd6b0720b5338c222274",
-    "9b1c63a871a453e64ed6e7bb",
-    "9e4acaf234b2c05c389033a9",
-    "9e78c669fa45f3ce78c7e212",
-    "9eef64b054d375c5450d527f",
-    "a4318f6f39d6170f6ee4e007",
-    "b71f107b7edf1c0eeb25322c",
-    "d044891d84498e4c49e86953",
-    "d4c00830ab591cfac350d941",
-    "da9f887dbb0f7ecdcfa070c3",
-    "e5473a5276b29bc2db50e8dd",
-    "f89c8539171cb9e9fdcf191c"
+    {
+      "bundle": "13f8e16a1375d73febfb9ba3",
+      "manifest_sha256": "bbbda571abe401037033bc0e96a49dff8c889acb99de75c56e31a1365d2a7d7d",
+      "files": 15
+    },
+    {
+      "bundle": "142df20a0739454788cd6e3c",
+      "manifest_sha256": "51d804b98fa427c2c89fa3c56c46a5e318a6a55a2936e68f48a2145a3453fa6c",
+      "files": 14
+    },
+    {
+      "bundle": "3a49c0393b2ab3a17c961146",
+      "manifest_sha256": "8bf6c1cbc77b0144c6ed57965fb35f6d28fd8828177895f95fa2c91ab2801833",
+      "files": 17
+    },
+    {
+      "bundle": "5466ec072309c38df40d219a",
+      "manifest_sha256": "98392d8e989ca30f128f06a450a3e6334e0b7f2e86f3cd966f3a9da5f8c3f548",
+      "files": 17
+    },
+    {
+      "bundle": "5a5dfbcbc37fbe080a9fa332",
+      "manifest_sha256": "367a2c988929fe854f9afbdb066460ec74eaa4802afca9d8b94e9a6a06c82e9e",
+      "files": 17
+    },
+    {
+      "bundle": "614f9adbcb035b87d185e2a8",
+      "manifest_sha256": "89910e85187f912f70bf60a5d869cd879d4d81ee9d6e6275bbe02138789d1dee",
+      "files": 19
+    },
+    {
+      "bundle": "7b3af6d4d18d01957f7f0707",
+      "manifest_sha256": "c7255d18c64da63fe8de82b5026ecd684310d290ed362c9b7abdb700de8470a9",
+      "files": 16
+    },
+    {
+      "bundle": "8f38dd6b0720b5338c222274",
+      "manifest_sha256": "3507382e525a3e49788a948c176dccce6f07fe504931d7c6ba9fc9987f19af15",
+      "files": 14
+    },
+    {
+      "bundle": "9b1c63a871a453e64ed6e7bb",
+      "manifest_sha256": "6b7387e78bbf47bd95ec98136c5b72231c5122fcf282065da5827ac9f5e01c8a",
+      "files": 17
+    },
+    {
+      "bundle": "9e4acaf234b2c05c389033a9",
+      "manifest_sha256": "e9d52f71cde40c5d22c4af71b461fb3f8c901269fb275228131e94970a004f0e",
+      "files": 13
+    },
+    {
+      "bundle": "9e78c669fa45f3ce78c7e212",
+      "manifest_sha256": "92fadba09c145429d41357c142da101b4609614488cfb64f866b90de4c257689",
+      "files": 14
+    },
+    {
+      "bundle": "9eef64b054d375c5450d527f",
+      "manifest_sha256": "1f29fc97afa9af77275941f6673cef279b741b5edcd84fef7b334196b14da8c8",
+      "files": 15
+    },
+    {
+      "bundle": "a4318f6f39d6170f6ee4e007",
+      "manifest_sha256": "3d1669ba50e632a20729119fb0502c96c48afa5c78d31929ebdf8c0f77b4306f",
+      "files": 17
+    },
+    {
+      "bundle": "a44a572091062d29d6d77f1d",
+      "manifest_sha256": "addf9634707882230fadd89de8457c6a9ea073d57b9729b71be29b71cb4628d1",
+      "files": 20
+    },
+    {
+      "bundle": "b71f107b7edf1c0eeb25322c",
+      "manifest_sha256": "6ec00ccc62123f50581bc1d255501930e2e44e5fd808b9b257b80745025bbaa6",
+      "files": 19
+    },
+    {
+      "bundle": "bd60504de52434796f35fd4c",
+      "manifest_sha256": "1d0c48d3747b472e10f2894d6ac5d1b3cb70bd5fa1b75ca8defbe876abcb19d7",
+      "files": 20
+    },
+    {
+      "bundle": "d044891d84498e4c49e86953",
+      "manifest_sha256": "752fa325d5fa091d33564ee752945609628c9d9aef76793ba6305d4e71573f77",
+      "files": 17
+    },
+    {
+      "bundle": "d4c00830ab591cfac350d941",
+      "manifest_sha256": "152e6ed3abf79726722bc701c67c973301cbe9839d8f901d92d43d249570781e",
+      "files": 15
+    },
+    {
+      "bundle": "da9f887dbb0f7ecdcfa070c3",
+      "manifest_sha256": "c4d594694bb1216f6b206bd785ab51a6d4b4e235a8c5f57a6dc3c5c7e5244107",
+      "files": 18
+    },
+    {
+      "bundle": "e5473a5276b29bc2db50e8dd",
+      "manifest_sha256": "a834c1f48be11fb9461191ace8922629036bf747bbd4f9cf077775d028c84c7f",
+      "files": 13
+    },
+    {
+      "bundle": "f89c8539171cb9e9fdcf191c",
+      "manifest_sha256": "ff7be1d963a544058c18e26b38020ca33ee7e1d03277f6fe91d7f18d64ca8b62",
+      "files": 17
+    }
   ],
   "every_source_matches_saved_manifest": true,
+  "runs_with_exact_saved_package": 165,
+  "earlier_runs_without_saved_package": 55,
+  "earlier_run_note": "Early experiments predate immutable launch-time package storage; retain their recorded source hashes without inventing a reconstructed package.",
   "selection_lock_exists": false,
   "new_model_holdout_records": 0,
-  "scope": "saved validation records and exact launch-time packages"
+  "scope": "saved validation records, exact launch-time packages and preserved earlier evidence"
 }

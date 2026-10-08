@@ -175,11 +175,10 @@ class DailyData:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--market", required=True, choices=["csi300", "sp500"])
-    parser.add_argument("--splits", nargs="+")
+    parser.add_argument("--splits", nargs="+", default=["train", "valid", "test"])
     parser.add_argument("--history-steps",type=int,choices=[8,16,32],default=8)
     args = parser.parse_args()
-    splits = args.splits or (["train","valid","test"] if args.history_steps==8 else ["train","valid"])
-    for split in splits:
+    for split in args.splits:
         prepare_cache(args.market, split)
         if args.history_steps!=8:
             from .history import prepare_history

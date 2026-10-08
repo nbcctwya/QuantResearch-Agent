@@ -1,5 +1,6 @@
 """Interrupt after one saved epoch, then verify exact continuation on both markets."""
 import json
+import argparse
 import os
 from pathlib import Path
 import subprocess
@@ -12,7 +13,11 @@ import torch
 from research import ARTIFACTS
 from research.common import code_fingerprint, digest_file, now, write_json
 
-plan = json.loads((ARTIFACTS/'study/mixture_smoke_plan.json').read_text())
+parser = argparse.ArgumentParser()
+parser.add_argument('--plan',type=Path,default=ARTIFACTS/'study/mixture_smoke_plan.json')
+parser.add_argument('--record',type=Path,default=ARTIFACTS/'study/mixture_resume_checks.json')
+args = parser.parse_args()
+plan = json.loads(args.plan.read_text())
 records = []
 environment = dict(os.environ, KBS_RESEARCH_WORKSPACE_ROOT='/home/nbcctwya/kbs-workspace',
                    OMP_NUM_THREADS='2', OPENBLAS_NUM_THREADS='2')
@@ -83,7 +88,8 @@ except RuntimeError as error:
               'exact_losses_and_validation_predictions':True,'completed_resume_artifacts_unchanged':before==after,
               'artifacts':after,'smoke_only':True,'checkpoint_before_best_comparison':str(original/'best.pt'),'recovered_directory':str(recovered)}
     records.append(record)
-    write_json(ARTIFACTS/'study/mixture_resume_checks.json',{'created_at':now(),'passed':True,
+    write_json(args.record,{'created_at':now(),'passed':True,
                'markets_completed':len(records),'records':records,'code':code_fingerprint(),
                'scope':'GPU smoke continuation and exhausted-epoch recovery; excluded from full validation counts'})
-    print(json.dumps({'market':item['market'],'exact_recovery':True,'completed_resume_unchanged':True}),flush=True)
+    print(json.dumps({'market':item['market'],'history_steps':config.get('history_steps'),
+                      'exact_recovery':True,'completed_resume_unchanged':True}),flush=True)

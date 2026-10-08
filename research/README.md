@@ -37,6 +37,12 @@ worker 需要正常访问 CUDA。当前操作系统的受限沙箱会阻止 GPU�
 
 `days_per_update` 比较逐日更新与 4/8 日梯度合并。没有截面归一化或股票间注意力时，多个日期可合并为一次网络前向，但先按日期切开预测，再分别计算排序/分布损失，最后等权平均；不把不同日期的股票作为同一截面。带截面操作的模型仍逐日前向，只合并梯度更新。保存 `batching.json` 及每轮真实更新次数；增大这个参数会减少每轮优化器更新，较长训练、学习率与 patience 的变化是明确记录的实验变量。
 
+`temporal_mixer` 的 `history_steps=8/16/32` 对照扩展历史 Alpha158 窗口，继续使用相同终点日期、股票成员、最新 76 维上下文和原五日收益标签。通过临时加载的原 Qlib sampler 改变 `step_len` 构建独立缓存；随机 512 个窗口与原生 sampler 逐项核对，所有最新 Alpha158 行与原缓存精确核对。原 sampler pickle、8 天缓存和标签缓存保留原样。该路线延续所提供 TimeMixer 总结的多尺度历史建模思路，未实现其完整分解网络；时间混合层的容量随窗口长度增长，作为显式实验变量记录。
+
+`python -m research.data --market csi300 --history-steps 32` 默认只构建训练及验证历史。扩展测试历史要求先存在选模锁，正式测试入口继续核验冻结配置、种子和源码；不在搜索阶段构建长窗口测试缓存。较长缓存不能全部进入显存时，按原日批次读取。`history_model.json` 和缓存 manifest 记录窗口、来源哈希、索引、填充规则及容量约定；原训练/验证末尾五日过滤与已知因果性局限保持原记录。
+
+Qlib 对停牌等缺失行的 `ffill+bfill` 在长短窗口上可能给出不同填充值，因此不能把已填充的 32 天窗口裁成 8 天并声称保留原模型预测。每个时序模型要求自己的原生窗口；冻结收益/风险模型的时序长度不同时拒绝共用窗口。`scores_blend` 仍分别为各组件读取其配置的数据窗口。
+
 数值编码参考 [On Embeddings for Numerical Features in Tabular Deep Learning](https://arxiv.org/abs/2203.05556) 与 [官方实现说明](https://github.com/yandex-research/rtdl-num-embeddings/tree/main/package)。`feature_encoder=ple` 对 158 个股票特征使用训练分位数构建分段线性通道，随后由网络投影学习非线性关系；`periodic` 比较可学习的逐特征 sin/cos 频率。这里保留原始标量通道，编码发生在市场门控之前，76 维上下文继续使用原始标量。这些是本地适配方案，未宣称复现原论文的表格数据结果或证明其股票预测效果。
 
 PLE 默认从当前已剔除边界日、已应用训练历史范围的训练行中，以固定种子抽取最多 65,536 行，完全不读取标签、验证特征或测试特征。同一配置的多个模型种子共用分箱抽样种子。重复/间隔小于 `1e-4` 的分位点合并，常量特征的新增通道置零；外侧通道允许线性外推，再截断到 `[-2,3]`，另保留原始标量通道。边界作为 checkpoint buffer 保存；恢复、验证和测试只加载已有边界，不重新拟合。`feature_encoder.json` 记录抽样行与特征哈希、日期范围、实际每列分箱数和变换参数。
@@ -98,5 +104,13 @@ worker 使用文件锁，避免重复占用算力。神经网络每轮保存可�
 每次 worker 启动实验时，将当时的 Python 源码保存为带哈希的 `artifacts/code_releases/<hash>/` 包，并从该包运行。`KBS_RESEARCH_WORKSPACE_ROOT` 指定原数据和输出位置；修改工作区源码不会改变已启动进程的代码包。Git 结果快照会连同实际使用的代码包一并导出。
 
 `python -m research.snapshot` 导出小型的 `research/records/20261008/` 验证结果与配置快照，用 Git 保存指标、方法配置、运行环境和代码哈希；大数据、预测和 checkpoint 继续保存在 `artifacts/`。新训练记录 CPU 时间、进程 RSS 峰值和 PyTorch GPU 内存峰值；嵌套组件共享进程，峰值按进程生命周期记录，组合耗时包含缺失组件的训练耗时。
+
+18 组混合分布架构/目标对照与 CSI300 的配对三种子复核已完成。两分量模型在每个种子上提高 RankIC 和 AR，但真实 `avg_none` 集成的验证 RankIC 从 `0.07666` 升到 `0.08045`，AR 却从 `0.10765` 降到 `0.04328`。集成预测经过原 Top30 策略后，并不会保留单种子指标的改善，负结果已一并保存。测试阶段仍等待选模锁，超过全部 baseline 的目标尚未得到验证。
+
+长窗口方案通过 66 项 CPU 检查、四个双市场 16/32 天 GPU 案例及精确中断恢复；两个已训练的 8 天模型在各市场五个验证日上给出完全相同的修改前后预测。冻结混合风险模型的双市场零惩罚复算保留完整收益预测，十项 baseline 指标最大差异为 `3.11e-15`。12 组历史长度/数值编码对照和 12 组冻结风险分量/状态评分对照按相同验证规则运行。
+
+可重做验证汇总：`python -m research.records.20261008.summarize_mixture_validation`、`python -m research.records.20261008.summarize_history_and_risk`。`python -m research.records.20261008.check_mixture_seed_validation` 从三个种子的实际验证预测重新平均并回测，保存来源及 checkpoint 哈希；缺失的种子记录为 pending。
+
+结果完整性记录会核对上一版实验和指标、既有种子复核以及每个已保存源码包的哈希。早期 55 项实验开始时尚未启用不可变源码包，保留当时记录的源码哈希；后续实验保留实际启动包，不补造早期运行源码。
 
 WSL2 主机可另行运行 `python -m research.keep_awake`，通过 Windows 的临时 `ES_SYSTEM_REQUIRED | ES_CONTINUOUS` 请求阻止自动休眠。显示器仍可关闭；研究结束、停止或 heartbeat 失效后释放，不改电源计划。该请求不能阻止手动关机/睡眠，需要电脑持续通电。机制见 [Microsoft 文档](https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-setthreadexecutionstate)。

@@ -127,7 +127,7 @@ class IntegrityTests(unittest.TestCase):
         np.testing.assert_allclose(pd.Series(targets,index=index).groupby(level="datetime").mean(),0,atol=1e-6)
 
     def test_risk_overlay_freezes_variance_source_in_training(self):
-        for family in ["risk_aware","factor_gaussian"]:
+        for family in ["risk_aware","factor_gaussian","mixture_gaussian"]:
             source = {"market":"csi300","family":family,"width":32,"depth":1,
                       "seed":0,"dropout":0.5,"context":True}
             with tempfile.TemporaryDirectory() as temporary:

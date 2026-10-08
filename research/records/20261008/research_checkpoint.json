@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-10-08T18:23:29.768424+00:00",
+  "created_at": "2026-10-08T19:20:02.261390+00:00",
   "scope": "validation 2021-2022 only; no new-model test results observed",
   "changes": [
     "Conditional diagonal-plus-factor Gaussian likelihood; twelve full controls completed",
@@ -9,10 +9,12 @@
     "Training-feature risk regime scaling with frozen checkpoint buffers; static and adaptive scoring controls with the same frozen alpha checkpoint",
     "Complete zero-penalty reproduction audit, GPU recovery check and fourteen SP500 seed/penalty followups queued",
     "Bounded alpha-dispersion risk conditioning; fourteen full controls, four matched CSI300 seed checks and five new three-seed validation ensembles completed",
-    "Conditional shared-encoder Gaussian mixtures with feature-only gating; exact likelihood/gradient/CDF controls and both-market GPU interruption recovery; matched full validation study in progress"
+    "Conditional shared-encoder Gaussian mixtures; all eighteen matched full controls and both CSI300 three-seed ensembles complete; ranking gains do not transfer to ensemble portfolio returns",
+    "Native 8/16/32-day history controls with identity or PLE input; exact native-window and legacy prediction checks, four GPU/interruption cases, and twelve full validation controls queued",
+    "Frozen mixture-risk sources on identical alpha checkpoints; both-market GPU recovery and complete zero-penalty baseline reproduction; twelve full controls queued"
   ],
   "checks": {
-    "cpu_tests": 60,
+    "cpu_tests": 66,
     "factor_gpu_smoke_markets": [
       "csi300",
       "sp500"
@@ -38,7 +40,16 @@
       "sp500"
     ],
     "mixture_exact_interrupted_recovery": true,
-    "mixture_completed_resume_unchanged": true
+    "mixture_completed_resume_unchanged": true,
+    "native_history_cache_checks": 8,
+    "long_history_gpu_cases": 4,
+    "long_history_exact_interrupted_recovery": true,
+    "legacy_eight_step_trained_models_compared": 2,
+    "frozen_mixture_risk_gpu_markets": [
+      "csi300",
+      "sp500"
+    ],
+    "frozen_mixture_zero_penalty_full_reproduction": true
   },
   "seed_validation_checks": {
     "created_at": "2026-10-08T14:49:55.956676+00:00",
@@ -3281,8 +3292,10 @@
     },
     {
       "name": "longer_causal_feature_history",
-      "status": "not implemented",
-      "proposal": "Consider 16/32-day windows while preserving baseline evaluation coverage. Audit stock/date gaps, histories crossing train/valid/test boundaries, and inherited sampler eligibility before implementation."
+      "status": "implemented and verified; twelve matched full controls queued",
+      "proposal": "Consider 16/32-day windows while preserving baseline evaluation coverage. Audit stock/date gaps, histories crossing train/valid/test boundaries, and inherited sampler eligibility before implementation.",
+      "evidence": "Eight train/valid history caches; all endpoint latest-feature rows identical; 512 native-window probes per cache; unchanged original cache hashes in fixture checks; four real 16/32-step GPU recovery cases exact; two trained eight-step models identical on five validation days per market",
+      "causality_note": "Native feature histories inherit original learn-row label eligibility and unverified JKP revision/release timing"
     },
     {
       "name": "confirmation_code_freeze",
@@ -3299,7 +3312,7 @@
     },
     {
       "name": "conditional_gaussian_mixture",
-      "status": "not implemented",
+      "status": "implemented; eighteen full controls and paired CSI300 seed ensembles complete",
       "sources": [
         "references/papers/foundations/MoE_1991.md",
         "references/papers/baseline/PRISM_VQ_2026.md"
@@ -3312,31 +3325,39 @@
         "Permutation equivariance and per-date batching",
         "Two-market GPU smoke and checkpoint recovery",
         "Full validation, calibration and seed robustness before any claim"
-      ]
+      ],
+      "evidence": "Two-component CSI300 seed 0 improves all ten validation metrics versus one component. Three-seed avg_none improves RankIC 0.07666 -> 0.08045, but AR declines 0.10765 -> 0.04328; portfolio benefit is not robust to the required ensemble rule."
+    },
+    {
+      "name": "frozen_mixture_risk",
+      "status": "implemented and audited; twelve matched full validation controls queued",
+      "evidence": "Both markets reproduce identical complete alpha predictions at zero penalty; all ten baseline metrics differ by at most 3.11e-15. Same alpha checkpoint, penalty 0.05 and baseline strategy for one/two/four components and static/regime scoring."
     }
   ],
-  "interpretation": "CSI300 opportunity scoring retains a small return/risk improvement over matched static scoring in three-seed validation, while its ICIR/RankICIR decline slightly. SP500 seed-0 results overstate ensemble returns; stronger penalties and opportunity conditioning show clear tradeoffs. The next trainable hypothesis is a conditional Gaussian mixture with likelihood-driven expert competition. Test remains sealed and the research objective is unproven.",
-  "full_validation_runs_in_snapshot": 182,
-  "snapshot_at": "2026-10-08T18:21:54.006046+00:00",
+  "interpretation": "All eighteen mixture architecture/target controls and paired CSI300 seeds are complete. Two components improve RankIC in each seed, but their actual avg_none ensemble has lower validation portfolio returns than one component. The next controlled hypotheses are frozen mixture variance and native 16/32-day feature histories. Test remains sealed; exceeding all baseline envelopes is unproven.",
+  "full_validation_runs_in_snapshot": 220,
+  "snapshot_at": "2026-10-08T19:20:02.142631+00:00",
   "verification_code": {
     "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
     "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
     "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
     "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
-    "research/data.py": "229487d397c144e5132488788cc2dced6d0bd53e3509aaa7e2d049a155be09bf",
-    "research/diagnostics.py": "fd720fc57d2812fa0e091d5cfd3a6279fa2c440050457d7d65b7f948274042b6",
+    "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+    "research/diagnostics.py": "7ff21c3a0f8e265700e51b5901cda45ef646f5e2503dedc4e2c83345c00bcfa7",
     "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+    "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
     "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
-    "research/models.py": "82a503d926952cb8125e04baa4ece6a1fef8f2743ebef53d0c17df50320fd32a",
+    "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+    "research/models.py": "3e6a7881a19687731960376029cbc2323d26ff3de44c5e5064900c932b997627",
     "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
     "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
     "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
     "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
-    "research/risk_regime.py": "f346c8320992c8c68123a2294eb8ef6797ee284e9d353b8ca202d39532e52152",
-    "research/runner.py": "0ce16ecf105f1a0b89ecd282e1da8a53a14d008d40ddb6694cda0c2b04136993",
+    "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
+    "research/runner.py": "4851bd6f57107c02f2a6496e2f8aa4f896f45319469fde5106cf09d59246942a",
     "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
-    "research/snapshot.py": "9286cfb0a39e0504c7cdbe04ec07054fc6244a85906e9f44d48701a009420a05",
-    "research/train.py": "a483dd1ad580997d216d2d72db4db986b58dec7c3e36917cf8da4f1b56f7c93b"
+    "research/snapshot.py": "31d27bc4c535e64eeb1033e91b161b8b07f5ba8a4c4eb4177b4654ecb810599e",
+    "research/train.py": "8e8572a9d06b6e1206986608f975524d3caa8b86f08a03498e5a3174979e3ee5"
   },
   "holdout_opened": false,
   "previous_snapshots": [
@@ -3386,19 +3407,18 @@
       }
     }
   ],
-  "updated_at": "2026-10-08T17:19:17.703451+00:00",
+  "updated_at": "2026-10-08T19:20:02.261403+00:00",
   "risk_regime_validation_checks": "risk_regime_validation_checks.json",
   "opportunity_validation_checks": "opportunity_validation_checks.json",
-  "snapshot_runs": 199,
+  "snapshot_runs": 220,
   "conditional_mixture_study": {
     "planned": 18,
-    "completed_at_snapshot": 7,
-    "details": "mixture_validation_checks.json",
-    "status": "ongoing; no test opened",
-    "architecture": "shared encoder, distribution heads, dense conditional gate; no VQ or sparse expert reproduction",
-    "paired_csi300_seed_checks_queued": 4,
-    "first_findings": "CSI300 two components improved all ten validation metrics over the matched one-component control; SP500 did not reproduce the portfolio gain; four components did not improve CSI300 portfolio return"
+    "completed": 18,
+    "report": "mixture_validation_checks.json",
+    "paired_seeds_report": "mixture_seed_validation_checks.json"
   },
-  "seed_validation_ensembles_at_snapshot": 9,
-  "remaining": "Complete matched mixture controls and multi-seed validation; continue validation search; freeze and run five-seed holdout confirmation after search deadline"
+  "seed_validation_ensembles_at_snapshot": 11,
+  "remaining": "Complete twelve frozen mixture-risk and twelve native history controls; continue validation search; freeze and run five-seed holdout confirmation after the original search deadline",
+  "native_history_study": "history_validation_checks.json",
+  "frozen_mixture_risk_study": "mixture_risk_validation_checks.json"
 }
