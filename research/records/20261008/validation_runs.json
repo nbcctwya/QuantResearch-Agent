@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-10-08T13:19:34.634041+00:00",
+  "created_at": "2026-10-08T13:47:41.534581+00:00",
   "experiments": {
     "043af3aabecd377b": {
       "config": {
@@ -205,6 +205,205 @@
         "test_targets_used": false
       }
     },
+    "102c0da2c2f34aeb": {
+      "config": {
+        "market": "csi300",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "sources": [
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "quantile_aware",
+            "encoder": "residual",
+            "objective": "quantile_rank",
+            "risk_penalty": 0.5,
+            "risk_exponent": 0.0,
+            "market": "csi300"
+          },
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "family": "risk_overlay",
+            "encoder": "residual",
+            "objective": "mixed",
+            "risk_penalty": 0.2,
+            "market": "csi300",
+            "risk_source": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_standardized",
+              "family": "risk_aware",
+              "encoder": "residual",
+              "objective": "gaussian_nll_rank",
+              "risk_penalty": 0.0,
+              "risk_exponent": 0.0,
+              "market": "csi300"
+            }
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T13:27:32.301337+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:27:10.543128+00:00",
+        "id": "102c0da2c2f34aeb",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "e947f499b5b2aca754c59be104e7137933a453c222e5cf566db8eaeaa6d1a0a5",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "e729fd37a121bb3aaa8b3d50846907dd8e4daa9e4c871562776f58ffabf0cc28",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "d8875a2f3769d67438fe91fa475a7d51bd77485cd44fd14e616346d98a414181",
+          "research/train.py": "c0980643eadba3072a098a5b06d234fbef42cc16b5e51b999ccc0f7e6602860b"
+        },
+        "device": "coordinator",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/9e78c669fa45f3ce78c7e212/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:27:32.301809+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 15.082904000000001,
+        "peak_process_rss_mib": 1629.93359375,
+        "gpu_peak_allocated_mib": null,
+        "gpu_peak_reserved_mib": null,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "40bc4e24bc7b00c7",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "quantile_aware",
+              "encoder": "residual",
+              "objective": "quantile_rank",
+              "risk_penalty": 0.5,
+              "risk_exponent": 0.0,
+              "market": "csi300"
+            },
+            "prediction_sha256": "7f93aac1963b8846b7106d09d87a0b08f0ec501c2cb76f083a1164c46ab0130b",
+            "model_sha256": {
+              "best.pt": "15e785c261fcd8c7b2eacce7344dd48d8100ec15de37500ece8fcf48fc487611"
+            }
+          },
+          {
+            "id": "32add33b37aca656",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "family": "risk_overlay",
+              "encoder": "residual",
+              "objective": "mixed",
+              "risk_penalty": 0.2,
+              "market": "csi300",
+              "risk_source": {
+                "seed": 0,
+                "purge_days": 5,
+                "width": 128,
+                "depth": 2,
+                "dropout": 0.1,
+                "context": true,
+                "market_gate": true,
+                "lr": 0.0005,
+                "epochs": 60,
+                "patience": 8,
+                "target_kind": "raw_standardized",
+                "family": "risk_aware",
+                "encoder": "residual",
+                "objective": "gaussian_nll_rank",
+                "risk_penalty": 0.0,
+                "risk_exponent": 0.0,
+                "market": "csi300"
+              }
+            },
+            "prediction_sha256": "d3457d6e6c5209574548329cb97184be17b4250a0b4adbac8fe725eacc0b5678",
+            "model_sha256": {
+              "best.pt": "655c474ff0a54dec0458fed599bc81cd564380f75367f8af93afd8230183dfa7"
+            }
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
     "1a1e141b965678eb": {
       "config": {
         "seed": 0,
@@ -266,6 +465,199 @@
         ],
         "train_samples": 840429,
         "test_targets_used": false
+      }
+    },
+    "1f9489d41618c7d5": {
+      "config": {
+        "market": "sp500",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "sources": [
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "residual",
+            "objective": "mixed",
+            "market": "sp500"
+          },
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "family": "risk_overlay",
+            "encoder": "residual",
+            "objective": "mixed",
+            "risk_penalty": 0.2,
+            "market": "sp500",
+            "risk_source": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_standardized",
+              "family": "risk_aware",
+              "encoder": "residual",
+              "objective": "gaussian_nll_rank",
+              "risk_penalty": 0.0,
+              "risk_exponent": 0.0,
+              "market": "sp500"
+            }
+          }
+        ],
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T13:30:05.720901+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:29:29.186546+00:00",
+        "id": "1f9489d41618c7d5",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "e947f499b5b2aca754c59be104e7137933a453c222e5cf566db8eaeaa6d1a0a5",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "e729fd37a121bb3aaa8b3d50846907dd8e4daa9e4c871562776f58ffabf0cc28",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "d8875a2f3769d67438fe91fa475a7d51bd77485cd44fd14e616346d98a414181",
+          "research/train.py": "c0980643eadba3072a098a5b06d234fbef42cc16b5e51b999ccc0f7e6602860b"
+        },
+        "device": "coordinator",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/9e78c669fa45f3ce78c7e212/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:30:05.721310+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 23.961065999999988,
+        "peak_process_rss_mib": 2325.70703125,
+        "gpu_peak_allocated_mib": null,
+        "gpu_peak_reserved_mib": null,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "8f47df4b1ca7a922",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "residual",
+              "objective": "mixed",
+              "market": "sp500"
+            },
+            "prediction_sha256": "b673e7498f0f6a34689248e25394bcca35a451d5df2e10ee9c7a6287442b9189",
+            "model_sha256": {
+              "best.pt": "012071dbd20c7041d2297adaf9b47cfea7c847b11f7fe940bae999ae40094896"
+            }
+          },
+          {
+            "id": "c6007a73b3238c6a",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "family": "risk_overlay",
+              "encoder": "residual",
+              "objective": "mixed",
+              "risk_penalty": 0.2,
+              "market": "sp500",
+              "risk_source": {
+                "seed": 0,
+                "purge_days": 5,
+                "width": 128,
+                "depth": 2,
+                "dropout": 0.1,
+                "context": true,
+                "market_gate": true,
+                "lr": 0.0005,
+                "epochs": 60,
+                "patience": 8,
+                "target_kind": "raw_standardized",
+                "family": "risk_aware",
+                "encoder": "residual",
+                "objective": "gaussian_nll_rank",
+                "risk_penalty": 0.0,
+                "risk_exponent": 0.0,
+                "market": "sp500"
+              }
+            },
+            "prediction_sha256": "dbfddc29b450fad08b2248f818726f5f0908248e9f9e122531b34983625a9703",
+            "model_sha256": {
+              "best.pt": "092d1d8eba0b3a31148a5afaaf11b278b64acb569947eeab39ccefc54f4cdb6d"
+            }
+          }
+        ],
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
       }
     },
     "250b7800dba0ae14": {
@@ -414,6 +806,75 @@
       },
       "resources": {},
       "calibration": null
+    },
+    "2838414f7c85302d": {
+      "config": {
+        "market": "csi300",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "residual",
+        "width": 128,
+        "depth": 2,
+        "objective": "mixed",
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "dropout": 0.1,
+        "days_per_update": 4
+      },
+      "completed_at": "2026-10-08T13:22:55.971120+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:21:13.873434+00:00",
+        "id": "2838414f7c85302d",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "4f1c5447607b4734594496a6b78966f2f9bdb88d64630689ef08038afc4f965a",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "e729fd37a121bb3aaa8b3d50846907dd8e4daa9e4c871562776f58ffabf0cc28",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "d8875a2f3769d67438fe91fa475a7d51bd77485cd44fd14e616346d98a414181",
+          "research/train.py": "c0980643eadba3072a098a5b06d234fbef42cc16b5e51b999ccc0f7e6602860b"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/8f38dd6b0720b5338c222274/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:22:55.971412+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 96.059845,
+        "peak_process_rss_mib": 2881.16015625,
+        "gpu_peak_allocated_mib": 916.0146484375,
+        "gpu_peak_reserved_mib": 930.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": null,
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 729
+      }
     },
     "287df6a8006d58d6": {
       "config": {
@@ -982,6 +1443,287 @@
         "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
       }
     },
+    "2db5d30922ab76ff": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_excess_standardized",
+        "family": "quantile_aware",
+        "encoder": "residual",
+        "objective": "quantile_rank",
+        "risk_penalty": 0.5,
+        "risk_exponent": 0.0,
+        "market": "sp500",
+        "days_per_update": 4
+      },
+      "completed_at": "2026-10-08T13:46:09.633900+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:43:34.454101+00:00",
+        "id": "2db5d30922ab76ff",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "e947f499b5b2aca754c59be104e7137933a453c222e5cf566db8eaeaa6d1a0a5",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "e729fd37a121bb3aaa8b3d50846907dd8e4daa9e4c871562776f58ffabf0cc28",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "d8875a2f3769d67438fe91fa475a7d51bd77485cd44fd14e616346d98a414181",
+          "research/train.py": "c0980643eadba3072a098a5b06d234fbef42cc16b5e51b999ccc0f7e6602860b"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/9e78c669fa45f3ce78c7e212/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:46:09.634255+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 144.264547,
+        "peak_process_rss_mib": 3493.45703125,
+        "gpu_peak_allocated_mib": 1323.2275390625,
+        "gpu_peak_reserved_mib": 1340.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": {
+        "interval_80_coverage": 0.7333819625272479,
+        "uncertainty_abs_error_RankIC": 0.1757279077409337
+      },
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.033585798422536894,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 1194829,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 754
+      }
+    },
+    "2fbf9e5ff699ca32": {
+      "config": {
+        "market": "sp500",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "sources": [
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "residual",
+            "objective": "mixed",
+            "market": "sp500"
+          },
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "family": "risk_overlay",
+            "encoder": "residual",
+            "objective": "mixed",
+            "risk_penalty": 0.2,
+            "market": "sp500",
+            "risk_source": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_standardized",
+              "family": "risk_aware",
+              "encoder": "residual",
+              "objective": "gaussian_nll_rank",
+              "risk_penalty": 0.0,
+              "risk_exponent": 0.0,
+              "market": "sp500"
+            }
+          }
+        ],
+        "weights": [
+          0.25,
+          0.75
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T13:28:52.672102+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:28:16.147662+00:00",
+        "id": "2fbf9e5ff699ca32",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "e947f499b5b2aca754c59be104e7137933a453c222e5cf566db8eaeaa6d1a0a5",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "e729fd37a121bb3aaa8b3d50846907dd8e4daa9e4c871562776f58ffabf0cc28",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "d8875a2f3769d67438fe91fa475a7d51bd77485cd44fd14e616346d98a414181",
+          "research/train.py": "c0980643eadba3072a098a5b06d234fbef42cc16b5e51b999ccc0f7e6602860b"
+        },
+        "device": "coordinator",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/9e78c669fa45f3ce78c7e212/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:28:52.672530+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 23.890849000000003,
+        "peak_process_rss_mib": 2086.80078125,
+        "gpu_peak_allocated_mib": null,
+        "gpu_peak_reserved_mib": null,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "8f47df4b1ca7a922",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "residual",
+              "objective": "mixed",
+              "market": "sp500"
+            },
+            "prediction_sha256": "b673e7498f0f6a34689248e25394bcca35a451d5df2e10ee9c7a6287442b9189",
+            "model_sha256": {
+              "best.pt": "012071dbd20c7041d2297adaf9b47cfea7c847b11f7fe940bae999ae40094896"
+            }
+          },
+          {
+            "id": "c6007a73b3238c6a",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "family": "risk_overlay",
+              "encoder": "residual",
+              "objective": "mixed",
+              "risk_penalty": 0.2,
+              "market": "sp500",
+              "risk_source": {
+                "seed": 0,
+                "purge_days": 5,
+                "width": 128,
+                "depth": 2,
+                "dropout": 0.1,
+                "context": true,
+                "market_gate": true,
+                "lr": 0.0005,
+                "epochs": 60,
+                "patience": 8,
+                "target_kind": "raw_standardized",
+                "family": "risk_aware",
+                "encoder": "residual",
+                "objective": "gaussian_nll_rank",
+                "risk_penalty": 0.0,
+                "risk_exponent": 0.0,
+                "market": "sp500"
+              }
+            },
+            "prediction_sha256": "dbfddc29b450fad08b2248f818726f5f0908248e9f9e122531b34983625a9703",
+            "model_sha256": {
+              "best.pt": "092d1d8eba0b3a31148a5afaaf11b278b64acb569947eeab39ccefc54f4cdb6d"
+            }
+          }
+        ],
+        "weights": [
+          0.25,
+          0.75
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
     "32add33b37aca656": {
       "config": {
         "seed": 0,
@@ -1232,6 +1974,250 @@
         "max_gap": 5,
         "selection": "validation only; each component uses the mixture's seed",
         "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "331fecd9f4f046d3": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_standardized",
+        "family": "risk_aware",
+        "encoder": "residual",
+        "objective": "gaussian_nll_rank",
+        "risk_penalty": 0.5,
+        "risk_exponent": 0.0,
+        "market": "sp500"
+      },
+      "completed_at": "2026-10-08T13:21:10.301279+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:17:13.713045+00:00",
+        "id": "331fecd9f4f046d3",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "4f1c5447607b4734594496a6b78966f2f9bdb88d64630689ef08038afc4f965a",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "e729fd37a121bb3aaa8b3d50846907dd8e4daa9e4c871562776f58ffabf0cc28",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "f4094cef6b5da36e3870a07cc9c45c8e4f305087b4b9446e54cfc63847a07f55",
+          "research/train.py": "c0980643eadba3072a098a5b06d234fbef42cc16b5e51b999ccc0f7e6602860b"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/142df20a0739454788cd6e3c/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:21:10.301615+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 225.63575600000001,
+        "peak_process_rss_mib": 3354.71875,
+        "gpu_peak_allocated_mib": 1310.0849609375,
+        "gpu_peak_reserved_mib": 1326.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": {
+        "interval_80_coverage": 0.7540182698750626,
+        "uncertainty_abs_error_RankIC": 0.2627691736829321
+      },
+      "target_transform.json": {
+        "kind": "raw_standardized",
+        "scale": 0.04185252839688792,
+        "fit_split": "selected purged training dates only",
+        "demeaning": null,
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 1194829,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 1,
+        "packed_forward": false,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 3016
+      }
+    },
+    "33e91c40301d4984": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_excess_standardized",
+        "family": "residual",
+        "objective": "mixed",
+        "market": "sp500",
+        "days_per_update": 4,
+        "feature_encoder": "periodic",
+        "periodic_frequencies": 4,
+        "periodic_initial_scale": 0.05
+      },
+      "completed_at": "2026-10-08T13:40:59.721030+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:37:34.229439+00:00",
+        "id": "33e91c40301d4984",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "e947f499b5b2aca754c59be104e7137933a453c222e5cf566db8eaeaa6d1a0a5",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "e729fd37a121bb3aaa8b3d50846907dd8e4daa9e4c871562776f58ffabf0cc28",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "d8875a2f3769d67438fe91fa475a7d51bd77485cd44fd14e616346d98a414181",
+          "research/train.py": "c0980643eadba3072a098a5b06d234fbef42cc16b5e51b999ccc0f7e6602860b"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/9e78c669fa45f3ce78c7e212/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:40:59.721387+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 193.34262099999998,
+        "peak_process_rss_mib": 3366.73046875,
+        "gpu_peak_allocated_mib": 1367.9130859375,
+        "gpu_peak_reserved_mib": 1410.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": null,
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.033585798422536894,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 1194829,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 754
+      }
+    },
+    "35ac042573b449ff": {
+      "config": {
+        "market": "csi300",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "residual",
+        "width": 128,
+        "depth": 2,
+        "objective": "mixed",
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "dropout": 0.1,
+        "days_per_update": 4,
+        "feature_encoder": "periodic",
+        "periodic_frequencies": 4,
+        "periodic_initial_scale": 0.05
+      },
+      "completed_at": "2026-10-08T13:37:19.685035+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:35:14.210733+00:00",
+        "id": "35ac042573b449ff",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "e947f499b5b2aca754c59be104e7137933a453c222e5cf566db8eaeaa6d1a0a5",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "e729fd37a121bb3aaa8b3d50846907dd8e4daa9e4c871562776f58ffabf0cc28",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "d8875a2f3769d67438fe91fa475a7d51bd77485cd44fd14e616346d98a414181",
+          "research/train.py": "c0980643eadba3072a098a5b06d234fbef42cc16b5e51b999ccc0f7e6602860b"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/9e78c669fa45f3ce78c7e212/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:37:19.685374+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 119.48391,
+        "peak_process_rss_mib": 2892.51953125,
+        "gpu_peak_allocated_mib": 945.498046875,
+        "gpu_peak_reserved_mib": 970.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": null,
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 729
       }
     },
     "3737c79199ece060": {
@@ -1958,6 +2944,259 @@
         "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
       }
     },
+    "49904dd375680331": {
+      "config": {
+        "market": "csi300",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "residual",
+        "width": 128,
+        "depth": 2,
+        "objective": "mixed",
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "dropout": 0.1,
+        "days_per_update": 4,
+        "feature_encoder": "ple",
+        "ple_bins": 16
+      },
+      "completed_at": "2026-10-08T13:32:53.317530+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:30:34.188359+00:00",
+        "id": "49904dd375680331",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "e947f499b5b2aca754c59be104e7137933a453c222e5cf566db8eaeaa6d1a0a5",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "e729fd37a121bb3aaa8b3d50846907dd8e4daa9e4c871562776f58ffabf0cc28",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "d8875a2f3769d67438fe91fa475a7d51bd77485cd44fd14e616346d98a414181",
+          "research/train.py": "c0980643eadba3072a098a5b06d234fbef42cc16b5e51b999ccc0f7e6602860b"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/9e78c669fa45f3ce78c7e212/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:32:53.317862+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 132.61959,
+        "peak_process_rss_mib": 2880.671875,
+        "gpu_peak_allocated_mib": 967.9560546875,
+        "gpu_peak_reserved_mib": 1000.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": null,
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 729
+      },
+      "feature_encoder.json": {
+        "kind": "ple",
+        "fit_split": "selected purged training rows only",
+        "fit_seed": 0,
+        "fit_samples": 65536,
+        "selected_training_samples": 840429,
+        "first_training_date": "2009-01-05T00:00:00.000000000",
+        "last_training_date": "2020-12-24T00:00:00.000000000",
+        "sample_positions_sha256": "47b206cefdd81cd1fc8b3c54c3ee8e0926d345d273f635cfc08508c0d778b0b7",
+        "sample_features_sha256": "ef1085ded6211dd762dbad9d994c5f1e16c0f7ae888edfe5c44de212310dde26",
+        "labels_used": false,
+        "validation_or_test_features_used": false,
+        "encoders": {
+          "feature_encoder": {
+            "bins_per_feature": [
+              16,
+              16,
+              16,
+              15,
+              15,
+              15,
+              15,
+              16,
+              16,
+              16,
+              16,
+              15,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              15,
+              16,
+              16,
+              16,
+              16,
+              15,
+              16,
+              16,
+              16,
+              16,
+              5,
+              10,
+              14,
+              14,
+              15,
+              16,
+              16,
+              16,
+              16,
+              16,
+              4,
+              9,
+              13,
+              14,
+              15,
+              4,
+              9,
+              13,
+              13,
+              15,
+              8,
+              16,
+              15,
+              15,
+              13,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              5,
+              6,
+              9,
+              10,
+              13,
+              5,
+              6,
+              9,
+              10,
+              13,
+              7,
+              8,
+              12,
+              12,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              15,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16
+            ],
+            "constant_features": 0,
+            "buffer_sha256": "0f22967aca78aff60e7f2e4f0106db31c01d047f858cd059dfbeb1fbcf379d95"
+          }
+        },
+        "application": "stock features encoded before learned market gating; context remains scalar",
+        "tail_clip": 2.0,
+        "minimum_bin_width": 0.0001
+      }
+    },
     "4f6610e920cfae40": {
       "config": {
         "market": "csi300",
@@ -2094,6 +3333,203 @@
         "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
         "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
         "optimizer_updates_per_epoch": 3016
+      }
+    },
+    "53f5feacb7db5d45": {
+      "config": {
+        "market": "csi300",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "sources": [
+          {
+            "market": "csi300",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "residual",
+            "width": 128,
+            "depth": 2,
+            "objective": "mixed",
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "dropout": 0.1,
+            "days_per_update": 4,
+            "feature_encoder": "ple",
+            "ple_bins": 16
+          },
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "family": "risk_overlay",
+            "encoder": "residual",
+            "objective": "mixed",
+            "risk_penalty": 0.2,
+            "market": "csi300",
+            "risk_source": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_standardized",
+              "family": "risk_aware",
+              "encoder": "residual",
+              "objective": "gaussian_nll_rank",
+              "risk_penalty": 0.0,
+              "risk_exponent": 0.0,
+              "market": "csi300"
+            }
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T13:40:35.281642+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:40:13.236553+00:00",
+        "id": "53f5feacb7db5d45",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "e947f499b5b2aca754c59be104e7137933a453c222e5cf566db8eaeaa6d1a0a5",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "e729fd37a121bb3aaa8b3d50846907dd8e4daa9e4c871562776f58ffabf0cc28",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "d8875a2f3769d67438fe91fa475a7d51bd77485cd44fd14e616346d98a414181",
+          "research/train.py": "c0980643eadba3072a098a5b06d234fbef42cc16b5e51b999ccc0f7e6602860b"
+        },
+        "device": "coordinator",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/9e78c669fa45f3ce78c7e212/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:40:35.282029+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 15.501712000000005,
+        "peak_process_rss_mib": 1630.4765625,
+        "gpu_peak_allocated_mib": null,
+        "gpu_peak_reserved_mib": null,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "49904dd375680331",
+            "config": {
+              "market": "csi300",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "residual",
+              "width": 128,
+              "depth": 2,
+              "objective": "mixed",
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "dropout": 0.1,
+              "days_per_update": 4,
+              "feature_encoder": "ple",
+              "ple_bins": 16
+            },
+            "prediction_sha256": "f42cf60f3311456d4284d2096bff28385a5840eb960ccb10d1637add4567e443",
+            "model_sha256": {
+              "best.pt": "bca5c4a9c637311733baf0a79d8477a80225ab77d98a2bb6c8020dac9aea0de0"
+            }
+          },
+          {
+            "id": "32add33b37aca656",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "family": "risk_overlay",
+              "encoder": "residual",
+              "objective": "mixed",
+              "risk_penalty": 0.2,
+              "market": "csi300",
+              "risk_source": {
+                "seed": 0,
+                "purge_days": 5,
+                "width": 128,
+                "depth": 2,
+                "dropout": 0.1,
+                "context": true,
+                "market_gate": true,
+                "lr": 0.0005,
+                "epochs": 60,
+                "patience": 8,
+                "target_kind": "raw_standardized",
+                "family": "risk_aware",
+                "encoder": "residual",
+                "objective": "gaussian_nll_rank",
+                "risk_penalty": 0.0,
+                "risk_exponent": 0.0,
+                "market": "csi300"
+              }
+            },
+            "prediction_sha256": "d3457d6e6c5209574548329cb97184be17b4250a0b4adbac8fe725eacc0b5678",
+            "model_sha256": {
+              "best.pt": "655c474ff0a54dec0458fed599bc81cd564380f75367f8af93afd8230183dfa7"
+            }
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
       }
     },
     "5ded7f510198dcb9": {
@@ -2982,6 +4418,402 @@
         "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
       }
     },
+    "791d931057a2a08b": {
+      "config": {
+        "market": "csi300",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "sources": [
+          {
+            "market": "csi300",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "residual",
+            "width": 128,
+            "depth": 2,
+            "objective": "mixed",
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "dropout": 0.1,
+            "days_per_update": 4,
+            "feature_encoder": "ple",
+            "ple_bins": 16
+          },
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "family": "risk_overlay",
+            "encoder": "residual",
+            "objective": "mixed",
+            "risk_penalty": 0.2,
+            "market": "csi300",
+            "risk_source": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_standardized",
+              "family": "risk_aware",
+              "encoder": "residual",
+              "objective": "gaussian_nll_rank",
+              "risk_penalty": 0.0,
+              "risk_exponent": 0.0,
+              "market": "csi300"
+            }
+          }
+        ],
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T13:40:56.666871+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:40:35.283242+00:00",
+        "id": "791d931057a2a08b",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "e947f499b5b2aca754c59be104e7137933a453c222e5cf566db8eaeaa6d1a0a5",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "e729fd37a121bb3aaa8b3d50846907dd8e4daa9e4c871562776f58ffabf0cc28",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "d8875a2f3769d67438fe91fa475a7d51bd77485cd44fd14e616346d98a414181",
+          "research/train.py": "c0980643eadba3072a098a5b06d234fbef42cc16b5e51b999ccc0f7e6602860b"
+        },
+        "device": "coordinator",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/9e78c669fa45f3ce78c7e212/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:40:56.667312+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 15.035595,
+        "peak_process_rss_mib": 1648.71875,
+        "gpu_peak_allocated_mib": null,
+        "gpu_peak_reserved_mib": null,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "49904dd375680331",
+            "config": {
+              "market": "csi300",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "residual",
+              "width": 128,
+              "depth": 2,
+              "objective": "mixed",
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "dropout": 0.1,
+              "days_per_update": 4,
+              "feature_encoder": "ple",
+              "ple_bins": 16
+            },
+            "prediction_sha256": "f42cf60f3311456d4284d2096bff28385a5840eb960ccb10d1637add4567e443",
+            "model_sha256": {
+              "best.pt": "bca5c4a9c637311733baf0a79d8477a80225ab77d98a2bb6c8020dac9aea0de0"
+            }
+          },
+          {
+            "id": "32add33b37aca656",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "family": "risk_overlay",
+              "encoder": "residual",
+              "objective": "mixed",
+              "risk_penalty": 0.2,
+              "market": "csi300",
+              "risk_source": {
+                "seed": 0,
+                "purge_days": 5,
+                "width": 128,
+                "depth": 2,
+                "dropout": 0.1,
+                "context": true,
+                "market_gate": true,
+                "lr": 0.0005,
+                "epochs": 60,
+                "patience": 8,
+                "target_kind": "raw_standardized",
+                "family": "risk_aware",
+                "encoder": "residual",
+                "objective": "gaussian_nll_rank",
+                "risk_penalty": 0.0,
+                "risk_exponent": 0.0,
+                "market": "csi300"
+              }
+            },
+            "prediction_sha256": "d3457d6e6c5209574548329cb97184be17b4250a0b4adbac8fe725eacc0b5678",
+            "model_sha256": {
+              "best.pt": "655c474ff0a54dec0458fed599bc81cd564380f75367f8af93afd8230183dfa7"
+            }
+          }
+        ],
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "81560af1fcd5038f": {
+      "config": {
+        "market": "csi300",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "sources": [
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "quantile_aware",
+            "encoder": "residual",
+            "objective": "quantile_rank",
+            "risk_penalty": 0.5,
+            "risk_exponent": 0.0,
+            "market": "csi300"
+          },
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "family": "risk_overlay",
+            "encoder": "residual",
+            "objective": "mixed",
+            "risk_penalty": 0.2,
+            "market": "csi300",
+            "risk_source": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_standardized",
+              "family": "risk_aware",
+              "encoder": "residual",
+              "objective": "gaussian_nll_rank",
+              "risk_penalty": 0.0,
+              "risk_exponent": 0.0,
+              "market": "csi300"
+            }
+          }
+        ],
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T13:27:53.985433+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:27:32.303069+00:00",
+        "id": "81560af1fcd5038f",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "e947f499b5b2aca754c59be104e7137933a453c222e5cf566db8eaeaa6d1a0a5",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "e729fd37a121bb3aaa8b3d50846907dd8e4daa9e4c871562776f58ffabf0cc28",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "d8875a2f3769d67438fe91fa475a7d51bd77485cd44fd14e616346d98a414181",
+          "research/train.py": "c0980643eadba3072a098a5b06d234fbef42cc16b5e51b999ccc0f7e6602860b"
+        },
+        "device": "coordinator",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/9e78c669fa45f3ce78c7e212/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:27:53.985822+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 15.363040999999992,
+        "peak_process_rss_mib": 1702.609375,
+        "gpu_peak_allocated_mib": null,
+        "gpu_peak_reserved_mib": null,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "40bc4e24bc7b00c7",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "quantile_aware",
+              "encoder": "residual",
+              "objective": "quantile_rank",
+              "risk_penalty": 0.5,
+              "risk_exponent": 0.0,
+              "market": "csi300"
+            },
+            "prediction_sha256": "7f93aac1963b8846b7106d09d87a0b08f0ec501c2cb76f083a1164c46ab0130b",
+            "model_sha256": {
+              "best.pt": "15e785c261fcd8c7b2eacce7344dd48d8100ec15de37500ece8fcf48fc487611"
+            }
+          },
+          {
+            "id": "32add33b37aca656",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "family": "risk_overlay",
+              "encoder": "residual",
+              "objective": "mixed",
+              "risk_penalty": 0.2,
+              "market": "csi300",
+              "risk_source": {
+                "seed": 0,
+                "purge_days": 5,
+                "width": 128,
+                "depth": 2,
+                "dropout": 0.1,
+                "context": true,
+                "market_gate": true,
+                "lr": 0.0005,
+                "epochs": 60,
+                "patience": 8,
+                "target_kind": "raw_standardized",
+                "family": "risk_aware",
+                "encoder": "residual",
+                "objective": "gaussian_nll_rank",
+                "risk_penalty": 0.0,
+                "risk_exponent": 0.0,
+                "market": "csi300"
+              }
+            },
+            "prediction_sha256": "d3457d6e6c5209574548329cb97184be17b4250a0b4adbac8fe725eacc0b5678",
+            "model_sha256": {
+              "best.pt": "655c474ff0a54dec0458fed599bc81cd564380f75367f8af93afd8230183dfa7"
+            }
+          }
+        ],
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
     "83903c83b3732dd0": {
       "config": {
         "seed": 0,
@@ -3135,6 +4967,205 @@
         "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
         "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
         "optimizer_updates_per_epoch": 2913
+      }
+    },
+    "89f74eed8b526a83": {
+      "config": {
+        "market": "csi300",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "sources": [
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "quantile_aware",
+            "encoder": "residual",
+            "objective": "quantile_rank",
+            "risk_penalty": 0.5,
+            "risk_exponent": 0.0,
+            "market": "csi300"
+          },
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "family": "risk_overlay",
+            "encoder": "residual",
+            "objective": "mixed",
+            "risk_penalty": 0.2,
+            "market": "csi300",
+            "risk_source": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_standardized",
+              "family": "risk_aware",
+              "encoder": "residual",
+              "objective": "gaussian_nll_rank",
+              "risk_penalty": 0.0,
+              "risk_exponent": 0.0,
+              "market": "csi300"
+            }
+          }
+        ],
+        "weights": [
+          0.25,
+          0.75
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T13:27:10.541558+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:26:46.702515+00:00",
+        "id": "89f74eed8b526a83",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "e947f499b5b2aca754c59be104e7137933a453c222e5cf566db8eaeaa6d1a0a5",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "e729fd37a121bb3aaa8b3d50846907dd8e4daa9e4c871562776f58ffabf0cc28",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "d8875a2f3769d67438fe91fa475a7d51bd77485cd44fd14e616346d98a414181",
+          "research/train.py": "c0980643eadba3072a098a5b06d234fbef42cc16b5e51b999ccc0f7e6602860b"
+        },
+        "device": "coordinator",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/9e78c669fa45f3ce78c7e212/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:27:10.541960+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 17.43645,
+        "peak_process_rss_mib": 1263.41796875,
+        "gpu_peak_allocated_mib": null,
+        "gpu_peak_reserved_mib": null,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "40bc4e24bc7b00c7",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "quantile_aware",
+              "encoder": "residual",
+              "objective": "quantile_rank",
+              "risk_penalty": 0.5,
+              "risk_exponent": 0.0,
+              "market": "csi300"
+            },
+            "prediction_sha256": "7f93aac1963b8846b7106d09d87a0b08f0ec501c2cb76f083a1164c46ab0130b",
+            "model_sha256": {
+              "best.pt": "15e785c261fcd8c7b2eacce7344dd48d8100ec15de37500ece8fcf48fc487611"
+            }
+          },
+          {
+            "id": "32add33b37aca656",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "family": "risk_overlay",
+              "encoder": "residual",
+              "objective": "mixed",
+              "risk_penalty": 0.2,
+              "market": "csi300",
+              "risk_source": {
+                "seed": 0,
+                "purge_days": 5,
+                "width": 128,
+                "depth": 2,
+                "dropout": 0.1,
+                "context": true,
+                "market_gate": true,
+                "lr": 0.0005,
+                "epochs": 60,
+                "patience": 8,
+                "target_kind": "raw_standardized",
+                "family": "risk_aware",
+                "encoder": "residual",
+                "objective": "gaussian_nll_rank",
+                "risk_penalty": 0.0,
+                "risk_exponent": 0.0,
+                "market": "csi300"
+              }
+            },
+            "prediction_sha256": "d3457d6e6c5209574548329cb97184be17b4250a0b4adbac8fe725eacc0b5678",
+            "model_sha256": {
+              "best.pt": "655c474ff0a54dec0458fed599bc81cd564380f75367f8af93afd8230183dfa7"
+            }
+          }
+        ],
+        "weights": [
+          0.25,
+          0.75
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
       }
     },
     "8c50b0e3431200f3": {
@@ -4074,6 +6105,94 @@
         "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
       }
     },
+    "a9ad7fb37ef36152": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_excess_standardized",
+        "family": "quantile_aware",
+        "encoder": "residual",
+        "objective": "quantile_rank",
+        "risk_penalty": 0.5,
+        "risk_exponent": 0.0,
+        "market": "csi300",
+        "days_per_update": 4
+      },
+      "completed_at": "2026-10-08T13:43:24.825662+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:41:14.423437+00:00",
+        "id": "a9ad7fb37ef36152",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "e947f499b5b2aca754c59be104e7137933a453c222e5cf566db8eaeaa6d1a0a5",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "e729fd37a121bb3aaa8b3d50846907dd8e4daa9e4c871562776f58ffabf0cc28",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "d8875a2f3769d67438fe91fa475a7d51bd77485cd44fd14e616346d98a414181",
+          "research/train.py": "c0980643eadba3072a098a5b06d234fbef42cc16b5e51b999ccc0f7e6602860b"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/9e78c669fa45f3ce78c7e212/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:43:24.826012+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 124.91449899999999,
+        "peak_process_rss_mib": 3022.296875,
+        "gpu_peak_allocated_mib": 916.01904296875,
+        "gpu_peak_reserved_mib": 932.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": {
+        "interval_80_coverage": 0.6879529300488225,
+        "uncertainty_abs_error_RankIC": 0.2905715669094478
+      },
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.04048788682162931,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 840429,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 729
+      }
+    },
     "a9b3b636ebca1906": {
       "config": {
         "market": "sp500",
@@ -4214,6 +6333,281 @@
         "max_gap": 5,
         "selection": "validation only; each component uses the mixture's seed",
         "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "ade9dd25770cbfc8": {
+      "config": {
+        "market": "sp500",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "sources": [
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "residual",
+            "objective": "mixed",
+            "market": "sp500"
+          },
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "family": "risk_overlay",
+            "encoder": "residual",
+            "objective": "mixed",
+            "risk_penalty": 0.2,
+            "market": "sp500",
+            "risk_source": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_standardized",
+              "family": "risk_aware",
+              "encoder": "residual",
+              "objective": "gaussian_nll_rank",
+              "risk_penalty": 0.0,
+              "risk_exponent": 0.0,
+              "market": "sp500"
+            }
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T13:30:41.805623+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:30:05.722549+00:00",
+        "id": "ade9dd25770cbfc8",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "e947f499b5b2aca754c59be104e7137933a453c222e5cf566db8eaeaa6d1a0a5",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "e729fd37a121bb3aaa8b3d50846907dd8e4daa9e4c871562776f58ffabf0cc28",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "d8875a2f3769d67438fe91fa475a7d51bd77485cd44fd14e616346d98a414181",
+          "research/train.py": "c0980643eadba3072a098a5b06d234fbef42cc16b5e51b999ccc0f7e6602860b"
+        },
+        "device": "coordinator",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/9e78c669fa45f3ce78c7e212/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:30:41.806041+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 24.056492000000016,
+        "peak_process_rss_mib": 2352.40625,
+        "gpu_peak_allocated_mib": null,
+        "gpu_peak_reserved_mib": null,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "8f47df4b1ca7a922",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "residual",
+              "objective": "mixed",
+              "market": "sp500"
+            },
+            "prediction_sha256": "b673e7498f0f6a34689248e25394bcca35a451d5df2e10ee9c7a6287442b9189",
+            "model_sha256": {
+              "best.pt": "012071dbd20c7041d2297adaf9b47cfea7c847b11f7fe940bae999ae40094896"
+            }
+          },
+          {
+            "id": "c6007a73b3238c6a",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "family": "risk_overlay",
+              "encoder": "residual",
+              "objective": "mixed",
+              "risk_penalty": 0.2,
+              "market": "sp500",
+              "risk_source": {
+                "seed": 0,
+                "purge_days": 5,
+                "width": 128,
+                "depth": 2,
+                "dropout": 0.1,
+                "context": true,
+                "market_gate": true,
+                "lr": 0.0005,
+                "epochs": 60,
+                "patience": 8,
+                "target_kind": "raw_standardized",
+                "family": "risk_aware",
+                "encoder": "residual",
+                "objective": "gaussian_nll_rank",
+                "risk_penalty": 0.0,
+                "risk_exponent": 0.0,
+                "market": "sp500"
+              }
+            },
+            "prediction_sha256": "dbfddc29b450fad08b2248f818726f5f0908248e9f9e122531b34983625a9703",
+            "model_sha256": {
+              "best.pt": "092d1d8eba0b3a31148a5afaaf11b278b64acb569947eeab39ccefc54f4cdb6d"
+            }
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "aeb11b50e67f18ed": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.001,
+        "epochs": 120,
+        "patience": 16,
+        "target_kind": "raw_excess_standardized",
+        "family": "residual",
+        "objective": "mixed",
+        "market": "sp500",
+        "days_per_update": 8
+      },
+      "completed_at": "2026-10-08T13:30:29.831855+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:27:54.122277+00:00",
+        "id": "aeb11b50e67f18ed",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "e947f499b5b2aca754c59be104e7137933a453c222e5cf566db8eaeaa6d1a0a5",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "e729fd37a121bb3aaa8b3d50846907dd8e4daa9e4c871562776f58ffabf0cc28",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "d8875a2f3769d67438fe91fa475a7d51bd77485cd44fd14e616346d98a414181",
+          "research/train.py": "c0980643eadba3072a098a5b06d234fbef42cc16b5e51b999ccc0f7e6602860b"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/9e78c669fa45f3ce78c7e212/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:30:29.832187+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 143.811405,
+        "peak_process_rss_mib": 3353.01171875,
+        "gpu_peak_allocated_mib": 1340.955078125,
+        "gpu_peak_reserved_mib": 1354.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": null,
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.033585798422536894,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 1194829,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 8,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 377
       }
     },
     "b29eeb8a239feec0": {
@@ -4655,6 +7049,203 @@
         ],
         "score_norm": "cs_z",
         "ewm_alpha": 1.0,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "bbfad0ba99008497": {
+      "config": {
+        "market": "csi300",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "sources": [
+          {
+            "market": "csi300",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "residual",
+            "width": 128,
+            "depth": 2,
+            "objective": "mixed",
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "dropout": 0.1,
+            "days_per_update": 4,
+            "feature_encoder": "ple",
+            "ple_bins": 16
+          },
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "family": "risk_overlay",
+            "encoder": "residual",
+            "objective": "mixed",
+            "risk_penalty": 0.2,
+            "market": "csi300",
+            "risk_source": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_standardized",
+              "family": "risk_aware",
+              "encoder": "residual",
+              "objective": "gaussian_nll_rank",
+              "risk_penalty": 0.0,
+              "risk_exponent": 0.0,
+              "market": "csi300"
+            }
+          }
+        ],
+        "weights": [
+          0.25,
+          0.75
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T13:40:13.234998+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:39:49.606690+00:00",
+        "id": "bbfad0ba99008497",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "e947f499b5b2aca754c59be104e7137933a453c222e5cf566db8eaeaa6d1a0a5",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "e729fd37a121bb3aaa8b3d50846907dd8e4daa9e4c871562776f58ffabf0cc28",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "d8875a2f3769d67438fe91fa475a7d51bd77485cd44fd14e616346d98a414181",
+          "research/train.py": "c0980643eadba3072a098a5b06d234fbef42cc16b5e51b999ccc0f7e6602860b"
+        },
+        "device": "coordinator",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/9e78c669fa45f3ce78c7e212/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:40:13.235397+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 17.26359,
+        "peak_process_rss_mib": 1264.15234375,
+        "gpu_peak_allocated_mib": null,
+        "gpu_peak_reserved_mib": null,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "49904dd375680331",
+            "config": {
+              "market": "csi300",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "residual",
+              "width": 128,
+              "depth": 2,
+              "objective": "mixed",
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "dropout": 0.1,
+              "days_per_update": 4,
+              "feature_encoder": "ple",
+              "ple_bins": 16
+            },
+            "prediction_sha256": "f42cf60f3311456d4284d2096bff28385a5840eb960ccb10d1637add4567e443",
+            "model_sha256": {
+              "best.pt": "bca5c4a9c637311733baf0a79d8477a80225ab77d98a2bb6c8020dac9aea0de0"
+            }
+          },
+          {
+            "id": "32add33b37aca656",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "family": "risk_overlay",
+              "encoder": "residual",
+              "objective": "mixed",
+              "risk_penalty": 0.2,
+              "market": "csi300",
+              "risk_source": {
+                "seed": 0,
+                "purge_days": 5,
+                "width": 128,
+                "depth": 2,
+                "dropout": 0.1,
+                "context": true,
+                "market_gate": true,
+                "lr": 0.0005,
+                "epochs": 60,
+                "patience": 8,
+                "target_kind": "raw_standardized",
+                "family": "risk_aware",
+                "encoder": "residual",
+                "objective": "gaussian_nll_rank",
+                "risk_penalty": 0.0,
+                "risk_exponent": 0.0,
+                "market": "csi300"
+              }
+            },
+            "prediction_sha256": "d3457d6e6c5209574548329cb97184be17b4250a0b4adbac8fe725eacc0b5678",
+            "model_sha256": {
+              "best.pt": "655c474ff0a54dec0458fed599bc81cd564380f75367f8af93afd8230183dfa7"
+            }
+          }
+        ],
+        "weights": [
+          0.25,
+          0.75
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
         "max_gap": 5,
         "selection": "validation only; each component uses the mixture's seed",
         "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
@@ -5188,6 +7779,547 @@
       "resources": {},
       "calibration": null
     },
+    "e175da90f4376354": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_excess_standardized",
+        "family": "residual",
+        "objective": "mixed",
+        "market": "sp500",
+        "days_per_update": 4
+      },
+      "completed_at": "2026-10-08T13:25:17.301996+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:23:13.899242+00:00",
+        "id": "e175da90f4376354",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "4f1c5447607b4734594496a6b78966f2f9bdb88d64630689ef08038afc4f965a",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "e729fd37a121bb3aaa8b3d50846907dd8e4daa9e4c871562776f58ffabf0cc28",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "d8875a2f3769d67438fe91fa475a7d51bd77485cd44fd14e616346d98a414181",
+          "research/train.py": "c0980643eadba3072a098a5b06d234fbef42cc16b5e51b999ccc0f7e6602860b"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/8f38dd6b0720b5338c222274/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:25:17.302347+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 111.74170399999998,
+        "peak_process_rss_mib": 3356.7265625,
+        "gpu_peak_allocated_mib": 1323.22314453125,
+        "gpu_peak_reserved_mib": 1338.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": null,
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.033585798422536894,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 1194829,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 754
+      }
+    },
+    "e77170affed3b2e8": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_excess_standardized",
+        "family": "residual",
+        "objective": "mixed",
+        "market": "sp500",
+        "days_per_update": 4,
+        "feature_encoder": "ple",
+        "ple_bins": 16
+      },
+      "completed_at": "2026-10-08T13:34:58.375789+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:33:14.152540+00:00",
+        "id": "e77170affed3b2e8",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "e947f499b5b2aca754c59be104e7137933a453c222e5cf566db8eaeaa6d1a0a5",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "e729fd37a121bb3aaa8b3d50846907dd8e4daa9e4c871562776f58ffabf0cc28",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "d8875a2f3769d67438fe91fa475a7d51bd77485cd44fd14e616346d98a414181",
+          "research/train.py": "c0980643eadba3072a098a5b06d234fbef42cc16b5e51b999ccc0f7e6602860b"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/9e78c669fa45f3ce78c7e212/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:34:58.376134+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 92.35189700000001,
+        "peak_process_rss_mib": 3353.421875,
+        "gpu_peak_allocated_mib": 1400.8193359375,
+        "gpu_peak_reserved_mib": 1516.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": null,
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.033585798422536894,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 1194829,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 754
+      },
+      "feature_encoder.json": {
+        "kind": "ple",
+        "fit_split": "selected purged training rows only",
+        "fit_seed": 0,
+        "fit_samples": 65536,
+        "selected_training_samples": 1194829,
+        "first_training_date": "2009-01-02T00:00:00.000000000",
+        "last_training_date": "2020-12-23T00:00:00.000000000",
+        "sample_positions_sha256": "46ece6f23931e91be8aba123a6b2ceb42499f158c95527c353cb9a519e62dd76",
+        "sample_features_sha256": "6d049e379c974fb871083e9b0e86a283acb364834355a869082b5f9be0ea8dbf",
+        "labels_used": false,
+        "validation_or_test_features_used": false,
+        "encoders": {
+          "feature_encoder": {
+            "bins_per_feature": [
+              16,
+              15,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              15,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              15,
+              15,
+              15,
+              15,
+              15,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              15,
+              15,
+              15,
+              15,
+              15,
+              16,
+              16,
+              16,
+              16,
+              16,
+              15,
+              15,
+              15,
+              15,
+              15,
+              16,
+              16,
+              16,
+              16,
+              16,
+              4,
+              10,
+              13,
+              13,
+              15,
+              16,
+              16,
+              16,
+              16,
+              16,
+              4,
+              9,
+              13,
+              13,
+              15,
+              4,
+              9,
+              12,
+              13,
+              15,
+              7,
+              14,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              5,
+              7,
+              9,
+              10,
+              13,
+              5,
+              7,
+              9,
+              10,
+              12,
+              5,
+              10,
+              11,
+              13,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              15,
+              15,
+              15,
+              15,
+              15,
+              16,
+              16,
+              15,
+              15,
+              15,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16,
+              16
+            ],
+            "constant_features": 0,
+            "buffer_sha256": "3cf28a04c9c125f2b1eb0bd57a5142faa1da066c3be046463657c7ee09b4dbad"
+          }
+        },
+        "application": "stock features encoded before learned market gating; context remains scalar",
+        "tail_clip": 2.0,
+        "minimum_bin_width": 0.0001
+      }
+    },
+    "e930170f07b43894": {
+      "config": {
+        "market": "sp500",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "sources": [
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "residual",
+            "objective": "mixed",
+            "market": "sp500"
+          },
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "family": "risk_overlay",
+            "encoder": "residual",
+            "objective": "mixed",
+            "risk_penalty": 0.2,
+            "market": "sp500",
+            "risk_source": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_standardized",
+              "family": "risk_aware",
+              "encoder": "residual",
+              "objective": "gaussian_nll_rank",
+              "risk_penalty": 0.0,
+              "risk_exponent": 0.0,
+              "market": "sp500"
+            }
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T13:29:29.184952+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:28:52.674035+00:00",
+        "id": "e930170f07b43894",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "e947f499b5b2aca754c59be104e7137933a453c222e5cf566db8eaeaa6d1a0a5",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "e729fd37a121bb3aaa8b3d50846907dd8e4daa9e4c871562776f58ffabf0cc28",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "d8875a2f3769d67438fe91fa475a7d51bd77485cd44fd14e616346d98a414181",
+          "research/train.py": "c0980643eadba3072a098a5b06d234fbef42cc16b5e51b999ccc0f7e6602860b"
+        },
+        "device": "coordinator",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/9e78c669fa45f3ce78c7e212/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:29:29.185377+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 23.603797000000007,
+        "peak_process_rss_mib": 2317.55859375,
+        "gpu_peak_allocated_mib": null,
+        "gpu_peak_reserved_mib": null,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "8f47df4b1ca7a922",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "residual",
+              "objective": "mixed",
+              "market": "sp500"
+            },
+            "prediction_sha256": "b673e7498f0f6a34689248e25394bcca35a451d5df2e10ee9c7a6287442b9189",
+            "model_sha256": {
+              "best.pt": "012071dbd20c7041d2297adaf9b47cfea7c847b11f7fe940bae999ae40094896"
+            }
+          },
+          {
+            "id": "c6007a73b3238c6a",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "family": "risk_overlay",
+              "encoder": "residual",
+              "objective": "mixed",
+              "risk_penalty": 0.2,
+              "market": "sp500",
+              "risk_source": {
+                "seed": 0,
+                "purge_days": 5,
+                "width": 128,
+                "depth": 2,
+                "dropout": 0.1,
+                "context": true,
+                "market_gate": true,
+                "lr": 0.0005,
+                "epochs": 60,
+                "patience": 8,
+                "target_kind": "raw_standardized",
+                "family": "risk_aware",
+                "encoder": "residual",
+                "objective": "gaussian_nll_rank",
+                "risk_penalty": 0.0,
+                "risk_exponent": 0.0,
+                "market": "sp500"
+              }
+            },
+            "prediction_sha256": "dbfddc29b450fad08b2248f818726f5f0908248e9f9e122531b34983625a9703",
+            "model_sha256": {
+              "best.pt": "092d1d8eba0b3a31148a5afaaf11b278b64acb569947eeab39ccefc54f4cdb6d"
+            }
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
     "ecd08f9cae98598b": {
       "config": {
         "seed": 0,
@@ -5334,6 +8466,274 @@
         ],
         "train_samples": 1194829,
         "test_targets_used": false
+      }
+    },
+    "f9b21e240599044e": {
+      "config": {
+        "market": "csi300",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "residual",
+        "width": 128,
+        "depth": 2,
+        "objective": "mixed",
+        "context": true,
+        "market_gate": true,
+        "lr": 0.001,
+        "epochs": 120,
+        "patience": 16,
+        "dropout": 0.1,
+        "days_per_update": 8
+      },
+      "completed_at": "2026-10-08T13:27:34.646223+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:25:33.889738+00:00",
+        "id": "f9b21e240599044e",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "4f1c5447607b4734594496a6b78966f2f9bdb88d64630689ef08038afc4f965a",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "e729fd37a121bb3aaa8b3d50846907dd8e4daa9e4c871562776f58ffabf0cc28",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "d8875a2f3769d67438fe91fa475a7d51bd77485cd44fd14e616346d98a414181",
+          "research/train.py": "c0980643eadba3072a098a5b06d234fbef42cc16b5e51b999ccc0f7e6602860b"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/8f38dd6b0720b5338c222274/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:27:34.646554+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 114.14698200000001,
+        "peak_process_rss_mib": 2930.05859375,
+        "gpu_peak_allocated_mib": 927.20458984375,
+        "gpu_peak_reserved_mib": 948.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": null,
+      "batching.json": {
+        "days_per_update": 8,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 365
+      }
+    },
+    "fd58229fa39a1ff6": {
+      "config": {
+        "market": "csi300",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "sources": [
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "quantile_aware",
+            "encoder": "residual",
+            "objective": "quantile_rank",
+            "risk_penalty": 0.5,
+            "risk_exponent": 0.0,
+            "market": "csi300"
+          },
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "family": "risk_overlay",
+            "encoder": "residual",
+            "objective": "mixed",
+            "risk_penalty": 0.2,
+            "market": "csi300",
+            "risk_source": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_standardized",
+              "family": "risk_aware",
+              "encoder": "residual",
+              "objective": "gaussian_nll_rank",
+              "risk_penalty": 0.0,
+              "risk_exponent": 0.0,
+              "market": "csi300"
+            }
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T13:28:16.145183+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:27:53.986924+00:00",
+        "id": "fd58229fa39a1ff6",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "e947f499b5b2aca754c59be104e7137933a453c222e5cf566db8eaeaa6d1a0a5",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "e729fd37a121bb3aaa8b3d50846907dd8e4daa9e4c871562776f58ffabf0cc28",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "d8875a2f3769d67438fe91fa475a7d51bd77485cd44fd14e616346d98a414181",
+          "research/train.py": "c0980643eadba3072a098a5b06d234fbef42cc16b5e51b999ccc0f7e6602860b"
+        },
+        "device": "coordinator",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/9e78c669fa45f3ce78c7e212/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:28:16.145666+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 15.540325,
+        "peak_process_rss_mib": 1741.08984375,
+        "gpu_peak_allocated_mib": null,
+        "gpu_peak_reserved_mib": null,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "40bc4e24bc7b00c7",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "quantile_aware",
+              "encoder": "residual",
+              "objective": "quantile_rank",
+              "risk_penalty": 0.5,
+              "risk_exponent": 0.0,
+              "market": "csi300"
+            },
+            "prediction_sha256": "7f93aac1963b8846b7106d09d87a0b08f0ec501c2cb76f083a1164c46ab0130b",
+            "model_sha256": {
+              "best.pt": "15e785c261fcd8c7b2eacce7344dd48d8100ec15de37500ece8fcf48fc487611"
+            }
+          },
+          {
+            "id": "32add33b37aca656",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "family": "risk_overlay",
+              "encoder": "residual",
+              "objective": "mixed",
+              "risk_penalty": 0.2,
+              "market": "csi300",
+              "risk_source": {
+                "seed": 0,
+                "purge_days": 5,
+                "width": 128,
+                "depth": 2,
+                "dropout": 0.1,
+                "context": true,
+                "market_gate": true,
+                "lr": 0.0005,
+                "epochs": 60,
+                "patience": 8,
+                "target_kind": "raw_standardized",
+                "family": "risk_aware",
+                "encoder": "residual",
+                "objective": "gaussian_nll_rank",
+                "risk_penalty": 0.0,
+                "risk_exponent": 0.0,
+                "market": "csi300"
+              }
+            },
+            "prediction_sha256": "d3457d6e6c5209574548329cb97184be17b4250a0b4adbac8fe725eacc0b5678",
+            "model_sha256": {
+              "best.pt": "655c474ff0a54dec0458fed599bc81cd564380f75367f8af93afd8230183dfa7"
+            }
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
       }
     },
     "fedbe48c02bb3083": {

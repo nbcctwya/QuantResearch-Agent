@@ -82,7 +82,7 @@ def predict_blend(config,trained,destination):
         current_code = code_fingerprint()
         cache_matches = cached.get("config") == source and cached.get("trained_artifacts") == row["model_sha256"]
         cache_matches = cache_matches and all(cached.get("code",{}).get(name)==current_code[name] for name in
-                                             ["research/models.py","research/numerical.py","research/data.py","research/train.py","research/protocol.py"])
+                                             ["research/models.py","research/data.py","research/train.py","research/protocol.py"])
         if not (output/"metrics.json").exists() or not cache_matches:
             predict_test(source,source_trained,output)
         frames.append(pd.read_pickle(output/"predictions.pkl"))
