@@ -47,6 +47,12 @@ PLE 默认从当前已剔除边界日、已应用训练历史范围的训练行�
 
 联合似然只在单个交易日内计算，按当天股票数归一化，并与原排序损失加权。用 float64 的小型 Cholesky 分解和后验残差形式计算二次项，避免构建完整股票协方差和大数相减；损失与所有梯度已用完整 MultivariateNormal 对照。评分仍是均值或基于总边际标准差的风险惩罚，原 TopkDropoutStrategy 和费用不变。`covariance_model.json` 保存建模与数值计算约定，验证诊断另记录个股噪声、因子风险及因子方差占比。
 
+`mixture_gaussian` 参考所提供 [MoE 1991 总结](../references/papers/foundations/MoE_1991.md) 中的条件混合似然，以及 [PRISM-VQ 总结](../references/papers/baseline/PRISM_VQ_2026.md) 的条件专家思路。共享股票编码器后，每个分布头预测均值与方差；softmax 门控只使用当前 63 维市场特征，或最新 Alpha158 加市场特征。用混合高斯 NLL 训练各头和门控，随后按混合均值及总方差评分。该本地适配没有实现独立专家网络、VQ 或稀疏路由；权重差异不能作为语义专家分工已成立的证据。
+
+混合似然使用 float64 logsumexp，训练时省去与现有 Gaussian NLL 相同的常量项；默认按 0.7/0.3 加权分布似然与排序损失。总方差包含组件内部方差和组件均值差异。`mixture_components=1` 没有门控，参数及初始化与同配置的 `risk_aware` 相同，构成单高斯对照；float64 损失并不保证优化过程逐位相同。计算形式见 [PyTorch MixtureSameFamily 文档](https://docs.pytorch.org/docs/2.8/distributions.html#mixturesamefamily)，已核对似然、梯度、CDF 和矩。`mixture_model.json` 保存结构、输入与计算约定。
+
+混合分布的 10%/50%/90% 分位数通过其 CDF 二分求逆得到，80% 覆盖率使用真实混合区间。验证诊断记录 PIT 分档、真实收益单位下的负对数密度、门控熵及组件平均权重；标签只在预测生成后用于观测诊断。正式排序、回测和五种子平均仍使用原 baseline 口径。
+
 `top30_pair` 是单独命名的训练目标：在每个训练日期，将真实收益排名前 30 的股票与其余股票进行确定性的 logistic 配对比较，再以 0.3/0.3/0.4 加权 MSE、相关性损失和配对损失。边界相同收益的股票按比例分配 Top30 归属权重，同收益配对不施加排序偏好；每日单独计算，多个日期合批仍不混合配对。该目标旨在检验持仓区间的排序监督，验证 checkpoint 选择和原 Top30 回测保持原有规则。`ranking_objective.json` 保存其约定；原 `tail_pair` 等目标保持原样。
 
 进一步的对照包括：

@@ -13,13 +13,12 @@ from . import ARTIFACTS
 from .common import code_fingerprint, digest_file, now, write_json
 from .data import DailyData
 from .models import make_model, uses_temporal_data
-from .mixture import gaussian_mixture_cdf, gaussian_mixture_log_prob, gaussian_mixture_quantiles
 from .protocol import prediction_metrics, raw_labels
 
 
 def diagnose(trained, destination):
     config = json.loads((trained/"config.json").read_text())
-    if config["family"] not in ("risk_aware","factor_gaussian","mixture_gaussian","quantile_aware"):
+    if config["family"] not in ("risk_aware","factor_gaussian","quantile_aware"):
         raise ValueError("Calibration requires a conditional distribution model")
     transform = json.loads((trained/"target_transform.json").read_text())
     scale = transform["scale"]
@@ -42,16 +41,6 @@ def diagnose(trained, destination):
                 if "factor_loadings" in output:
                     columns["idiosyncratic_sigma"] = np.exp(0.5*output["diagonal_log_variance"].numpy())*scale
                     columns["factor_sigma"] = output["factor_loadings"].square().sum(1).sqrt().numpy()*scale
-                if "component_mean" in output:
-                    means,log_variances,logits = [output[key] for key in ["component_mean","component_log_variance","mixture_logits"]]
-                    quantiles = gaussian_mixture_quantiles(means,log_variances,logits)
-                    for i,name in enumerate(["q10","q50","q90"]):
-                        columns[name] = quantiles[:,i].numpy()*scale
-                    columns["between_variance_share"] = (output["between_variance"]/output["log_variance"].exp()).numpy()
-                    for component in range(means.shape[1]):
-                        columns[f"component_mean_{component}"] = means[:,component].numpy()*scale
-                        columns[f"component_log_variance_{component}"] = log_variances[:,component].double().numpy()+2*np.log(scale)
-                        columns[f"component_logit_{component}"] = logits[:,component].numpy()
             else:
                 for i,name in enumerate(["q10","q50","q90"]):
                     columns[name] = output["quantiles"][:,i].numpy()*scale
@@ -68,13 +57,11 @@ def diagnose(trained, destination):
         raise ValueError("Non-finite validation forecasts or observations")
     if "sigma" in forecasts:
         forecasts["uncertainty"] = forecasts.sigma
-    else:
-        forecasts["uncertainty"] = forecasts.q90-forecasts.q10
-    if "q10" in forecasts:
-        forecasts["lower"],forecasts["upper"] = forecasts.q10,forecasts.q90
-    else:
         forecasts["lower"] = forecasts["mean"]-1.2815515655446004*forecasts.sigma
         forecasts["upper"] = forecasts["mean"]+1.2815515655446004*forecasts.sigma
+    else:
+        forecasts["uncertainty"] = forecasts.q90-forecasts.q10
+        forecasts["lower"],forecasts["upper"] = forecasts.q10,forecasts.q90
     within_day = forecasts.uncertainty.groupby(level="datetime").rank(pct=True)
     forecasts["uncertainty_bin"] = np.minimum(np.floor(within_day.to_numpy()*5).astype(int),4)+1
     records = []
@@ -105,29 +92,9 @@ def diagnose(trained, destination):
             result["mean_factor_variance_share"] = float((forecasts.factor_sigma**2/forecasts.sigma**2).mean())
             result["mean_idiosyncratic_sigma"] = float(forecasts.idiosyncratic_sigma.mean())
             result["mean_factor_sigma"] = float(forecasts.factor_sigma.mean())
-    if "q10" in forecasts:
+    else:
         result["quantile_coverage"] = {name:float((forecasts.target<=forecasts[name]).mean())
                                         for name in ["q10","q50","q90"]}
-    if config["family"] == "mixture_gaussian":
-        components = config.get("mixture_components",4)
-        parameters = [torch.tensor(forecasts[[f"component_{field}_{i}" for i in range(components)]].to_numpy(),dtype=torch.float64)
-                      for field in ["mean","log_variance","logit"]]
-        # Observed validation targets are used only after feature-only forecasts have been made.
-        observed = torch.tensor(forecasts.target.to_numpy(),dtype=torch.float64)
-        forecasts["pit"] = gaussian_mixture_cdf(*parameters,observed).numpy()
-        forecasts["negative_log_density"] = -gaussian_mixture_log_prob(*parameters,observed).numpy()
-        log_weights = torch.log_softmax(parameters[2],dim=1)
-        weights = log_weights.exp()
-        entropy = -(weights*log_weights).sum(1)
-        result["mixture"] = {"components":components,
-                             "interval_method":"true conditional mixture quantiles from CDF inversion",
-                             "mean_component_weights":weights.mean(0).tolist(),
-                             "mean_gate_entropy":float(entropy.mean()),
-                             "mean_effective_components":float(entropy.exp().mean()),
-                             "mean_between_variance_share":float(forecasts.between_variance_share.mean()),
-                             "mean_negative_log_density_raw_units":float(forecasts.negative_log_density.mean()),
-                             "pit_histogram":np.histogram(forecasts.pit,bins=np.linspace(0,1,11))[0].tolist(),
-                             "interpretation":"routing diagnostics do not establish semantic expert specialization"}
     destination.mkdir(parents=True,exist_ok=True)
     forecasts.to_pickle(destination/"validation_forecasts.pkl")
     pd.DataFrame(records).to_csv(destination/"uncertainty_bins.csv",index=False)

@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-10-08T14:58:17.323464+00:00",
+  "created_at": "2026-10-08T18:10:40.234670+00:00",
   "scope": "validation 2021-2022 only; no new-model test results observed",
   "changes": [
     "Conditional diagonal-plus-factor Gaussian likelihood; twelve full controls completed",
@@ -8,10 +8,11 @@
     "Four three-seed validation ensembles for numerical encoders, recomputed from avg_none predictions using baseline metrics and backtest",
     "Training-feature risk regime scaling with frozen checkpoint buffers; static and adaptive scoring controls with the same frozen alpha checkpoint",
     "Complete zero-penalty reproduction audit, GPU recovery check and fourteen SP500 seed/penalty followups queued",
-    "Bounded alpha-dispersion risk conditioning; fourteen full controls, four matched CSI300 seed checks and five new three-seed validation ensembles completed"
+    "Bounded alpha-dispersion risk conditioning; fourteen full controls, four matched CSI300 seed checks and five new three-seed validation ensembles completed",
+    "Conditional shared-encoder Gaussian mixtures with feature-only gating; exact likelihood/gradient/CDF controls and both-market GPU interruption recovery; matched full validation study in progress"
   ],
   "checks": {
-    "cpu_tests": 52,
+    "cpu_tests": 60,
     "factor_gpu_smoke_markets": [
       "csi300",
       "sp500"
@@ -31,7 +32,13 @@
       "csi300",
       "sp500"
     ],
-    "opportunity_gpu_checkpoint_recovery": true
+    "opportunity_gpu_checkpoint_recovery": true,
+    "mixture_gpu_smoke_markets": [
+      "csi300",
+      "sp500"
+    ],
+    "mixture_exact_interrupted_recovery": true,
+    "mixture_completed_resume_unchanged": true
   },
   "seed_validation_checks": {
     "created_at": "2026-10-08T14:49:55.956676+00:00",
@@ -3310,7 +3317,7 @@
   ],
   "interpretation": "CSI300 opportunity scoring retains a small return/risk improvement over matched static scoring in three-seed validation, while its ICIR/RankICIR decline slightly. SP500 seed-0 results overstate ensemble returns; stronger penalties and opportunity conditioning show clear tradeoffs. The next trainable hypothesis is a conditional Gaussian mixture with likelihood-driven expert competition. Test remains sealed and the research objective is unproven.",
   "full_validation_runs_in_snapshot": 182,
-  "snapshot_at": "2026-10-08T17:11:12.715976+00:00",
+  "snapshot_at": "2026-10-08T18:09:59.549606+00:00",
   "verification_code": {
     "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
     "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
@@ -3381,5 +3388,15 @@
   ],
   "updated_at": "2026-10-08T17:19:17.703451+00:00",
   "risk_regime_validation_checks": "risk_regime_validation_checks.json",
-  "opportunity_validation_checks": "opportunity_validation_checks.json"
+  "opportunity_validation_checks": "opportunity_validation_checks.json",
+  "snapshot_runs": 195,
+  "conditional_mixture_study": {
+    "planned": 18,
+    "completed_at_snapshot": 3,
+    "details": "mixture_validation_checks.json",
+    "status": "ongoing; no test opened",
+    "architecture": "shared encoder, distribution heads, dense conditional gate; no VQ or sparse expert reproduction"
+  },
+  "seed_validation_ensembles_at_snapshot": 9,
+  "remaining": "Complete matched mixture controls and multi-seed validation; continue validation search; freeze and run five-seed holdout confirmation after search deadline"
 }

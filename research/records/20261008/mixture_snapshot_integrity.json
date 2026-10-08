@@ -1,0 +1,32 @@
+{
+  "created_at": "2026-10-08T18:12:36.664816+00:00",
+  "previous_commit": "de5fab526788745d833b632f01ad5ac632fb4ff3",
+  "previous_runs": 182,
+  "snapshot_runs": 195,
+  "previous_records_unchanged": true,
+  "checked_code_packages": [
+    "13f8e16a1375d73febfb9ba3",
+    "142df20a0739454788cd6e3c",
+    "3a49c0393b2ab3a17c961146",
+    "5466ec072309c38df40d219a",
+    "5a5dfbcbc37fbe080a9fa332",
+    "614f9adbcb035b87d185e2a8",
+    "7b3af6d4d18d01957f7f0707",
+    "8f38dd6b0720b5338c222274",
+    "9b1c63a871a453e64ed6e7bb",
+    "9e4acaf234b2c05c389033a9",
+    "9e78c669fa45f3ce78c7e212",
+    "9eef64b054d375c5450d527f",
+    "a4318f6f39d6170f6ee4e007",
+    "b71f107b7edf1c0eeb25322c",
+    "d044891d84498e4c49e86953",
+    "d4c00830ab591cfac350d941",
+    "da9f887dbb0f7ecdcfa070c3",
+    "e5473a5276b29bc2db50e8dd",
+    "f89c8539171cb9e9fdcf191c"
+  ],
+  "every_source_matches_saved_manifest": true,
+  "selection_lock_exists": false,
+  "new_model_holdout_records": 0,
+  "scope": "integrity check of saved validation records and exact launch-time packages"
+}
