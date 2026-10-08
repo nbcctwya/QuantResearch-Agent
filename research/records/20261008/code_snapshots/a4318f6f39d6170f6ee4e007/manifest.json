@@ -1,0 +1,23 @@
+{
+  "created_at": "2026-10-08T15:11:06.088329+00:00",
+  "workspace": "/home/nbcctwya/kbs-workspace",
+  "files": {
+    "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+    "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+    "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+    "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+    "research/data.py": "229487d397c144e5132488788cc2dced6d0bd53e3509aaa7e2d049a155be09bf",
+    "research/diagnostics.py": "d0ec4504349f9e89b8a93f93ffc4804f3afbdb3015acedea90f45502229a3334",
+    "research/ensembles.py": "e947f499b5b2aca754c59be104e7137933a453c222e5cf566db8eaeaa6d1a0a5",
+    "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+    "research/models.py": "b8ab858806b600eb93e18e6a1b93b185fe7d8ab7dd65f8307fd6c39e9a546de8",
+    "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+    "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+    "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+    "research/risk_regime.py": "acb107ed53da037842e41c07037d08e6cbd5ec2ddba482137e2e37b42c09baad",
+    "research/runner.py": "ff3905434a5b21a94ff1a70c4f510a4a0fe21456627945af4694f8a93caf9061",
+    "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+    "research/snapshot.py": "e1ea2f3d6f702a70b1de21160a3b3d78a49fa5043f3f75ce617866ea144ef247",
+    "research/train.py": "a46bf6f3f1b3c571f7020e661250e57fc69de023fb1cc3415bd7ab7830de2de7"
+  }
+}

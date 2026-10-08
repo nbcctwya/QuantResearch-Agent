@@ -216,6 +216,40 @@ raise AssertionError('Coordinator must re-execute instead of continuing in works
             inference.assert_called_once_with(source,checkpoint.parent,output)
             pd.testing.assert_frame_equal(evaluate.call_args.args[0],updated)
 
+    def test_changed_risk_regime_invalidates_a_component_prediction_cache(self):
+        source = {"market":"csi300","family":"risk_overlay","risk_regime_strength":0.5,"seed":0}
+        identifier = config_id(source)
+        config = {"market":"csi300","family":"scores_blend","seed":0,"sources":[source],
+                  "weights":[1.],"score_norm":"none"}
+        code = {"research/models.py":"unchanged","research/risk_regime.py":"new regime transform"}
+        index = pd.MultiIndex.from_product([pd.to_datetime(["2023-01-03"]),["AAA","BBB"]],
+                                           names=["datetime","instrument"])
+        updated = pd.DataFrame({"score":[1.,2.],"label":[0.,0.]},index=index)
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            checkpoint = root/"trials"/identifier/"best.pt"
+            checkpoint.parent.mkdir(parents=True)
+            checkpoint.write_bytes(b"unchanged alpha and training-fitted regime buffers")
+            hashes = {"best.pt":digest_file(checkpoint)}
+            trained = root/"trials/blend"
+            output = root/"holdout"/identifier
+            output.mkdir(parents=True)
+            updated.assign(score=99.).to_pickle(output/"predictions.pkl")
+            write_json(output/"metrics.json",{})
+            write_json(output/"test_run.json",{"config":source,"trained_artifacts":hashes,
+                       "code":{**code,"research/risk_regime.py":"old regime transform"}})
+            write_json(trained/"components.json",{
+                "sources":[{"id":identifier,"config":source,"model_sha256":hashes}],
+                "weights":[1.],"score_norm":"none","ewm_alpha":1.,"max_gap":5})
+            def predict(*args):
+                updated.to_pickle(output/"predictions.pkl")
+            with patch("research.ensembles.ARTIFACTS",root),patch("research.ensembles.code_fingerprint",return_value=code),\
+                    patch("research.train.predict_test",side_effect=predict) as inference,\
+                    patch("research.protocol.evaluate_predictions",return_value={}) as evaluate:
+                predict_blend(config,trained,root/"result")
+            inference.assert_called_once_with(source,checkpoint.parent,output)
+            pd.testing.assert_frame_equal(evaluate.call_args.args[0],updated)
+
 
 if __name__ == "__main__":
     unittest.main()
