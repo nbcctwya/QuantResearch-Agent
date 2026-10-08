@@ -4,6 +4,7 @@ import hashlib
 import json
 import math
 import os
+import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -51,4 +52,33 @@ def config_id(config):
 
 
 def code_fingerprint():
-    return {str(p.relative_to(ROOT)): digest_file(p) for p in sorted((ROOT / "research").glob("*.py"))}
+    directory = Path(__file__).resolve().parent
+    return {"research/"+p.name: digest_file(p) for p in sorted(directory.glob("*.py"))}
+
+
+def freeze_code(destination):
+    """Create/reuse an immutable-by-convention package containing the launch-time source."""
+    contents = {p.name:p.read_bytes() for p in sorted((ROOT/"research").glob("*.py"))}
+    hashes = {"research/"+name:hashlib.sha256(data).hexdigest() for name,data in contents.items()}
+    identifier = hashlib.sha256(json.dumps(hashes,sort_keys=True).encode()).hexdigest()[:24]
+    bundle = Path(destination)/identifier
+    if not bundle.exists():
+        temporary = bundle.with_name(bundle.name+f".building.{os.getpid()}")
+        (temporary/"research").mkdir(parents=True,exist_ok=False)
+        for name,data in contents.items():
+            (temporary/"research"/name).write_bytes(data)
+        write_json(temporary/"manifest.json",{"created_at":now(),"workspace":str(ROOT),"files":hashes})
+        try:
+            temporary.rename(bundle)
+        except FileExistsError:
+            shutil.rmtree(temporary)
+    for name,expected in hashes.items():
+        if digest_file(bundle/name) != expected:
+            raise ValueError("A frozen code bundle has changed")
+    return bundle
+
+
+def model_artifact_hashes(directory):
+    directory = Path(directory)
+    return {name:digest_file(directory/name) for name in ["best.pt","model.txt","model.npz","components.json"]
+            if (directory/name).exists()}

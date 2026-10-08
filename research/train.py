@@ -5,6 +5,7 @@ import argparse
 import importlib.metadata
 import json
 import random
+import resource
 import time
 from pathlib import Path
 
@@ -13,7 +14,7 @@ import pandas as pd
 import torch
 
 from . import ARTIFACTS
-from .common import code_fingerprint, config_id, digest_file, now, write_json
+from .common import code_fingerprint, config_id, digest_file, model_artifact_hashes, now, write_json
 from .data import DailyData
 from .models import make_model, rank_loss, prediction_scores, uses_temporal_data
 from .protocol import evaluate_predictions, prediction_metrics, raw_labels
@@ -267,7 +268,33 @@ def train_flat(config, destination):
     return prediction_frame(valid, predictions, labels)
 
 
+def require_locked_holdout(config):
+    path = ARTIFACTS/"study/selection_lock.json"
+    if not path.exists():
+        raise RuntimeError("New-model test inference requires a frozen selection lock")
+    lock = json.loads(path.read_text())
+    if config["seed"] not in lock.get("seeds",[0,1,2,3,4]):
+        raise ValueError("Test seed is outside the frozen confirmation seeds")
+    allowed = []
+    for candidates in lock["selected"].values():
+        for candidate in candidates:
+            selected = {**candidate,"seed":config["seed"]}
+            allowed.append(selected)
+            if selected["family"] == "scores_blend":
+                from .ensembles import source_configs
+                allowed.extend(source_configs(selected))
+    if config not in allowed:
+        raise ValueError("Test configuration is not a frozen method or its component")
+
+
 def predict_test(config, trained, destination):
+    require_locked_holdout(config)
+    if config["family"] == "scores_blend":
+        from .ensembles import predict_blend
+        metrics = predict_blend(config,trained,destination)
+        write_json(destination/"test_run.json",{"config":config,"created_at":now(),
+                   "trained_artifacts":model_artifact_hashes(trained),"code":code_fingerprint()})
+        return metrics
     temporal = uses_temporal_data(config)
     device = "cuda" if config["family"] not in ("ridge","lgbm") else "cpu"
     test = DailyData(config["market"], "test", purge_days=0, temporal=temporal, device=device)
@@ -286,7 +313,55 @@ def predict_test(config, trained, destination):
         test.preload(int(torch.cuda.mem_get_info()[0]*0.6))
         predictions = neural_predict(model,test,config.get("amp",True))
     frame = prediction_frame(test,predictions)
-    return evaluate_predictions(frame,config["market"],destination,backtest=True)
+    metrics = evaluate_predictions(frame,config["market"],destination,backtest=True)
+    write_json(destination/"test_run.json",{"config":config,"created_at":now(),
+               "trained_artifacts":model_artifact_hashes(trained),"code":code_fingerprint()})
+    return metrics
+
+
+def run_training(config,destination):
+    destination.mkdir(parents=True,exist_ok=True)
+    seed_all(config["seed"])
+    started = time.monotonic()
+    cpu_before = resource.getrusage(resource.RUSAGE_SELF)
+    device = "coordinator" if config["family"] == "scores_blend" else ("cpu" if config["family"] in ("ridge","lgbm") else "cuda")
+    write_json(destination/"config.json",config)
+    write_json(destination/"run.json", {"status":"running","started_at":now(),"id":config_id(config),
+                                  "code":code_fingerprint(),"device":device,
+                                  "source_package":str(Path(__file__).resolve().parent),
+                                  "versions":{name:importlib.metadata.version(name) for name in ["torch","pyqlib","numpy","pandas","scipy","scikit-learn","lightgbm"]},
+                                  "selection":"validation only; 5 boundary days purged by default",
+                                  "smoke":bool(config.get("smoke_train_days") or config.get("smoke_valid_days"))})
+    if config["family"] == "scores_blend":
+        from .ensembles import train_blend
+        frame = train_blend(config,destination)
+    else:
+        frame = train_flat(config,destination) if config["family"] in ("ridge","lgbm") else train_neural(config,destination)
+    metrics = evaluate_predictions(frame,config["market"],destination/"valid",backtest=not config.get("skip_backtest",False))
+    calibration = None
+    if config["family"] in ("risk_aware","quantile_aware"):
+        from .diagnostics import diagnose
+        diagnosis = diagnose(destination,destination/"valid/calibration")
+        calibration = {key:diagnosis[key] for key in ["interval_80_coverage","uncertainty_abs_error_RankIC"]}
+    score,_ = validation_score(frame)
+    if not np.isfinite(score):
+        raise ValueError("Undefined final validation selection metric")
+    cpu_after = resource.getrusage(resource.RUSAGE_SELF)
+    resources = {"cpu_seconds":cpu_after.ru_utime+cpu_after.ru_stime-cpu_before.ru_utime-cpu_before.ru_stime,
+                 "peak_process_rss_mib":cpu_after.ru_maxrss/1024,
+                 "gpu_peak_allocated_mib":torch.cuda.max_memory_allocated()/2**20 if torch.cuda.is_available() else None,
+                 "gpu_peak_reserved_mib":torch.cuda.max_memory_reserved()/2**20 if torch.cuda.is_available() else None,
+                 "peak_scope":"process lifetime; nested components share the process; parent time includes component fits"}
+    write_json(destination/"result.json", {"status":"complete","completed_at":now(),"seconds":time.monotonic()-started,
+                                     "config":config,"selection_score":score,"validation":metrics,
+                                     "calibration":calibration,
+                                     "resources":resources,
+                                     "smoke":bool(config.get("smoke_train_days") or config.get("smoke_valid_days"))})
+    run_metadata = json.loads((destination/"run.json").read_text())
+    run_metadata.update(status="complete",completed_at=now())
+    write_json(destination/"run.json",run_metadata)
+    print(json.dumps({"complete":config_id(config),"seconds":time.monotonic()-started,"validation":metrics}),flush=True)
+    return frame
 
 
 def main():
@@ -298,36 +373,14 @@ def main():
     args = parser.parse_args()
     config = json.loads(args.config.read_text())
     args.out.mkdir(parents=True,exist_ok=True)
-    seed_all(config["seed"])
     if args.test_only:
         if args.trained is None:
             raise ValueError("--trained is required for locked holdout evaluation")
+        seed_all(config["seed"])
         metrics = predict_test(config,args.trained,args.out)
         print(json.dumps(metrics),flush=True)
         return
-    started = time.monotonic()
-    write_json(args.out/"config.json",config)
-    write_json(args.out/"run.json", {"status":"running","started_at":now(),"id":config_id(config),
-                                  "code":code_fingerprint(),"device":"cpu" if config["family"] in ("ridge","lgbm") else "cuda",
-                                  "versions":{name:importlib.metadata.version(name) for name in ["torch","pyqlib","numpy","pandas","scipy","scikit-learn","lightgbm"]},
-                                  "selection":"validation only; 5 boundary days purged by default",
-                                  "smoke":bool(config.get("smoke_train_days") or config.get("smoke_valid_days"))})
-    frame = train_flat(config,args.out) if config["family"] in ("ridge","lgbm") else train_neural(config,args.out)
-    metrics = evaluate_predictions(frame,config["market"],args.out/"valid",backtest=not config.get("skip_backtest",False))
-    calibration = None
-    if config["family"] in ("risk_aware","quantile_aware"):
-        from .diagnostics import diagnose
-        diagnosis = diagnose(args.out,args.out/"valid/calibration")
-        calibration = {key:diagnosis[key] for key in ["interval_80_coverage","uncertainty_abs_error_RankIC"]}
-    score,_ = validation_score(frame)
-    write_json(args.out/"result.json", {"status":"complete","completed_at":now(),"seconds":time.monotonic()-started,
-                                     "config":config,"selection_score":score,"validation":metrics,
-                                     "calibration":calibration,
-                                     "smoke":bool(config.get("smoke_train_days") or config.get("smoke_valid_days"))})
-    run_metadata = json.loads((args.out/"run.json").read_text())
-    run_metadata.update(status="complete",completed_at=now())
-    write_json(args.out/"run.json",run_metadata)
-    print(json.dumps({"complete":config_id(config),"seconds":time.monotonic()-started,"validation":metrics}),flush=True)
+    run_training(config,args.out)
 
 
 if __name__ == "__main__":

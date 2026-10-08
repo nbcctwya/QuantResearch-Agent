@@ -10,13 +10,14 @@ import signal
 import subprocess
 import sys
 import time
+from datetime import datetime
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
 from . import ARTIFACTS, ROOT
-from .common import config_id, now, write_json
+from .common import config_id, digest_file, freeze_code, now, write_json
 
 CONTROL = ROOT / "research/control.json"
 STATE = ARTIFACTS / "study/state.json"
@@ -65,7 +66,9 @@ def read_results():
 
 
 def ranked_results(market):
-    results = [r for r in read_results() if r["config"]["market"] == market and r["config"]["seed"] == 0]
+    results = [r for r in read_results() if r["config"]["market"] == market and r["config"]["seed"] == 0
+               and all(r.get("selection_score") is not None and r["validation"].get(key) is not None
+                       for key in ["AR","Sharpe"])]
     if not results:
         return []
     frame = pd.DataFrame([{"id":r["id"],"selection_score":r["selection_score"],
@@ -79,7 +82,7 @@ def ranked_results(market):
 def next_candidate(state):
     if state.get("resume_queue"):
         return state["resume_queue"].pop(0)
-    seen = set(state["completed"]+state["failed"]+state["pending"])
+    seen = set(state["completed"]+state["failed"]+state["pending"])|{r["id"] for r in read_results()}
     extras_path = ROOT/"research/extra_candidates.json"
     extra = json.loads(extras_path.read_text()) if extras_path.exists() else []
     for proposal in extra+initial_candidates():
@@ -89,12 +92,28 @@ def next_candidate(state):
     rng = random.Random(state["proposals"]+9417)
     market = ["csi300","sp500"][state["proposals"]%2]
     leading = ranked_results(market)
+    individuals = [r for r in leading if r["config"]["family"] != "scores_blend"][:12]
+    mixtures = [r for r in leading if r["config"]["family"] == "scores_blend"][:5]
     for _ in range(200):
-        if leading and rng.random() < 0.8:
-            config = dict(rng.choice(leading[:5])["config"])
+        # Reserve most adaptive proposals for training methods; cheap mixtures must not consume the search.
+        if len(individuals)>=2 and rng.random()<0.2:
+            if mixtures and rng.random()<0.5:
+                config = dict(rng.choice(mixtures)["config"])
+            else:
+                members = rng.sample(individuals,2)
+                config = {"market":market,"seed":0,"purge_days":5,"family":"scores_blend",
+                          "objective":"signal_blend","sources":[r["config"] for r in members],"weights":[0.5,0.5]}
+        elif individuals and rng.random() < 0.8:
+            config = dict(rng.choice(individuals[:5])["config"])
         else:
             config = dict(rng.choice([p for p in initial_candidates() if p["market"]==market]))
-        if config["family"] in ("ridge","lgbm"):
+        if config["family"] == "scores_blend":
+            values = [rng.choice([0.25,0.5,0.75]) for _ in config["sources"]]
+            config["weights"] = [v/sum(values) for v in values]
+            config["score_norm"] = rng.choice(["cs_rank","cs_z","none"])
+            config["ewm_alpha"] = rng.choice([0.25,0.5,0.75,1.0])
+            config["max_gap"] = rng.choice([1,5])
+        elif config["family"] in ("ridge","lgbm"):
             if config["family"] == "ridge":
                 config["alpha"] = rng.choice([10.0,100.0,1000.0,10000.0,100000.0])
                 config["context"] = rng.choice([True,False])
@@ -111,8 +130,9 @@ def next_candidate(state):
             config["objective"] = rng.choice(["mse","mixed","corr","tail_pair","listwise"])
             if config["family"] == "temporal_mixer":
                 config["latent_factors"] = rng.choice([0,8,16,32])
-        config["half_life_years"] = rng.choice([None,2,3,5])
-        config["train_start"] = rng.choice([None,"2013-01-01","2016-01-01"])
+        if config["family"] != "scores_blend":
+            config["half_life_years"] = rng.choice([None,2,3,5])
+            config["train_start"] = rng.choice([None,"2013-01-01","2016-01-01"])
         if config_id(config) not in seen:
             return config
     raise RuntimeError("Candidate space exhausted")
@@ -131,7 +151,7 @@ def report(state):
     (ARTIFACTS/"study").mkdir(parents=True,exist_ok=True)
     table.to_csv(ARTIFACTS/"study/validation_leaderboard.csv",index=False)
     lines = ["# 自动实验状态", "",f"更新时间：{now()}",f"阶段：{state['phase']}",
-             f"完成：{len(state['completed'])}；失败：{len(state['failed'])}。", "",
+             f"完整验证实验：{len(rows)}；worker 完成记录：{len(state['completed'])}；失败：{len(state['failed'])}。", "",
              "当前任务："+json.dumps(state.get("active"),ensure_ascii=False), "",
              "模型选择只使用验证集。以下数字均为验证集指标。", "",
              "|市场|模型|种子|RankIC|AR|Sharpe|", "|---|---|---|---|---|---|"]
@@ -167,10 +187,13 @@ def run_trial(config,state,phase="search",test_only=False):
         command += ["--test-only","--trained",str(trained)]
     environment = dict(os.environ,OMP_NUM_THREADS="4",MKL_NUM_THREADS="2",OPENBLAS_NUM_THREADS="4",
                        PYTHONUNBUFFERED="1")
+    bundle = freeze_code(ARTIFACTS/"code_releases")
+    environment["KBS_RESEARCH_WORKSPACE_ROOT"] = str(ROOT)
     with (output/"console.log").open("a") as log:
-        process = subprocess.Popen(command,cwd=ROOT,env=environment,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+        process = subprocess.Popen(command,cwd=bundle,env=environment,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
         state["active"] = {"id":identifier,"market":config["market"],"family":config["family"],
-                           "seed":config["seed"],"pid":process.pid,"phase":phase,"started_at":now(),"log":str(output/"console.log")}
+                           "seed":config["seed"],"pid":process.pid,"phase":phase,"started_at":now(),"log":str(output/"console.log"),
+                           "code_bundle":str(bundle)}
         report(state)
         started = time.monotonic()
         while process.poll() is None:
@@ -188,7 +211,9 @@ def run_trial(config,state,phase="search",test_only=False):
             time.sleep(20)
         success = process.returncode == 0 and (output/("metrics.json" if test_only else "result.json")).exists()
         if not success:
-            write_json(output/"failure.json",{"exit_code":process.returncode,"at":now(),"config":config})
+            failure = json.loads((output/"failure.json").read_text()) if (output/"failure.json").exists() else {}
+            failure.update(exit_code=process.returncode,at=now(),config=config)
+            write_json(output/"failure.json",failure)
         state["active"] = None
         report(state)
     print(f"END {identifier} success={success}",flush=True)
@@ -196,6 +221,7 @@ def run_trial(config,state,phase="search",test_only=False):
 
 
 def recover_interrupted(state):
+    state.setdefault("failed",[])
     previous = state.get("active")
     if previous:
         command_path = Path(f"/proc/{previous['pid']}/cmdline")
@@ -205,8 +231,34 @@ def recover_interrupted(state):
                 return b"research.train" in command and previous["id"].encode() in command
             except FileNotFoundError:
                 return False
+        started = datetime.fromisoformat(previous.get("started_at",now())).timestamp()
         # An orphaned trial can finish while the new worker keeps the journal alive.
         while owned_is_running():
+            if time.time()-started > control().get("max_trial_hours",4)*3600:
+                try:
+                    if os.getpgid(previous["pid"]) == previous["pid"]:
+                        os.killpg(previous["pid"],signal.SIGTERM)
+                except ProcessLookupError:
+                    pass
+                deadline = time.monotonic()+15
+                while owned_is_running() and time.monotonic()<deadline:
+                    report(state)
+                    time.sleep(1)
+                if owned_is_running():
+                    try:
+                        if os.getpgid(previous["pid"]) == previous["pid"]:
+                            os.killpg(previous["pid"],signal.SIGKILL)
+                    except ProcessLookupError:
+                        pass
+                while owned_is_running():
+                    report(state)
+                    time.sleep(1)
+                folder = "holdout" if previous["phase"] == "holdout" else "trials"
+                write_json(ARTIFACTS/folder/previous["id"]/"failure.json",{
+                    "reason":"recovered trial timeout","at":now(),"active":previous})
+                if previous["id"] not in state["failed"]:
+                    state["failed"].append(previous["id"])
+                break
             if control().get("stop"):
                 if os.getpgid(previous["pid"]) == previous["pid"]:
                     os.killpg(previous["pid"],signal.SIGTERM)
@@ -224,13 +276,17 @@ def recover_interrupted(state):
         if (folder/"result.json").exists():
             if identifier not in state["completed"]:
                 state["completed"].append(identifier)
-        elif state["phase"] == "validation_search":
+        elif state["phase"] == "validation_search" and identifier not in state["failed"]:
             candidate = state.get("pending_configs",{}).get(identifier)
             if candidate is None and (folder/"config.json").exists():
                 candidate = json.loads((folder/"config.json").read_text())
             if candidate is not None and candidate not in state["resume_queue"]:
                 state["resume_queue"].append(candidate)
         state["pending"].remove(identifier)
+        state.get("pending_configs",{}).pop(identifier,None)
+    for row in read_results():
+        if row["id"] not in state["completed"]:
+            state["completed"].append(row["id"])
     report(state)
 
 
@@ -244,13 +300,16 @@ def promote(state):
             state["selected"][market] = [r["config"] for r in leaders[:settings.get("promotion_models_per_market",3)]]
         write_json(ARTIFACTS/"study/selection_lock.json",{
             "locked_at":now(),"selected":state["selected"],
+            "seeds":settings.get("seeds",[0,1,2,3,4]),
             "criterion":"0.5 validation ranking-percentile + 0.25 validation AR-percentile + 0.25 validation Sharpe-percentile",
             "test_observed_before_lock":False})
         report(state)
+    frozen = json.loads((ARTIFACTS/"study/selection_lock.json").read_text())
+    seeds = frozen.get("seeds",settings.get("seeds",[0,1,2,3,4]))
     state["phase"] = "five_seed_confirmation"
     for market, selected in state["selected"].items():
         for candidate in selected:
-            for seed in settings.get("seeds",[0,1,2,3,4]):
+            for seed in seeds:
                 config = {**candidate,"seed":seed}
                 identifier = config_id(config)
                 if identifier in state["completed"]:
@@ -268,11 +327,13 @@ def evaluate_holdout(state):
     from .protocol import compare_baselines,evaluate_predictions
     state["phase"] = "locked_holdout_evaluation"
     settings = control()
+    frozen = json.loads((ARTIFACTS/"study/selection_lock.json").read_text())
+    seeds = frozen.get("seeds",settings.get("seeds",[0,1,2,3,4]))
     summary = []
     for market,selected in state["selected"].items():
         for candidate in selected:
             frames, records = [], []
-            for seed in settings.get("seeds",[0,1,2,3,4]):
+            for seed in seeds:
                 config = {**candidate,"seed":seed}
                 identifier = config_id(config)
                 if identifier not in state["completed"]:
@@ -286,7 +347,7 @@ def evaluate_holdout(state):
                 report(state)
                 if control().get("stop"):
                     return
-            if len(frames) != len(settings.get("seeds",[0,1,2,3,4])):
+            if len(frames) != len(seeds):
                 continue
             reference = frames[0]
             for frame in frames[1:]:
@@ -298,14 +359,18 @@ def evaluate_holdout(state):
             identifier = config_id({**candidate,"seed":"ensemble"})
             destination = ARTIFACTS/"holdout"/identifier
             metrics = evaluate_predictions(ensemble,market,destination,backtest=True)
+            write_json(destination/"ensemble.json",{"method":"avg_none","candidate":candidate,"seeds":seeds,
+                       "selection_lock_sha256":digest_file(ARTIFACTS/"study/selection_lock.json"),
+                       "prediction_sha256":{str(seed):digest_file(ARTIFACTS/"holdout"/config_id({**candidate,"seed":seed})/"predictions.pkl")
+                                            for seed in seeds}})
             comparison = compare_baselines(metrics,market)
             write_json(destination/"baseline_comparison.json",comparison)
             seeds_table = pd.DataFrame(records)
             seeds_table.to_csv(destination/"seed_metrics.csv",index=False)
             seeds_table.drop(columns="seed").agg(["mean","std"]).to_csv(destination/"seed_mean_std.csv")
             summary.append({"market":market,"id":identifier,"family":candidate["family"],
-                            "seeds":settings.get("seeds"),"metrics":metrics,"comparison":comparison,
-                            "strictly_exceeds_every_metric":all(v["strictly_better"] for v in comparison.values())})
+                            "seeds":seeds,"metrics":metrics,"comparison":comparison,
+                            "strictly_exceeds_every_metric":len(comparison)==10 and all(v["strictly_better"] for v in comparison.values())})
             write_json(ARTIFACTS/"study/holdout_summary.json",summary)
             report(state)
     state["phase"] = "campaign_finished"

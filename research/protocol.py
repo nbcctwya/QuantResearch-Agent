@@ -117,6 +117,10 @@ def baseline_envelope(market):
 
 def compare_baselines(metrics, market):
     target = baseline_envelope(market)
-    return {key: {"ours": metrics.get(key), "best_baseline": value,
-                  "strictly_better": bool(metrics[key] < value if key == "STD" else metrics[key] > value)}
-            for key, value in target.items() if key in metrics and metrics[key] is not None}
+    comparison = {}
+    for key,value in target.items():
+        ours = metrics.get(key)
+        finite = ours is not None and np.isfinite(ours)
+        comparison[key] = {"ours":ours,"best_baseline":value,
+                           "strictly_better":bool(finite and (ours < value if key == "STD" else ours > value))}
+    return comparison

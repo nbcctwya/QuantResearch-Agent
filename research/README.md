@@ -45,7 +45,13 @@ worker 需要正常访问 CUDA。当前操作系统的受限沙箱会阻止 GPU�
 
 `python -m research.diagnostics --trained research/artifacts/trials/<id>` 只读取剔除边界日的验证集，检查风险预测与绝对误差的日均 RankIC、预测风险分档、80% 区间覆盖率和年份稳定性。新风险/分位数 trial 也会自动保存 `valid/calibration/` 诊断。诊断使用 CPU float32，正式排序与回测仍使用对应 trial 保存的预测；不以诊断分数替换正式预测。超额收益诊断中的真实截面均值只用于定义已实现的验证目标，不参与模型预测。
 
+`scores_blend` 将同市场模型的预测按固定权重组合，比较原始分数、当日截面 z-score 和截面排名归一化。组件配置、权重、归一化方式、平滑系数和模型哈希都写入实验配置/`components.json`。五种子确认会为每个组件设置对应的组合种子，训练缺失组件并复用已完成的组件；每个种子的组合分数仍按 `avg_none` 平均并重新回测。
+
+信号平滑是逐股票的因果 EMA：仅使用当前及更早日期的预测；从当前划分第一天重新开始，超过指定交易日间隔后重置。预测不需要未来真实标签，测试时采用冻结的权重与变换。归一化或平滑会改变模型信号，回测策略及费用不变。自适应搜索约 80% 的提案继续训练模型，约 20% 检验组合，避免廉价的组合实验占满搜索。
+
 checkpoint 仅按验证 RankIC 与年份稳定性选择。整个方法的晋级按验证排序、扣费 AR 和 Sharpe 的百分位排序组合，权重 0.5/0.25/0.25。搜索结束后先写 `selection_lock.json` 冻结方案，再确认 5 个种子并打开测试集。搜索过程不读取新模型的测试表现。
+
+测试入口检查配置及种子是否属于冻结方案或其组件。组件的模型哈希发生变化会拒绝组合测试；测试缓存也记录配置、模型哈希与代码哈希。最终比较总是保留十项指标，缺失或非有限值会判定该项未超过 baseline。
 
 `control.json` 可调整研究时长、种子和单任务超时；设 `stop=true` 会结束当前自有训练进程。`extra_candidates.json` 可追加新配置。暂停/终止请求仍需要由控制方明确发出，worker 不会自行根据假设暂停。
 
@@ -58,5 +64,9 @@ checkpoint 仅按验证 RankIC 与年份稳定性选择。整个方法的晋级�
 - `holdout/<id>/`、`study/holdout_summary.json`：最终种子/集成结果与 baseline 逐项比较。
 
 worker 使用文件锁，避免重复占用算力。神经网络每轮保存可恢复的模型、优化器和随机状态；完成实验自动跳过。机器或会话停止后，需要在运行环境恢复后重新启动 worker。报告明确区分验证结果、smoke 测试和完整测试结果；失败实验保留日志，不伪造指标。
+
+每次 worker 启动实验时，将当时的 Python 源码保存为带哈希的 `artifacts/code_releases/<hash>/` 包，并从该包运行。`KBS_RESEARCH_WORKSPACE_ROOT` 指定原数据和输出位置；修改工作区源码不会改变已启动进程的代码包。Git 结果快照会连同实际使用的代码包一并导出。
+
+`python -m research.snapshot` 导出小型的 `research/records/20261008/` 验证结果与配置快照，用 Git 保存指标、方法配置、运行环境和代码哈希；大数据、预测和 checkpoint 继续保存在 `artifacts/`。新训练记录 CPU 时间、进程 RSS 峰值和 PyTorch GPU 内存峰值；嵌套组件共享进程，峰值按进程生命周期记录，组合耗时包含缺失组件的训练耗时。
 
 WSL2 主机可另行运行 `python -m research.keep_awake`，通过 Windows 的临时 `ES_SYSTEM_REQUIRED | ES_CONTINUOUS` 请求阻止自动休眠。显示器仍可关闭；研究结束、停止或 heartbeat 失效后释放，不改电源计划。该请求不能阻止手动关机/睡眠，需要电脑持续通电。机制见 [Microsoft 文档](https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-setthreadexecutionstate)。

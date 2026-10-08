@@ -1,0 +1,4996 @@
+{
+  "created_at": "2026-10-08T12:53:41.780707+00:00",
+  "experiments": {
+    "043af3aabecd377b": {
+      "config": {
+        "market": "csi300",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "residual",
+        "width": 128,
+        "depth": 2,
+        "objective": "mse",
+        "context": false,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "dropout": 0.1
+      },
+      "completed_at": "2026-10-08T10:26:35.214356+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T10:24:11.970766+00:00",
+        "id": "043af3aabecd377b",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/models.py": "9849517ccccad28533ed19ff8648e8d74dc55d9394dbc6b8a2bfacd3a99f6c6c",
+          "research/protocol.py": "7b2f3ea47c56fb6ea5e8443db5289b3ca5809a9dd1649cbc9b097ecdd4f33102",
+          "research/runner.py": "716570e1eebfe8873843566664010baef027ef434075eacc85c07c10d69e62fb",
+          "research/train.py": "30f50334b4d97c6385770ccc0c88a0001977de76785c00c512c1e222902bc7d3"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T10:26:35.214631+00:00"
+      },
+      "resources": {},
+      "calibration": null
+    },
+    "080af5a3eb335a2a": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_excess_standardized",
+        "family": "risk_aware",
+        "encoder": "residual",
+        "objective": "gaussian_nll_rank",
+        "risk_penalty": 0.25,
+        "risk_exponent": 0.0,
+        "market": "csi300"
+      },
+      "completed_at": "2026-10-08T12:47:56.712145+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:41:53.994823+00:00",
+        "id": "080af5a3eb335a2a",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "4f1c5447607b4734594496a6b78966f2f9bdb88d64630689ef08038afc4f965a",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "a05808bf971761dd57bd8de4080ac21e274dd98adf396e1f3baa9c8fbf25e807",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "77d69212c7014b1962bd429f42e4461125cf17ff432196ebfccd0e5bc1561031",
+          "research/train.py": "778a6cfab66e7ee233e506d3b4a6a05fa575dfe29aa16a6e5a3975e78a51c358"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:47:56.712445+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 356.947992,
+        "peak_process_rss_mib": 2926.859375,
+        "gpu_peak_allocated_mib": 907.70263671875,
+        "gpu_peak_reserved_mib": 922.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": {
+        "interval_80_coverage": 0.7869681331979469,
+        "uncertainty_abs_error_RankIC": 0.3006080263318685
+      },
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.04048788682162931,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 840429,
+        "test_targets_used": false
+      }
+    },
+    "0f3fcfb18f7e3317": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_excess_standardized",
+        "family": "quantile_aware",
+        "encoder": "residual",
+        "objective": "quantile_rank",
+        "risk_penalty": 0.25,
+        "risk_exponent": 0.0,
+        "market": "sp500"
+      },
+      "completed_at": "2026-10-08T12:41:38.691262+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:37:33.873702+00:00",
+        "id": "0f3fcfb18f7e3317",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "4f1c5447607b4734594496a6b78966f2f9bdb88d64630689ef08038afc4f965a",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "a05808bf971761dd57bd8de4080ac21e274dd98adf396e1f3baa9c8fbf25e807",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "77d69212c7014b1962bd429f42e4461125cf17ff432196ebfccd0e5bc1561031",
+          "research/train.py": "778a6cfab66e7ee233e506d3b4a6a05fa575dfe29aa16a6e5a3975e78a51c358"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:41:38.691679+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 233.725222,
+        "peak_process_rss_mib": 3428.8515625,
+        "gpu_peak_allocated_mib": 1309.96142578125,
+        "gpu_peak_reserved_mib": 1326.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": {
+        "interval_80_coverage": 0.8008125599029678,
+        "uncertainty_abs_error_RankIC": 0.09670876915536182
+      },
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.033585798422536894,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 1194829,
+        "test_targets_used": false
+      }
+    },
+    "1a1e141b965678eb": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_excess_standardized",
+        "family": "residual",
+        "objective": "mixed",
+        "market": "csi300"
+      },
+      "completed_at": "2026-10-08T11:24:22.594392+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T11:20:52.511105+00:00",
+        "id": "1a1e141b965678eb",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "641b457e85289d12b4359ea3d27e2bc8d40633e73e9a901f67d3aeb557bd4ae2",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "7b2f3ea47c56fb6ea5e8443db5289b3ca5809a9dd1649cbc9b097ecdd4f33102",
+          "research/runner.py": "716570e1eebfe8873843566664010baef027ef434075eacc85c07c10d69e62fb",
+          "research/train.py": "00f90a97ffc7fa0ec0cf69094cadb0d61740959053cc6dbbbad2d1dd3f6e5150"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T11:24:22.594709+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.04048788682162931,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 840429,
+        "test_targets_used": false
+      }
+    },
+    "250b7800dba0ae14": {
+      "config": {
+        "market": "csi300",
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "seed": 0,
+        "purge_days": 5,
+        "sources": [
+          {
+            "market": "csi300",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "residual",
+            "width": 128,
+            "depth": 2,
+            "objective": "mixed",
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "dropout": 0.1
+          }
+        ],
+        "weights": [
+          1.0
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.25,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T12:08:07.804761+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:07:44.645881+00:00",
+        "id": "250b7800dba0ae14",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "coordinator",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:08:07.805153+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "711e1b2f95fbdce7",
+            "config": {
+              "market": "csi300",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "residual",
+              "width": 128,
+              "depth": 2,
+              "objective": "mixed",
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "dropout": 0.1
+            },
+            "prediction_sha256": "5674501f3b62089961de805cb2e34e307e6884fade8a5872e098a750e01f972a",
+            "model_sha256": {
+              "best.pt": "ee642d99a4e4bb70079fe1e34be10d519a5cb7095ccc618eee02bbe33a389340"
+            }
+          }
+        ],
+        "weights": [
+          1.0
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.25,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "282dea88a899355a": {
+      "config": {
+        "market": "sp500",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "residual",
+        "width": 128,
+        "depth": 2,
+        "objective": "mse",
+        "context": false,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "dropout": 0.1
+      },
+      "completed_at": "2026-10-08T10:29:30.729426+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T10:26:51.896852+00:00",
+        "id": "282dea88a899355a",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/models.py": "9849517ccccad28533ed19ff8648e8d74dc55d9394dbc6b8a2bfacd3a99f6c6c",
+          "research/protocol.py": "7b2f3ea47c56fb6ea5e8443db5289b3ca5809a9dd1649cbc9b097ecdd4f33102",
+          "research/runner.py": "716570e1eebfe8873843566664010baef027ef434075eacc85c07c10d69e62fb",
+          "research/train.py": "30f50334b4d97c6385770ccc0c88a0001977de76785c00c512c1e222902bc7d3"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T10:29:30.729758+00:00"
+      },
+      "resources": {},
+      "calibration": null
+    },
+    "287df6a8006d58d6": {
+      "config": {
+        "market": "sp500",
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "seed": 0,
+        "purge_days": 5,
+        "sources": [
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "residual",
+            "objective": "mixed",
+            "market": "sp500"
+          },
+          {
+            "market": "sp500",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "batch_ensemble",
+            "width": 128,
+            "depth": 3,
+            "members": 8,
+            "objective": "mixed",
+            "context": false,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "dropout": 0.1
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T12:01:31.408778+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:00:55.226037+00:00",
+        "id": "287df6a8006d58d6",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "coordinator",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:01:31.409176+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "8f47df4b1ca7a922",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "residual",
+              "objective": "mixed",
+              "market": "sp500"
+            },
+            "prediction_sha256": "b673e7498f0f6a34689248e25394bcca35a451d5df2e10ee9c7a6287442b9189",
+            "model_sha256": {
+              "best.pt": "012071dbd20c7041d2297adaf9b47cfea7c847b11f7fe940bae999ae40094896"
+            }
+          },
+          {
+            "id": "3b36a0ceec56f8b9",
+            "config": {
+              "market": "sp500",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "batch_ensemble",
+              "width": 128,
+              "depth": 3,
+              "members": 8,
+              "objective": "mixed",
+              "context": false,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "dropout": 0.1
+            },
+            "prediction_sha256": "fb6b39aff4dffa17f0d168d25c8c555d5bd9a0893ce238b48bc2156984af4fa5",
+            "model_sha256": {
+              "best.pt": "dcbb4f8bcd2a5ef495f32833adf047e61d435d0fad4ca19513da4b8b916d7c4a"
+            }
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "2a019d431e078398": {
+      "config": {
+        "market": "sp500",
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "seed": 0,
+        "purge_days": 5,
+        "sources": [
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "residual",
+            "objective": "mixed",
+            "market": "sp500"
+          },
+          {
+            "market": "sp500",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "batch_ensemble",
+            "width": 128,
+            "depth": 3,
+            "members": 8,
+            "objective": "mixed",
+            "context": false,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "dropout": 0.1
+          }
+        ],
+        "weights": [
+          0.25,
+          0.75
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T12:00:32.681308+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T11:59:58.534476+00:00",
+        "id": "2a019d431e078398",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "coordinator",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:00:32.681668+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "8f47df4b1ca7a922",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "residual",
+              "objective": "mixed",
+              "market": "sp500"
+            },
+            "prediction_sha256": "b673e7498f0f6a34689248e25394bcca35a451d5df2e10ee9c7a6287442b9189",
+            "model_sha256": {
+              "best.pt": "012071dbd20c7041d2297adaf9b47cfea7c847b11f7fe940bae999ae40094896"
+            }
+          },
+          {
+            "id": "3b36a0ceec56f8b9",
+            "config": {
+              "market": "sp500",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "batch_ensemble",
+              "width": 128,
+              "depth": 3,
+              "members": 8,
+              "objective": "mixed",
+              "context": false,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "dropout": 0.1
+            },
+            "prediction_sha256": "fb6b39aff4dffa17f0d168d25c8c555d5bd9a0893ce238b48bc2156984af4fa5",
+            "model_sha256": {
+              "best.pt": "dcbb4f8bcd2a5ef495f32833adf047e61d435d0fad4ca19513da4b8b916d7c4a"
+            }
+          }
+        ],
+        "weights": [
+          0.25,
+          0.75
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "2a81349c452be973": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "family": "risk_overlay",
+        "encoder": "residual",
+        "objective": "mixed",
+        "risk_penalty": 0.1,
+        "market": "csi300",
+        "risk_source": {
+          "seed": 0,
+          "purge_days": 5,
+          "width": 128,
+          "depth": 2,
+          "dropout": 0.1,
+          "context": true,
+          "market_gate": true,
+          "lr": 0.0005,
+          "epochs": 60,
+          "patience": 8,
+          "target_kind": "raw_standardized",
+          "family": "risk_aware",
+          "encoder": "residual",
+          "objective": "gaussian_nll_rank",
+          "risk_penalty": 0.0,
+          "risk_exponent": 0.0,
+          "market": "csi300"
+        }
+      },
+      "completed_at": "2026-10-08T12:15:28.796450+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:11:33.313040+00:00",
+        "id": "2a81349c452be973",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:15:28.796846+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "risk_source.json": {
+        "config": {
+          "seed": 0,
+          "purge_days": 5,
+          "width": 128,
+          "depth": 2,
+          "dropout": 0.1,
+          "context": true,
+          "market_gate": true,
+          "lr": 0.0005,
+          "epochs": 60,
+          "patience": 8,
+          "target_kind": "raw_standardized",
+          "family": "risk_aware",
+          "encoder": "residual",
+          "objective": "gaussian_nll_rank",
+          "risk_penalty": 0.0,
+          "risk_exponent": 0.0,
+          "market": "csi300"
+        },
+        "checkpoint_sha256": "4aa9fc135542c66b6f637576c4fc717ecf0762f27fb944adc618e901944754a3",
+        "frozen": true,
+        "training": "only the alpha ranker is updated; the risk model retains its source seed"
+      }
+    },
+    "2a9a6225c26b9f9e": {
+      "config": {
+        "market": "csi300",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "lgbm",
+        "objective": "rank_xendcg",
+        "num_leaves": 31,
+        "min_data_in_leaf": 1000,
+        "context": true
+      },
+      "completed_at": "2026-10-08T10:53:28.069699+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T10:43:32.015681+00:00",
+        "id": "2a9a6225c26b9f9e",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "9849517ccccad28533ed19ff8648e8d74dc55d9394dbc6b8a2bfacd3a99f6c6c",
+          "research/protocol.py": "7b2f3ea47c56fb6ea5e8443db5289b3ca5809a9dd1649cbc9b097ecdd4f33102",
+          "research/runner.py": "716570e1eebfe8873843566664010baef027ef434075eacc85c07c10d69e62fb",
+          "research/train.py": "30f50334b4d97c6385770ccc0c88a0001977de76785c00c512c1e222902bc7d3"
+        },
+        "device": "cpu",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T10:53:28.070019+00:00"
+      },
+      "resources": {},
+      "calibration": null
+    },
+    "2c85e6e454de3219": {
+      "config": {
+        "market": "csi300",
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "seed": 0,
+        "purge_days": 5,
+        "sources": [
+          {
+            "market": "csi300",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "residual",
+            "width": 128,
+            "depth": 2,
+            "objective": "mixed",
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "dropout": 0.1
+          },
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "residual",
+            "objective": "mixed",
+            "market": "csi300"
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T12:09:08.801272+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:08:45.128908+00:00",
+        "id": "2c85e6e454de3219",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "coordinator",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:09:08.801674+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "711e1b2f95fbdce7",
+            "config": {
+              "market": "csi300",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "residual",
+              "width": 128,
+              "depth": 2,
+              "objective": "mixed",
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "dropout": 0.1
+            },
+            "prediction_sha256": "5674501f3b62089961de805cb2e34e307e6884fade8a5872e098a750e01f972a",
+            "model_sha256": {
+              "best.pt": "ee642d99a4e4bb70079fe1e34be10d519a5cb7095ccc618eee02bbe33a389340"
+            }
+          },
+          {
+            "id": "1a1e141b965678eb",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "residual",
+              "objective": "mixed",
+              "market": "csi300"
+            },
+            "prediction_sha256": "e24234dd57bb09a35e0271cfd1353a9e992c2ff03468e121eb37e5d8bf31fea6",
+            "model_sha256": {
+              "best.pt": "93c985770f728fe6c95a0b41936c0bad0709e67bf57c2aa78e344aaf7c87c96a"
+            }
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "32add33b37aca656": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "family": "risk_overlay",
+        "encoder": "residual",
+        "objective": "mixed",
+        "risk_penalty": 0.2,
+        "market": "csi300",
+        "risk_source": {
+          "seed": 0,
+          "purge_days": 5,
+          "width": 128,
+          "depth": 2,
+          "dropout": 0.1,
+          "context": true,
+          "market_gate": true,
+          "lr": 0.0005,
+          "epochs": 60,
+          "patience": 8,
+          "target_kind": "raw_standardized",
+          "family": "risk_aware",
+          "encoder": "residual",
+          "objective": "gaussian_nll_rank",
+          "risk_penalty": 0.0,
+          "risk_exponent": 0.0,
+          "market": "csi300"
+        }
+      },
+      "completed_at": "2026-10-08T12:25:32.591893+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:21:33.829515+00:00",
+        "id": "32add33b37aca656",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "4f1c5447607b4734594496a6b78966f2f9bdb88d64630689ef08038afc4f965a",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "1461f5fbd6c22e5926d6c44d77ede778dee94c9a4bb5a1ca817215cd2ff2e8b8",
+          "research/train.py": "64c4ffbc448eb0924fbfe7c4652b069722f0b65a73ed47333b7a3a274f1bffae"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:25:32.592216+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 232.41255399999997,
+        "peak_process_rss_mib": 2889.1953125,
+        "gpu_peak_allocated_mib": 909.1474609375,
+        "gpu_peak_reserved_mib": 922.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": null,
+      "risk_source.json": {
+        "config": {
+          "seed": 0,
+          "purge_days": 5,
+          "width": 128,
+          "depth": 2,
+          "dropout": 0.1,
+          "context": true,
+          "market_gate": true,
+          "lr": 0.0005,
+          "epochs": 60,
+          "patience": 8,
+          "target_kind": "raw_standardized",
+          "family": "risk_aware",
+          "encoder": "residual",
+          "objective": "gaussian_nll_rank",
+          "risk_penalty": 0.0,
+          "risk_exponent": 0.0,
+          "market": "csi300"
+        },
+        "checkpoint_sha256": "4aa9fc135542c66b6f637576c4fc717ecf0762f27fb944adc618e901944754a3",
+        "frozen": true,
+        "training": "only the alpha ranker is updated; the risk model retains its source seed"
+      }
+    },
+    "3316e69b08286ff0": {
+      "config": {
+        "market": "csi300",
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "seed": 0,
+        "purge_days": 5,
+        "sources": [
+          {
+            "market": "csi300",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "residual",
+            "width": 128,
+            "depth": 2,
+            "objective": "mixed",
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "dropout": 0.1
+          },
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "quantile_aware",
+            "encoder": "residual",
+            "objective": "quantile_rank",
+            "risk_penalty": 0.0,
+            "risk_exponent": 0.0,
+            "market": "csi300"
+          }
+        ],
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T12:01:54.760208+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:01:31.410190+00:00",
+        "id": "3316e69b08286ff0",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "coordinator",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:01:54.760583+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "711e1b2f95fbdce7",
+            "config": {
+              "market": "csi300",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "residual",
+              "width": 128,
+              "depth": 2,
+              "objective": "mixed",
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "dropout": 0.1
+            },
+            "prediction_sha256": "5674501f3b62089961de805cb2e34e307e6884fade8a5872e098a750e01f972a",
+            "model_sha256": {
+              "best.pt": "ee642d99a4e4bb70079fe1e34be10d519a5cb7095ccc618eee02bbe33a389340"
+            }
+          },
+          {
+            "id": "fedbe48c02bb3083",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "quantile_aware",
+              "encoder": "residual",
+              "objective": "quantile_rank",
+              "risk_penalty": 0.0,
+              "risk_exponent": 0.0,
+              "market": "csi300"
+            },
+            "prediction_sha256": "b084cde014ab94f6c7b5d127c70278ff579884381c40b20621ba1fc122a8ca14",
+            "model_sha256": {
+              "best.pt": "ddd05461a4840bc05aecf77fa6af617a985ebc14135140850b2ae6371bbf0c1c"
+            }
+          }
+        ],
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "3737c79199ece060": {
+      "config": {
+        "market": "sp500",
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "seed": 0,
+        "purge_days": 5,
+        "sources": [
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "residual",
+            "objective": "mixed",
+            "market": "sp500"
+          },
+          {
+            "market": "sp500",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "batch_ensemble",
+            "width": 128,
+            "depth": 3,
+            "members": 8,
+            "objective": "mixed",
+            "context": false,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "dropout": 0.1
+          }
+        ],
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T12:05:28.947545+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:04:52.566255+00:00",
+        "id": "3737c79199ece060",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "coordinator",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:05:28.947934+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "8f47df4b1ca7a922",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "residual",
+              "objective": "mixed",
+              "market": "sp500"
+            },
+            "prediction_sha256": "b673e7498f0f6a34689248e25394bcca35a451d5df2e10ee9c7a6287442b9189",
+            "model_sha256": {
+              "best.pt": "012071dbd20c7041d2297adaf9b47cfea7c847b11f7fe940bae999ae40094896"
+            }
+          },
+          {
+            "id": "3b36a0ceec56f8b9",
+            "config": {
+              "market": "sp500",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "batch_ensemble",
+              "width": 128,
+              "depth": 3,
+              "members": 8,
+              "objective": "mixed",
+              "context": false,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "dropout": 0.1
+            },
+            "prediction_sha256": "fb6b39aff4dffa17f0d168d25c8c555d5bd9a0893ce238b48bc2156984af4fa5",
+            "model_sha256": {
+              "best.pt": "dcbb4f8bcd2a5ef495f32833adf047e61d435d0fad4ca19513da4b8b916d7c4a"
+            }
+          }
+        ],
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "377d9c8bd9450e6e": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_standardized",
+        "family": "residual",
+        "objective": "mse",
+        "market": "sp500"
+      },
+      "completed_at": "2026-10-08T11:20:33.291683+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T11:16:12.410641+00:00",
+        "id": "377d9c8bd9450e6e",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "641b457e85289d12b4359ea3d27e2bc8d40633e73e9a901f67d3aeb557bd4ae2",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "55de70316a1fbc3c5294d17f339af6a01de0fe851cc7666ff18c989c025b405b",
+          "research/protocol.py": "7b2f3ea47c56fb6ea5e8443db5289b3ca5809a9dd1649cbc9b097ecdd4f33102",
+          "research/runner.py": "716570e1eebfe8873843566664010baef027ef434075eacc85c07c10d69e62fb",
+          "research/train.py": "cb196224737b6db2f5df4624bf1dc7171ea54aa38d90043942d43d723daf0b59"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T11:20:33.291998+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "target_transform.json": {
+        "kind": "raw_standardized",
+        "scale": 0.04185252839688792,
+        "fit_split": "selected purged training dates only",
+        "demeaning": null,
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 1194829,
+        "test_targets_used": false
+      }
+    },
+    "37d109c507ac33a0": {
+      "config": {
+        "market": "sp500",
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "seed": 0,
+        "purge_days": 5,
+        "sources": [
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "residual",
+            "objective": "mixed",
+            "market": "sp500"
+          },
+          {
+            "market": "sp500",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "batch_ensemble",
+            "width": 128,
+            "depth": 3,
+            "members": 8,
+            "objective": "mixed",
+            "context": false,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "dropout": 0.1
+          }
+        ],
+        "weights": [
+          0.25,
+          0.75
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T12:03:31.934594+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:02:55.647943+00:00",
+        "id": "37d109c507ac33a0",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "coordinator",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:03:31.934982+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "8f47df4b1ca7a922",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "residual",
+              "objective": "mixed",
+              "market": "sp500"
+            },
+            "prediction_sha256": "b673e7498f0f6a34689248e25394bcca35a451d5df2e10ee9c7a6287442b9189",
+            "model_sha256": {
+              "best.pt": "012071dbd20c7041d2297adaf9b47cfea7c847b11f7fe940bae999ae40094896"
+            }
+          },
+          {
+            "id": "3b36a0ceec56f8b9",
+            "config": {
+              "market": "sp500",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "batch_ensemble",
+              "width": 128,
+              "depth": 3,
+              "members": 8,
+              "objective": "mixed",
+              "context": false,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "dropout": 0.1
+            },
+            "prediction_sha256": "fb6b39aff4dffa17f0d168d25c8c555d5bd9a0893ce238b48bc2156984af4fa5",
+            "model_sha256": {
+              "best.pt": "dcbb4f8bcd2a5ef495f32833adf047e61d435d0fad4ca19513da4b8b916d7c4a"
+            }
+          }
+        ],
+        "weights": [
+          0.25,
+          0.75
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "3b36a0ceec56f8b9": {
+      "config": {
+        "market": "sp500",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "batch_ensemble",
+        "width": 128,
+        "depth": 3,
+        "members": 8,
+        "objective": "mixed",
+        "context": false,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "dropout": 0.1
+      },
+      "completed_at": "2026-10-08T11:02:01.086135+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T10:59:12.234351+00:00",
+        "id": "3b36a0ceec56f8b9",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "fb421fb40327ec0ce8b279f330cbc186a92a65b98c75a77d17619ec3c438d013",
+          "research/protocol.py": "7b2f3ea47c56fb6ea5e8443db5289b3ca5809a9dd1649cbc9b097ecdd4f33102",
+          "research/runner.py": "716570e1eebfe8873843566664010baef027ef434075eacc85c07c10d69e62fb",
+          "research/train.py": "40a404c35254f0c6e375ae74fa5bcf2d679641fd33f4118f0510c2f79c626e5d"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T11:02:01.086525+00:00"
+      },
+      "resources": {},
+      "calibration": null
+    },
+    "3e8e0fff64438e5f": {
+      "config": {
+        "market": "csi300",
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "seed": 0,
+        "purge_days": 5,
+        "sources": [
+          {
+            "market": "csi300",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "residual",
+            "width": 128,
+            "depth": 2,
+            "objective": "mixed",
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "dropout": 0.1
+          },
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "quantile_aware",
+            "encoder": "residual",
+            "objective": "quantile_rank",
+            "risk_penalty": 0.0,
+            "risk_exponent": 0.0,
+            "market": "csi300"
+          }
+        ],
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T12:04:52.564678+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:04:31.357021+00:00",
+        "id": "3e8e0fff64438e5f",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "coordinator",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:04:52.565002+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "711e1b2f95fbdce7",
+            "config": {
+              "market": "csi300",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "residual",
+              "width": 128,
+              "depth": 2,
+              "objective": "mixed",
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "dropout": 0.1
+            },
+            "prediction_sha256": "5674501f3b62089961de805cb2e34e307e6884fade8a5872e098a750e01f972a",
+            "model_sha256": {
+              "best.pt": "ee642d99a4e4bb70079fe1e34be10d519a5cb7095ccc618eee02bbe33a389340"
+            }
+          },
+          {
+            "id": "fedbe48c02bb3083",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "quantile_aware",
+              "encoder": "residual",
+              "objective": "quantile_rank",
+              "risk_penalty": 0.0,
+              "risk_exponent": 0.0,
+              "market": "csi300"
+            },
+            "prediction_sha256": "b084cde014ab94f6c7b5d127c70278ff579884381c40b20621ba1fc122a8ca14",
+            "model_sha256": {
+              "best.pt": "ddd05461a4840bc05aecf77fa6af617a985ebc14135140850b2ae6371bbf0c1c"
+            }
+          }
+        ],
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "464644a2ce0a7ba9": {
+      "config": {
+        "market": "csi300",
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "seed": 0,
+        "purge_days": 5,
+        "sources": [
+          {
+            "market": "csi300",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "residual",
+            "width": 128,
+            "depth": 2,
+            "objective": "mixed",
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "dropout": 0.1
+          }
+        ],
+        "weights": [
+          1.0
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T12:07:07.453990+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:06:43.689567+00:00",
+        "id": "464644a2ce0a7ba9",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "coordinator",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:07:07.454360+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "711e1b2f95fbdce7",
+            "config": {
+              "market": "csi300",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "residual",
+              "width": 128,
+              "depth": 2,
+              "objective": "mixed",
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "dropout": 0.1
+            },
+            "prediction_sha256": "5674501f3b62089961de805cb2e34e307e6884fade8a5872e098a750e01f972a",
+            "model_sha256": {
+              "best.pt": "ee642d99a4e4bb70079fe1e34be10d519a5cb7095ccc618eee02bbe33a389340"
+            }
+          }
+        ],
+        "weights": [
+          1.0
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "4f6610e920cfae40": {
+      "config": {
+        "market": "csi300",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "temporal_mixer",
+        "width": 128,
+        "depth": 2,
+        "objective": "mixed",
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "dropout": 0.1
+      },
+      "completed_at": "2026-10-08T11:55:27.763584+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T11:51:12.962967+00:00",
+        "id": "4f6610e920cfae40",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "0969506eabe5edfa0b775d9addbaef94702775c7f260a492c13331fc8d8f555d",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T11:55:27.764481+00:00"
+      },
+      "resources": {},
+      "calibration": null
+    },
+    "5ded7f510198dcb9": {
+      "config": {
+        "market": "sp500",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "lgbm",
+        "objective": "rank_xendcg",
+        "num_leaves": 31,
+        "min_data_in_leaf": 1000,
+        "context": true
+      },
+      "completed_at": "2026-10-08T10:55:29.944270+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T10:53:32.180271+00:00",
+        "id": "5ded7f510198dcb9",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "fb421fb40327ec0ce8b279f330cbc186a92a65b98c75a77d17619ec3c438d013",
+          "research/protocol.py": "7b2f3ea47c56fb6ea5e8443db5289b3ca5809a9dd1649cbc9b097ecdd4f33102",
+          "research/runner.py": "716570e1eebfe8873843566664010baef027ef434075eacc85c07c10d69e62fb",
+          "research/train.py": "40a404c35254f0c6e375ae74fa5bcf2d679641fd33f4118f0510c2f79c626e5d"
+        },
+        "device": "cpu",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T10:55:29.944568+00:00"
+      },
+      "resources": {},
+      "calibration": null
+    },
+    "64ce4410fce8823c": {
+      "config": {
+        "market": "csi300",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "batch_ensemble",
+        "width": 128,
+        "depth": 3,
+        "members": 8,
+        "objective": "mixed",
+        "context": false,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "dropout": 0.1
+      },
+      "completed_at": "2026-10-08T10:58:51.207441+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T10:55:32.156420+00:00",
+        "id": "64ce4410fce8823c",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "fb421fb40327ec0ce8b279f330cbc186a92a65b98c75a77d17619ec3c438d013",
+          "research/protocol.py": "7b2f3ea47c56fb6ea5e8443db5289b3ca5809a9dd1649cbc9b097ecdd4f33102",
+          "research/runner.py": "716570e1eebfe8873843566664010baef027ef434075eacc85c07c10d69e62fb",
+          "research/train.py": "40a404c35254f0c6e375ae74fa5bcf2d679641fd33f4118f0510c2f79c626e5d"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T10:58:51.207729+00:00"
+      },
+      "resources": {},
+      "calibration": null
+    },
+    "69d0d2478dcafdb6": {
+      "config": {
+        "market": "sp500",
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "seed": 0,
+        "purge_days": 5,
+        "sources": [
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "residual",
+            "objective": "mixed",
+            "market": "sp500"
+          }
+        ],
+        "weights": [
+          1.0
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T12:07:44.644265+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:07:07.455380+00:00",
+        "id": "69d0d2478dcafdb6",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "coordinator",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:07:44.644620+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "8f47df4b1ca7a922",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "residual",
+              "objective": "mixed",
+              "market": "sp500"
+            },
+            "prediction_sha256": "b673e7498f0f6a34689248e25394bcca35a451d5df2e10ee9c7a6287442b9189",
+            "model_sha256": {
+              "best.pt": "012071dbd20c7041d2297adaf9b47cfea7c847b11f7fe940bae999ae40094896"
+            }
+          }
+        ],
+        "weights": [
+          1.0
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "6a41363a2d3373ba": {
+      "config": {
+        "market": "csi300",
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "seed": 0,
+        "purge_days": 5,
+        "sources": [
+          {
+            "market": "csi300",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "residual",
+            "width": 128,
+            "depth": 2,
+            "objective": "mixed",
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "dropout": 0.1
+          },
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "residual",
+            "objective": "mixed",
+            "market": "csi300"
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T11:53:53.632539+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T11:53:26.870226+00:00",
+        "id": "6a41363a2d3373ba",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "coordinator",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T11:53:53.633112+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "711e1b2f95fbdce7",
+            "config": {
+              "market": "csi300",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "residual",
+              "width": 128,
+              "depth": 2,
+              "objective": "mixed",
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "dropout": 0.1
+            },
+            "prediction_sha256": "5674501f3b62089961de805cb2e34e307e6884fade8a5872e098a750e01f972a",
+            "model_sha256": {
+              "best.pt": "ee642d99a4e4bb70079fe1e34be10d519a5cb7095ccc618eee02bbe33a389340"
+            }
+          },
+          {
+            "id": "1a1e141b965678eb",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "residual",
+              "objective": "mixed",
+              "market": "csi300"
+            },
+            "prediction_sha256": "e24234dd57bb09a35e0271cfd1353a9e992c2ff03468e121eb37e5d8bf31fea6",
+            "model_sha256": {
+              "best.pt": "93c985770f728fe6c95a0b41936c0bad0709e67bf57c2aa78e344aaf7c87c96a"
+            }
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "70dc3f8c26fe605a": {
+      "config": {
+        "market": "sp500",
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "seed": 0,
+        "purge_days": 5,
+        "sources": [
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "residual",
+            "objective": "mixed",
+            "market": "sp500"
+          }
+        ],
+        "weights": [
+          1.0
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.25,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T12:08:45.127226+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:08:07.806541+00:00",
+        "id": "70dc3f8c26fe605a",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "coordinator",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:08:45.127574+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "8f47df4b1ca7a922",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "residual",
+              "objective": "mixed",
+              "market": "sp500"
+            },
+            "prediction_sha256": "b673e7498f0f6a34689248e25394bcca35a451d5df2e10ee9c7a6287442b9189",
+            "model_sha256": {
+              "best.pt": "012071dbd20c7041d2297adaf9b47cfea7c847b11f7fe940bae999ae40094896"
+            }
+          }
+        ],
+        "weights": [
+          1.0
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.25,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "711e1b2f95fbdce7": {
+      "config": {
+        "market": "csi300",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "residual",
+        "width": 128,
+        "depth": 2,
+        "objective": "mixed",
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "dropout": 0.1
+      },
+      "completed_at": "2026-10-08T10:33:32.579917+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T10:29:51.941039+00:00",
+        "id": "711e1b2f95fbdce7",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/models.py": "9849517ccccad28533ed19ff8648e8d74dc55d9394dbc6b8a2bfacd3a99f6c6c",
+          "research/protocol.py": "7b2f3ea47c56fb6ea5e8443db5289b3ca5809a9dd1649cbc9b097ecdd4f33102",
+          "research/runner.py": "716570e1eebfe8873843566664010baef027ef434075eacc85c07c10d69e62fb",
+          "research/train.py": "30f50334b4d97c6385770ccc0c88a0001977de76785c00c512c1e222902bc7d3"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T10:33:32.580206+00:00"
+      },
+      "resources": {},
+      "calibration": null
+    },
+    "715d492ae79e8e45": {
+      "config": {
+        "market": "sp500",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "ridge",
+        "alpha": 1000.0,
+        "context": false
+      },
+      "completed_at": "2026-10-08T10:19:08.030479+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T10:18:23.218063+00:00",
+        "id": "715d492ae79e8e45",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/models.py": "9849517ccccad28533ed19ff8648e8d74dc55d9394dbc6b8a2bfacd3a99f6c6c",
+          "research/protocol.py": "7b2f3ea47c56fb6ea5e8443db5289b3ca5809a9dd1649cbc9b097ecdd4f33102",
+          "research/runner.py": "716570e1eebfe8873843566664010baef027ef434075eacc85c07c10d69e62fb",
+          "research/train.py": "30f50334b4d97c6385770ccc0c88a0001977de76785c00c512c1e222902bc7d3"
+        },
+        "device": "cpu",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T10:19:08.030783+00:00"
+      },
+      "resources": {},
+      "calibration": null
+    },
+    "73921b00e5b99844": {
+      "config": {
+        "market": "sp500",
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "seed": 0,
+        "purge_days": 5,
+        "sources": [
+          {
+            "market": "sp500",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "lgbm",
+            "objective": "regression",
+            "num_leaves": 31,
+            "min_data_in_leaf": 1000,
+            "context": false
+          },
+          {
+            "market": "sp500",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "batch_ensemble",
+            "width": 128,
+            "depth": 3,
+            "members": 8,
+            "objective": "mixed",
+            "context": false,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "dropout": 0.1
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T12:06:05.997016+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:05:28.949000+00:00",
+        "id": "73921b00e5b99844",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "coordinator",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:06:05.997368+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "de0f82273dd6861c",
+            "config": {
+              "market": "sp500",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "lgbm",
+              "objective": "regression",
+              "num_leaves": 31,
+              "min_data_in_leaf": 1000,
+              "context": false
+            },
+            "prediction_sha256": "bb1e00c041116e68c59269ff9d650f183c9e2c08978bbe929ed1246936a7613e",
+            "model_sha256": {
+              "model.txt": "1452aa79408b5e34561ee312216a5f6be3c4a6f045f0d61e139c51a5608d4970"
+            }
+          },
+          {
+            "id": "3b36a0ceec56f8b9",
+            "config": {
+              "market": "sp500",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "batch_ensemble",
+              "width": 128,
+              "depth": 3,
+              "members": 8,
+              "objective": "mixed",
+              "context": false,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "dropout": 0.1
+            },
+            "prediction_sha256": "fb6b39aff4dffa17f0d168d25c8c555d5bd9a0893ce238b48bc2156984af4fa5",
+            "model_sha256": {
+              "best.pt": "dcbb4f8bcd2a5ef495f32833adf047e61d435d0fad4ca19513da4b8b916d7c4a"
+            }
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "74ed6d7e4a7d4c33": {
+      "config": {
+        "market": "csi300",
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "seed": 0,
+        "purge_days": 5,
+        "sources": [
+          {
+            "market": "csi300",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "residual",
+            "width": 128,
+            "depth": 2,
+            "objective": "mixed",
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "dropout": 0.1
+          },
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "quantile_aware",
+            "encoder": "residual",
+            "objective": "quantile_rank",
+            "risk_penalty": 0.0,
+            "risk_exponent": 0.0,
+            "market": "csi300"
+          }
+        ],
+        "weights": [
+          0.25,
+          0.75
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T12:02:55.646412+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:02:31.991814+00:00",
+        "id": "74ed6d7e4a7d4c33",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "coordinator",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:02:55.646794+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "711e1b2f95fbdce7",
+            "config": {
+              "market": "csi300",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "residual",
+              "width": 128,
+              "depth": 2,
+              "objective": "mixed",
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "dropout": 0.1
+            },
+            "prediction_sha256": "5674501f3b62089961de805cb2e34e307e6884fade8a5872e098a750e01f972a",
+            "model_sha256": {
+              "best.pt": "ee642d99a4e4bb70079fe1e34be10d519a5cb7095ccc618eee02bbe33a389340"
+            }
+          },
+          {
+            "id": "fedbe48c02bb3083",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "quantile_aware",
+              "encoder": "residual",
+              "objective": "quantile_rank",
+              "risk_penalty": 0.0,
+              "risk_exponent": 0.0,
+              "market": "csi300"
+            },
+            "prediction_sha256": "b084cde014ab94f6c7b5d127c70278ff579884381c40b20621ba1fc122a8ca14",
+            "model_sha256": {
+              "best.pt": "ddd05461a4840bc05aecf77fa6af617a985ebc14135140850b2ae6371bbf0c1c"
+            }
+          }
+        ],
+        "weights": [
+          0.25,
+          0.75
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "83903c83b3732dd0": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_excess_standardized",
+        "family": "risk_aware",
+        "encoder": "residual",
+        "objective": "gaussian_nll_rank",
+        "risk_penalty": 0.0,
+        "risk_exponent": 0.0,
+        "market": "sp500"
+      },
+      "completed_at": "2026-10-08T11:43:07.063713+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T11:35:12.690403+00:00",
+        "id": "83903c83b3732dd0",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "7b2f3ea47c56fb6ea5e8443db5289b3ca5809a9dd1649cbc9b097ecdd4f33102",
+          "research/runner.py": "716570e1eebfe8873843566664010baef027ef434075eacc85c07c10d69e62fb",
+          "research/train.py": "861a662b413aa4ccb68c880c06d38a0b6519c34374033f3e928aa0a99301b939"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T11:43:07.064008+00:00"
+      },
+      "resources": {},
+      "calibration": {
+        "interval_80_coverage": 0.7739124165599369,
+        "uncertainty_abs_error_RankIC": 0.20241294632758144
+      },
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.033585798422536894,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 1194829,
+        "test_targets_used": false
+      }
+    },
+    "8c50b0e3431200f3": {
+      "config": {
+        "market": "csi300",
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "seed": 0,
+        "purge_days": 5,
+        "sources": [
+          {
+            "market": "csi300",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "residual",
+            "width": 128,
+            "depth": 2,
+            "objective": "mixed",
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "dropout": 0.1
+          },
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "quantile_aware",
+            "encoder": "residual",
+            "objective": "quantile_rank",
+            "risk_penalty": 0.0,
+            "risk_exponent": 0.0,
+            "market": "csi300"
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T12:03:54.903981+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:03:31.936056+00:00",
+        "id": "8c50b0e3431200f3",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "coordinator",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:03:54.904381+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "711e1b2f95fbdce7",
+            "config": {
+              "market": "csi300",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "residual",
+              "width": 128,
+              "depth": 2,
+              "objective": "mixed",
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "dropout": 0.1
+            },
+            "prediction_sha256": "5674501f3b62089961de805cb2e34e307e6884fade8a5872e098a750e01f972a",
+            "model_sha256": {
+              "best.pt": "ee642d99a4e4bb70079fe1e34be10d519a5cb7095ccc618eee02bbe33a389340"
+            }
+          },
+          {
+            "id": "fedbe48c02bb3083",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "quantile_aware",
+              "encoder": "residual",
+              "objective": "quantile_rank",
+              "risk_penalty": 0.0,
+              "risk_exponent": 0.0,
+              "market": "csi300"
+            },
+            "prediction_sha256": "b084cde014ab94f6c7b5d127c70278ff579884381c40b20621ba1fc122a8ca14",
+            "model_sha256": {
+              "best.pt": "ddd05461a4840bc05aecf77fa6af617a985ebc14135140850b2ae6371bbf0c1c"
+            }
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "8e9b695cea41d99f": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_standardized",
+        "family": "residual",
+        "objective": "mse",
+        "market": "csi300"
+      },
+      "completed_at": "2026-10-08T11:15:51.217214+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T11:12:32.500875+00:00",
+        "id": "8e9b695cea41d99f",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "55de70316a1fbc3c5294d17f339af6a01de0fe851cc7666ff18c989c025b405b",
+          "research/protocol.py": "7b2f3ea47c56fb6ea5e8443db5289b3ca5809a9dd1649cbc9b097ecdd4f33102",
+          "research/runner.py": "716570e1eebfe8873843566664010baef027ef434075eacc85c07c10d69e62fb",
+          "research/train.py": "cb196224737b6db2f5df4624bf1dc7171ea54aa38d90043942d43d723daf0b59"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T11:15:51.217510+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "target_transform.json": {
+        "kind": "raw_standardized",
+        "scale": 0.05283498873742838,
+        "fit_split": "selected purged training dates only",
+        "demeaning": null,
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 840429,
+        "test_targets_used": false
+      }
+    },
+    "8f47df4b1ca7a922": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_excess_standardized",
+        "family": "residual",
+        "objective": "mixed",
+        "market": "sp500"
+      },
+      "completed_at": "2026-10-08T11:30:18.285966+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T11:24:32.492312+00:00",
+        "id": "8f47df4b1ca7a922",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "7b2f3ea47c56fb6ea5e8443db5289b3ca5809a9dd1649cbc9b097ecdd4f33102",
+          "research/runner.py": "716570e1eebfe8873843566664010baef027ef434075eacc85c07c10d69e62fb",
+          "research/train.py": "861a662b413aa4ccb68c880c06d38a0b6519c34374033f3e928aa0a99301b939"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T11:30:18.286252+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.033585798422536894,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 1194829,
+        "test_targets_used": false
+      }
+    },
+    "8fa8024fbe871b7b": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_excess_standardized",
+        "family": "quantile_aware",
+        "encoder": "residual",
+        "objective": "quantile_rank",
+        "risk_penalty": 0.0,
+        "risk_exponent": 0.0,
+        "market": "sp500"
+      },
+      "completed_at": "2026-10-08T11:51:04.767114+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T11:47:12.885525+00:00",
+        "id": "8fa8024fbe871b7b",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "510d07923fe747e0ef0096be3e820d3f341890409993ff4294200c4c40619e2e",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "04f8a6a1854ab352488dcc91f10fd3954f1550c2ebfa1d999b45c3062dce0760",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "17d82dbe64c17789300f4af46a99c0f74bca4772dc1f590c74431bd2799e97c4"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T11:51:04.767410+00:00"
+      },
+      "resources": {},
+      "calibration": {
+        "interval_80_coverage": 0.8149220943349816,
+        "uncertainty_abs_error_RankIC": 0.16732609027637352
+      },
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.033585798422536894,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 1194829,
+        "test_targets_used": false
+      }
+    },
+    "9ae1aa4f2135d981": {
+      "config": {
+        "market": "sp500",
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "seed": 0,
+        "purge_days": 5,
+        "sources": [
+          {
+            "market": "sp500",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "lgbm",
+            "objective": "regression",
+            "num_leaves": 31,
+            "min_data_in_leaf": 1000,
+            "context": false
+          },
+          {
+            "market": "sp500",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "batch_ensemble",
+            "width": 128,
+            "depth": 3,
+            "members": 8,
+            "objective": "mixed",
+            "context": false,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "dropout": 0.1
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T12:06:43.688009+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:06:05.998421+00:00",
+        "id": "9ae1aa4f2135d981",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "coordinator",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:06:43.688375+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "de0f82273dd6861c",
+            "config": {
+              "market": "sp500",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "lgbm",
+              "objective": "regression",
+              "num_leaves": 31,
+              "min_data_in_leaf": 1000,
+              "context": false
+            },
+            "prediction_sha256": "bb1e00c041116e68c59269ff9d650f183c9e2c08978bbe929ed1246936a7613e",
+            "model_sha256": {
+              "model.txt": "1452aa79408b5e34561ee312216a5f6be3c4a6f045f0d61e139c51a5608d4970"
+            }
+          },
+          {
+            "id": "3b36a0ceec56f8b9",
+            "config": {
+              "market": "sp500",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "batch_ensemble",
+              "width": 128,
+              "depth": 3,
+              "members": 8,
+              "objective": "mixed",
+              "context": false,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "dropout": 0.1
+            },
+            "prediction_sha256": "fb6b39aff4dffa17f0d168d25c8c555d5bd9a0893ce238b48bc2156984af4fa5",
+            "model_sha256": {
+              "best.pt": "dcbb4f8bcd2a5ef495f32833adf047e61d435d0fad4ca19513da4b8b916d7c4a"
+            }
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "9cfc24b8a87f4e16": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "family": "risk_overlay",
+        "encoder": "residual",
+        "objective": "mixed",
+        "risk_penalty": 0.1,
+        "market": "sp500",
+        "risk_source": {
+          "seed": 0,
+          "purge_days": 5,
+          "width": 128,
+          "depth": 2,
+          "dropout": 0.1,
+          "context": true,
+          "market_gate": true,
+          "lr": 0.0005,
+          "epochs": 60,
+          "patience": 8,
+          "target_kind": "raw_standardized",
+          "family": "risk_aware",
+          "encoder": "residual",
+          "objective": "gaussian_nll_rank",
+          "risk_penalty": 0.0,
+          "risk_exponent": 0.0,
+          "market": "sp500"
+        }
+      },
+      "completed_at": "2026-10-08T12:21:26.129629+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:15:33.389683+00:00",
+        "id": "9cfc24b8a87f4e16",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:21:26.130004+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "risk_source.json": {
+        "config": {
+          "seed": 0,
+          "purge_days": 5,
+          "width": 128,
+          "depth": 2,
+          "dropout": 0.1,
+          "context": true,
+          "market_gate": true,
+          "lr": 0.0005,
+          "epochs": 60,
+          "patience": 8,
+          "target_kind": "raw_standardized",
+          "family": "risk_aware",
+          "encoder": "residual",
+          "objective": "gaussian_nll_rank",
+          "risk_penalty": 0.0,
+          "risk_exponent": 0.0,
+          "market": "sp500"
+        },
+        "checkpoint_sha256": "87ec919b2692b75d631dc7f1a4bea4a4d499adc27d38d7fff261427264fe001b",
+        "frozen": true,
+        "training": "only the alpha ranker is updated; the risk model retains its source seed"
+      }
+    },
+    "a3fde93ed826fd7a": {
+      "config": {
+        "market": "csi300",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "ridge",
+        "alpha": 1000.0,
+        "context": false
+      },
+      "completed_at": "2026-10-08T10:18:07.581117+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T10:17:43.272959+00:00",
+        "id": "a3fde93ed826fd7a",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/models.py": "9849517ccccad28533ed19ff8648e8d74dc55d9394dbc6b8a2bfacd3a99f6c6c",
+          "research/protocol.py": "7b2f3ea47c56fb6ea5e8443db5289b3ca5809a9dd1649cbc9b097ecdd4f33102",
+          "research/runner.py": "716570e1eebfe8873843566664010baef027ef434075eacc85c07c10d69e62fb",
+          "research/train.py": "30f50334b4d97c6385770ccc0c88a0001977de76785c00c512c1e222902bc7d3"
+        },
+        "device": "cpu",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T10:18:07.581402+00:00"
+      },
+      "resources": {},
+      "calibration": null
+    },
+    "a4288f31a5db73a8": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "family": "risk_overlay",
+        "encoder": "residual",
+        "objective": "mixed",
+        "risk_penalty": 0.0,
+        "market": "sp500",
+        "risk_source": {
+          "seed": 0,
+          "purge_days": 5,
+          "width": 128,
+          "depth": 2,
+          "dropout": 0.1,
+          "context": true,
+          "market_gate": true,
+          "lr": 0.0005,
+          "epochs": 60,
+          "patience": 8,
+          "target_kind": "raw_standardized",
+          "family": "risk_aware",
+          "encoder": "residual",
+          "objective": "gaussian_nll_rank",
+          "risk_penalty": 0.0,
+          "risk_exponent": 0.0,
+          "market": "sp500"
+        }
+      },
+      "completed_at": "2026-10-08T12:11:11.997198+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:04:53.332847+00:00",
+        "id": "a4288f31a5db73a8",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:11:11.997592+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "risk_source.json": {
+        "config": {
+          "seed": 0,
+          "purge_days": 5,
+          "width": 128,
+          "depth": 2,
+          "dropout": 0.1,
+          "context": true,
+          "market_gate": true,
+          "lr": 0.0005,
+          "epochs": 60,
+          "patience": 8,
+          "target_kind": "raw_standardized",
+          "family": "risk_aware",
+          "encoder": "residual",
+          "objective": "gaussian_nll_rank",
+          "risk_penalty": 0.0,
+          "risk_exponent": 0.0,
+          "market": "sp500"
+        },
+        "checkpoint_sha256": "87ec919b2692b75d631dc7f1a4bea4a4d499adc27d38d7fff261427264fe001b",
+        "frozen": true,
+        "training": "only the alpha ranker is updated; the risk model retains its source seed"
+      }
+    },
+    "a7cf5488994265e2": {
+      "config": {
+        "market": "sp500",
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "seed": 0,
+        "purge_days": 5,
+        "sources": [
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "residual",
+            "objective": "mixed",
+            "market": "sp500"
+          },
+          {
+            "market": "sp500",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "batch_ensemble",
+            "width": 128,
+            "depth": 3,
+            "members": 8,
+            "objective": "mixed",
+            "context": false,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "dropout": 0.1
+          }
+        ],
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T12:02:31.990187+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:01:54.762080+00:00",
+        "id": "a7cf5488994265e2",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "coordinator",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:02:31.990591+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "8f47df4b1ca7a922",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "residual",
+              "objective": "mixed",
+              "market": "sp500"
+            },
+            "prediction_sha256": "b673e7498f0f6a34689248e25394bcca35a451d5df2e10ee9c7a6287442b9189",
+            "model_sha256": {
+              "best.pt": "012071dbd20c7041d2297adaf9b47cfea7c847b11f7fe940bae999ae40094896"
+            }
+          },
+          {
+            "id": "3b36a0ceec56f8b9",
+            "config": {
+              "market": "sp500",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "batch_ensemble",
+              "width": 128,
+              "depth": 3,
+              "members": 8,
+              "objective": "mixed",
+              "context": false,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "dropout": 0.1
+            },
+            "prediction_sha256": "fb6b39aff4dffa17f0d168d25c8c555d5bd9a0893ce238b48bc2156984af4fa5",
+            "model_sha256": {
+              "best.pt": "dcbb4f8bcd2a5ef495f32833adf047e61d435d0fad4ca19513da4b8b916d7c4a"
+            }
+          }
+        ],
+        "weights": [
+          0.75,
+          0.25
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "a9b3b636ebca1906": {
+      "config": {
+        "market": "sp500",
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "seed": 0,
+        "purge_days": 5,
+        "sources": [
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "residual",
+            "objective": "mixed",
+            "market": "sp500"
+          },
+          {
+            "market": "sp500",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "batch_ensemble",
+            "width": 128,
+            "depth": 3,
+            "members": 8,
+            "objective": "mixed",
+            "context": false,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "dropout": 0.1
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T12:04:31.355164+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:03:54.905388+00:00",
+        "id": "a9b3b636ebca1906",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "coordinator",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:04:31.355716+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "8f47df4b1ca7a922",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "residual",
+              "objective": "mixed",
+              "market": "sp500"
+            },
+            "prediction_sha256": "b673e7498f0f6a34689248e25394bcca35a451d5df2e10ee9c7a6287442b9189",
+            "model_sha256": {
+              "best.pt": "012071dbd20c7041d2297adaf9b47cfea7c847b11f7fe940bae999ae40094896"
+            }
+          },
+          {
+            "id": "3b36a0ceec56f8b9",
+            "config": {
+              "market": "sp500",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "batch_ensemble",
+              "width": 128,
+              "depth": 3,
+              "members": 8,
+              "objective": "mixed",
+              "context": false,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "dropout": 0.1
+            },
+            "prediction_sha256": "fb6b39aff4dffa17f0d168d25c8c555d5bd9a0893ce238b48bc2156984af4fa5",
+            "model_sha256": {
+              "best.pt": "dcbb4f8bcd2a5ef495f32833adf047e61d435d0fad4ca19513da4b8b916d7c4a"
+            }
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 0.5,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "b29eeb8a239feec0": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_standardized",
+        "family": "risk_aware",
+        "encoder": "residual",
+        "objective": "gaussian_nll_rank",
+        "risk_penalty": 0.0,
+        "risk_exponent": 0.0,
+        "market": "csi300"
+      },
+      "completed_at": "2026-10-08T11:07:00.186907+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T11:02:12.351841+00:00",
+        "id": "b29eeb8a239feec0",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "fb421fb40327ec0ce8b279f330cbc186a92a65b98c75a77d17619ec3c438d013",
+          "research/protocol.py": "7b2f3ea47c56fb6ea5e8443db5289b3ca5809a9dd1649cbc9b097ecdd4f33102",
+          "research/runner.py": "716570e1eebfe8873843566664010baef027ef434075eacc85c07c10d69e62fb",
+          "research/train.py": "40a404c35254f0c6e375ae74fa5bcf2d679641fd33f4118f0510c2f79c626e5d"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T11:07:00.187220+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "target_transform.json": {
+        "kind": "raw_standardized",
+        "scale": 0.05283498873742838,
+        "fit_split": "selected purged training dates only",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 840429,
+        "test_targets_used": false
+      }
+    },
+    "b37a939f8af30e2b": {
+      "config": {
+        "market": "csi300",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "ridge",
+        "alpha": 10000.0,
+        "context": true,
+        "cs_norm": true
+      },
+      "completed_at": "2026-10-08T10:23:15.040950+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T10:22:51.877057+00:00",
+        "id": "b37a939f8af30e2b",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/models.py": "9849517ccccad28533ed19ff8648e8d74dc55d9394dbc6b8a2bfacd3a99f6c6c",
+          "research/protocol.py": "7b2f3ea47c56fb6ea5e8443db5289b3ca5809a9dd1649cbc9b097ecdd4f33102",
+          "research/runner.py": "716570e1eebfe8873843566664010baef027ef434075eacc85c07c10d69e62fb",
+          "research/train.py": "30f50334b4d97c6385770ccc0c88a0001977de76785c00c512c1e222902bc7d3"
+        },
+        "device": "cpu",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T10:23:15.041255+00:00"
+      },
+      "resources": {},
+      "calibration": null
+    },
+    "b6cc27bce8b7277d": {
+      "config": {
+        "market": "csi300",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "lgbm",
+        "objective": "regression",
+        "num_leaves": 31,
+        "min_data_in_leaf": 1000,
+        "context": false
+      },
+      "completed_at": "2026-10-08T10:41:35.745445+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T10:39:32.003244+00:00",
+        "id": "b6cc27bce8b7277d",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/models.py": "9849517ccccad28533ed19ff8648e8d74dc55d9394dbc6b8a2bfacd3a99f6c6c",
+          "research/protocol.py": "7b2f3ea47c56fb6ea5e8443db5289b3ca5809a9dd1649cbc9b097ecdd4f33102",
+          "research/runner.py": "716570e1eebfe8873843566664010baef027ef434075eacc85c07c10d69e62fb",
+          "research/train.py": "30f50334b4d97c6385770ccc0c88a0001977de76785c00c512c1e222902bc7d3"
+        },
+        "device": "cpu",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T10:41:35.745766+00:00"
+      },
+      "resources": {},
+      "calibration": null
+    },
+    "ba9f22f976e3bf65": {
+      "config": {
+        "market": "csi300",
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "seed": 0,
+        "purge_days": 5,
+        "sources": [
+          {
+            "market": "csi300",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "residual",
+            "width": 128,
+            "depth": 2,
+            "objective": "mixed",
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "dropout": 0.1
+          },
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "quantile_aware",
+            "encoder": "residual",
+            "objective": "quantile_rank",
+            "risk_penalty": 0.0,
+            "risk_exponent": 0.0,
+            "market": "csi300"
+          }
+        ],
+        "weights": [
+          0.25,
+          0.75
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T11:59:58.533193+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T11:59:33.455907+00:00",
+        "id": "ba9f22f976e3bf65",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "coordinator",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T11:59:58.533533+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "711e1b2f95fbdce7",
+            "config": {
+              "market": "csi300",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "residual",
+              "width": 128,
+              "depth": 2,
+              "objective": "mixed",
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "dropout": 0.1
+            },
+            "prediction_sha256": "5674501f3b62089961de805cb2e34e307e6884fade8a5872e098a750e01f972a",
+            "model_sha256": {
+              "best.pt": "ee642d99a4e4bb70079fe1e34be10d519a5cb7095ccc618eee02bbe33a389340"
+            }
+          },
+          {
+            "id": "fedbe48c02bb3083",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "quantile_aware",
+              "encoder": "residual",
+              "objective": "quantile_rank",
+              "risk_penalty": 0.0,
+              "risk_exponent": 0.0,
+              "market": "csi300"
+            },
+            "prediction_sha256": "b084cde014ab94f6c7b5d127c70278ff579884381c40b20621ba1fc122a8ca14",
+            "model_sha256": {
+              "best.pt": "ddd05461a4840bc05aecf77fa6af617a985ebc14135140850b2ae6371bbf0c1c"
+            }
+          }
+        ],
+        "weights": [
+          0.25,
+          0.75
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "bb604439756bab6d": {
+      "config": {
+        "market": "csi300",
+        "family": "scores_blend",
+        "objective": "signal_blend",
+        "seed": 0,
+        "purge_days": 5,
+        "sources": [
+          {
+            "market": "csi300",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "residual",
+            "width": 128,
+            "depth": 2,
+            "objective": "mixed",
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "dropout": 0.1
+          },
+          {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 60,
+            "patience": 8,
+            "target_kind": "raw_excess_standardized",
+            "family": "quantile_aware",
+            "encoder": "residual",
+            "objective": "quantile_rank",
+            "risk_penalty": 0.0,
+            "risk_exponent": 0.0,
+            "market": "csi300"
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5
+      },
+      "completed_at": "2026-10-08T12:00:55.224542+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:00:32.682701+00:00",
+        "id": "bb604439756bab6d",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "coordinator",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:00:55.224916+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "components.json": {
+        "sources": [
+          {
+            "id": "711e1b2f95fbdce7",
+            "config": {
+              "market": "csi300",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "residual",
+              "width": 128,
+              "depth": 2,
+              "objective": "mixed",
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "dropout": 0.1
+            },
+            "prediction_sha256": "5674501f3b62089961de805cb2e34e307e6884fade8a5872e098a750e01f972a",
+            "model_sha256": {
+              "best.pt": "ee642d99a4e4bb70079fe1e34be10d519a5cb7095ccc618eee02bbe33a389340"
+            }
+          },
+          {
+            "id": "fedbe48c02bb3083",
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 60,
+              "patience": 8,
+              "target_kind": "raw_excess_standardized",
+              "family": "quantile_aware",
+              "encoder": "residual",
+              "objective": "quantile_rank",
+              "risk_penalty": 0.0,
+              "risk_exponent": 0.0,
+              "market": "csi300"
+            },
+            "prediction_sha256": "b084cde014ab94f6c7b5d127c70278ff579884381c40b20621ba1fc122a8ca14",
+            "model_sha256": {
+              "best.pt": "ddd05461a4840bc05aecf77fa6af617a985ebc14135140850b2ae6371bbf0c1c"
+            }
+          }
+        ],
+        "weights": [
+          0.5,
+          0.5
+        ],
+        "score_norm": "cs_z",
+        "ewm_alpha": 1.0,
+        "max_gap": 5,
+        "selection": "validation only; each component uses the mixture's seed",
+        "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
+      }
+    },
+    "c2decf6b39e2b408": {
+      "config": {
+        "market": "sp500",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "residual",
+        "width": 128,
+        "depth": 2,
+        "objective": "mixed",
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "dropout": 0.1
+      },
+      "completed_at": "2026-10-08T10:39:18.452155+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T10:33:51.945950+00:00",
+        "id": "c2decf6b39e2b408",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/models.py": "9849517ccccad28533ed19ff8648e8d74dc55d9394dbc6b8a2bfacd3a99f6c6c",
+          "research/protocol.py": "7b2f3ea47c56fb6ea5e8443db5289b3ca5809a9dd1649cbc9b097ecdd4f33102",
+          "research/runner.py": "716570e1eebfe8873843566664010baef027ef434075eacc85c07c10d69e62fb",
+          "research/train.py": "30f50334b4d97c6385770ccc0c88a0001977de76785c00c512c1e222902bc7d3"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T10:39:18.452439+00:00"
+      },
+      "resources": {},
+      "calibration": null
+    },
+    "c6007a73b3238c6a": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "family": "risk_overlay",
+        "encoder": "residual",
+        "objective": "mixed",
+        "risk_penalty": 0.2,
+        "market": "sp500",
+        "risk_source": {
+          "seed": 0,
+          "purge_days": 5,
+          "width": 128,
+          "depth": 2,
+          "dropout": 0.1,
+          "context": true,
+          "market_gate": true,
+          "lr": 0.0005,
+          "epochs": 60,
+          "patience": 8,
+          "target_kind": "raw_standardized",
+          "family": "risk_aware",
+          "encoder": "residual",
+          "objective": "gaussian_nll_rank",
+          "risk_penalty": 0.0,
+          "risk_exponent": 0.0,
+          "market": "sp500"
+        }
+      },
+      "completed_at": "2026-10-08T12:32:50.615407+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:25:53.598186+00:00",
+        "id": "c6007a73b3238c6a",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "4f1c5447607b4734594496a6b78966f2f9bdb88d64630689ef08038afc4f965a",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "1461f5fbd6c22e5926d6c44d77ede778dee94c9a4bb5a1ca817215cd2ff2e8b8",
+          "research/train.py": "64c4ffbc448eb0924fbfe7c4652b069722f0b65a73ed47333b7a3a274f1bffae"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:32:50.615766+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 404.402113,
+        "peak_process_rss_mib": 3292.0390625,
+        "gpu_peak_allocated_mib": 1310.71240234375,
+        "gpu_peak_reserved_mib": 1326.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": null,
+      "risk_source.json": {
+        "config": {
+          "seed": 0,
+          "purge_days": 5,
+          "width": 128,
+          "depth": 2,
+          "dropout": 0.1,
+          "context": true,
+          "market_gate": true,
+          "lr": 0.0005,
+          "epochs": 60,
+          "patience": 8,
+          "target_kind": "raw_standardized",
+          "family": "risk_aware",
+          "encoder": "residual",
+          "objective": "gaussian_nll_rank",
+          "risk_penalty": 0.0,
+          "risk_exponent": 0.0,
+          "market": "sp500"
+        },
+        "checkpoint_sha256": "87ec919b2692b75d631dc7f1a4bea4a4d499adc27d38d7fff261427264fe001b",
+        "frozen": true,
+        "training": "only the alpha ranker is updated; the risk model retains its source seed"
+      }
+    },
+    "c65c24317c17492f": {
+      "config": {
+        "market": "sp500",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "temporal_mixer",
+        "width": 128,
+        "depth": 2,
+        "objective": "mixed",
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "dropout": 0.1
+      },
+      "completed_at": "2026-10-08T12:00:21.973284+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T11:55:33.239789+00:00",
+        "id": "c65c24317c17492f",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:00:21.974242+00:00"
+      },
+      "resources": {},
+      "calibration": null
+    },
+    "cacc364bf9b86f56": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_standardized",
+        "family": "risk_aware",
+        "encoder": "residual",
+        "objective": "gaussian_nll_rank",
+        "risk_penalty": 0.0,
+        "risk_exponent": 0.0,
+        "market": "sp500"
+      },
+      "completed_at": "2026-10-08T11:12:29.055478+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T11:07:12.316196+00:00",
+        "id": "cacc364bf9b86f56",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "fb421fb40327ec0ce8b279f330cbc186a92a65b98c75a77d17619ec3c438d013",
+          "research/protocol.py": "7b2f3ea47c56fb6ea5e8443db5289b3ca5809a9dd1649cbc9b097ecdd4f33102",
+          "research/runner.py": "716570e1eebfe8873843566664010baef027ef434075eacc85c07c10d69e62fb",
+          "research/train.py": "40a404c35254f0c6e375ae74fa5bcf2d679641fd33f4118f0510c2f79c626e5d"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T11:12:29.055771+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "target_transform.json": {
+        "kind": "raw_standardized",
+        "scale": 0.04185252839688792,
+        "fit_split": "selected purged training dates only",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 1194829,
+        "test_targets_used": false
+      }
+    },
+    "cd384ef67496e071": {
+      "config": {
+        "market": "sp500",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "ridge",
+        "alpha": 10000.0,
+        "context": true,
+        "cs_norm": true
+      },
+      "completed_at": "2026-10-08T10:24:09.180930+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T10:23:31.853119+00:00",
+        "id": "cd384ef67496e071",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/models.py": "9849517ccccad28533ed19ff8648e8d74dc55d9394dbc6b8a2bfacd3a99f6c6c",
+          "research/protocol.py": "7b2f3ea47c56fb6ea5e8443db5289b3ca5809a9dd1649cbc9b097ecdd4f33102",
+          "research/runner.py": "716570e1eebfe8873843566664010baef027ef434075eacc85c07c10d69e62fb",
+          "research/train.py": "30f50334b4d97c6385770ccc0c88a0001977de76785c00c512c1e222902bc7d3"
+        },
+        "device": "cpu",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T10:24:09.181221+00:00"
+      },
+      "resources": {},
+      "calibration": null
+    },
+    "cf390a83f12e76fb": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "family": "risk_overlay",
+        "encoder": "residual",
+        "objective": "mixed",
+        "risk_penalty": 0.0,
+        "market": "csi300",
+        "risk_source": {
+          "seed": 0,
+          "purge_days": 5,
+          "width": 128,
+          "depth": 2,
+          "dropout": 0.1,
+          "context": true,
+          "market_gate": true,
+          "lr": 0.0005,
+          "epochs": 60,
+          "patience": 8,
+          "target_kind": "raw_standardized",
+          "family": "risk_aware",
+          "encoder": "residual",
+          "objective": "gaussian_nll_rank",
+          "risk_penalty": 0.0,
+          "risk_exponent": 0.0,
+          "market": "csi300"
+        }
+      },
+      "completed_at": "2026-10-08T12:04:42.035877+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:00:33.160178+00:00",
+        "id": "cf390a83f12e76fb",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "15975511dd300f9fe5266e6ab943948eb05d58b435fd1afa46455b3f9b359241",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "8a82377359cf65a28fdd5b93223d4e47bb2b9ae8874c6a6f1321c5b3a577d024",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "8dd726d5f66dfaa481ef346e332becea4ad3885c55117dcc5cb874065e9d97ae"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:04:42.036217+00:00"
+      },
+      "resources": {},
+      "calibration": null,
+      "risk_source.json": {
+        "config": {
+          "seed": 0,
+          "purge_days": 5,
+          "width": 128,
+          "depth": 2,
+          "dropout": 0.1,
+          "context": true,
+          "market_gate": true,
+          "lr": 0.0005,
+          "epochs": 60,
+          "patience": 8,
+          "target_kind": "raw_standardized",
+          "family": "risk_aware",
+          "encoder": "residual",
+          "objective": "gaussian_nll_rank",
+          "risk_penalty": 0.0,
+          "risk_exponent": 0.0,
+          "market": "csi300"
+        },
+        "checkpoint_sha256": "4aa9fc135542c66b6f637576c4fc717ecf0762f27fb944adc618e901944754a3",
+        "frozen": true,
+        "training": "only the alpha ranker is updated; the risk model retains its source seed"
+      }
+    },
+    "d07e9637900f4db3": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_excess_standardized",
+        "family": "quantile_aware",
+        "encoder": "residual",
+        "objective": "quantile_rank",
+        "risk_penalty": 0.25,
+        "risk_exponent": 0.0,
+        "market": "csi300"
+      },
+      "completed_at": "2026-10-08T12:37:17.392691+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:32:53.812473+00:00",
+        "id": "d07e9637900f4db3",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "a0c6de92bf050e54519292605f5bfe2e6231cef8aa69b651f668c614cc1d159b",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "4f1c5447607b4734594496a6b78966f2f9bdb88d64630689ef08038afc4f965a",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "56dd1266b0af2206952804732b03aeec334b3e3bb0a08de8a58dab0f38cde07c",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "1461f5fbd6c22e5926d6c44d77ede778dee94c9a4bb5a1ca817215cd2ff2e8b8",
+          "research/train.py": "64c4ffbc448eb0924fbfe7c4652b069722f0b65a73ed47333b7a3a274f1bffae"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:37:17.392994+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 258.01864500000005,
+        "peak_process_rss_mib": 3016.890625,
+        "gpu_peak_allocated_mib": 907.71044921875,
+        "gpu_peak_reserved_mib": 922.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": {
+        "interval_80_coverage": 0.6954710472507755,
+        "uncertainty_abs_error_RankIC": 0.30194569451271325
+      },
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.04048788682162931,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 840429,
+        "test_targets_used": false
+      }
+    },
+    "de0f82273dd6861c": {
+      "config": {
+        "market": "sp500",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "lgbm",
+        "objective": "regression",
+        "num_leaves": 31,
+        "min_data_in_leaf": 1000,
+        "context": false
+      },
+      "completed_at": "2026-10-08T10:43:29.532082+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T10:41:52.026974+00:00",
+        "id": "de0f82273dd6861c",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "9849517ccccad28533ed19ff8648e8d74dc55d9394dbc6b8a2bfacd3a99f6c6c",
+          "research/protocol.py": "7b2f3ea47c56fb6ea5e8443db5289b3ca5809a9dd1649cbc9b097ecdd4f33102",
+          "research/runner.py": "716570e1eebfe8873843566664010baef027ef434075eacc85c07c10d69e62fb",
+          "research/train.py": "30f50334b4d97c6385770ccc0c88a0001977de76785c00c512c1e222902bc7d3"
+        },
+        "device": "cpu",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T10:43:29.532463+00:00"
+      },
+      "resources": {},
+      "calibration": null
+    },
+    "ecd08f9cae98598b": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_excess_standardized",
+        "family": "risk_aware",
+        "encoder": "residual",
+        "objective": "gaussian_nll_rank",
+        "risk_penalty": 0.0,
+        "risk_exponent": 0.0,
+        "market": "csi300"
+      },
+      "completed_at": "2026-10-08T11:35:08.533417+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T11:30:32.618531+00:00",
+        "id": "ecd08f9cae98598b",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "7b2f3ea47c56fb6ea5e8443db5289b3ca5809a9dd1649cbc9b097ecdd4f33102",
+          "research/runner.py": "716570e1eebfe8873843566664010baef027ef434075eacc85c07c10d69e62fb",
+          "research/train.py": "861a662b413aa4ccb68c880c06d38a0b6519c34374033f3e928aa0a99301b939"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T11:35:08.533711+00:00"
+      },
+      "resources": {},
+      "calibration": {
+        "interval_80_coverage": 0.8045985005494276,
+        "uncertainty_abs_error_RankIC": 0.3106467747946713
+      },
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.04048788682162931,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 840429,
+        "test_targets_used": false
+      }
+    },
+    "f19d25fbade03166": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_excess_standardized",
+        "family": "risk_aware",
+        "encoder": "residual",
+        "objective": "gaussian_nll_rank",
+        "risk_penalty": 0.25,
+        "risk_exponent": 0.0,
+        "market": "sp500"
+      },
+      "completed_at": "2026-10-08T12:51:53.843229+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:48:14.105052+00:00",
+        "id": "f19d25fbade03166",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "4f1c5447607b4734594496a6b78966f2f9bdb88d64630689ef08038afc4f965a",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "77d69212c7014b1962bd429f42e4461125cf17ff432196ebfccd0e5bc1561031",
+          "research/train.py": "778a6cfab66e7ee233e506d3b4a6a05fa575dfe29aa16a6e5a3975e78a51c358"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:51:53.843595+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 208.65823000000003,
+        "peak_process_rss_mib": 3351.16015625,
+        "gpu_peak_allocated_mib": 1309.95166015625,
+        "gpu_peak_reserved_mib": 1326.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": {
+        "interval_80_coverage": 0.8265040415949245,
+        "uncertainty_abs_error_RankIC": 0.19610268937150097
+      },
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.033585798422536894,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 1194829,
+        "test_targets_used": false
+      }
+    },
+    "fedbe48c02bb3083": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_excess_standardized",
+        "family": "quantile_aware",
+        "encoder": "residual",
+        "objective": "quantile_rank",
+        "risk_penalty": 0.0,
+        "risk_exponent": 0.0,
+        "market": "csi300"
+      },
+      "completed_at": "2026-10-08T11:47:06.999530+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T11:43:12.748275+00:00",
+        "id": "fedbe48c02bb3083",
+        "code": {
+          "research/__init__.py": "a57fe86a950a3c42e9553b9d75b41c9772b98cc16a5db5c33747e98250016131",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "0f20bed424e37dd6462a34030d59a1dd20dde2b0f9e745769f6cdd2ced173922",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "510d07923fe747e0ef0096be3e820d3f341890409993ff4294200c4c40619e2e",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "716570e1eebfe8873843566664010baef027ef434075eacc85c07c10d69e62fb",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/train.py": "bd9ad747a116aa35689d91cbd9c4335f5d4953853adc521e7cf2d2843c22ac28"
+        },
+        "device": "cuda",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T11:47:06.999826+00:00"
+      },
+      "resources": {},
+      "calibration": {
+        "interval_80_coverage": 0.7359548217489881,
+        "uncertainty_abs_error_RankIC": 0.30684643366968106
+      },
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.04048788682162931,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 840429,
+        "test_targets_used": false
+      }
+    }
+  },
+  "scope": "completed full validation runs only; all smoke runs excluded; no new-model test metrics",
+  "resource_note": "older runs record duration/device only; new peak-memory counters are process-lifetime peaks"
+}
