@@ -1,0 +1,32 @@
+[submodule "kbs-exp"]
+	path = kbs-exp
+	url = git@github.com:nbcctwya/kbs-exp.git
+	branch = main
+[submodule "references/baseline_code/AlphaMaster"]
+	path = references/baseline_code/AlphaMaster
+	url = git@github.com:nbcctwya/AlphaMaster.git
+	branch = main
+[submodule "references/baseline_code/FactorVAE"]
+	path = references/baseline_code/FactorVAE
+	url = git@github.com:nbcctwya/FactorVAE.git
+	branch = main
+[submodule "references/baseline_code/FactorVQVAE"]
+	path = references/baseline_code/FactorVQVAE
+	url = git@github.com:nbcctwya/FactorVQVAE.git
+	branch = main
+[submodule "references/baseline_code/MATCC"]
+	path = references/baseline_code/MATCC
+	url = git@github.com:nbcctwya/MATCC.git
+	branch = master
+[submodule "references/baseline_code/PRISM-VQ"]
+	path = references/baseline_code/PRISM-VQ
+	url = git@github.com:nbcctwya/PRISM-VQ.git
+	branch = main
+[submodule "references/baseline_code/qlib-baselines"]
+	path = references/baseline_code/qlib-baselines
+	url = git@github.com:nbcctwya/qlib-baselines.git
+	branch = main
+[submodule "references/baseline_results"]
+	path = references/baseline_results
+	url = git@github.com:nbcctwya/baseline_results.git
+	branch = main

@@ -1,0 +1,14 @@
+# Local agent and cloud configuration
+/.agents/
+/.aws/
+/.codex/
+
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+/.venv/
+
+# Download metadata and operating-system files
+*:Zone.Identifier
+.DS_Store
+Thumbs.db
