@@ -99,6 +99,53 @@ class IntegrityTests(unittest.TestCase):
             after = prediction_scores(model(stock,context))
         torch.testing.assert_close(before,after)
 
+    def test_quantiles_are_ordered_and_all_forecast_heads_receive_gradients(self):
+        torch.manual_seed(12)
+        model = make_model({"family":"quantile_aware","width":32,"depth":1,"dropout":0.0,
+                            "context":True,"risk_penalty":0.25})
+        predictions = model(torch.randn(20,1,158),torch.randn(20,76))
+        quantiles = predictions["quantiles"]
+        self.assertTrue((quantiles[:,0]<quantiles[:,1]).all())
+        self.assertTrue((quantiles[:,1]<quantiles[:,2]).all())
+        loss = rank_loss(predictions,torch.linspace(-2,2,20),"quantile_rank")
+        loss.backward()
+        gradient = model.output[-1].weight.grad
+        self.assertTrue(torch.isfinite(loss))
+        self.assertTrue(torch.isfinite(gradient).all())
+        self.assertTrue((gradient.abs().sum(1)>0).all())
+
+    def test_excess_target_removes_daily_market_component_using_training_rows(self):
+        from research.train import standardized_return_targets
+        index = pd.MultiIndex.from_product([pd.date_range("2020-01-01",periods=2),["AAA","BBB","CCC"]],
+                                           names=["datetime","instrument"])
+        returns = np.array([-0.03,0.01,0.02,-0.04,0.01,0.03])
+        targets,scale = standardized_return_targets(returns,index,"raw_excess_standardized")
+        shifted,new_scale = standardized_return_targets(returns+np.repeat([0.15,-0.2],3),index,
+                                                        "raw_excess_standardized")
+        np.testing.assert_allclose(shifted,targets,atol=1e-6)
+        self.assertAlmostEqual(scale,new_scale,places=12)
+        np.testing.assert_allclose(pd.Series(targets,index=index).groupby(level="datetime").mean(),0,atol=1e-6)
+
+    def test_risk_overlay_freezes_variance_source_in_training(self):
+        source = {"market":"csi300","family":"risk_aware","width":32,"depth":1,
+                  "seed":0,"dropout":0.5,"context":True}
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            path = root/"trials"/config_id(source)/"best.pt"
+            path.parent.mkdir(parents=True)
+            torch.save({"model":make_model(source).state_dict(),"config":source},path)
+            with patch("research.models.ARTIFACTS",root):
+                model = make_model({"market":"csi300","family":"risk_overlay","width":32,"depth":1,
+                                    "dropout":0.1,"context":True,"risk_source":source,"risk_penalty":0.1})
+            model.train()
+            self.assertTrue(model.alpha.training)
+            self.assertFalse(model.risk_model.training)
+            stock,context = torch.randn(20,1,158),torch.randn(20,76)
+            loss = rank_loss(model(stock,context),torch.linspace(-2,2,20),"mixed")
+            loss.backward()
+            self.assertTrue(any(p.grad is not None for p in model.alpha.parameters()))
+            self.assertTrue(all(not p.requires_grad and p.grad is None for p in model.risk_model.parameters()))
+
     def test_interrupted_trial_is_queued_for_resume_and_completed_trial_is_not(self):
         from research.runner import recover_interrupted
         with tempfile.TemporaryDirectory() as temporary:

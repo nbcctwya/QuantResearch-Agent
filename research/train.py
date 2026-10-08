@@ -13,7 +13,7 @@ import pandas as pd
 import torch
 
 from . import ARTIFACTS
-from .common import code_fingerprint, config_id, now, write_json
+from .common import code_fingerprint, config_id, digest_file, now, write_json
 from .data import DailyData
 from .models import make_model, rank_loss, prediction_scores, uses_temporal_data
 from .protocol import evaluate_predictions, prediction_metrics, raw_labels
@@ -48,6 +48,22 @@ def validation_score(frame):
     return score, metrics
 
 
+def standardized_return_targets(returns, index, kind):
+    """Fit the target scale on the supplied training rows, optionally demean each date."""
+    returns = np.asarray(returns,dtype=np.float64)
+    if len(returns) != len(index) or not np.isfinite(returns).all():
+        raise ValueError("Invalid selected raw training targets")
+    if kind == "raw_excess_standardized":
+        daily_mean = pd.Series(returns,index=index).groupby(level="datetime").transform("mean")
+        returns = returns-daily_mean.to_numpy()
+    elif kind != "raw_standardized":
+        raise ValueError(f"Unknown raw return target: {kind}")
+    scale = float(returns.std(ddof=1))
+    if scale <= 0 or not np.isfinite(scale):
+        raise ValueError("Degenerate training target scale")
+    return np.clip(returns.astype(np.float32)/scale,-8,8).astype(np.float32),scale
+
+
 def neural_predict(model, data, amp):
     model.eval()
     result = []
@@ -69,18 +85,18 @@ def train_neural(config, destination):
     train = DailyData(config["market"], "train", train_start=config.get("train_start"),
                       limit_days=config.get("smoke_train_days"), **common)
     valid = DailyData(config["market"], "valid", limit_days=config.get("smoke_valid_days"), **common)
-    if config["family"] == "risk_aware" or config.get("target_kind") == "raw_standardized":
+    target_kind = config.get("target_kind")
+    if config["family"] in ("risk_aware","quantile_aware") and target_kind is None:
+        target_kind = "raw_standardized"
+    if target_kind in ("raw_standardized","raw_excess_standardized"):
         selected = train.selected_positions()
         returns = raw_labels(config["market"],train.index[selected]).to_numpy(dtype=np.float32)
-        if not np.isfinite(returns).all():
-            raise ValueError("Non-finite selected raw training targets")
-        scale = float(returns.astype(np.float64).std(ddof=1))
-        if scale <= 0 or not np.isfinite(scale):
-            raise ValueError("Degenerate training target scale")
+        targets,scale = standardized_return_targets(returns,train.index[selected],target_kind)
         train.labels = np.full(len(train.labels),np.nan,dtype=np.float32)
-        train.labels[selected] = np.clip(returns/scale,-8,8)
+        train.labels[selected] = targets
         write_json(destination/"target_transform.json",{
-            "kind":"raw_standardized","scale":scale,"fit_split":"selected purged training dates only",
+            "kind":target_kind,"scale":scale,"fit_split":"selected purged training dates only",
+            "demeaning":"selected training cross-section per date" if target_kind == "raw_excess_standardized" else None,
             "clipping":[-8,8],"train_samples":len(selected),"test_targets_used":False})
     free_bytes, _ = torch.cuda.mem_get_info()
     budget = int(free_bytes*0.7)
@@ -89,6 +105,11 @@ def train_neural(config, destination):
     positions = valid.selected_positions()
     valid_labels = raw_labels(config["market"], valid.index[positions])
     model = make_model(config).cuda()
+    if config["family"] == "risk_overlay":
+        source_path = ARTIFACTS/"trials"/config_id(config["risk_source"])/"best.pt"
+        write_json(destination/"risk_source.json",{"config":config["risk_source"],
+                   "checkpoint_sha256":digest_file(source_path),"frozen":True,
+                   "training":"only the alpha ranker is updated; the risk model retains its source seed"})
     optimizer = torch.optim.AdamW(model.parameters(), lr=config.get("lr", 0.0005),
                                   weight_decay=config.get("weight_decay", 0.0001))
     epochs = config.get("epochs", 60)
@@ -293,9 +314,15 @@ def main():
                                   "smoke":bool(config.get("smoke_train_days") or config.get("smoke_valid_days"))})
     frame = train_flat(config,args.out) if config["family"] in ("ridge","lgbm") else train_neural(config,args.out)
     metrics = evaluate_predictions(frame,config["market"],args.out/"valid",backtest=not config.get("skip_backtest",False))
+    calibration = None
+    if config["family"] in ("risk_aware","quantile_aware"):
+        from .diagnostics import diagnose
+        diagnosis = diagnose(args.out,args.out/"valid/calibration")
+        calibration = {key:diagnosis[key] for key in ["interval_80_coverage","uncertainty_abs_error_RankIC"]}
     score,_ = validation_score(frame)
     write_json(args.out/"result.json", {"status":"complete","completed_at":now(),"seconds":time.monotonic()-started,
                                      "config":config,"selection_score":score,"validation":metrics,
+                                     "calibration":calibration,
                                      "smoke":bool(config.get("smoke_train_days") or config.get("smoke_valid_days"))})
     run_metadata = json.loads((args.out/"run.json").read_text())
     run_metadata.update(status="complete",completed_at=now())

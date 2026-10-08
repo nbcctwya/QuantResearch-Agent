@@ -19,7 +19,7 @@ worker 需要正常访问 CUDA。当前操作系统的受限沙箱会阻止 GPU�
 - 原划分：train 2009–2020、valid 2021–2022、test 2023–2025；标签为 `Ref($close,-5)/Ref($close,-1)-1`。
 - 缓存逐窗口对齐现有 Qlib sampler，按日期和股票排序；信息输入与第 234 列未来标签分别存储。新模型直接使用 Alpha158、已有的 13 维 JKP 和 63 维市场信息。
 - 训练和验证选模默认剔除各自末尾 5 个交易日，防止目标越过划分边界。测试数据、信号日期和股票覆盖保留原口径。这是公开记录的训练过滤差异；并不表示修复了原 sampler 的全部因果性问题。原来的 `learn` 历史行依赖 DropnaLabel，JKP 的历史修订/发布时间也未独立核验。
-- 排序指标直接调用固定 `AlphaMaster` 子模块中的 `evaluation_metrics.py`，不另写公式。验证集从 Qlib 获取原始收益标签；训练目标仍使用 CSRankNorm。
+- 排序指标直接调用固定 `AlphaMaster` 子模块中的 `evaluation_metrics.py`，不另写公式。验证集从 Qlib 获取原始收益标签；训练目标默认使用 CSRankNorm，原始收益及截面超额收益目标是明确记录的实验变量。
 - 回测直接调用固定 `FactorVAE` 子模块的 `run_standard_backtest`：Qlib TopkDropoutStrategy、K=30、N=5、risk_degree=0.95、收盘成交、买入 0.0005、卖出 0.0015、min_cost=0；使用各市场原 region、benchmark 和涨跌停设置。
 - 扣费只执行一次 `report.return - report.cost`；AR/STD/MDD/Sharpe/Sortino/Calmar 使用 baseline 的 log1p 收益与 252 日年化，ICIR 不年化。每次保存代码哈希和 Qlib 实际版本（当前环境 0.9.7；MASTER 原运行环境记录为 0.9.3.99）。
 - 五种子预测必须覆盖相同索引，再以 `avg_none` 平均原始分数，重新计算排序指标并重新回测；不平均种子指标冒充 ensemble。
@@ -36,6 +36,14 @@ worker 需要正常访问 CUDA。当前操作系统的受限沙箱会阻止 GPU�
 来源：[表格残差网络研究](https://arxiv.org/abs/2106.11959)、[TabM 论文](https://arxiv.org/abs/2410.24210)、[TabM 官方实现](https://github.com/yandex-research/tabm)、[LightGBM 排序目标文档](https://lightgbm.readthedocs.io/en/stable/Parameters.html)、[TimeMixer 官方实现](https://github.com/kwuking/TimeMixer)，以及 `references/papers` 中的 MASTER、FactorVAE、TimeMixer 等论文总结。这里的 BatchEnsemble、时序混合和因子聚合是适配股票任务的实验方案，不宣称完整复现论文模型。
 
 新增风险感知路线：同时预测 5 日收益均值与条件方差，使用 Gaussian NLL 和排序损失联合训练，再比较均值排序、收益/标准差排序及均值减风险惩罚排序。该方案借鉴 [输入相关不确定性研究](https://arxiv.org/abs/1703.04977)，在本任务中的效用需要实验验证。其原始收益训练标签仅取已剔除边界日的训练期，标准差只在这些训练样本上拟合，再截断到 ±8 倍尺度；验证/测试指标仍使用原始收益、原 baseline 公式和策略。预测函数不读取标签，测试阶段不重新拟合尺度。
+
+进一步的对照包括：
+
+- `raw_excess_standardized`：仅对训练日期的真实收益减去当日训练股票截面均值，再拟合训练标准差；预测时不需要当日未来收益或截面真实均值。
+- `quantile_aware`：联合预测收益均值和有序的 10%/50%/90% 分位数，用 MSE、pinball loss 和排序损失训练；评分比较均值与下行分位数惩罚。参考 [金融收益条件分位数研究](https://arxiv.org/abs/1308.4276) 和 [神经网络分位数风险学习](https://arxiv.org/abs/2209.06476)，这些来源不构成本股票排序任务有效性的证据。
+- `risk_overlay`：收益排序网络按原排序目标训练；验证/测试评分时减去冻结波动模型预测的截面标准化 log variance。冻结来源是同一市场、训练期拟合并按验证集选出的风险模型；其配置和 checkpoint 哈希另存记录。五种子确认改变收益网络的随机种子，冻结风险来源保留原种子，报告必须保留这一差异。
+
+`python -m research.diagnostics --trained research/artifacts/trials/<id>` 只读取剔除边界日的验证集，检查风险预测与绝对误差的日均 RankIC、预测风险分档、80% 区间覆盖率和年份稳定性。新风险/分位数 trial 也会自动保存 `valid/calibration/` 诊断。诊断使用 CPU float32，正式排序与回测仍使用对应 trial 保存的预测；不以诊断分数替换正式预测。超额收益诊断中的真实截面均值只用于定义已实现的验证目标，不参与模型预测。
 
 checkpoint 仅按验证 RankIC 与年份稳定性选择。整个方法的晋级按验证排序、扣费 AR 和 Sharpe 的百分位排序组合，权重 0.5/0.25/0.25。搜索结束后先写 `selection_lock.json` 冻结方案，再确认 5 个种子并打开测试集。搜索过程不读取新模型的测试表现。
 

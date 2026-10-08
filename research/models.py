@@ -5,6 +5,9 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
+from . import ARTIFACTS
+from .common import config_id
+
 
 class ResidualBlock(nn.Module):
     def __init__(self, width, dropout):
@@ -106,6 +109,59 @@ class RiskAwareRanker(StockRanker):
         return {"mean":mean,"log_variance":log_variance,"score":score}
 
 
+class QuantileAwareRanker(StockRanker):
+    """Fit a mean and ordered return quantiles to penalize predicted downside."""
+    def __init__(self, config):
+        super().__init__({**config,"family":config.get("encoder","residual")})
+        self.output = nn.Sequential(nn.LayerNorm(config.get("width",128)),nn.Linear(config.get("width",128),4))
+        self.risk_penalty = config.get("risk_penalty",0.0)
+        self.risk_exponent = config.get("risk_exponent",0.0)
+
+    def forward(self, stock, context):
+        output = super().forward(stock,context).float()
+        mean, median = output[:,0], output[:,1]
+        lower = median-F.softplus(output[:,2])
+        upper = median+F.softplus(output[:,3])
+        quantiles = torch.stack([lower,median,upper],dim=1)
+        downside = (mean-lower).clamp_min(0.0)
+        width = (upper-lower).clamp_min(0.05)
+        score = mean/width.pow(self.risk_exponent)-self.risk_penalty*downside
+        return {"mean":mean,"quantiles":quantiles,"score":score}
+
+
+class RiskOverlayRanker(nn.Module):
+    """Train an alpha ranker and apply a frozen variance penalty when scoring."""
+    def __init__(self, config):
+        super().__init__()
+        self.alpha = StockRanker({**config,"family":config.get("encoder","residual")})
+        source = config["risk_source"]
+        if source["market"] != config["market"] or source["family"] != "risk_aware":
+            raise ValueError("Risk overlay requires a same-market conditional variance source")
+        source_path = ARTIFACTS/"trials"/config_id(source)/"best.pt"
+        checkpoint = torch.load(source_path,map_location="cpu",weights_only=False)
+        if checkpoint["config"] != source:
+            raise ValueError("Frozen risk source configuration mismatch")
+        self.risk_model = RiskAwareRanker(source)
+        self.risk_model.load_state_dict(checkpoint["model"])
+        self.risk_model.requires_grad_(False)
+        self.risk_model.eval()
+        self.risk_penalty = config.get("risk_penalty",0.1)
+
+    def train(self, mode=True):
+        super().train(mode)
+        self.risk_model.eval()
+        return self
+
+    def forward(self, stock, context):
+        alpha = self.alpha(stock,context).float()
+        if self.training:
+            return alpha
+        with torch.no_grad():
+            log_variance = self.risk_model(stock,context)["log_variance"]
+            standardized_risk = (log_variance-log_variance.mean())/log_variance.std(correction=0).clamp_min(0.1)
+        return alpha-self.risk_penalty*standardized_risk
+
+
 class BatchEnsembleRanker(nn.Module):
     """BatchEnsemble adaptation inspired by TabM, not an exact paper reproduction."""
     def __init__(self, config):
@@ -146,6 +202,10 @@ class MasterControl(nn.Module):
 def make_model(config):
     if config["family"] == "risk_aware":
         return RiskAwareRanker(config)
+    if config["family"] == "quantile_aware":
+        return QuantileAwareRanker(config)
+    if config["family"] == "risk_overlay":
+        return RiskOverlayRanker(config)
     if config["family"] == "batch_ensemble":
         return BatchEnsembleRanker(config)
     if config["family"] == "master_control":
@@ -156,8 +216,10 @@ def make_model(config):
 
 
 def uses_temporal_data(config):
+    if config["family"] == "risk_overlay":
+        return config.get("encoder","residual") == "temporal_mixer" or uses_temporal_data(config["risk_source"])
     return config["family"] in ("temporal_mixer","master_control") or (
-        config["family"] == "risk_aware" and config.get("encoder","residual") == "temporal_mixer")
+        config["family"] in ("risk_aware","quantile_aware") and config.get("encoder","residual") == "temporal_mixer")
 
 
 def prediction_scores(predictions):
@@ -169,6 +231,15 @@ def prediction_scores(predictions):
 
 def rank_loss(predictions, labels, objective):
     if isinstance(predictions,dict):
+        if "quantiles" in predictions:
+            error = labels[:,None]-predictions["quantiles"]
+            levels = error.new_tensor([0.1,0.5,0.9])
+            pinball = torch.maximum(levels*error,(levels-1)*error).mean()
+            mse = F.mse_loss(predictions["mean"],labels)
+            if objective == "quantile":
+                return 0.4*mse+0.6*pinball
+            ranking_objective = "corr" if objective == "quantile_rank" else objective
+            return 0.3*mse+0.4*pinball+0.3*rank_loss(predictions["score"],labels,ranking_objective)
         nll = F.gaussian_nll_loss(predictions["mean"],labels,torch.exp(predictions["log_variance"]))
         if objective == "gaussian_nll":
             return nll
