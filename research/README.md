@@ -85,6 +85,10 @@ PLE 默认从当前已剔除边界日、已应用训练历史范围的训练行�
 
 这里的预测分散度只是待验证的机会代理，不代表已经证明的信号质量。统计拟合只访问冻结模型的训练期特征预测，恢复、验证和测试不重新拟合。`alpha_opportunity.json` 保存真实收益来源种子、checkpoint 哈希、训练日期和统计量哈希；`valid/alpha_opportunity/` 记录每日乘数、总惩罚及年份均值。所有方案仍用原 Top30 回测、持仓比例和费用计算十项指标。
 
+`historical_risk` 检验历史价格风险能否改善同一收益信号的组合表现。固定使用过去 120 个交易日、至少 60 个股票与市场共同有效的日收益，带截距 OLS 估计市场 beta，并计算总波动率及回归残差波动率；只用截至预测当天的收盘价，不填充缺失价格。非零惩罚时按日标准化 alpha，并减去标准化风险；波动率先取 log，风险 z-score 截断为 ±3，不足历史的股票惩罚为零，保留原预测覆盖。两个市场各比较三类风险、0.25/0.5/1.0 惩罚和零惩罚，共 20 组；零惩罚精确保留原分数和 dtype。收益来源跟随模型种子，价格风险估计在种子间共用；最终多种子集成仍按原 `avg_none` 计算。
+
+这一路线参考 [Frazzini 与 Pedersen 的 Betting Against Beta 原论文](https://pages.stern.nyu.edu/~afrazzin/pdf/Betting%20Against%20Beta%20-%20Frazzini%20and%20Pedersen.pdf) 的风险研究，并遵循所提供 [Fama–French 总结](../references/papers/finance/Fama_French_1992_Cross_Section_Expected_Stock_Returns.md) 对全样本 beta 的时间边界提醒。原 BAB 策略包含杠杆和卖空，本地只检验 baseline 多头 Top30 中的评分惩罚；不将论文结果当作本任务收益保证。`components.json` 保存收益 checkpoint、价格缓存及其哈希；缓存包括实际价格、回归特征和时间范围。测试价格查询和收益推断均要求冻结选择及源码锁，选中的组合可以递归核验其历史风险组件。
+
 `python -m research.diagnostics --trained research/artifacts/trials/<id>` 只读取剔除边界日的验证集，检查风险预测与绝对误差的日均 RankIC、预测风险分档、80% 区间覆盖率和年份稳定性。新风险/分位数 trial 也会自动保存 `valid/calibration/` 诊断。诊断使用 CPU float32，正式排序与回测仍使用对应 trial 保存的预测；不以诊断分数替换正式预测。超额收益诊断中的真实截面均值只用于定义已实现的验证目标，不参与模型预测。
 
 `scores_blend` 将同市场模型的预测按固定权重组合，比较原始分数、当日截面 z-score 和截面排名归一化。组件配置、权重、归一化方式、平滑系数和模型哈希都写入实验配置/`components.json`。五种子确认会为每个组件设置对应的组合种子，训练缺失组件并复用已完成的组件；每个种子的组合分数仍按 `avg_none` 平均并重新回测。
@@ -119,13 +123,19 @@ worker 使用文件锁，避免重复占用算力。神经网络每轮保存可�
 
 长窗口方案通过 66 项 CPU 检查、四个双市场 16/32 天 GPU 案例及精确中断恢复；两个已训练的 8 天模型在各市场五个验证日上给出完全相同的修改前后预测。冻结混合风险模型的双市场零惩罚复算保留完整收益预测，十项 baseline 指标最大差异为 `3.11e-15`。12 组历史长度/数值编码对照和 12 组冻结风险分量/状态评分对照按相同验证规则运行。
 
-EMA 实现通过 72 项 CPU 检查、四类真实 GPU 训练与精确中断恢复，关闭 EMA 后两个市场的训练参数、损失及预测与原源码包完全一致。两个市场的完整关闭 EMA 对照也已完成：全量验证预测、选中参数/epoch 及每轮训练损失均完全一致，十项回测/排序指标最大差异为 `3.56e-15`。八组匹配的完整 EMA 对照继续执行，正确性检查本身不代表模型收益改善。六组三种子评分尺度对照另行记录，不计入完整训练次数或自动晋级。
+EMA 实现通过 72 项 CPU 检查、四类真实 GPU 训练与精确中断恢复，关闭 EMA 后两个市场的训练参数、损失及预测与原源码包完全一致。两个市场的完整关闭 EMA 对照也已完成：全量验证预测、选中参数/epoch 及每轮训练损失均完全一致，十项回测/排序指标最大差异为 `3.56e-15`。八组匹配的完整 EMA 对照已完成：CSI300 的 0.999 decay 略增 RankIC，但 AR 下降；SP500 三种 decay 的 AR、Sharpe 和 MDD 均劣于关闭 EMA。六组三种子评分尺度对照另行记录，不计入完整训练次数或自动晋级。
 
 冻结混合风险评分的八个配对种子补充实验及四组真实 `avg_none` 集成已经完成。SP500 的单分量风险状态评分相对静态评分改善十项验证指标，AR 从 `0.06057` 升到 `0.10806`；CSI300 两分量相对单分量仅小幅改善排序和 STD，AR 从 `0.15414` 降到 `0.14838`，MDD 从 `-0.15127` 变为 `-0.16291`。风险来源保持 seed 0，收益模型按三个种子平均；这项复核没有证明测试集超过 baseline。
 
 加入 Student-t 后的完整回归包含 80 项 CPU 检查，新增两个市场的真实 GPU 训练及精确中断恢复均通过。初次诊断检查的精度差异和修正记录一并保留；通过正确性检查不构成收益改善的证据。
 
-可重做验证汇总：`python -m research.records.20261008.summarize_mixture_validation`、`python -m research.records.20261008.summarize_history_and_risk`、`python -m research.records.20261008.summarize_ema_validation`、`python -m research.records.20261008.summarize_student_validation`。`python -m research.records.20261008.check_mixture_seed_validation` 及 `python -m research.records.20261008.check_mixture_risk_seed_validation` 从三个种子的实际验证预测重新平均并回测，保存来源及 checkpoint 哈希；缺失的种子记录为 pending。冻结风险评分复核中的收益模型跟随种子，风险来源继续共用 seed 0，报告保留这一差异。
+加入历史价格风险后的 89 项 CPU 检查通过，包含独立 OLS、未来价格扰动、缺失历史、标签扰动、checkpoint/缓存篡改拒绝和组合组件的测试锁检查。实际两个市场各复核 12 个价格回归，完整零惩罚验证预测与来源精确相同，十项指标最大差异 `2.34e-15`；原收益 checkpoint、结果和预测文件的哈希及修改时间保持相同。初次检查中的测试索引排序和独立参考 float32 比值精度问题均保留记录，修正检查脚本后没有放宽容差。纯价格评分在 CPU 独立运行，与 GPU 模型实验共用固定协议，完整结果核验后才加入搜索记录。
+
+20 组历史风险完整实验及 20 组真实三种子集成均已完成，并核验同一收益来源的归一化对照。SP500 的 beta 惩罚 0.5 相对仅归一化对照，AR 从 `0.03130` 到 `0.10612`、STD 从 `0.29038` 到 `0.20768`、MDD 从 `-0.28641` 到 `-0.15555`，ICIR 小幅下降；惩罚 1.0 进一步降低 STD 至 `0.15859`、改善 MDD 至 `-0.11719`，AR 为 `0.09924`，排序指标下降。CSI300 的强惩罚在三种子复核中显著损失收益，负结果完整保留。另预先定义六组历史风险组合和九组学习型/历史风险组合，均只用于验证搜索。结果来自 2021–2022 验证，未证明测试集超过 baseline；[三种子收益/风险图](records/20261008/historical_risk_seeds012.png) 与 [全部指标](records/20261008/historical_risk_seed_validation_metrics.csv) 可直接查阅。
+
+历史风险工作脚本在完成结果移入正式目录后可重复执行，复用 20 组实际结果，80 个预测/配置证据文件的哈希与修改时间保持一致，不重复训练和回测。重做时需按设计设置 `KBS_RESEARCH_WORKSPACE_ROOT`，从记录的冻结包加载核心代码；即使工作区源码哈希相同，工作脚本也拒绝从工作区包启动。此启动拒绝和修正后的通过记录保留在检查报告中，原工作脚本的已记录版本另行归档。
+
+可重做验证汇总：`python -m research.records.20261008.summarize_mixture_validation`、`python -m research.records.20261008.summarize_history_and_risk`、`python -m research.records.20261008.summarize_ema_validation`、`python -m research.records.20261008.summarize_student_validation`、`python -m research.records.20261008.summarize_historical_risk_validation`。`python -m research.records.20261008.check_mixture_seed_validation` 及 `python -m research.records.20261008.check_mixture_risk_seed_validation` 从三个种子的实际验证预测重新平均并回测，保存来源及 checkpoint 哈希；缺失的种子记录为 pending。冻结风险评分复核中的收益模型跟随种子，风险来源继续共用 seed 0，报告保留这一差异。
 
 结果完整性记录会核对上一版实验和指标、既有种子复核以及每个已保存源码包的哈希。按实际启动包记录复核，早期 56 项实验没有保存不可变启动包的来源，保留当时记录的源码哈希；之前的覆盖计数相差一项，已在完整性记录中纠正。后续实验保留实际启动包，不补造早期运行源码。
 

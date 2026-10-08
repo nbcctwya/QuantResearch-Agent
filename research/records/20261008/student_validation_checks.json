@@ -1,9 +1,9 @@
 {
-  "created_at": "2026-10-08T21:20:11.338394+00:00",
+  "created_at": "2026-10-08T22:10:48.763761+00:00",
   "scope": "purged full validation only; implementation smokes excluded",
   "planned_comparisons": 16,
-  "completed_comparisons": 4,
-  "new_student_runs_completed": 0,
+  "completed_comparisons": 16,
+  "new_student_runs_completed": 12,
   "reused_gaussian_controls": 4,
   "design": {
     "created_at": "2026-10-08T21:01:13.090115+00:00",
@@ -1368,6 +1368,816 @@
       }
     },
     {
+      "id": "f4c263327332fee6",
+      "market": "csi300",
+      "target_kind": "raw_standardized",
+      "distribution": "student_t",
+      "student_df": 3.0,
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "student_t",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "student_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "target_kind": "raw_standardized",
+        "market": "csi300",
+        "student_df": 3.0
+      },
+      "existing_control": false,
+      "matched_gaussian": "2f4652527f2253e5",
+      "status": "complete",
+      "validation": {
+        "IC": 0.05696681073874174,
+        "ICIR": 0.32335166770420376,
+        "RankIC": 0.06774602843816563,
+        "RankICIR": 0.38332661875956653,
+        "RankIC_2021": 0.046888858925225665,
+        "RankIC_2022": 0.08913122755902811,
+        "AR": -0.006898998759444885,
+        "STD": 0.24407998751698523,
+        "MDD": -0.31916640011459296,
+        "Sharpe": -0.028363271182712067,
+        "Sortino": -0.040828636987058096,
+        "Calmar": -0.02161567996182518,
+        "num_test_days": 480
+      },
+      "seconds": 134.23019105699495,
+      "resources": {
+        "cpu_seconds": 128.50803399999998,
+        "peak_process_rss_mib": 2921.49609375,
+        "gpu_peak_allocated_mib": 916.0166015625,
+        "gpu_peak_reserved_mib": 932.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T21:32:19.117167+00:00",
+        "id": "f4c263327332fee6",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "680ae2a0b3c48e62f18bd3f1b92fe7117da1f6b85695a641e2f332f38120b3b4",
+          "research/runner.py": "e8d0da3f4d28837bb2c654c211140a34c2000139544368a5a726d0599c6a66dd",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "24f8be5dd8dcddc40e6ce7930ce4f8e318dec679c845203f3c5eac07892f3e6d",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "67876ab717ebc9d257052ee84a0145bab1ad17010416c7d4c73a6b5254f317e4"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/06e028babc1cc27bebc94074/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T21:34:33.347305+00:00"
+      },
+      "checkpoint_sha256": "22d69bed8567912ad438a20fb7e4d15ca596e8926e53eb91ebfec3b747934fe6",
+      "prediction_sha256": "ec44ec4ff4274a8a576eee0d429bd17f0842c12963f6703e87008953916c18f7",
+      "return_distribution.json": {
+        "distribution": "Student-t",
+        "degrees_of_freedom": 3.0,
+        "degrees_policy": "fixed configuration; finite variance requires df > 2",
+        "architecture": "same two-output mean/total-variance network and initialization as independent Gaussian control",
+        "log_variance_clamp": [
+          -6,
+          4
+        ],
+        "student_scale_squared": "exp(log_variance) * (df - 2) / df",
+        "variance": "exp(log_variance) is the complete conditional return variance, not Student-t scale squared",
+        "likelihood_dtype": "float64",
+        "normalizer": "full Student-t density normalizer included",
+        "objective": "0.7 Student-t NLL + 0.3 unchanged per-date correlation ranking loss",
+        "scoring": "mean / total_sigma ** risk_exponent - risk_penalty * total_sigma",
+        "intervals": "true Student-t quantiles using fixed df and forecast moments",
+        "targets": "unchanged selected-training standardization and clipping; raw untruncated validation observations",
+        "interpretation": "fixed-tail deterministic distribution adaptation; no Bayesian network or evidential regression reproduction",
+        "prediction_inputs": "features only; observations enter training loss and later validation diagnostics"
+      },
+      "target_transform.json": {
+        "kind": "raw_standardized",
+        "scale": 0.05283498873742838,
+        "fit_split": "selected purged training dates only",
+        "demeaning": null,
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 840429,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 729
+      },
+      "valid/calibration/calibration.json": {
+        "created_at": "2026-10-08T21:34:32.499812+00:00",
+        "market": "csi300",
+        "family": "student_t",
+        "split": "purged validation only",
+        "samples": 143786,
+        "days": 480,
+        "target_kind": "raw_standardized",
+        "training_scale": 0.05283498873742838,
+        "scale_file_sha256": "ee7fa3f0041fd523aa9af4461076b3380c67628704a6746f016cc0f77b6d8e6b",
+        "best_epoch": 3,
+        "inference": "CPU float32; diagnostic scores may differ slightly from CUDA bfloat16",
+        "labels": "unclipped observed validation returns, demeaned by date for an excess-return target",
+        "rmse": 0.05297820203395887,
+        "mae": 0.03840419014724139,
+        "interval_80_coverage": 0.7896248591657046,
+        "uncertainty_abs_error_RankIC": 0.32934411712417755,
+        "uncertainty_bins": [
+          {
+            "bin": 1,
+            "samples": 28320,
+            "predicted_uncertainty": 0.03880792792191818,
+            "observed_rmse": 0.031552507157148905,
+            "observed_mae": 0.021848868773714083
+          },
+          {
+            "bin": 2,
+            "samples": 28791,
+            "predicted_uncertainty": 0.05288756083561871,
+            "observed_rmse": 0.04499652387937632,
+            "observed_mae": 0.032904319102378364
+          },
+          {
+            "bin": 3,
+            "samples": 28775,
+            "predicted_uncertainty": 0.06229259657896212,
+            "observed_rmse": 0.05248230948970799,
+            "observed_mae": 0.03919312010790341
+          },
+          {
+            "bin": 4,
+            "samples": 28791,
+            "predicted_uncertainty": 0.07041806922512958,
+            "observed_rmse": 0.059131730891637146,
+            "observed_mae": 0.04490839562952102
+          },
+          {
+            "bin": 5,
+            "samples": 29109,
+            "predicted_uncertainty": 0.08173287734183135,
+            "observed_rmse": 0.0686407309252161,
+            "observed_mae": 0.05273753890166723
+          }
+        ],
+        "by_year": [
+          {
+            "year": 2021,
+            "samples": 72764,
+            "rmse": 0.055240641889417776,
+            "interval_80_coverage": 0.8024297729646529
+          },
+          {
+            "year": 2022,
+            "samples": 71022,
+            "rmse": 0.050555375169615724,
+            "interval_80_coverage": 0.7765058714201234
+          }
+        ],
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "680ae2a0b3c48e62f18bd3f1b92fe7117da1f6b85695a641e2f332f38120b3b4",
+          "research/runner.py": "e8d0da3f4d28837bb2c654c211140a34c2000139544368a5a726d0599c6a66dd",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "24f8be5dd8dcddc40e6ce7930ce4f8e318dec679c845203f3c5eac07892f3e6d",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "67876ab717ebc9d257052ee84a0145bab1ad17010416c7d4c73a6b5254f317e4"
+        },
+        "mean_normalized_squared_error": 0.6907205222406403,
+        "quantile_coverage": {
+          "q10": 0.11627696715952875,
+          "q50": 0.5727678633524822,
+          "q90": 0.9059018263252333
+        },
+        "student_t": {
+          "degrees_of_freedom": 3.0,
+          "interval_method": "true Student-t quantiles; sigma denotes total standard deviation",
+          "mean_negative_log_density_raw_units": -1.628609518572848,
+          "pit_histogram": [
+            16719,
+            19976,
+            17356,
+            14871,
+            13434,
+            12138,
+            11616,
+            11635,
+            12511,
+            13530
+          ],
+          "interpretation": "likelihood calibration is not portfolio performance evidence"
+        }
+      },
+      "matched_gaussian_result": {
+        "id": "2f4652527f2253e5",
+        "deltas": {
+          "IC": -0.003949354563272764,
+          "ICIR": -0.056453529673753444,
+          "RankIC": -0.002927455013924593,
+          "RankICIR": -0.03471972526525302,
+          "AR": -0.05548968791292841,
+          "STD": 0.031659953137868846,
+          "MDD": -0.032571698752689726,
+          "Sharpe": -0.25172761599887744,
+          "Sortino": -0.3666249653190554,
+          "Calmar": -0.1911606468526284
+        }
+      }
+    },
+    {
+      "id": "be4d1dc80b682f6e",
+      "market": "csi300",
+      "target_kind": "raw_standardized",
+      "distribution": "student_t",
+      "student_df": 5.0,
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "student_t",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "student_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "target_kind": "raw_standardized",
+        "market": "csi300",
+        "student_df": 5.0
+      },
+      "existing_control": false,
+      "matched_gaussian": "2f4652527f2253e5",
+      "status": "complete",
+      "validation": {
+        "IC": 0.06061369164688897,
+        "ICIR": 0.3735780099228641,
+        "RankIC": 0.06934692308391398,
+        "RankICIR": 0.41222916963484796,
+        "RankIC_2021": 0.041057799369650295,
+        "RankIC_2022": 0.09835222714537423,
+        "AR": 0.09298789552603948,
+        "STD": 0.22799379352183408,
+        "MDD": -0.25821546191537137,
+        "Sharpe": 0.3899892765412965,
+        "Sortino": 0.5770511472810538,
+        "Calmar": 0.36011745708905585,
+        "num_test_days": 480
+      },
+      "seconds": 166.3762526960054,
+      "resources": {
+        "cpu_seconds": 160.76709200000002,
+        "peak_process_rss_mib": 2921.98046875,
+        "gpu_peak_allocated_mib": 916.0166015625,
+        "gpu_peak_reserved_mib": 932.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T21:34:39.278494+00:00",
+        "id": "be4d1dc80b682f6e",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "680ae2a0b3c48e62f18bd3f1b92fe7117da1f6b85695a641e2f332f38120b3b4",
+          "research/runner.py": "e8d0da3f4d28837bb2c654c211140a34c2000139544368a5a726d0599c6a66dd",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "24f8be5dd8dcddc40e6ce7930ce4f8e318dec679c845203f3c5eac07892f3e6d",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "67876ab717ebc9d257052ee84a0145bab1ad17010416c7d4c73a6b5254f317e4"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/06e028babc1cc27bebc94074/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T21:37:25.654726+00:00"
+      },
+      "checkpoint_sha256": "7c06a2f32aec4e7720326da1d12a05e282064426a78e8eb29663f89dde65845e",
+      "prediction_sha256": "4a5a49555e56fe772949d802d7b32d6560eebb19db2f4df3beb7e6d4082cd432",
+      "return_distribution.json": {
+        "distribution": "Student-t",
+        "degrees_of_freedom": 5.0,
+        "degrees_policy": "fixed configuration; finite variance requires df > 2",
+        "architecture": "same two-output mean/total-variance network and initialization as independent Gaussian control",
+        "log_variance_clamp": [
+          -6,
+          4
+        ],
+        "student_scale_squared": "exp(log_variance) * (df - 2) / df",
+        "variance": "exp(log_variance) is the complete conditional return variance, not Student-t scale squared",
+        "likelihood_dtype": "float64",
+        "normalizer": "full Student-t density normalizer included",
+        "objective": "0.7 Student-t NLL + 0.3 unchanged per-date correlation ranking loss",
+        "scoring": "mean / total_sigma ** risk_exponent - risk_penalty * total_sigma",
+        "intervals": "true Student-t quantiles using fixed df and forecast moments",
+        "targets": "unchanged selected-training standardization and clipping; raw untruncated validation observations",
+        "interpretation": "fixed-tail deterministic distribution adaptation; no Bayesian network or evidential regression reproduction",
+        "prediction_inputs": "features only; observations enter training loss and later validation diagnostics"
+      },
+      "target_transform.json": {
+        "kind": "raw_standardized",
+        "scale": 0.05283498873742838,
+        "fit_split": "selected purged training dates only",
+        "demeaning": null,
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 840429,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 729
+      },
+      "valid/calibration/calibration.json": {
+        "created_at": "2026-10-08T21:37:24.786580+00:00",
+        "market": "csi300",
+        "family": "student_t",
+        "split": "purged validation only",
+        "samples": 143786,
+        "days": 480,
+        "target_kind": "raw_standardized",
+        "training_scale": 0.05283498873742838,
+        "scale_file_sha256": "ee7fa3f0041fd523aa9af4461076b3380c67628704a6746f016cc0f77b6d8e6b",
+        "best_epoch": 5,
+        "inference": "CPU float32; diagnostic scores may differ slightly from CUDA bfloat16",
+        "labels": "unclipped observed validation returns, demeaned by date for an excess-return target",
+        "rmse": 0.05508602903661581,
+        "mae": 0.03966553634993094,
+        "interval_80_coverage": 0.7769045665085613,
+        "uncertainty_abs_error_RankIC": 0.3364313210258677,
+        "uncertainty_bins": [
+          {
+            "bin": 1,
+            "samples": 28320,
+            "predicted_uncertainty": 0.03032412132174504,
+            "observed_rmse": 0.032010423947837485,
+            "observed_mae": 0.021936792930858078
+          },
+          {
+            "bin": 2,
+            "samples": 28791,
+            "predicted_uncertainty": 0.042405548667984384,
+            "observed_rmse": 0.046199516375084224,
+            "observed_mae": 0.033806314542670635
+          },
+          {
+            "bin": 3,
+            "samples": 28775,
+            "predicted_uncertainty": 0.050968034357377595,
+            "observed_rmse": 0.05425364208041153,
+            "observed_mae": 0.04041436122102967
+          },
+          {
+            "bin": 4,
+            "samples": 28791,
+            "predicted_uncertainty": 0.05893310312892327,
+            "observed_rmse": 0.0617330130118321,
+            "observed_mae": 0.04680686925095097
+          },
+          {
+            "bin": 5,
+            "samples": 29109,
+            "predicted_uncertainty": 0.07127839007382353,
+            "observed_rmse": 0.07212487601454899,
+            "observed_mae": 0.05490540434477246
+          }
+        ],
+        "by_year": [
+          {
+            "year": 2021,
+            "samples": 72764,
+            "rmse": 0.05940635698848402,
+            "interval_80_coverage": 0.7725523610576659
+          },
+          {
+            "year": 2022,
+            "samples": 71022,
+            "rmse": 0.050276172165607196,
+            "interval_80_coverage": 0.7813635211624567
+          }
+        ],
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "680ae2a0b3c48e62f18bd3f1b92fe7117da1f6b85695a641e2f332f38120b3b4",
+          "research/runner.py": "e8d0da3f4d28837bb2c654c211140a34c2000139544368a5a726d0599c6a66dd",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "24f8be5dd8dcddc40e6ce7930ce4f8e318dec679c845203f3c5eac07892f3e6d",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "67876ab717ebc9d257052ee84a0145bab1ad17010416c7d4c73a6b5254f317e4"
+        },
+        "mean_normalized_squared_error": 1.085659002881031,
+        "quantile_coverage": {
+          "q10": 0.08097450377644555,
+          "q50": 0.4570959620547202,
+          "q90": 0.8578790702850069
+        },
+        "student_t": {
+          "degrees_of_freedom": 5.0,
+          "interval_method": "true Student-t quantiles; sigma denotes total standard deviation",
+          "mean_negative_log_density_raw_units": -1.613911065346295,
+          "pit_histogram": [
+            11643,
+            13920,
+            13715,
+            13249,
+            13197,
+            13491,
+            13682,
+            14355,
+            16099,
+            20435
+          ],
+          "interpretation": "likelihood calibration is not portfolio performance evidence"
+        }
+      },
+      "matched_gaussian_result": {
+        "id": "2f4652527f2253e5",
+        "deltas": {
+          "IC": -0.0003024736551255347,
+          "ICIR": -0.006227187455093097,
+          "RankIC": -0.001326560368176244,
+          "RankICIR": -0.005817174389971591,
+          "AR": 0.04439720637255595,
+          "STD": 0.015573759142717691,
+          "MDD": 0.028379239446531868,
+          "Sharpe": 0.16662493172513115,
+          "Sortino": 0.25125481894905644,
+          "Calmar": 0.19057249019825262
+        }
+      }
+    },
+    {
+      "id": "9883a80d87bbb043",
+      "market": "csi300",
+      "target_kind": "raw_standardized",
+      "distribution": "student_t",
+      "student_df": 10.0,
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "student_t",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "student_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "target_kind": "raw_standardized",
+        "market": "csi300",
+        "student_df": 10.0
+      },
+      "existing_control": false,
+      "matched_gaussian": "2f4652527f2253e5",
+      "status": "complete",
+      "validation": {
+        "IC": 0.06480303063377585,
+        "ICIR": 0.36311458200233565,
+        "RankIC": 0.06774566933450062,
+        "RankICIR": 0.36859843352613125,
+        "RankIC_2021": 0.05193644911973838,
+        "RankIC_2022": 0.0839551229724214,
+        "AR": 0.06408241816671878,
+        "STD": 0.2507554550606174,
+        "MDD": -0.28647988014535664,
+        "Sharpe": 0.24770288083072822,
+        "Sortino": 0.357074912116028,
+        "Calmar": 0.2236890707096222,
+        "num_test_days": 480
+      },
+      "seconds": 132.75149307999527,
+      "resources": {
+        "cpu_seconds": 127.28994599999999,
+        "peak_process_rss_mib": 2923.59765625,
+        "gpu_peak_allocated_mib": 916.0166015625,
+        "gpu_peak_reserved_mib": 932.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T21:37:39.615300+00:00",
+        "id": "9883a80d87bbb043",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "680ae2a0b3c48e62f18bd3f1b92fe7117da1f6b85695a641e2f332f38120b3b4",
+          "research/runner.py": "e8d0da3f4d28837bb2c654c211140a34c2000139544368a5a726d0599c6a66dd",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "24f8be5dd8dcddc40e6ce7930ce4f8e318dec679c845203f3c5eac07892f3e6d",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "67876ab717ebc9d257052ee84a0145bab1ad17010416c7d4c73a6b5254f317e4"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/06e028babc1cc27bebc94074/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T21:39:52.366738+00:00"
+      },
+      "checkpoint_sha256": "2a600eb0724fabdb5550b79da3e7c5e1d27cfd1e1444b30261f657999ca33122",
+      "prediction_sha256": "2fce5b9d7cb411c6a57af91c90311a3f19ee93505372c79c829fe65cc64800d2",
+      "return_distribution.json": {
+        "distribution": "Student-t",
+        "degrees_of_freedom": 10.0,
+        "degrees_policy": "fixed configuration; finite variance requires df > 2",
+        "architecture": "same two-output mean/total-variance network and initialization as independent Gaussian control",
+        "log_variance_clamp": [
+          -6,
+          4
+        ],
+        "student_scale_squared": "exp(log_variance) * (df - 2) / df",
+        "variance": "exp(log_variance) is the complete conditional return variance, not Student-t scale squared",
+        "likelihood_dtype": "float64",
+        "normalizer": "full Student-t density normalizer included",
+        "objective": "0.7 Student-t NLL + 0.3 unchanged per-date correlation ranking loss",
+        "scoring": "mean / total_sigma ** risk_exponent - risk_penalty * total_sigma",
+        "intervals": "true Student-t quantiles using fixed df and forecast moments",
+        "targets": "unchanged selected-training standardization and clipping; raw untruncated validation observations",
+        "interpretation": "fixed-tail deterministic distribution adaptation; no Bayesian network or evidential regression reproduction",
+        "prediction_inputs": "features only; observations enter training loss and later validation diagnostics"
+      },
+      "target_transform.json": {
+        "kind": "raw_standardized",
+        "scale": 0.05283498873742838,
+        "fit_split": "selected purged training dates only",
+        "demeaning": null,
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 840429,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 729
+      },
+      "valid/calibration/calibration.json": {
+        "created_at": "2026-10-08T21:39:51.566689+00:00",
+        "market": "csi300",
+        "family": "student_t",
+        "split": "purged validation only",
+        "samples": 143786,
+        "days": 480,
+        "target_kind": "raw_standardized",
+        "training_scale": 0.05283498873742838,
+        "scale_file_sha256": "ee7fa3f0041fd523aa9af4461076b3380c67628704a6746f016cc0f77b6d8e6b",
+        "best_epoch": 2,
+        "inference": "CPU float32; diagnostic scores may differ slightly from CUDA bfloat16",
+        "labels": "unclipped observed validation returns, demeaned by date for an excess-return target",
+        "rmse": 0.052285009203019275,
+        "mae": 0.03746267093776024,
+        "interval_80_coverage": 0.8254767501703921,
+        "uncertainty_abs_error_RankIC": 0.330349705056639,
+        "uncertainty_bins": [
+          {
+            "bin": 1,
+            "samples": 28320,
+            "predicted_uncertainty": 0.03374090983011159,
+            "observed_rmse": 0.030702116712676593,
+            "observed_mae": 0.020964441590803597
+          },
+          {
+            "bin": 2,
+            "samples": 28791,
+            "predicted_uncertainty": 0.043948315290279885,
+            "observed_rmse": 0.04368892331261937,
+            "observed_mae": 0.03160071037463607
+          },
+          {
+            "bin": 3,
+            "samples": 28775,
+            "predicted_uncertainty": 0.05048883904433223,
+            "observed_rmse": 0.05141398665069521,
+            "observed_mae": 0.038239779231877734
+          },
+          {
+            "bin": 4,
+            "samples": 28791,
+            "predicted_uncertainty": 0.05645238967628572,
+            "observed_rmse": 0.058516777045759465,
+            "observed_mae": 0.04405370763869249
+          },
+          {
+            "bin": 5,
+            "samples": 29109,
+            "predicted_uncertainty": 0.06682440185489605,
+            "observed_rmse": 0.0685463641474351,
+            "observed_mae": 0.05202441242180122
+          }
+        ],
+        "by_year": [
+          {
+            "year": 2021,
+            "samples": 72764,
+            "rmse": 0.05469910647965415,
+            "interval_80_coverage": 0.8303968995657193
+          },
+          {
+            "year": 2022,
+            "samples": 71022,
+            "rmse": 0.04969021410080354,
+            "interval_80_coverage": 0.8204359212638337
+          }
+        ],
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "680ae2a0b3c48e62f18bd3f1b92fe7117da1f6b85695a641e2f332f38120b3b4",
+          "research/runner.py": "e8d0da3f4d28837bb2c654c211140a34c2000139544368a5a726d0599c6a66dd",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "24f8be5dd8dcddc40e6ce7930ce4f8e318dec679c845203f3c5eac07892f3e6d",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "67876ab717ebc9d257052ee84a0145bab1ad17010416c7d4c73a6b5254f317e4"
+        },
+        "mean_normalized_squared_error": 0.9782782977422123,
+        "quantile_coverage": {
+          "q10": 0.06997899656433867,
+          "q50": 0.4759781898098563,
+          "q90": 0.8954557467347308
+        },
+        "student_t": {
+          "degrees_of_freedom": 10.0,
+          "interval_method": "true Student-t quantiles; sigma denotes total standard deviation",
+          "mean_negative_log_density_raw_units": -1.6497460223474132,
+          "pit_histogram": [
+            10062,
+            12753,
+            14334,
+            15328,
+            15962,
+            16509,
+            15782,
+            14520,
+            13504,
+            15032
+          ],
+          "interpretation": "likelihood calibration is not portfolio performance evidence"
+        }
+      },
+      "matched_gaussian_result": {
+        "id": "2f4652527f2253e5",
+        "deltas": {
+          "IC": 0.003886865331761344,
+          "ICIR": -0.016690615375621554,
+          "RankIC": -0.0029278141175896055,
+          "RankICIR": -0.0494479104986883,
+          "AR": 0.015491729013235256,
+          "STD": 0.03833542068150103,
+          "MDD": 0.00011482121654660116,
+          "Sharpe": 0.024338536014562873,
+          "Sortino": 0.031278583784030645,
+          "Calmar": 0.054144103818818984
+        }
+      }
+    },
+    {
       "id": "231bb1240b87cb1b",
       "market": "csi300",
       "target_kind": "raw_excess_standardized",
@@ -1622,6 +2432,816 @@
             15091
           ],
           "interpretation": "routing diagnostics do not establish semantic expert specialization"
+        }
+      }
+    },
+    {
+      "id": "bf04e01d8f90e8fb",
+      "market": "csi300",
+      "target_kind": "raw_excess_standardized",
+      "distribution": "student_t",
+      "student_df": 3.0,
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "student_t",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "student_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "target_kind": "raw_excess_standardized",
+        "market": "csi300",
+        "student_df": 3.0
+      },
+      "existing_control": false,
+      "matched_gaussian": "231bb1240b87cb1b",
+      "status": "complete",
+      "validation": {
+        "IC": 0.06306203374903824,
+        "ICIR": 0.38235921031456854,
+        "RankIC": 0.06185682488810935,
+        "RankICIR": 0.3719798178484119,
+        "RankIC_2021": 0.056227479632595154,
+        "RankIC_2022": 0.06762868521338339,
+        "AR": 0.12280271615388738,
+        "STD": 0.25498636582749323,
+        "MDD": -0.30091940187186317,
+        "Sharpe": 0.4542516781885555,
+        "Sortino": 0.6675654431180074,
+        "Calmar": 0.40809171954349077,
+        "num_test_days": 480
+      },
+      "seconds": 128.72006375799538,
+      "resources": {
+        "cpu_seconds": 122.881566,
+        "peak_process_rss_mib": 2920.71875,
+        "gpu_peak_allocated_mib": 916.0166015625,
+        "gpu_peak_reserved_mib": 932.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T21:39:59.860333+00:00",
+        "id": "bf04e01d8f90e8fb",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "680ae2a0b3c48e62f18bd3f1b92fe7117da1f6b85695a641e2f332f38120b3b4",
+          "research/runner.py": "e8d0da3f4d28837bb2c654c211140a34c2000139544368a5a726d0599c6a66dd",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "24f8be5dd8dcddc40e6ce7930ce4f8e318dec679c845203f3c5eac07892f3e6d",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "67876ab717ebc9d257052ee84a0145bab1ad17010416c7d4c73a6b5254f317e4"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/06e028babc1cc27bebc94074/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T21:42:08.580414+00:00"
+      },
+      "checkpoint_sha256": "724fda6fdcb41f1e2d0d09f293c98b0fc8f7d478ff5bd25ad16ae588903e25d3",
+      "prediction_sha256": "557c5ba8631d31781498a8d2c417020570d04b9c0d3c7a1de4d65ca028b606b6",
+      "return_distribution.json": {
+        "distribution": "Student-t",
+        "degrees_of_freedom": 3.0,
+        "degrees_policy": "fixed configuration; finite variance requires df > 2",
+        "architecture": "same two-output mean/total-variance network and initialization as independent Gaussian control",
+        "log_variance_clamp": [
+          -6,
+          4
+        ],
+        "student_scale_squared": "exp(log_variance) * (df - 2) / df",
+        "variance": "exp(log_variance) is the complete conditional return variance, not Student-t scale squared",
+        "likelihood_dtype": "float64",
+        "normalizer": "full Student-t density normalizer included",
+        "objective": "0.7 Student-t NLL + 0.3 unchanged per-date correlation ranking loss",
+        "scoring": "mean / total_sigma ** risk_exponent - risk_penalty * total_sigma",
+        "intervals": "true Student-t quantiles using fixed df and forecast moments",
+        "targets": "unchanged selected-training standardization and clipping; raw untruncated validation observations",
+        "interpretation": "fixed-tail deterministic distribution adaptation; no Bayesian network or evidential regression reproduction",
+        "prediction_inputs": "features only; observations enter training loss and later validation diagnostics"
+      },
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.04048788682162931,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 840429,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 729
+      },
+      "valid/calibration/calibration.json": {
+        "created_at": "2026-10-08T21:42:07.720466+00:00",
+        "market": "csi300",
+        "family": "student_t",
+        "split": "purged validation only",
+        "samples": 143786,
+        "days": 480,
+        "target_kind": "raw_excess_standardized",
+        "training_scale": 0.04048788682162931,
+        "scale_file_sha256": "af60e7c3e138d31c6781aaf1978e9dc563d5b031c8a9a0d1e4a6f19ca4d103c1",
+        "best_epoch": 2,
+        "inference": "CPU float32; diagnostic scores may differ slightly from CUDA bfloat16",
+        "labels": "unclipped observed validation returns, demeaned by date for an excess-return target",
+        "rmse": 0.04696648513664059,
+        "mae": 0.03337584078753314,
+        "interval_80_coverage": 0.7627515891672346,
+        "uncertainty_abs_error_RankIC": 0.316344011047267,
+        "uncertainty_bins": [
+          {
+            "bin": 1,
+            "samples": 28320,
+            "predicted_uncertainty": 0.031328618208741284,
+            "observed_rmse": 0.02819275586341221,
+            "observed_mae": 0.01953144962966598
+          },
+          {
+            "bin": 2,
+            "samples": 28791,
+            "predicted_uncertainty": 0.040777646759840726,
+            "observed_rmse": 0.03804734502277894,
+            "observed_mae": 0.02713617233305391
+          },
+          {
+            "bin": 3,
+            "samples": 28775,
+            "predicted_uncertainty": 0.04912018900774901,
+            "observed_rmse": 0.04618539546514939,
+            "observed_mae": 0.033794289251934985
+          },
+          {
+            "bin": 4,
+            "samples": 28791,
+            "predicted_uncertainty": 0.0569764188668971,
+            "observed_rmse": 0.052625776111751864,
+            "observed_mae": 0.03922122638799468
+          },
+          {
+            "bin": 5,
+            "samples": 29109,
+            "predicted_uncertainty": 0.06833100400334988,
+            "observed_rmse": 0.06199235312627975,
+            "observed_mae": 0.04682130784849909
+          }
+        ],
+        "by_year": [
+          {
+            "year": 2021,
+            "samples": 72764,
+            "rmse": 0.05003372227027828,
+            "interval_80_coverage": 0.7678934638007806
+          },
+          {
+            "year": 2022,
+            "samples": 71022,
+            "rmse": 0.04360080926291485,
+            "interval_80_coverage": 0.7574835966320295
+          }
+        ],
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "680ae2a0b3c48e62f18bd3f1b92fe7117da1f6b85695a641e2f332f38120b3b4",
+          "research/runner.py": "e8d0da3f4d28837bb2c654c211140a34c2000139544368a5a726d0599c6a66dd",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "24f8be5dd8dcddc40e6ce7930ce4f8e318dec679c845203f3c5eac07892f3e6d",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "67876ab717ebc9d257052ee84a0145bab1ad17010416c7d4c73a6b5254f317e4"
+        },
+        "mean_normalized_squared_error": 0.8418757881743635,
+        "quantile_coverage": {
+          "q10": 0.11280653192939508,
+          "q50": 0.5414157150209339,
+          "q90": 0.8755581210966297
+        },
+        "student_t": {
+          "degrees_of_freedom": 3.0,
+          "interval_method": "true Student-t quantiles; sigma denotes total standard deviation",
+          "mean_negative_log_density_raw_units": -1.7601445991866582,
+          "pit_histogram": [
+            16220,
+            19060,
+            16085,
+            14087,
+            12396,
+            11800,
+            11314,
+            11616,
+            13315,
+            17893
+          ],
+          "interpretation": "likelihood calibration is not portfolio performance evidence"
+        }
+      },
+      "matched_gaussian_result": {
+        "id": "231bb1240b87cb1b",
+        "deltas": {
+          "IC": -0.0004868235143919153,
+          "ICIR": 0.009689032051579283,
+          "RankIC": 0.0017516643896136955,
+          "RankICIR": 0.025342995171545257,
+          "AR": 0.044431842337364635,
+          "STD": -0.002537904448544681,
+          "MDD": -0.019862709670488643,
+          "Sharpe": 0.16126394530810684,
+          "Sortino": 0.242631698121674,
+          "Calmar": 0.12924806987735604
+        }
+      }
+    },
+    {
+      "id": "07ba025917ff2ac2",
+      "market": "csi300",
+      "target_kind": "raw_excess_standardized",
+      "distribution": "student_t",
+      "student_df": 5.0,
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "student_t",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "student_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "target_kind": "raw_excess_standardized",
+        "market": "csi300",
+        "student_df": 5.0
+      },
+      "existing_control": false,
+      "matched_gaussian": "231bb1240b87cb1b",
+      "status": "complete",
+      "validation": {
+        "IC": 0.06390548273684481,
+        "ICIR": 0.3829357793633814,
+        "RankIC": 0.06171199387105823,
+        "RankICIR": 0.3660350054165977,
+        "RankIC_2021": 0.05774326301887503,
+        "RankIC_2022": 0.06578119892203088,
+        "AR": 0.12944402877153927,
+        "STD": 0.2591905501768693,
+        "MDD": -0.2943464185774034,
+        "Sharpe": 0.46963711303475136,
+        "Sortino": 0.6910641894044897,
+        "Calmar": 0.4397676363692523,
+        "num_test_days": 480
+      },
+      "seconds": 140.55554250700516,
+      "resources": {
+        "cpu_seconds": 134.995807,
+        "peak_process_rss_mib": 2920.8828125,
+        "gpu_peak_allocated_mib": 916.0166015625,
+        "gpu_peak_reserved_mib": 932.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T21:42:20.091971+00:00",
+        "id": "07ba025917ff2ac2",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "680ae2a0b3c48e62f18bd3f1b92fe7117da1f6b85695a641e2f332f38120b3b4",
+          "research/runner.py": "e8d0da3f4d28837bb2c654c211140a34c2000139544368a5a726d0599c6a66dd",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "24f8be5dd8dcddc40e6ce7930ce4f8e318dec679c845203f3c5eac07892f3e6d",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "67876ab717ebc9d257052ee84a0145bab1ad17010416c7d4c73a6b5254f317e4"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/06e028babc1cc27bebc94074/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T21:44:40.647444+00:00"
+      },
+      "checkpoint_sha256": "e3da27b8d5edf03da7d25b00995644db1a109e923f0b417bff4d5c4e17657d94",
+      "prediction_sha256": "7f7deba0a80fb8fa7ef9ff008851046b6b8e1226185d96576c3051782935b2c2",
+      "return_distribution.json": {
+        "distribution": "Student-t",
+        "degrees_of_freedom": 5.0,
+        "degrees_policy": "fixed configuration; finite variance requires df > 2",
+        "architecture": "same two-output mean/total-variance network and initialization as independent Gaussian control",
+        "log_variance_clamp": [
+          -6,
+          4
+        ],
+        "student_scale_squared": "exp(log_variance) * (df - 2) / df",
+        "variance": "exp(log_variance) is the complete conditional return variance, not Student-t scale squared",
+        "likelihood_dtype": "float64",
+        "normalizer": "full Student-t density normalizer included",
+        "objective": "0.7 Student-t NLL + 0.3 unchanged per-date correlation ranking loss",
+        "scoring": "mean / total_sigma ** risk_exponent - risk_penalty * total_sigma",
+        "intervals": "true Student-t quantiles using fixed df and forecast moments",
+        "targets": "unchanged selected-training standardization and clipping; raw untruncated validation observations",
+        "interpretation": "fixed-tail deterministic distribution adaptation; no Bayesian network or evidential regression reproduction",
+        "prediction_inputs": "features only; observations enter training loss and later validation diagnostics"
+      },
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.04048788682162931,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 840429,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 729
+      },
+      "valid/calibration/calibration.json": {
+        "created_at": "2026-10-08T21:44:39.835705+00:00",
+        "market": "csi300",
+        "family": "student_t",
+        "split": "purged validation only",
+        "samples": 143786,
+        "days": 480,
+        "target_kind": "raw_excess_standardized",
+        "training_scale": 0.04048788682162931,
+        "scale_file_sha256": "af60e7c3e138d31c6781aaf1978e9dc563d5b031c8a9a0d1e4a6f19ca4d103c1",
+        "best_epoch": 2,
+        "inference": "CPU float32; diagnostic scores may differ slightly from CUDA bfloat16",
+        "labels": "unclipped observed validation returns, demeaned by date for an excess-return target",
+        "rmse": 0.04697560720633694,
+        "mae": 0.0333729224393832,
+        "interval_80_coverage": 0.7577580571126535,
+        "uncertainty_abs_error_RankIC": 0.31614727618148414,
+        "uncertainty_bins": [
+          {
+            "bin": 1,
+            "samples": 28320,
+            "predicted_uncertainty": 0.025678630239756427,
+            "observed_rmse": 0.02817579755417329,
+            "observed_mae": 0.01952477793598591
+          },
+          {
+            "bin": 2,
+            "samples": 28791,
+            "predicted_uncertainty": 0.03351680072708498,
+            "observed_rmse": 0.03796543804182764,
+            "observed_mae": 0.027084078246443207
+          },
+          {
+            "bin": 3,
+            "samples": 28775,
+            "predicted_uncertainty": 0.04023105966915985,
+            "observed_rmse": 0.04638307025868058,
+            "observed_mae": 0.033877632469052246
+          },
+          {
+            "bin": 4,
+            "samples": 28791,
+            "predicted_uncertainty": 0.04641561690423451,
+            "observed_rmse": 0.05257342517069318,
+            "observed_mae": 0.03919520884349613
+          },
+          {
+            "bin": 5,
+            "samples": 29109,
+            "predicted_uncertainty": 0.05531100868274869,
+            "observed_rmse": 0.06198170198442624,
+            "observed_mae": 0.04680825469162836
+          }
+        ],
+        "by_year": [
+          {
+            "year": 2021,
+            "samples": 72764,
+            "rmse": 0.05004504350232516,
+            "interval_80_coverage": 0.7630009345280633
+          },
+          {
+            "year": 2022,
+            "samples": 71022,
+            "rmse": 0.04360739243264463,
+            "interval_80_coverage": 0.7523865844386246
+          }
+        ],
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "680ae2a0b3c48e62f18bd3f1b92fe7117da1f6b85695a641e2f332f38120b3b4",
+          "research/runner.py": "e8d0da3f4d28837bb2c654c211140a34c2000139544368a5a726d0599c6a66dd",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "24f8be5dd8dcddc40e6ce7930ce4f8e318dec679c845203f3c5eac07892f3e6d",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "67876ab717ebc9d257052ee84a0145bab1ad17010416c7d4c73a6b5254f317e4"
+        },
+        "mean_normalized_squared_error": 1.260544667427909,
+        "quantile_coverage": {
+          "q10": 0.11459391039461422,
+          "q50": 0.5389606776737652,
+          "q90": 0.8723519675072677
+        },
+        "student_t": {
+          "degrees_of_freedom": 5.0,
+          "interval_method": "true Student-t quantiles; sigma denotes total standard deviation",
+          "mean_negative_log_density_raw_units": -1.7648703990378605,
+          "pit_histogram": [
+            16477,
+            17418,
+            15880,
+            14602,
+            13118,
+            12451,
+            11644,
+            11514,
+            12328,
+            18354
+          ],
+          "interpretation": "likelihood calibration is not portfolio performance evidence"
+        }
+      },
+      "matched_gaussian_result": {
+        "id": "231bb1240b87cb1b",
+        "deltas": {
+          "IC": 0.000356625473414654,
+          "ICIR": 0.010265601100392152,
+          "RankIC": 0.00160683337256258,
+          "RankICIR": 0.019398182739731096,
+          "AR": 0.05107315495501652,
+          "STD": 0.0016662799008314022,
+          "MDD": -0.013289726376028876,
+          "Sharpe": 0.1766493801543027,
+          "Sortino": 0.2661304444081563,
+          "Calmar": 0.16092398670311758
+        }
+      }
+    },
+    {
+      "id": "8aa7988df9af6df7",
+      "market": "csi300",
+      "target_kind": "raw_excess_standardized",
+      "distribution": "student_t",
+      "student_df": 10.0,
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "student_t",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "student_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "target_kind": "raw_excess_standardized",
+        "market": "csi300",
+        "student_df": 10.0
+      },
+      "existing_control": false,
+      "matched_gaussian": "231bb1240b87cb1b",
+      "status": "complete",
+      "validation": {
+        "IC": 0.06430487369387,
+        "ICIR": 0.38040228436745743,
+        "RankIC": 0.06103984431308926,
+        "RankICIR": 0.3561092089823755,
+        "RankIC_2021": 0.05773872170989736,
+        "RankIC_2022": 0.0644245396404126,
+        "AR": 0.1367646650708998,
+        "STD": 0.2617962757986017,
+        "MDD": -0.2794632900932531,
+        "Sharpe": 0.48964109258175326,
+        "Sortino": 0.7185436546321782,
+        "Calmar": 0.48938329261515273,
+        "num_test_days": 480
+      },
+      "seconds": 139.71789762200206,
+      "resources": {
+        "cpu_seconds": 133.686782,
+        "peak_process_rss_mib": 2922.02734375,
+        "gpu_peak_allocated_mib": 916.0166015625,
+        "gpu_peak_reserved_mib": 932.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T21:45:00.305526+00:00",
+        "id": "8aa7988df9af6df7",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "680ae2a0b3c48e62f18bd3f1b92fe7117da1f6b85695a641e2f332f38120b3b4",
+          "research/runner.py": "e8d0da3f4d28837bb2c654c211140a34c2000139544368a5a726d0599c6a66dd",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "24f8be5dd8dcddc40e6ce7930ce4f8e318dec679c845203f3c5eac07892f3e6d",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "67876ab717ebc9d257052ee84a0145bab1ad17010416c7d4c73a6b5254f317e4"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/06e028babc1cc27bebc94074/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T21:47:20.023382+00:00"
+      },
+      "checkpoint_sha256": "00694444f8afb3bed8e1dad733351d5072d8708c77b482d3d585a876d7a15bf9",
+      "prediction_sha256": "a959b04a3221c50d2892d834eed028196c8409fefc1d7354cf2433be6fb18f44",
+      "return_distribution.json": {
+        "distribution": "Student-t",
+        "degrees_of_freedom": 10.0,
+        "degrees_policy": "fixed configuration; finite variance requires df > 2",
+        "architecture": "same two-output mean/total-variance network and initialization as independent Gaussian control",
+        "log_variance_clamp": [
+          -6,
+          4
+        ],
+        "student_scale_squared": "exp(log_variance) * (df - 2) / df",
+        "variance": "exp(log_variance) is the complete conditional return variance, not Student-t scale squared",
+        "likelihood_dtype": "float64",
+        "normalizer": "full Student-t density normalizer included",
+        "objective": "0.7 Student-t NLL + 0.3 unchanged per-date correlation ranking loss",
+        "scoring": "mean / total_sigma ** risk_exponent - risk_penalty * total_sigma",
+        "intervals": "true Student-t quantiles using fixed df and forecast moments",
+        "targets": "unchanged selected-training standardization and clipping; raw untruncated validation observations",
+        "interpretation": "fixed-tail deterministic distribution adaptation; no Bayesian network or evidential regression reproduction",
+        "prediction_inputs": "features only; observations enter training loss and later validation diagnostics"
+      },
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.04048788682162931,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 840429,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 729
+      },
+      "valid/calibration/calibration.json": {
+        "created_at": "2026-10-08T21:47:19.153884+00:00",
+        "market": "csi300",
+        "family": "student_t",
+        "split": "purged validation only",
+        "samples": 143786,
+        "days": 480,
+        "target_kind": "raw_excess_standardized",
+        "training_scale": 0.04048788682162931,
+        "scale_file_sha256": "af60e7c3e138d31c6781aaf1978e9dc563d5b031c8a9a0d1e4a6f19ca4d103c1",
+        "best_epoch": 2,
+        "inference": "CPU float32; diagnostic scores may differ slightly from CUDA bfloat16",
+        "labels": "unclipped observed validation returns, demeaned by date for an excess-return target",
+        "rmse": 0.046987246848427894,
+        "mae": 0.03339839262616459,
+        "interval_80_coverage": 0.7685518757041715,
+        "uncertainty_abs_error_RankIC": 0.3157360387343717,
+        "uncertainty_bins": [
+          {
+            "bin": 1,
+            "samples": 28320,
+            "predicted_uncertainty": 0.024757320403610804,
+            "observed_rmse": 0.02815981938446462,
+            "observed_mae": 0.01953441809851168
+          },
+          {
+            "bin": 2,
+            "samples": 28791,
+            "predicted_uncertainty": 0.032307140519672574,
+            "observed_rmse": 0.03802501485377971,
+            "observed_mae": 0.02713192063943114
+          },
+          {
+            "bin": 3,
+            "samples": 28775,
+            "predicted_uncertainty": 0.038536516357622494,
+            "observed_rmse": 0.04629846868524745,
+            "observed_mae": 0.03383469523243882
+          },
+          {
+            "bin": 4,
+            "samples": 28791,
+            "predicted_uncertainty": 0.0441654638265171,
+            "observed_rmse": 0.05283158724615039,
+            "observed_mae": 0.03940400361265076
+          },
+          {
+            "bin": 5,
+            "samples": 29109,
+            "predicted_uncertainty": 0.0523099508388018,
+            "observed_rmse": 0.061841478169371765,
+            "observed_mae": 0.04671329867534901
+          }
+        ],
+        "by_year": [
+          {
+            "year": 2021,
+            "samples": 72764,
+            "rmse": 0.050057070576272816,
+            "interval_80_coverage": 0.7740640976306965
+          },
+          {
+            "year": 2022,
+            "samples": 71022,
+            "rmse": 0.04361863619219259,
+            "interval_80_coverage": 0.76290445214159
+          }
+        ],
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "680ae2a0b3c48e62f18bd3f1b92fe7117da1f6b85695a641e2f332f38120b3b4",
+          "research/runner.py": "e8d0da3f4d28837bb2c654c211140a34c2000139544368a5a726d0599c6a66dd",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "24f8be5dd8dcddc40e6ce7930ce4f8e318dec679c845203f3c5eac07892f3e6d",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "67876ab717ebc9d257052ee84a0145bab1ad17010416c7d4c73a6b5254f317e4"
+        },
+        "mean_normalized_squared_error": 1.3763811459134505,
+        "quantile_coverage": {
+          "q10": 0.10895358379814446,
+          "q50": 0.5403655432378673,
+          "q90": 0.877505459502316
+        },
+        "student_t": {
+          "degrees_of_freedom": 10.0,
+          "interval_method": "true Student-t quantiles; sigma denotes total standard deviation",
+          "mean_negative_log_density_raw_units": -1.755561017045029,
+          "pit_histogram": [
+            15666,
+            16348,
+            16091,
+            15453,
+            14139,
+            13247,
+            12160,
+            11469,
+            11600,
+            17613
+          ],
+          "interpretation": "likelihood calibration is not portfolio performance evidence"
+        }
+      },
+      "matched_gaussian_result": {
+        "id": "231bb1240b87cb1b",
+        "deltas": {
+          "IC": 0.0007560164304398487,
+          "ICIR": 0.007732106104468173,
+          "RankIC": 0.0009346838145936065,
+          "RankICIR": 0.009472386305508895,
+          "AR": 0.05839379125437705,
+          "STD": 0.004272005522563793,
+          "MDD": 0.0015934021081214222,
+          "Sharpe": 0.1966533597013046,
+          "Sortino": 0.2936099096358448,
+          "Calmar": 0.210539642949018
         }
       }
     },
@@ -1882,6 +3502,822 @@
       }
     },
     {
+      "id": "8369dc7467c4bd9f",
+      "market": "sp500",
+      "target_kind": "raw_standardized",
+      "distribution": "student_t",
+      "student_df": 3.0,
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "student_t",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "student_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "target_kind": "raw_standardized",
+        "market": "sp500",
+        "student_df": 3.0
+      },
+      "existing_control": false,
+      "matched_gaussian": "860bd8760e42dd68",
+      "status": "complete",
+      "validation": {
+        "IC": 0.03626216422842382,
+        "ICIR": 0.1793224947001272,
+        "RankIC": 0.03814203701385309,
+        "RankICIR": 0.18819678186107383,
+        "RankIC_2021": 0.047889682772304945,
+        "RankIC_2022": 0.02815664379787801,
+        "AR": 0.09893131602325922,
+        "STD": 0.29595899693135425,
+        "MDD": -0.2782907453527079,
+        "Sharpe": 0.3187542114025909,
+        "Sortino": 0.46165178552481173,
+        "Calmar": 0.3554962487087843,
+        "num_test_days": 498
+      },
+      "seconds": 162.8515653880022,
+      "resources": {
+        "cpu_seconds": 151.531694,
+        "peak_process_rss_mib": 3402.58203125,
+        "gpu_peak_allocated_mib": 1323.22509765625,
+        "gpu_peak_reserved_mib": 1340.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T21:47:40.684200+00:00",
+        "id": "8369dc7467c4bd9f",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/historical_risk.py": "26ecb9bba3ac760d7b17981d0f0f44be8636a80b72e6dc9262689355cc7094ea",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "968b1c729435ba192873489a8aa4e53dc90d033f42b6e80caa12fbd5157e4054",
+          "research/runner.py": "71686572938a5c543766f256693321bc84645270fc6550019e53788ce4e06b09",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "3695b5ef158ab7d6f5ea00ebbed2a8ef228b62c96246fcb13785f71ca31b4348",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "0d9c84cfdd49243ac123e7d89260f89ed5ec0e3a85c82741b48800f580091f0b"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/f1a32b439d2001f046906494/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T21:50:23.535748+00:00"
+      },
+      "checkpoint_sha256": "2712c146037e0cd54adcaf0fecbd3db061c4f6a141914b854bc5b590f7f8331e",
+      "prediction_sha256": "6f194a8414bf3769042901a8cad22f740462994030dfb671d356557e351caea2",
+      "return_distribution.json": {
+        "distribution": "Student-t",
+        "degrees_of_freedom": 3.0,
+        "degrees_policy": "fixed configuration; finite variance requires df > 2",
+        "architecture": "same two-output mean/total-variance network and initialization as independent Gaussian control",
+        "log_variance_clamp": [
+          -6,
+          4
+        ],
+        "student_scale_squared": "exp(log_variance) * (df - 2) / df",
+        "variance": "exp(log_variance) is the complete conditional return variance, not Student-t scale squared",
+        "likelihood_dtype": "float64",
+        "normalizer": "full Student-t density normalizer included",
+        "objective": "0.7 Student-t NLL + 0.3 unchanged per-date correlation ranking loss",
+        "scoring": "mean / total_sigma ** risk_exponent - risk_penalty * total_sigma",
+        "intervals": "true Student-t quantiles using fixed df and forecast moments",
+        "targets": "unchanged selected-training standardization and clipping; raw untruncated validation observations",
+        "interpretation": "fixed-tail deterministic distribution adaptation; no Bayesian network or evidential regression reproduction",
+        "prediction_inputs": "features only; observations enter training loss and later validation diagnostics"
+      },
+      "target_transform.json": {
+        "kind": "raw_standardized",
+        "scale": 0.04185252839688792,
+        "fit_split": "selected purged training dates only",
+        "demeaning": null,
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 1194829,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 754
+      },
+      "valid/calibration/calibration.json": {
+        "created_at": "2026-10-08T21:50:22.566344+00:00",
+        "market": "sp500",
+        "family": "student_t",
+        "split": "purged validation only",
+        "samples": 235798,
+        "days": 498,
+        "target_kind": "raw_standardized",
+        "training_scale": 0.04185252839688792,
+        "scale_file_sha256": "5fc97c195a33ea8d54ed82943331f276f8f4835c1955930149a15261e28cd110",
+        "best_epoch": 2,
+        "inference": "CPU float32; diagnostic scores may differ slightly from CUDA bfloat16",
+        "labels": "unclipped observed validation returns, demeaned by date for an excess-return target",
+        "rmse": 0.042828504354436435,
+        "mae": 0.031046273629751594,
+        "interval_80_coverage": 0.7916648996174692,
+        "uncertainty_abs_error_RankIC": 0.25138220034514186,
+        "uncertainty_bins": [
+          {
+            "bin": 1,
+            "samples": 46917,
+            "predicted_uncertainty": 0.03501256680029445,
+            "observed_rmse": 0.03013374925246059,
+            "observed_mae": 0.022387224898970475
+          },
+          {
+            "bin": 2,
+            "samples": 47097,
+            "predicted_uncertainty": 0.04158725902739594,
+            "observed_rmse": 0.03510234639740712,
+            "observed_mae": 0.02619837708204328
+          },
+          {
+            "bin": 3,
+            "samples": 47207,
+            "predicted_uncertainty": 0.047595124453006565,
+            "observed_rmse": 0.038981045824297726,
+            "observed_mae": 0.029188692890071633
+          },
+          {
+            "bin": 4,
+            "samples": 47097,
+            "predicted_uncertainty": 0.055962620437332064,
+            "observed_rmse": 0.044666344965525705,
+            "observed_mae": 0.033407035384256094
+          },
+          {
+            "bin": 5,
+            "samples": 47480,
+            "predicted_uncertainty": 0.07775373717247817,
+            "observed_rmse": 0.05916273716049379,
+            "observed_mae": 0.0439166188411174
+          }
+        ],
+        "by_year": [
+          {
+            "year": 2021,
+            "samples": 118360,
+            "rmse": 0.035265938333387446,
+            "interval_80_coverage": 0.8310070969922271
+          },
+          {
+            "year": 2022,
+            "samples": 117438,
+            "rmse": 0.049290079037799694,
+            "interval_80_coverage": 0.7520138285733748
+          }
+        ],
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/historical_risk.py": "26ecb9bba3ac760d7b17981d0f0f44be8636a80b72e6dc9262689355cc7094ea",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "968b1c729435ba192873489a8aa4e53dc90d033f42b6e80caa12fbd5157e4054",
+          "research/runner.py": "71686572938a5c543766f256693321bc84645270fc6550019e53788ce4e06b09",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "3695b5ef158ab7d6f5ea00ebbed2a8ef228b62c96246fcb13785f71ca31b4348",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "0d9c84cfdd49243ac123e7d89260f89ed5ec0e3a85c82741b48800f580091f0b"
+        },
+        "mean_normalized_squared_error": 0.6774971094017755,
+        "quantile_coverage": {
+          "q10": 0.1263030220782195,
+          "q50": 0.5161282114352115,
+          "q90": 0.9179679216956886
+        },
+        "student_t": {
+          "degrees_of_freedom": 3.0,
+          "interval_method": "true Student-t quantiles; sigma denotes total standard deviation",
+          "mean_negative_log_density_raw_units": -1.8165147301389524,
+          "pit_histogram": [
+            29782,
+            26414,
+            23060,
+            21308,
+            21138,
+            21485,
+            22844,
+            24667,
+            25757,
+            19343
+          ],
+          "interpretation": "likelihood calibration is not portfolio performance evidence"
+        }
+      },
+      "matched_gaussian_result": {
+        "id": "860bd8760e42dd68",
+        "deltas": {
+          "IC": 0.002920934071422833,
+          "ICIR": 0.013453594341924613,
+          "RankIC": 0.007152500441277198,
+          "RankICIR": 0.03317432270885212,
+          "AR": -0.008232521047175867,
+          "STD": -0.0032876145631384746,
+          "MDD": -0.02792540380378894,
+          "Sharpe": -0.021438926404351633,
+          "Sortino": -0.03457833385607639,
+          "Calmar": -0.0725335912341229
+        }
+      }
+    },
+    {
+      "id": "78a756098d664e97",
+      "market": "sp500",
+      "target_kind": "raw_standardized",
+      "distribution": "student_t",
+      "student_df": 5.0,
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "student_t",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "student_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "target_kind": "raw_standardized",
+        "market": "sp500",
+        "student_df": 5.0
+      },
+      "existing_control": false,
+      "matched_gaussian": "860bd8760e42dd68",
+      "status": "complete",
+      "validation": {
+        "IC": 0.0359297286395296,
+        "ICIR": 0.17775541570078632,
+        "RankIC": 0.03620948109205121,
+        "RankICIR": 0.17897746188133626,
+        "RankIC_2021": 0.04536008733185218,
+        "RankIC_2022": 0.02683568933420631,
+        "AR": 0.1039950348196641,
+        "STD": 0.29577619555317713,
+        "MDD": -0.2639994128339337,
+        "Sharpe": 0.334494296316845,
+        "Sortino": 0.4861580608732507,
+        "Calmar": 0.3939214625643171,
+        "num_test_days": 498
+      },
+      "seconds": 169.04769130100613,
+      "resources": {
+        "cpu_seconds": 157.75522099999998,
+        "peak_process_rss_mib": 3401.62109375,
+        "gpu_peak_allocated_mib": 1323.22509765625,
+        "gpu_peak_reserved_mib": 1340.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T21:50:40.967501+00:00",
+        "id": "78a756098d664e97",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/historical_risk.py": "26ecb9bba3ac760d7b17981d0f0f44be8636a80b72e6dc9262689355cc7094ea",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "968b1c729435ba192873489a8aa4e53dc90d033f42b6e80caa12fbd5157e4054",
+          "research/runner.py": "71686572938a5c543766f256693321bc84645270fc6550019e53788ce4e06b09",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "3695b5ef158ab7d6f5ea00ebbed2a8ef228b62c96246fcb13785f71ca31b4348",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "0d9c84cfdd49243ac123e7d89260f89ed5ec0e3a85c82741b48800f580091f0b"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/f1a32b439d2001f046906494/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T21:53:30.015191+00:00"
+      },
+      "checkpoint_sha256": "72eb202ef86acc1adf1e641f25043e07244cdbffab99d726cfa98e719501707d",
+      "prediction_sha256": "7cfe2644d16df50c4065e97b1d8de3cb8bbd17bd626cf4268a5295030f88b444",
+      "return_distribution.json": {
+        "distribution": "Student-t",
+        "degrees_of_freedom": 5.0,
+        "degrees_policy": "fixed configuration; finite variance requires df > 2",
+        "architecture": "same two-output mean/total-variance network and initialization as independent Gaussian control",
+        "log_variance_clamp": [
+          -6,
+          4
+        ],
+        "student_scale_squared": "exp(log_variance) * (df - 2) / df",
+        "variance": "exp(log_variance) is the complete conditional return variance, not Student-t scale squared",
+        "likelihood_dtype": "float64",
+        "normalizer": "full Student-t density normalizer included",
+        "objective": "0.7 Student-t NLL + 0.3 unchanged per-date correlation ranking loss",
+        "scoring": "mean / total_sigma ** risk_exponent - risk_penalty * total_sigma",
+        "intervals": "true Student-t quantiles using fixed df and forecast moments",
+        "targets": "unchanged selected-training standardization and clipping; raw untruncated validation observations",
+        "interpretation": "fixed-tail deterministic distribution adaptation; no Bayesian network or evidential regression reproduction",
+        "prediction_inputs": "features only; observations enter training loss and later validation diagnostics"
+      },
+      "target_transform.json": {
+        "kind": "raw_standardized",
+        "scale": 0.04185252839688792,
+        "fit_split": "selected purged training dates only",
+        "demeaning": null,
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 1194829,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 754
+      },
+      "valid/calibration/calibration.json": {
+        "created_at": "2026-10-08T21:53:28.978984+00:00",
+        "market": "sp500",
+        "family": "student_t",
+        "split": "purged validation only",
+        "samples": 235798,
+        "days": 498,
+        "target_kind": "raw_standardized",
+        "training_scale": 0.04185252839688792,
+        "scale_file_sha256": "5fc97c195a33ea8d54ed82943331f276f8f4835c1955930149a15261e28cd110",
+        "best_epoch": 2,
+        "inference": "CPU float32; diagnostic scores may differ slightly from CUDA bfloat16",
+        "labels": "unclipped observed validation returns, demeaned by date for an excess-return target",
+        "rmse": 0.0425515565236671,
+        "mae": 0.03081325090970726,
+        "interval_80_coverage": 0.7884375609631973,
+        "uncertainty_abs_error_RankIC": 0.2560217740631146,
+        "uncertainty_bins": [
+          {
+            "bin": 1,
+            "samples": 46917,
+            "predicted_uncertainty": 0.02846127506939226,
+            "observed_rmse": 0.029749249064027705,
+            "observed_mae": 0.02207848455033257
+          },
+          {
+            "bin": 2,
+            "samples": 47097,
+            "predicted_uncertainty": 0.03387581943232137,
+            "observed_rmse": 0.03466032972945299,
+            "observed_mae": 0.02586753214285912
+          },
+          {
+            "bin": 3,
+            "samples": 47207,
+            "predicted_uncertainty": 0.03874959433935062,
+            "observed_rmse": 0.03862292551173656,
+            "observed_mae": 0.028946634087158425
+          },
+          {
+            "bin": 4,
+            "samples": 47097,
+            "predicted_uncertainty": 0.04541559885128712,
+            "observed_rmse": 0.04435492586330058,
+            "observed_mae": 0.033139349635575244
+          },
+          {
+            "bin": 5,
+            "samples": 47480,
+            "predicted_uncertainty": 0.06224661461547512,
+            "observed_rmse": 0.059086959317518326,
+            "observed_mae": 0.04389881659409832
+          }
+        ],
+        "by_year": [
+          {
+            "year": 2021,
+            "samples": 118360,
+            "rmse": 0.0351418155984913,
+            "interval_80_coverage": 0.8259716120310916
+          },
+          {
+            "year": 2022,
+            "samples": 117438,
+            "rmse": 0.04889624134924315,
+            "interval_80_coverage": 0.7506088318942761
+          }
+        ],
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/historical_risk.py": "26ecb9bba3ac760d7b17981d0f0f44be8636a80b72e6dc9262689355cc7094ea",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "968b1c729435ba192873489a8aa4e53dc90d033f42b6e80caa12fbd5157e4054",
+          "research/runner.py": "71686572938a5c543766f256693321bc84645270fc6550019e53788ce4e06b09",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "3695b5ef158ab7d6f5ea00ebbed2a8ef228b62c96246fcb13785f71ca31b4348",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "0d9c84cfdd49243ac123e7d89260f89ed5ec0e3a85c82741b48800f580091f0b"
+        },
+        "mean_normalized_squared_error": 1.0008144834142632,
+        "quantile_coverage": {
+          "q10": 0.1281393396042375,
+          "q50": 0.520763534890033,
+          "q90": 0.9165769005674348
+        },
+        "student_t": {
+          "degrees_of_freedom": 5.0,
+          "interval_method": "true Student-t quantiles; sigma denotes total standard deviation",
+          "mean_negative_log_density_raw_units": -1.8381596717033444,
+          "pit_histogram": [
+            30215,
+            24908,
+            22974,
+            22350,
+            22348,
+            22707,
+            23518,
+            23826,
+            23281,
+            19671
+          ],
+          "interpretation": "likelihood calibration is not portfolio performance evidence"
+        }
+      },
+      "matched_gaussian_result": {
+        "id": "860bd8760e42dd68",
+        "deltas": {
+          "IC": 0.002588498482528609,
+          "ICIR": 0.011886515342583726,
+          "RankIC": 0.005219944519475318,
+          "RankICIR": 0.02395500272911455,
+          "AR": -0.0031688022507709857,
+          "STD": -0.0034704159413155855,
+          "MDD": -0.013634071285014704,
+          "Sharpe": -0.005698841490097528,
+          "Sortino": -0.010072058507637427,
+          "Calmar": -0.03410837737859013
+        }
+      }
+    },
+    {
+      "id": "a0bca09573b4137f",
+      "market": "sp500",
+      "target_kind": "raw_standardized",
+      "distribution": "student_t",
+      "student_df": 10.0,
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "student_t",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "student_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "target_kind": "raw_standardized",
+        "market": "sp500",
+        "student_df": 10.0
+      },
+      "existing_control": false,
+      "matched_gaussian": "860bd8760e42dd68",
+      "status": "complete",
+      "validation": {
+        "IC": 0.03581662740623521,
+        "ICIR": 0.17685029043393674,
+        "RankIC": 0.034841759670618054,
+        "RankICIR": 0.17262073282319912,
+        "RankIC_2021": 0.04271808639471181,
+        "RankIC_2022": 0.02677332741666834,
+        "AR": 0.06785326283662907,
+        "STD": 0.3003442430382478,
+        "MDD": -0.28573082967985786,
+        "Sharpe": 0.21858363618592563,
+        "Sortino": 0.3154412649973524,
+        "Calmar": 0.23747266933937117,
+        "num_test_days": 498
+      },
+      "seconds": 157.12669926701346,
+      "resources": {
+        "cpu_seconds": 145.892597,
+        "peak_process_rss_mib": 3400.88671875,
+        "gpu_peak_allocated_mib": 1323.22509765625,
+        "gpu_peak_reserved_mib": 1340.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T21:53:41.241703+00:00",
+        "id": "a0bca09573b4137f",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/historical_risk.py": "26ecb9bba3ac760d7b17981d0f0f44be8636a80b72e6dc9262689355cc7094ea",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "968b1c729435ba192873489a8aa4e53dc90d033f42b6e80caa12fbd5157e4054",
+          "research/runner.py": "71686572938a5c543766f256693321bc84645270fc6550019e53788ce4e06b09",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "3695b5ef158ab7d6f5ea00ebbed2a8ef228b62c96246fcb13785f71ca31b4348",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "0d9c84cfdd49243ac123e7d89260f89ed5ec0e3a85c82741b48800f580091f0b"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/f1a32b439d2001f046906494/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T21:56:18.368304+00:00"
+      },
+      "checkpoint_sha256": "3a60209da19bfa31d77c49ba57c8dc782a06d9a073713500bddafbf2fcf696ec",
+      "prediction_sha256": "440c12f208309d613ba0fbd4624ce6a2241cd539c8f0e21a2c1dc4db52977c9f",
+      "return_distribution.json": {
+        "distribution": "Student-t",
+        "degrees_of_freedom": 10.0,
+        "degrees_policy": "fixed configuration; finite variance requires df > 2",
+        "architecture": "same two-output mean/total-variance network and initialization as independent Gaussian control",
+        "log_variance_clamp": [
+          -6,
+          4
+        ],
+        "student_scale_squared": "exp(log_variance) * (df - 2) / df",
+        "variance": "exp(log_variance) is the complete conditional return variance, not Student-t scale squared",
+        "likelihood_dtype": "float64",
+        "normalizer": "full Student-t density normalizer included",
+        "objective": "0.7 Student-t NLL + 0.3 unchanged per-date correlation ranking loss",
+        "scoring": "mean / total_sigma ** risk_exponent - risk_penalty * total_sigma",
+        "intervals": "true Student-t quantiles using fixed df and forecast moments",
+        "targets": "unchanged selected-training standardization and clipping; raw untruncated validation observations",
+        "interpretation": "fixed-tail deterministic distribution adaptation; no Bayesian network or evidential regression reproduction",
+        "prediction_inputs": "features only; observations enter training loss and later validation diagnostics"
+      },
+      "target_transform.json": {
+        "kind": "raw_standardized",
+        "scale": 0.04185252839688792,
+        "fit_split": "selected purged training dates only",
+        "demeaning": null,
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 1194829,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 754
+      },
+      "valid/calibration/calibration.json": {
+        "created_at": "2026-10-08T21:56:17.464843+00:00",
+        "market": "sp500",
+        "family": "student_t",
+        "split": "purged validation only",
+        "samples": 235798,
+        "days": 498,
+        "target_kind": "raw_standardized",
+        "training_scale": 0.04185252839688792,
+        "scale_file_sha256": "5fc97c195a33ea8d54ed82943331f276f8f4835c1955930149a15261e28cd110",
+        "best_epoch": 2,
+        "inference": "CPU float32; diagnostic scores may differ slightly from CUDA bfloat16",
+        "labels": "unclipped observed validation returns, demeaned by date for an excess-return target",
+        "rmse": 0.04236908885024376,
+        "mae": 0.030666308960562914,
+        "interval_80_coverage": 0.7989423150323582,
+        "uncertainty_abs_error_RankIC": 0.2577915394710813,
+        "uncertainty_bins": [
+          {
+            "bin": 1,
+            "samples": 46917,
+            "predicted_uncertainty": 0.026936043563390615,
+            "observed_rmse": 0.029507925725399266,
+            "observed_mae": 0.02189813659523267
+          },
+          {
+            "bin": 2,
+            "samples": 47097,
+            "predicted_uncertainty": 0.03220885338972906,
+            "observed_rmse": 0.03437372825743565,
+            "observed_mae": 0.0256767322690333
+          },
+          {
+            "bin": 3,
+            "samples": 47207,
+            "predicted_uncertainty": 0.036931414860667755,
+            "observed_rmse": 0.03852617732767599,
+            "observed_mae": 0.028844974474433772
+          },
+          {
+            "bin": 4,
+            "samples": 47097,
+            "predicted_uncertainty": 0.04331483044373051,
+            "observed_rmse": 0.0441435826435473,
+            "observed_mae": 0.032992089889949096
+          },
+          {
+            "bin": 5,
+            "samples": 47480,
+            "predicted_uncertainty": 0.05905298285405616,
+            "observed_rmse": 0.05894103205566457,
+            "observed_mae": 0.04378368193782843
+          }
+        ],
+        "by_year": [
+          {
+            "year": 2021,
+            "samples": 118360,
+            "rmse": 0.0350860812868128,
+            "interval_80_coverage": 0.8338712402838797
+          },
+          {
+            "year": 2022,
+            "samples": 117438,
+            "rmse": 0.04861764137851912,
+            "interval_80_coverage": 0.7637391644953082
+          }
+        ],
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/historical_risk.py": "26ecb9bba3ac760d7b17981d0f0f44be8636a80b72e6dc9262689355cc7094ea",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "968b1c729435ba192873489a8aa4e53dc90d033f42b6e80caa12fbd5157e4054",
+          "research/runner.py": "71686572938a5c543766f256693321bc84645270fc6550019e53788ce4e06b09",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "3695b5ef158ab7d6f5ea00ebbed2a8ef228b62c96246fcb13785f71ca31b4348",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "0d9c84cfdd49243ac123e7d89260f89ed5ec0e3a85c82741b48800f580091f0b"
+        },
+        "mean_normalized_squared_error": 1.0901605126628366,
+        "quantile_coverage": {
+          "q10": 0.12191367187168678,
+          "q50": 0.5211876266974275,
+          "q90": 0.920855986904045
+        },
+        "student_t": {
+          "degrees_of_freedom": 10.0,
+          "interval_method": "true Student-t quantiles; sigma denotes total standard deviation",
+          "mean_negative_log_density_raw_units": -1.8434799047598098,
+          "pit_histogram": [
+            28747,
+            23533,
+            23283,
+            23401,
+            23931,
+            24397,
+            24578,
+            23728,
+            21538,
+            18662
+          ],
+          "interpretation": "likelihood calibration is not portfolio performance evidence"
+        }
+      },
+      "matched_gaussian_result": {
+        "id": "860bd8760e42dd68",
+        "deltas": {
+          "IC": 0.0024753972492342208,
+          "ICIR": 0.010981390075734149,
+          "RankIC": 0.003852223098042163,
+          "RankICIR": 0.01759827367097741,
+          "AR": -0.03931057423380602,
+          "STD": 0.0010976315437550843,
+          "MDD": -0.03536548813093887,
+          "Sharpe": -0.12160950162101691,
+          "Sortino": -0.1807888543835357,
+          "Calmar": -0.19055717060353605
+        }
+      }
+    },
+    {
       "id": "84d96fb0eac48a4b",
       "market": "sp500",
       "target_kind": "raw_excess_standardized",
@@ -2136,6 +4572,822 @@
             25978
           ],
           "interpretation": "routing diagnostics do not establish semantic expert specialization"
+        }
+      }
+    },
+    {
+      "id": "d21c850cab49ad39",
+      "market": "sp500",
+      "target_kind": "raw_excess_standardized",
+      "distribution": "student_t",
+      "student_df": 3.0,
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "student_t",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "student_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "target_kind": "raw_excess_standardized",
+        "market": "sp500",
+        "student_df": 3.0
+      },
+      "existing_control": false,
+      "matched_gaussian": "84d96fb0eac48a4b",
+      "status": "complete",
+      "validation": {
+        "IC": 0.03014889126866601,
+        "ICIR": 0.1429833185410775,
+        "RankIC": 0.030078928861298364,
+        "RankICIR": 0.14333488216793225,
+        "RankIC_2021": 0.04449352266940165,
+        "RankIC_2022": 0.015312759594460849,
+        "AR": 0.017856536639192733,
+        "STD": 0.31821923505868815,
+        "MDD": -0.3125140004831638,
+        "Sharpe": 0.05561882993468901,
+        "Sortino": 0.07928948756134112,
+        "Calmar": 0.05713835735866408,
+        "num_test_days": 498
+      },
+      "seconds": 144.7477237760031,
+      "resources": {
+        "cpu_seconds": 133.587462,
+        "peak_process_rss_mib": 3403.96484375,
+        "gpu_peak_allocated_mib": 1323.22509765625,
+        "gpu_peak_reserved_mib": 1340.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T21:56:21.449842+00:00",
+        "id": "d21c850cab49ad39",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/historical_risk.py": "26ecb9bba3ac760d7b17981d0f0f44be8636a80b72e6dc9262689355cc7094ea",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "968b1c729435ba192873489a8aa4e53dc90d033f42b6e80caa12fbd5157e4054",
+          "research/runner.py": "71686572938a5c543766f256693321bc84645270fc6550019e53788ce4e06b09",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "3695b5ef158ab7d6f5ea00ebbed2a8ef228b62c96246fcb13785f71ca31b4348",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "0d9c84cfdd49243ac123e7d89260f89ed5ec0e3a85c82741b48800f580091f0b"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/f1a32b439d2001f046906494/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T21:58:46.197570+00:00"
+      },
+      "checkpoint_sha256": "75c2d842b87da9f767bc64fba709bba7635462671682363134bd4ec8a449c1d4",
+      "prediction_sha256": "67c222777eedeb436e4f5c83ced61de210aed13927d147b4cadf6cd167ebae82",
+      "return_distribution.json": {
+        "distribution": "Student-t",
+        "degrees_of_freedom": 3.0,
+        "degrees_policy": "fixed configuration; finite variance requires df > 2",
+        "architecture": "same two-output mean/total-variance network and initialization as independent Gaussian control",
+        "log_variance_clamp": [
+          -6,
+          4
+        ],
+        "student_scale_squared": "exp(log_variance) * (df - 2) / df",
+        "variance": "exp(log_variance) is the complete conditional return variance, not Student-t scale squared",
+        "likelihood_dtype": "float64",
+        "normalizer": "full Student-t density normalizer included",
+        "objective": "0.7 Student-t NLL + 0.3 unchanged per-date correlation ranking loss",
+        "scoring": "mean / total_sigma ** risk_exponent - risk_penalty * total_sigma",
+        "intervals": "true Student-t quantiles using fixed df and forecast moments",
+        "targets": "unchanged selected-training standardization and clipping; raw untruncated validation observations",
+        "interpretation": "fixed-tail deterministic distribution adaptation; no Bayesian network or evidential regression reproduction",
+        "prediction_inputs": "features only; observations enter training loss and later validation diagnostics"
+      },
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.033585798422536894,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 1194829,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 754
+      },
+      "valid/calibration/calibration.json": {
+        "created_at": "2026-10-08T21:58:45.221037+00:00",
+        "market": "sp500",
+        "family": "student_t",
+        "split": "purged validation only",
+        "samples": 235798,
+        "days": 498,
+        "target_kind": "raw_excess_standardized",
+        "training_scale": 0.033585798422536894,
+        "scale_file_sha256": "7ff2b5655f14d373fa794b3e76fd388ac9dc387a243cab3a4b29e18474f82eb9",
+        "best_epoch": 1,
+        "inference": "CPU float32; diagnostic scores may differ slightly from CUDA bfloat16",
+        "labels": "unclipped observed validation returns, demeaned by date for an excess-return target",
+        "rmse": 0.034342223300683726,
+        "mae": 0.024199545500142798,
+        "interval_80_coverage": 0.792144123359825,
+        "uncertainty_abs_error_RankIC": 0.1975636541030832,
+        "uncertainty_bins": [
+          {
+            "bin": 1,
+            "samples": 46917,
+            "predicted_uncertainty": 0.029695683229420008,
+            "observed_rmse": 0.0262044961210221,
+            "observed_mae": 0.019350210730203696
+          },
+          {
+            "bin": 2,
+            "samples": 47097,
+            "predicted_uncertainty": 0.03341739840564666,
+            "observed_rmse": 0.027308626869526446,
+            "observed_mae": 0.020048319690591402
+          },
+          {
+            "bin": 3,
+            "samples": 47207,
+            "predicted_uncertainty": 0.036831027889935655,
+            "observed_rmse": 0.029830911560521065,
+            "observed_mae": 0.021557461138215783
+          },
+          {
+            "bin": 4,
+            "samples": 47097,
+            "predicted_uncertainty": 0.04154398187552908,
+            "observed_rmse": 0.0342347472255822,
+            "observed_mae": 0.024649787592158717
+          },
+          {
+            "bin": 5,
+            "samples": 47480,
+            "predicted_uncertainty": 0.05344396683756233,
+            "observed_rmse": 0.04890336654937148,
+            "observed_mae": 0.03528940114503519
+          }
+        ],
+        "by_year": [
+          {
+            "year": 2021,
+            "samples": 118360,
+            "rmse": 0.031868719533563655,
+            "interval_80_coverage": 0.7864058803649882
+          },
+          {
+            "year": 2022,
+            "samples": 117438,
+            "rmse": 0.03666670276572362,
+            "interval_80_coverage": 0.7979274170200447
+          }
+        ],
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/historical_risk.py": "26ecb9bba3ac760d7b17981d0f0f44be8636a80b72e6dc9262689355cc7094ea",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "968b1c729435ba192873489a8aa4e53dc90d033f42b6e80caa12fbd5157e4054",
+          "research/runner.py": "71686572938a5c543766f256693321bc84645270fc6550019e53788ce4e06b09",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "3695b5ef158ab7d6f5ea00ebbed2a8ef228b62c96246fcb13785f71ca31b4348",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "0d9c84cfdd49243ac123e7d89260f89ed5ec0e3a85c82741b48800f580091f0b"
+        },
+        "mean_normalized_squared_error": 0.712295514595233,
+        "quantile_coverage": {
+          "q10": 0.09956827454007243,
+          "q50": 0.48705671803832096,
+          "q90": 0.8917123978998974
+        },
+        "student_t": {
+          "degrees_of_freedom": 3.0,
+          "interval_method": "true Student-t quantiles; sigma denotes total standard deviation",
+          "mean_negative_log_density_raw_units": -2.0670337009138495,
+          "pit_histogram": [
+            23478,
+            24510,
+            22987,
+            22211,
+            21661,
+            21588,
+            22693,
+            24261,
+            26875,
+            25534
+          ],
+          "interpretation": "likelihood calibration is not portfolio performance evidence"
+        }
+      },
+      "matched_gaussian_result": {
+        "id": "84d96fb0eac48a4b",
+        "deltas": {
+          "IC": 0.0032254750002620146,
+          "ICIR": -0.005090732734901515,
+          "RankIC": 0.00043304685235925205,
+          "RankICIR": -0.015785453414082773,
+          "AR": -0.025461076763062973,
+          "STD": 0.01636067306839878,
+          "MDD": 0.02578639808359351,
+          "Sharpe": -0.0848630184656074,
+          "Sortino": -0.12162645859675976,
+          "Calmar": -0.07090646193736694
+        }
+      }
+    },
+    {
+      "id": "584276c41a0b48f6",
+      "market": "sp500",
+      "target_kind": "raw_excess_standardized",
+      "distribution": "student_t",
+      "student_df": 5.0,
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "student_t",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "student_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "target_kind": "raw_excess_standardized",
+        "market": "sp500",
+        "student_df": 5.0
+      },
+      "existing_control": false,
+      "matched_gaussian": "84d96fb0eac48a4b",
+      "status": "complete",
+      "validation": {
+        "IC": 0.02907484788926411,
+        "ICIR": 0.13741961527097077,
+        "RankIC": 0.029000918931136956,
+        "RankICIR": 0.13750110749152392,
+        "RankIC_2021": 0.043833589253889894,
+        "RankIC_2022": 0.013806476161487601,
+        "AR": 0.004384699368988665,
+        "STD": 0.32096912953797746,
+        "MDD": -0.32716040177128103,
+        "Sharpe": 0.013630951326692071,
+        "Sortino": 0.019404670050797813,
+        "Calmar": 0.013402292408401012,
+        "num_test_days": 498
+      },
+      "seconds": 143.69299221699475,
+      "resources": {
+        "cpu_seconds": 132.422507,
+        "peak_process_rss_mib": 3397.90625,
+        "gpu_peak_allocated_mib": 1323.22509765625,
+        "gpu_peak_reserved_mib": 1340.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T22:02:54.311289+00:00",
+        "id": "584276c41a0b48f6",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/historical_risk.py": "26ecb9bba3ac760d7b17981d0f0f44be8636a80b72e6dc9262689355cc7094ea",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "968b1c729435ba192873489a8aa4e53dc90d033f42b6e80caa12fbd5157e4054",
+          "research/runner.py": "71686572938a5c543766f256693321bc84645270fc6550019e53788ce4e06b09",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "3695b5ef158ab7d6f5ea00ebbed2a8ef228b62c96246fcb13785f71ca31b4348",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "0d9c84cfdd49243ac123e7d89260f89ed5ec0e3a85c82741b48800f580091f0b"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/f1a32b439d2001f046906494/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T22:05:18.004257+00:00"
+      },
+      "checkpoint_sha256": "c4b7de993f90cd746de1e0594c3e5f29bf5a7fa353dc534ee85586d7a86ee9cd",
+      "prediction_sha256": "9e17204559b24152ca89c15b18a412d47f3942c494fb8b5d3caad6c7a2be3024",
+      "return_distribution.json": {
+        "distribution": "Student-t",
+        "degrees_of_freedom": 5.0,
+        "degrees_policy": "fixed configuration; finite variance requires df > 2",
+        "architecture": "same two-output mean/total-variance network and initialization as independent Gaussian control",
+        "log_variance_clamp": [
+          -6,
+          4
+        ],
+        "student_scale_squared": "exp(log_variance) * (df - 2) / df",
+        "variance": "exp(log_variance) is the complete conditional return variance, not Student-t scale squared",
+        "likelihood_dtype": "float64",
+        "normalizer": "full Student-t density normalizer included",
+        "objective": "0.7 Student-t NLL + 0.3 unchanged per-date correlation ranking loss",
+        "scoring": "mean / total_sigma ** risk_exponent - risk_penalty * total_sigma",
+        "intervals": "true Student-t quantiles using fixed df and forecast moments",
+        "targets": "unchanged selected-training standardization and clipping; raw untruncated validation observations",
+        "interpretation": "fixed-tail deterministic distribution adaptation; no Bayesian network or evidential regression reproduction",
+        "prediction_inputs": "features only; observations enter training loss and later validation diagnostics"
+      },
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.033585798422536894,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 1194829,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 754
+      },
+      "valid/calibration/calibration.json": {
+        "created_at": "2026-10-08T22:05:17.045962+00:00",
+        "market": "sp500",
+        "family": "student_t",
+        "split": "purged validation only",
+        "samples": 235798,
+        "days": 498,
+        "target_kind": "raw_excess_standardized",
+        "training_scale": 0.033585798422536894,
+        "scale_file_sha256": "7ff2b5655f14d373fa794b3e76fd388ac9dc387a243cab3a4b29e18474f82eb9",
+        "best_epoch": 1,
+        "inference": "CPU float32; diagnostic scores may differ slightly from CUDA bfloat16",
+        "labels": "unclipped observed validation returns, demeaned by date for an excess-return target",
+        "rmse": 0.03435226173668365,
+        "mae": 0.024205194228459785,
+        "interval_80_coverage": 0.7883060925029051,
+        "uncertainty_abs_error_RankIC": 0.19869618274135029,
+        "uncertainty_bins": [
+          {
+            "bin": 1,
+            "samples": 46917,
+            "predicted_uncertainty": 0.0241356391204222,
+            "observed_rmse": 0.026136186572815433,
+            "observed_mae": 0.019320333087804512
+          },
+          {
+            "bin": 2,
+            "samples": 47097,
+            "predicted_uncertainty": 0.027227176255562095,
+            "observed_rmse": 0.027221940905292813,
+            "observed_mae": 0.01998665194628764
+          },
+          {
+            "bin": 3,
+            "samples": 47207,
+            "predicted_uncertainty": 0.030069369235334785,
+            "observed_rmse": 0.029950282705559966,
+            "observed_mae": 0.021617730695071415
+          },
+          {
+            "bin": 4,
+            "samples": 47097,
+            "predicted_uncertainty": 0.03402661004409061,
+            "observed_rmse": 0.034031546049314264,
+            "observed_mae": 0.024621734616765912
+          },
+          {
+            "bin": 5,
+            "samples": 47480,
+            "predicted_uncertainty": 0.044197241543866964,
+            "observed_rmse": 0.049090228876171024,
+            "observed_mae": 0.035376051523156433
+          }
+        ],
+        "by_year": [
+          {
+            "year": 2021,
+            "samples": 118360,
+            "rmse": 0.03186317568901551,
+            "interval_80_coverage": 0.7838458938830686
+          },
+          {
+            "year": 2022,
+            "samples": 117438,
+            "rmse": 0.03669043158111513,
+            "interval_80_coverage": 0.7928013079241812
+          }
+        ],
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/historical_risk.py": "26ecb9bba3ac760d7b17981d0f0f44be8636a80b72e6dc9262689355cc7094ea",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "968b1c729435ba192873489a8aa4e53dc90d033f42b6e80caa12fbd5157e4054",
+          "research/runner.py": "71686572938a5c543766f256693321bc84645270fc6550019e53788ce4e06b09",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "3695b5ef158ab7d6f5ea00ebbed2a8ef228b62c96246fcb13785f71ca31b4348",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "0d9c84cfdd49243ac123e7d89260f89ed5ec0e3a85c82741b48800f580091f0b"
+        },
+        "mean_normalized_squared_error": 1.062877130841059,
+        "quantile_coverage": {
+          "q10": 0.10317729582099933,
+          "q50": 0.4916708369027727,
+          "q90": 0.8914833883239044
+        },
+        "student_t": {
+          "degrees_of_freedom": 5.0,
+          "interval_method": "true Student-t quantiles; sigma denotes total standard deviation",
+          "mean_negative_log_density_raw_units": -2.073717368696071,
+          "pit_histogram": [
+            24329,
+            22819,
+            22933,
+            22904,
+            22950,
+            22847,
+            23339,
+            23662,
+            24427,
+            25588
+          ],
+          "interpretation": "likelihood calibration is not portfolio performance evidence"
+        }
+      },
+      "matched_gaussian_result": {
+        "id": "84d96fb0eac48a4b",
+        "deltas": {
+          "IC": 0.0021514316208601156,
+          "ICIR": -0.010654436005008233,
+          "RankIC": -0.0006449630778021555,
+          "RankICIR": -0.021619228090491105,
+          "AR": -0.03893291403326704,
+          "STD": 0.019110567547688084,
+          "MDD": 0.011139996795476281,
+          "Sharpe": -0.12685089707360434,
+          "Sortino": -0.18151127610730305,
+          "Calmar": -0.11464252688762999
+        }
+      }
+    },
+    {
+      "id": "13dd48a833dd6578",
+      "market": "sp500",
+      "target_kind": "raw_excess_standardized",
+      "distribution": "student_t",
+      "student_df": 10.0,
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "student_t",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "student_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "target_kind": "raw_excess_standardized",
+        "market": "sp500",
+        "student_df": 10.0
+      },
+      "existing_control": false,
+      "matched_gaussian": "84d96fb0eac48a4b",
+      "status": "complete",
+      "validation": {
+        "IC": 0.028176759120247252,
+        "ICIR": 0.13289055998265834,
+        "RankIC": 0.0283047898162039,
+        "RankICIR": 0.1336506897817843,
+        "RankIC_2021": 0.04409776016823285,
+        "RankIC_2022": 0.012126625065344971,
+        "AR": 0.02069933886514219,
+        "STD": 0.3204195366395422,
+        "MDD": -0.31472180057547217,
+        "Sharpe": 0.06394122816313529,
+        "Sortino": 0.0913194647681004,
+        "Calmar": 0.06577027338841233,
+        "num_test_days": 498
+      },
+      "seconds": 148.2952780899941,
+      "resources": {
+        "cpu_seconds": 137.392034,
+        "peak_process_rss_mib": 3399.98828125,
+        "gpu_peak_allocated_mib": 1323.22509765625,
+        "gpu_peak_reserved_mib": 1340.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T22:05:35.534478+00:00",
+        "id": "13dd48a833dd6578",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/historical_risk.py": "26ecb9bba3ac760d7b17981d0f0f44be8636a80b72e6dc9262689355cc7094ea",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "968b1c729435ba192873489a8aa4e53dc90d033f42b6e80caa12fbd5157e4054",
+          "research/runner.py": "71686572938a5c543766f256693321bc84645270fc6550019e53788ce4e06b09",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "3695b5ef158ab7d6f5ea00ebbed2a8ef228b62c96246fcb13785f71ca31b4348",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "0d9c84cfdd49243ac123e7d89260f89ed5ec0e3a85c82741b48800f580091f0b"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/f1a32b439d2001f046906494/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T22:08:03.829528+00:00"
+      },
+      "checkpoint_sha256": "65ec3fe846e5e74855e5aef66d4cf8246fa6388266e84c354540273f3b36528d",
+      "prediction_sha256": "c911de5c2a296d6209735bde4a7c3b0d4bce7cec6f7cc2cf7126f39334bb46f7",
+      "return_distribution.json": {
+        "distribution": "Student-t",
+        "degrees_of_freedom": 10.0,
+        "degrees_policy": "fixed configuration; finite variance requires df > 2",
+        "architecture": "same two-output mean/total-variance network and initialization as independent Gaussian control",
+        "log_variance_clamp": [
+          -6,
+          4
+        ],
+        "student_scale_squared": "exp(log_variance) * (df - 2) / df",
+        "variance": "exp(log_variance) is the complete conditional return variance, not Student-t scale squared",
+        "likelihood_dtype": "float64",
+        "normalizer": "full Student-t density normalizer included",
+        "objective": "0.7 Student-t NLL + 0.3 unchanged per-date correlation ranking loss",
+        "scoring": "mean / total_sigma ** risk_exponent - risk_penalty * total_sigma",
+        "intervals": "true Student-t quantiles using fixed df and forecast moments",
+        "targets": "unchanged selected-training standardization and clipping; raw untruncated validation observations",
+        "interpretation": "fixed-tail deterministic distribution adaptation; no Bayesian network or evidential regression reproduction",
+        "prediction_inputs": "features only; observations enter training loss and later validation diagnostics"
+      },
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.033585798422536894,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 1194829,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 754
+      },
+      "valid/calibration/calibration.json": {
+        "created_at": "2026-10-08T22:08:02.933122+00:00",
+        "market": "sp500",
+        "family": "student_t",
+        "split": "purged validation only",
+        "samples": 235798,
+        "days": 498,
+        "target_kind": "raw_excess_standardized",
+        "training_scale": 0.033585798422536894,
+        "scale_file_sha256": "7ff2b5655f14d373fa794b3e76fd388ac9dc387a243cab3a4b29e18474f82eb9",
+        "best_epoch": 1,
+        "inference": "CPU float32; diagnostic scores may differ slightly from CUDA bfloat16",
+        "labels": "unclipped observed validation returns, demeaned by date for an excess-return target",
+        "rmse": 0.03437110052149745,
+        "mae": 0.024221251862099218,
+        "interval_80_coverage": 0.7949770566332199,
+        "uncertainty_abs_error_RankIC": 0.19904240159456588,
+        "uncertainty_bins": [
+          {
+            "bin": 1,
+            "samples": 46917,
+            "predicted_uncertainty": 0.02271017307482349,
+            "observed_rmse": 0.02617322386724996,
+            "observed_mae": 0.019342970410808936
+          },
+          {
+            "bin": 2,
+            "samples": 47097,
+            "predicted_uncertainty": 0.02569545129037747,
+            "observed_rmse": 0.027277568111564163,
+            "observed_mae": 0.020004376333344447
+          },
+          {
+            "bin": 3,
+            "samples": 47207,
+            "predicted_uncertainty": 0.028453879040929927,
+            "observed_rmse": 0.029863204373188793,
+            "observed_mae": 0.02161516275985955
+          },
+          {
+            "bin": 4,
+            "samples": 47097,
+            "predicted_uncertainty": 0.032340767032626866,
+            "observed_rmse": 0.0340783625525718,
+            "observed_mae": 0.0246536261741912
+          },
+          {
+            "bin": 5,
+            "samples": 47480,
+            "predicted_uncertainty": 0.04253654029481619,
+            "observed_rmse": 0.049126104568637335,
+            "observed_mae": 0.03538676645562873
+          }
+        ],
+        "by_year": [
+          {
+            "year": 2021,
+            "samples": 118360,
+            "rmse": 0.03186772217116631,
+            "interval_80_coverage": 0.7918638053396417
+          },
+          {
+            "year": 2022,
+            "samples": 117438,
+            "rmse": 0.036721863201779635,
+            "interval_80_coverage": 0.7981147499105912
+          }
+        ],
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+          "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/historical_risk.py": "26ecb9bba3ac760d7b17981d0f0f44be8636a80b72e6dc9262689355cc7094ea",
+          "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "968b1c729435ba192873489a8aa4e53dc90d033f42b6e80caa12fbd5157e4054",
+          "research/runner.py": "71686572938a5c543766f256693321bc84645270fc6550019e53788ce4e06b09",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "3695b5ef158ab7d6f5ea00ebbed2a8ef228b62c96246fcb13785f71ca31b4348",
+          "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+          "research/train.py": "0d9c84cfdd49243ac123e7d89260f89ed5ec0e3a85c82741b48800f580091f0b"
+        },
+        "mean_normalized_squared_error": 1.180621562507751,
+        "quantile_coverage": {
+          "q10": 0.10109500504669251,
+          "q50": 0.4944995292580938,
+          "q90": 0.8960720616799125
+        },
+        "student_t": {
+          "degrees_of_freedom": 10.0,
+          "interval_method": "true Student-t quantiles; sigma denotes total standard deviation",
+          "mean_negative_log_density_raw_units": -2.0662585727379406,
+          "pit_histogram": [
+            23838,
+            21518,
+            22907,
+            23918,
+            24421,
+            24328,
+            24292,
+            23440,
+            22630,
+            24506
+          ],
+          "interpretation": "likelihood calibration is not portfolio performance evidence"
+        }
+      },
+      "matched_gaussian_result": {
+        "id": "84d96fb0eac48a4b",
+        "deltas": {
+          "IC": 0.0012533428518432567,
+          "ICIR": -0.015183491293320667,
+          "RankIC": -0.0013410921927352118,
+          "RankICIR": -0.025469645800230728,
+          "AR": -0.022618274537113514,
+          "STD": 0.018560974649252826,
+          "MDD": 0.023578597991285144,
+          "Sharpe": -0.07654062023716111,
+          "Sortino": -0.10959648139000047,
+          "Calmar": -0.062274545907618675
         }
       }
     }
