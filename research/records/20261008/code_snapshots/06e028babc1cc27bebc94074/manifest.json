@@ -1,0 +1,29 @@
+{
+  "created_at": "2026-10-08T21:00:39.098636+00:00",
+  "workspace": "/home/nbcctwya/kbs-workspace",
+  "files": {
+    "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+    "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+    "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+    "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+    "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+    "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+    "research/diagnostics.py": "a99c6ac5501d4b0ff04216ee498bf8ae052b5134107399312a3a3e654797eef6",
+    "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+    "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+    "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+    "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+    "research/models.py": "872940bae15c7cf2bc6227b9a92d98ed8193b0f8949e61e3e089610c1b9aa6e8",
+    "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+    "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+    "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+    "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+    "research/risk_regime.py": "680ae2a0b3c48e62f18bd3f1b92fe7117da1f6b85695a641e2f332f38120b3b4",
+    "research/runner.py": "e8d0da3f4d28837bb2c654c211140a34c2000139544368a5a726d0599c6a66dd",
+    "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+    "research/snapshot.py": "24f8be5dd8dcddc40e6ce7930ce4f8e318dec679c845203f3c5eac07892f3e6d",
+    "research/student.py": "a5f72e6fd40d0930668791ca6bfa76c1e697f12b5b848e5413ece852edc39e9d",
+    "research/train.py": "67876ab717ebc9d257052ee84a0145bab1ad17010416c7d4c73a6b5254f317e4"
+  },
+  "scope": "isolated staged Student-t implementation; actual GPU launch package"
+}

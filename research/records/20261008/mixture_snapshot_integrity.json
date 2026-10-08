@@ -1,16 +1,23 @@
 {
-  "created_at": "2026-10-08T20:41:27.996018+00:00",
-  "previous_commit": "cc9450c70a4dc16631e8db77ed697dc6945c799f",
-  "previous_runs": 229,
-  "snapshot_runs": 237,
+  "created_at": "2026-10-08T21:20:11.600328+00:00",
+  "previous_commit": "91c9efd117eca90ec9676a67c075f29c4526ea8b",
+  "previous_runs": 237,
+  "snapshot_runs": 251,
   "previous_records_unchanged": true,
   "previous_metric_rows_exactly_unchanged": true,
   "previous_seed_ensemble_records_unchanged": true,
+  "prior_seed_ensembles": 11,
+  "current_seed_ensembles": 15,
   "checked_code_packages": [
     {
       "bundle": "03e4497e576fe49c0d91220c",
       "manifest_sha256": "6b43613e62636997c202372806a04e0ad662db6f99834e64217934d18ced79b0",
       "files": 21
+    },
+    {
+      "bundle": "06e028babc1cc27bebc94074",
+      "manifest_sha256": "9ca6b1ce09b9c059ba4d43d3789468bda9919e4fe58eff4a0ac2ea833761f6c5",
+      "files": 22
     },
     {
       "bundle": "13f8e16a1375d73febfb9ba3",
@@ -124,12 +131,12 @@
     }
   ],
   "every_source_matches_saved_manifest": true,
-  "runs_with_exact_saved_package": 181,
+  "runs_with_exact_saved_package": 195,
   "earlier_runs_without_saved_package": 56,
-  "earlier_run_note": "56 early runs lack a recorded immutable launch package. Original source hashes are retained; no package is reconstructed or attributed retroactively.",
+  "earlier_run_note": "Early runs without a recorded immutable launch package retain original source hashes; no package is attributed retroactively.",
   "selection_lock_exists": false,
   "new_model_holdout_records": 0,
-  "scope": "completed full validation only; score-scale diagnostics excluded; previous evidence preserved",
+  "scope": "completed full validation only; diagnostics excluded; prior evidence preserved",
   "previous_coverage_audit": {
     "previous_reported_saved_packages": 174,
     "previous_explicitly_recorded_frozen_packages": 173,

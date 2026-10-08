@@ -59,6 +59,10 @@ PLE 默认从当前已剔除边界日、已应用训练历史范围的训练行�
 
 混合分布的 10%/50%/90% 分位数通过其 CDF 二分求逆得到，80% 覆盖率使用真实混合区间。验证诊断记录 PIT 分档、真实收益单位下的负对数密度、门控熵及组件平均权重；标签只在预测生成后用于观测诊断。正式排序、回测和五种子平均仍使用原 baseline 口径。
 
+`student_t` 使用与独立高斯对照相同的两通道网络预测条件均值及完整方差，以固定自由度 `3/5/10` 的 Student-t 似然训练。网络输出的方差为 `exp(log_variance)`；Student-t 分布的尺度平方为该方差乘 `(df-2)/df`，排序风险项继续使用完整标准差。自由度必须大于 2，按配置冻结为 checkpoint buffer。原训练标签标准化及 ±8 截断保持原规则；似然和真实分位数用 float64 计算，验证诊断保留对应精度的真实收益单位均值及标准差。
+
+该假设参考 [Student-t likelihood 研究](https://arxiv.org/abs/2607.25376) 和 [厚尾似然对异常值的研究](https://arxiv.org/abs/2202.03870)，具体计算以 [PyTorch 2.8 StudentT](https://docs.pytorch.org/docs/2.8/distributions.html#studentt) 对照。这里是固定厚尾分布的本地适配，没有引入论文中的贝叶斯权重或 Laplace 分布。12 个新候选交叉比较两个市场、原始/超额收益目标及三个自由度，复用 4 个已完成的单分量高斯对照；两边似然均为 float64，网络初始化、日内排序损失、训练计划及 baseline 回测固定。`return_distribution.json`、真实 Student-t 区间、PIT 与密度诊断保存参数及计算口径。
+
 `top30_pair` 是单独命名的训练目标：在每个训练日期，将真实收益排名前 30 的股票与其余股票进行确定性的 logistic 配对比较，再以 0.3/0.3/0.4 加权 MSE、相关性损失和配对损失。边界相同收益的股票按比例分配 Top30 归属权重，同收益配对不施加排序偏好；每日单独计算，多个日期合批仍不混合配对。该目标旨在检验持仓区间的排序监督，验证 checkpoint 选择和原 Top30 回测保持原有规则。`ranking_objective.json` 保存其约定；原 `tail_pair` 等目标保持原样。
 
 `ema_decay` 比较训练参数的指数移动平均，参考 [PyTorch 2.8 的 AveragedModel 文档](https://docs.pytorch.org/docs/2.8/optim.html#weight-averaging-swa-and-ema) 与 [权重平均研究](https://arxiv.org/abs/1803.05407)。每次训练优化器更新后执行 `EMA = decay * EMA + (1-decay) * raw`，第一次更新直接复制训练权重；原模型继续执行 AdamW 和原 cosine 学习率计划。验证及 best checkpoint 使用 EMA 参数，选模仍只看原验证排序准则；early-stop epoch 的变化属于该方法的实验变量。
@@ -115,10 +119,16 @@ worker 使用文件锁，避免重复占用算力。神经网络每轮保存可�
 
 长窗口方案通过 66 项 CPU 检查、四个双市场 16/32 天 GPU 案例及精确中断恢复；两个已训练的 8 天模型在各市场五个验证日上给出完全相同的修改前后预测。冻结混合风险模型的双市场零惩罚复算保留完整收益预测，十项 baseline 指标最大差异为 `3.11e-15`。12 组历史长度/数值编码对照和 12 组冻结风险分量/状态评分对照按相同验证规则运行。
 
-EMA 实现通过 72 项 CPU 检查、四类真实 GPU 训练与精确中断恢复，关闭 EMA 后两个市场的训练参数、损失及预测与原源码包完全一致。八组匹配的完整 EMA 对照已排队，正确性检查本身不代表模型收益改善。六组三种子评分尺度对照另行记录，不计入完整训练次数或自动晋级。
+EMA 实现通过 72 项 CPU 检查、四类真实 GPU 训练与精确中断恢复，关闭 EMA 后两个市场的训练参数、损失及预测与原源码包完全一致。两个市场的完整关闭 EMA 对照也已完成：全量验证预测、选中参数/epoch 及每轮训练损失均完全一致，十项回测/排序指标最大差异为 `3.56e-15`。八组匹配的完整 EMA 对照继续执行，正确性检查本身不代表模型收益改善。六组三种子评分尺度对照另行记录，不计入完整训练次数或自动晋级。
 
-可重做验证汇总：`python -m research.records.20261008.summarize_mixture_validation`、`python -m research.records.20261008.summarize_history_and_risk`、`python -m research.records.20261008.summarize_ema_validation`。`python -m research.records.20261008.check_mixture_seed_validation` 从三个种子的实际验证预测重新平均并回测，保存来源及 checkpoint 哈希；缺失的种子记录为 pending。
+冻结混合风险评分的八个配对种子补充实验及四组真实 `avg_none` 集成已经完成。SP500 的单分量风险状态评分相对静态评分改善十项验证指标，AR 从 `0.06057` 升到 `0.10806`；CSI300 两分量相对单分量仅小幅改善排序和 STD，AR 从 `0.15414` 降到 `0.14838`，MDD 从 `-0.15127` 变为 `-0.16291`。风险来源保持 seed 0，收益模型按三个种子平均；这项复核没有证明测试集超过 baseline。
+
+加入 Student-t 后的完整回归包含 80 项 CPU 检查，新增两个市场的真实 GPU 训练及精确中断恢复均通过。初次诊断检查的精度差异和修正记录一并保留；通过正确性检查不构成收益改善的证据。
+
+可重做验证汇总：`python -m research.records.20261008.summarize_mixture_validation`、`python -m research.records.20261008.summarize_history_and_risk`、`python -m research.records.20261008.summarize_ema_validation`、`python -m research.records.20261008.summarize_student_validation`。`python -m research.records.20261008.check_mixture_seed_validation` 及 `python -m research.records.20261008.check_mixture_risk_seed_validation` 从三个种子的实际验证预测重新平均并回测，保存来源及 checkpoint 哈希；缺失的种子记录为 pending。冻结风险评分复核中的收益模型跟随种子，风险来源继续共用 seed 0，报告保留这一差异。
 
 结果完整性记录会核对上一版实验和指标、既有种子复核以及每个已保存源码包的哈希。按实际启动包记录复核，早期 56 项实验没有保存不可变启动包的来源，保留当时记录的源码哈希；之前的覆盖计数相差一项，已在完整性记录中纠正。后续实验保留实际启动包，不补造早期运行源码。
+
+导出后、提交前可执行 `python -m research.records.20261008.verify_snapshot_integrity --previous HEAD`；复核已提交快照时用 `--previous <上一快照的提交>` 指定比较起点。该检查要求既有实验、CSV 指标及种子复核记录逐项保留，并核验已记录启动包的全部源码哈希。
 
 WSL2 主机可另行运行 `python -m research.keep_awake`，通过 Windows 的临时 `ES_SYSTEM_REQUIRED | ES_CONTINUOUS` 请求阻止自动休眠。显示器仍可关闭；研究结束、停止或 heartbeat 失效后释放，不改电源计划。该请求不能阻止手动关机/睡眠，需要电脑持续通电。机制见 [Microsoft 文档](https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-setthreadexecutionstate)。

@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-10-08T20:39:17.722561+00:00",
+  "created_at": "2026-10-08T21:20:10.319979+00:00",
   "scope": "purged validation 2021-2022; no new-model test outputs",
   "planned": 12,
   "completed": 12,
@@ -1070,7 +1070,7 @@
     "Smoke/reproduction audits are excluded from search and promotion."
   ],
   "current_findings": {
-    "scope": "seed-0 validation; paired alpha seeds queued; risk source remains seed 0",
+    "scope": "seed-0 controls and actual three-alpha-seed ensembles; frozen risk remains seed 0",
     "csi300_static": {
       "one_component": {
         "IC": 0.08063199527074885,
@@ -1125,7 +1125,179 @@
       }
     },
     "sp500_interpretation": "one-component regime scoring has the best RankIC, AR and STD within these controls; two-component regime scoring has slightly better MDD",
-    "holdout_success_established": false
+    "holdout_success_established": false,
+    "paired_seed_validation": {
+      "report": "mixture_risk_seed_validation_checks.json",
+      "completed_ensembles": 4,
+      "comparisons": [
+        {
+          "market": "csi300",
+          "control": "csi300_frozen_mixture_1_regime_0_alpha_seeds012",
+          "comparison": "csi300_frozen_mixture_2_regime_0_alpha_seeds012",
+          "deltas_comparison_minus_control": {
+            "IC": 0.00013036505399853515,
+            "ICIR": 0.0005040709945705046,
+            "RankIC": 0.0003316363099143821,
+            "RankICIR": 0.0009793852522583801,
+            "AR": -0.005755764283706499,
+            "STD": -0.00019687310712970807,
+            "MDD": -0.011643811658813008,
+            "Sharpe": -0.029307190541592365,
+            "Sortino": -0.05143315256935743,
+            "Calmar": -0.10815689379178739
+          },
+          "comparison_better": {
+            "IC": true,
+            "ICIR": true,
+            "RankIC": true,
+            "RankICIR": true,
+            "AR": false,
+            "STD": true,
+            "MDD": false,
+            "Sharpe": false,
+            "Sortino": false,
+            "Calmar": false
+          },
+          "paired_seed_deltas": [
+            {
+              "alpha_seed": 0,
+              "risk_seed": 0,
+              "deltas_comparison_minus_control": {
+                "IC": 3.9573069097950664e-05,
+                "ICIR": -0.0006604231459793053,
+                "RankIC": 0.000415461144578369,
+                "RankICIR": 0.0014458700739495844,
+                "AR": 0.024223316216337443,
+                "STD": 0.000560632350591006,
+                "MDD": 0.007347077527526946,
+                "Sharpe": 0.10779947774540788,
+                "Sortino": 0.18212438734214142,
+                "Calmar": 0.19563716326515124
+              }
+            },
+            {
+              "alpha_seed": 1,
+              "risk_seed": 0,
+              "deltas_comparison_minus_control": {
+                "IC": -4.95697249119631e-05,
+                "ICIR": 0.00013974764575064302,
+                "RankIC": 4.092321965769308e-05,
+                "RankICIR": -0.00016669047835349282,
+                "AR": 0.012303556121244563,
+                "STD": 0.0010227979920819086,
+                "MDD": 0.006864967167902525,
+                "Sharpe": 0.06650643730543249,
+                "Sortino": 0.10318300549516779,
+                "Calmar": 0.09141606452842449
+              }
+            },
+            {
+              "alpha_seed": 2,
+              "risk_seed": 0,
+              "deltas_comparison_minus_control": {
+                "IC": 0.0004021838568001035,
+                "ICIR": 0.0028501874133632366,
+                "RankIC": 0.0007135848684227397,
+                "RankICIR": 0.0032405966999243807,
+                "AR": 0.00904685257171356,
+                "STD": 0.002060478417760664,
+                "MDD": -0.02231090336562569,
+                "Sharpe": 0.043777542483108445,
+                "Sortino": 0.06915092873638318,
+                "Calmar": 0.005738692901785747
+              }
+            }
+          ]
+        },
+        {
+          "market": "sp500",
+          "control": "sp500_frozen_mixture_1_regime_0_alpha_seeds012",
+          "comparison": "sp500_frozen_mixture_1_regime_0.5_alpha_seeds012",
+          "deltas_comparison_minus_control": {
+            "IC": 0.0008252407594621786,
+            "ICIR": 0.00201551998827898,
+            "RankIC": 0.0013203825352199605,
+            "RankICIR": 0.003077964877782363,
+            "AR": 0.04748760574077027,
+            "STD": -0.011078966866086754,
+            "MDD": 0.018013204487240198,
+            "Sharpe": 0.18845067960933998,
+            "Sortino": 0.2775891984883038,
+            "Calmar": 0.28874257109057255
+          },
+          "comparison_better": {
+            "IC": true,
+            "ICIR": true,
+            "RankIC": true,
+            "RankICIR": true,
+            "AR": true,
+            "STD": true,
+            "MDD": true,
+            "Sharpe": true,
+            "Sortino": true,
+            "Calmar": true
+          },
+          "paired_seed_deltas": [
+            {
+              "alpha_seed": 0,
+              "risk_seed": 0,
+              "deltas_comparison_minus_control": {
+                "IC": 0.0006342745517830539,
+                "ICIR": 0.0001860166806136876,
+                "RankIC": 0.0014848327692701044,
+                "RankICIR": 0.0030298092778187624,
+                "AR": 0.030619312519926556,
+                "STD": -0.010069261316967087,
+                "MDD": 0.010622539046555302,
+                "Sharpe": 0.14554065385449355,
+                "Sortino": 0.24368227971158962,
+                "Calmar": 0.2941126122626767
+              }
+            },
+            {
+              "alpha_seed": 1,
+              "risk_seed": 0,
+              "deltas_comparison_minus_control": {
+                "IC": 0.0007553801097379895,
+                "ICIR": 0.0039358834377588026,
+                "RankIC": 0.0006587315601869551,
+                "RankICIR": 0.0023197329769782393,
+                "AR": 0.014390276538983837,
+                "STD": -0.0071086019894903985,
+                "MDD": 0.001964645525596165,
+                "Sharpe": 0.06489666143376843,
+                "Sortino": 0.09735324738557172,
+                "Calmar": 0.07561986080390126
+              }
+            },
+            {
+              "alpha_seed": 2,
+              "risk_seed": 0,
+              "deltas_comparison_minus_control": {
+                "IC": 0.0005888429555680509,
+                "ICIR": 0.0018644554426649196,
+                "RankIC": 0.0011039243380785713,
+                "RankICIR": 0.003736998489314136,
+                "AR": -0.005167928495774521,
+                "STD": -0.008129678352858327,
+                "MDD": 0.00620530025845667,
+                "Sharpe": -0.020479095325740593,
+                "Sortino": -0.02882617467648209,
+                "Calmar": -0.02195471043222662
+              }
+            }
+          ]
+        }
+      ],
+      "risk_seed": 0,
+      "alpha_seeds": [
+        0,
+        1,
+        2
+      ]
+    },
+    "csi300_paired_interpretation": "two components slightly improve ranking and STD, but lower AR and worsen MDD, Sharpe, Sortino and Calmar",
+    "sp500_paired_interpretation": "one-component regime scoring improves all ten validation metrics versus static scoring; holdout success remains unproven"
   },
   "experiments": [
     {

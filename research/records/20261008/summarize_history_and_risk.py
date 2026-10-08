@@ -91,6 +91,20 @@ def summarize():
                                     "regime": values("sp500", 1, 0.5)},
             "sp500_interpretation": "one-component regime scoring has the best RankIC, AR and STD within these controls; two-component regime scoring has slightly better MDD",
             "holdout_success_established": False}
+    paired_path = DESTINATION / "mixture_risk_seed_validation_checks.json"
+    if findings and paired_path.exists():
+        paired = json.loads(paired_path.read_text())
+        findings["paired_seed_validation"] = {
+            "report":paired_path.name, "completed_ensembles":paired["completed_ensembles"],
+            "comparisons":paired["comparisons"], "risk_seed":0, "alpha_seeds":[0,1,2]}
+        if paired["completed_ensembles"] == 4:
+            findings["scope"] = "seed-0 controls and actual three-alpha-seed ensembles; frozen risk remains seed 0"
+            findings["csi300_paired_interpretation"] = "two components slightly improve ranking and STD, but lower AR and worsen MDD, Sharpe, Sortino and Calmar"
+            findings["sp500_paired_interpretation"] = "one-component regime scoring improves all ten validation metrics versus static scoring; holdout success remains unproven"
+        pd.DataFrame([{"name":row["name"], "market":row["market"],
+                       "risk_components":row["risk_components"], "regime_strength":row["risk_regime_strength"],
+                       "risk_seed":0, "alpha_seeds":"0,1,2", **row["ensemble"]}
+                      for row in paired["records"]]).to_csv(DESTINATION / "mixture_risk_seed_validation_metrics.csv", index=False)
     write_json(DESTINATION / "mixture_risk_validation_checks.json", {
         "created_at": now(), "scope": "purged validation 2021-2022; no new-model test outputs",
         "planned": len(risk_design["comparisons"]), "completed": len(risks), "design": risk_design,
