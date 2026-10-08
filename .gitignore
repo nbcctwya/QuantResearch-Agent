@@ -12,3 +12,6 @@ __pycache__/
 *:Zone.Identifier
 .DS_Store
 Thumbs.db
+
+# Research datasets, checkpoints, predictions, logs and process locks
+/research/artifacts/

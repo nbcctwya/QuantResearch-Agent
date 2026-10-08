@@ -87,3 +87,7 @@ git push origin main
 原始 JKP 数据、预生成数据集、checkpoint 和运行缓存由各子仓库的 `.gitignore` 决定；它们不会因为加入父仓库而自动上传。复现实验时，按相应子仓库的说明准备数据与环境。
 
 本仓库忽略本地代理配置、AWS 配置、Python 缓存以及 Windows 下载产生的 `Zone.Identifier` 文件。
+
+## 自动研究实验
+
+[research/README.md](research/README.md) 说明无人值守训练、统一 baseline 评估、验证集选模、五种子确认和恢复流程。运行中的状态与结果保存在本机 `research/artifacts/`，数据和 checkpoint 不纳入 Git。

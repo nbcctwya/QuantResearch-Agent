@@ -1,0 +1,15 @@
+{
+  "hours": 72,
+  "reserve_confirmation_hours": 12,
+  "max_search_trials": 1000,
+  "max_trial_hours": 4,
+  "promotion_models_per_market": 3,
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "stop": false
+}

@@ -1,0 +1,100 @@
+"""Check evaluation against published artifacts, and protect input/index integrity."""
+import tempfile
+import unittest
+from pathlib import Path
+from unittest.mock import patch
+
+import numpy as np
+import pandas as pd
+import torch
+
+from datasets.sampler import WindowSampler
+
+from research import ROOT
+from research.data import DailyData, window_row_indices
+from research.models import make_model
+from research.protocol import portfolio_metrics
+from research.common import config_id,write_json
+
+
+class IntegrityTests(unittest.TestCase):
+    def test_metrics_reproduce_existing_baseline_curve(self):
+        folder = ROOT/"references/baseline_results/FactorVAE-results"
+        curve = pd.read_csv(folder/"curves/ensemble/csi300_factorvae.csv")
+        expected = pd.read_csv(folder/"metrics/ensemble_metrics.csv")
+        expected = expected.loc[expected.market == "csi300"].iloc[0]
+        result = portfolio_metrics(curve.daily_ret_net)
+        for name in ["AR","STD","MDD","Sharpe","Sortino","Calmar"]:
+            self.assertAlmostEqual(result[name],expected[name],places=12)
+
+    def test_window_gaps_match_qlib_and_labels_do_not_enter_inputs(self):
+        dates = pd.date_range("2020-01-01",periods=12,freq="B")
+        index = pd.MultiIndex.from_product([dates,["AAA","BBB"]],names=["datetime","instrument"])
+        index = index.delete([0,2,5,9,12])
+        groups = [(name,str(i)) for name,width in [("feature",158),("prior",13),("market",63),("label",1)] for i in range(width)]
+        columns = pd.MultiIndex.from_tuples(groups)
+        values = np.random.default_rng(0).normal(size=(len(index),235)).astype("float32")
+        frame = pd.DataFrame(values,index=index,columns=columns)
+        sampler = WindowSampler(frame.copy(),dates[0],dates[-1],8)
+        positions = np.arange(len(sampler))
+        actual = sampler.data_arr[window_row_indices(sampler,positions)]
+        np.testing.assert_array_equal(actual,sampler[positions])
+        changed = frame.copy()
+        changed.loc[:,"label"] = 98765432.0
+        poisoned = WindowSampler(changed,dates[0],dates[-1],8)
+        np.testing.assert_array_equal(actual[:,:,:234],poisoned[positions][:,:,:234])
+
+    def test_purge_and_date_stock_alignment(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary)/"cache/csi300/train"
+            directory.mkdir(parents=True)
+            dates = pd.date_range("2020-01-01",periods=8,freq="B")
+            index = pd.MultiIndex.from_product([dates,["AAA","BBB"]],names=["datetime","instrument"])
+            index.to_frame(index=False).to_pickle(directory/"index.pkl")
+            np.save(directory/"features.npy",np.arange(16*234,dtype="float32").reshape(16,234))
+            np.save(directory/"label.npy",np.full(16,-999999,dtype="float32"))
+            np.save(directory/"boundaries.npy",np.arange(0,17,2))
+            np.save(directory/"dates.npy",dates.to_numpy())
+            (directory/"manifest.json").write_text("{}")
+            with patch("research.data.ARTIFACTS",Path(temporary)):
+                data = DailyData("csi300","train",purge_days=5)
+                self.assertEqual(len(data.day_ids),3)
+                self.assertEqual(data.index[data.selected_positions()][-1],(dates[2],"BBB"))
+                stock,context,labels = data.batch(0)
+                self.assertEqual(stock.shape,(2,1,158))
+                self.assertEqual(context.shape,(2,76))
+                self.assertTrue((labels == -999999).all())
+                self.assertFalse((stock == -999999).any())
+                self.assertFalse((context == -999999).any())
+
+    def test_cross_stock_aggregation_is_permutation_equivariant(self):
+        torch.manual_seed(0)
+        model = make_model({"family":"temporal_mixer","width":32,"depth":1,"dropout":0.0,
+                            "latent_factors":4,"context":True,"market_gate":True}).eval()
+        stock = torch.randn(9,8,158)
+        context = torch.randn(1,76).expand(9,-1)
+        order = torch.randperm(9)
+        with torch.no_grad():
+            expected = model(stock,context)[order]
+            actual = model(stock[order],context[order])
+        torch.testing.assert_close(actual,expected,atol=1e-5,rtol=1e-5)
+
+    def test_interrupted_trial_is_queued_for_resume_and_completed_trial_is_not(self):
+        from research.runner import recover_interrupted
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            unfinished = {"market":"csi300","family":"ridge","seed":0}
+            completed = {"market":"sp500","family":"ridge","seed":0}
+            first,second = config_id(unfinished),config_id(completed)
+            write_json(root/"trials"/first/"config.json",unfinished)
+            write_json(root/"trials"/second/"result.json",{"status":"complete"})
+            state = {"phase":"validation_search","active":None,"pending":[first,second],"completed":[]}
+            with patch("research.runner.ARTIFACTS",root),patch("research.runner.report"):
+                recover_interrupted(state)
+            self.assertEqual(state["pending"],[])
+            self.assertEqual(state["resume_queue"],[unfinished])
+            self.assertEqual(state["completed"],[second])
+
+
+if __name__ == "__main__":
+    unittest.main()

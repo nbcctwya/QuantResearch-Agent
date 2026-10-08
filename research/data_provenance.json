@@ -1,0 +1,63 @@
+{
+  "source": "/home/nbcctwya/baselines/masterVQ/ohmykbs/datasets",
+  "files": [
+    {
+      "path": "processed/csi300/config.yaml",
+      "bytes": 1618,
+      "sha256": "b36fc881ed422b4328b8aaa15109fab6634b2c85a739eace69961605819e5805"
+    },
+    {
+      "path": "processed/csi300/train.pkl",
+      "bytes": 836092270,
+      "sha256": "feb48256e9a86543ec44f0796b9ff5b427980f597ee91a64b632017aa93dee06"
+    },
+    {
+      "path": "processed/csi300/valid.pkl",
+      "bytes": 143358591,
+      "sha256": "cebf5d28bac73f8f343d593b3a81c92d07796050ca93c71a83f0e31bcf2ab8d5"
+    },
+    {
+      "path": "processed/csi300/test.pkl",
+      "bytes": 213489794,
+      "sha256": "b23e74fbb41136d889e117434d99c04f99e32a91d6108a7b75ba7a1653ac1f6c"
+    },
+    {
+      "path": "processed/sp500/config.yaml",
+      "bytes": 1600,
+      "sha256": "880cdbd081b20d478895824519b407702e9fc59c228d7705b7f8dd960cacc51f"
+    },
+    {
+      "path": "processed/sp500/train.pkl",
+      "bytes": 1164213737,
+      "sha256": "5ec96690e36eba48d3df9e74b010ad816a4f28af7456dddbc1539f5838701c2a"
+    },
+    {
+      "path": "processed/sp500/valid.pkl",
+      "bytes": 233578430,
+      "sha256": "c3fbbd4d4c5c0393fc8fc40cdc1f8f051505ca8e92fac85c9c31145f86949061"
+    },
+    {
+      "path": "processed/sp500/test.pkl",
+      "bytes": 360937305,
+      "sha256": "88964ccf7fbbeb262c8f6b95a51d9cc7d5eb74cc758ccaf45b145b7851c34203"
+    },
+    {
+      "path": "jkpdata/[chn]_[all_themes]_[daily]_[vw_cap].csv",
+      "bytes": 6127927,
+      "sha256": "807004c2a6d43246937c31f927ae5e30183c9fc7785bc6a64beeb775cb5fe3f0"
+    },
+    {
+      "path": "jkpdata/[usa]_[all_themes]_[daily]_[vw_cap].csv",
+      "bytes": 20767062,
+      "sha256": "be09196e5254451833a15d076ff9eacef26674bd6c7ad707367bbbd184f0481b"
+    }
+  ],
+  "copied_at": "2026-10-08T10:28:36.444770+00:00",
+  "source_build_code_matches_pinned_project": true,
+  "cache_layout": {
+    "stock": "[sample,8,158]",
+    "features": "[sample,234] excludes label",
+    "label": "separate array",
+    "index": "datetime/instrument sorted"
+  }
+}

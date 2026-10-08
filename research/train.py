@@ -1,0 +1,295 @@
+"""Run one fully recorded trial; selection uses validation data exclusively."""
+from __future__ import annotations
+
+import argparse
+import importlib.metadata
+import json
+import random
+import time
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+import torch
+
+from . import ARTIFACTS
+from .common import code_fingerprint, config_id, now, write_json
+from .data import DailyData
+from .models import make_model, rank_loss
+from .protocol import evaluate_predictions, prediction_metrics, raw_labels
+
+
+def seed_all(seed):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.benchmark = False
+    torch.backends.cudnn.deterministic = True
+    torch.set_num_threads(2)
+
+
+def prediction_frame(data, predictions, label=None):
+    positions = data.selected_positions()
+    index = data.index[positions]
+    if len(predictions) != len(index):
+        raise ValueError("Prediction/index size mismatch")
+    label = data.labels[positions] if label is None else label.reindex(index).to_numpy()
+    return pd.DataFrame({"score": predictions, "label": label}, index=index)
+
+
+def validation_score(frame):
+    metrics = prediction_metrics(frame.score, frame.label)
+    by_year = frame.groupby(frame.index.get_level_values("datetime").year)
+    yearly = [prediction_metrics(part.score, part.label)["RankIC"] for _, part in by_year]
+    # Penalize divergence across validation years; neither test scores nor baseline targets enter selection.
+    score = metrics["RankIC"] - 0.15*float(np.std(yearly))
+    return score, metrics
+
+
+def neural_predict(model, data, amp):
+    model.eval()
+    result = []
+    with torch.no_grad():
+        for day in data.day_ids:
+            stock, context, _ = data.batch(day)
+            with torch.autocast(device_type=data.device.type, dtype=torch.bfloat16,
+                                enabled=amp and data.device.type == "cuda"):
+                prediction = model(stock, context)
+            if prediction.ndim == 2:
+                prediction = prediction.mean(1)
+            result.append(prediction.float().cpu().numpy())
+    return np.concatenate(result)
+
+
+def train_neural(config, destination):
+    if not torch.cuda.is_available():
+        raise RuntimeError("CUDA is required for neural trials; run the authorized worker with GPU access")
+    temporal = config["family"] in ("temporal_mixer", "master_control")
+    common = {"purge_days": config.get("purge_days", 5), "temporal": temporal, "device": "cuda"}
+    train = DailyData(config["market"], "train", train_start=config.get("train_start"),
+                      limit_days=config.get("smoke_train_days"), **common)
+    valid = DailyData(config["market"], "valid", limit_days=config.get("smoke_valid_days"), **common)
+    free_bytes, _ = torch.cuda.mem_get_info()
+    budget = int(free_bytes*0.7)
+    used = train.preload(budget)
+    valid.preload(max(0, budget-used))
+    positions = valid.selected_positions()
+    valid_labels = raw_labels(config["market"], valid.index[positions])
+    model = make_model(config).cuda()
+    optimizer = torch.optim.AdamW(model.parameters(), lr=config.get("lr", 0.0005),
+                                  weight_decay=config.get("weight_decay", 0.0001))
+    epochs = config.get("epochs", 60)
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epochs,
+                                                          eta_min=config.get("lr",0.0005)*0.1)
+    best_score, stale, start_epoch = -np.inf, 0, 0
+    last_path = destination / "last.pt"
+    amp = config.get("amp", True)
+    if last_path.exists():
+        checkpoint = torch.load(last_path, map_location="cuda", weights_only=False)
+        if checkpoint["config"] != config:
+            raise ValueError("Resume configuration mismatch")
+        model.load_state_dict(checkpoint["model"])
+        optimizer.load_state_dict(checkpoint["optimizer"])
+        scheduler.load_state_dict(checkpoint["scheduler"])
+        best_score, stale, start_epoch = checkpoint["best_score"], checkpoint["stale"], checkpoint["epoch"]+1
+        np.random.set_state(checkpoint["numpy_rng"])
+        torch.set_rng_state(checkpoint["torch_rng"].cpu())
+        torch.cuda.set_rng_state_all([state.cpu() for state in checkpoint["cuda_rng"]])
+        print(f"Resuming epoch {start_epoch+1}", flush=True)
+    half_life = config.get("half_life_years")
+    weights = np.ones(len(train.dates), dtype=float)
+    if half_life:
+        ages = (train.dates[train.day_ids].max()-train.dates)/np.timedelta64(1,"D")/365.25
+        weights = np.exp(-np.log(2)*ages/half_life)
+        weights /= weights[train.day_ids].mean()
+    for epoch in range(start_epoch, epochs):
+        begin = time.monotonic()
+        model.train()
+        losses = []
+        for day in np.random.permutation(train.day_ids):
+            stock, context, label = train.batch(day)
+            optimizer.zero_grad(set_to_none=True)
+            with torch.autocast("cuda", dtype=torch.bfloat16, enabled=amp):
+                predictions = model(stock, context)
+            loss = rank_loss(predictions.float(), label.float(), config.get("objective","mse"))*weights[day]
+            if not torch.isfinite(loss):
+                raise ValueError("Non-finite training loss")
+            loss.backward()
+            torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+            optimizer.step()
+            losses.append(float(loss.detach()))
+        predictions = neural_predict(model, valid, amp)
+        frame = prediction_frame(valid, predictions, valid_labels)
+        score, metrics = validation_score(frame)
+        if not np.isfinite(score):
+            raise ValueError("Undefined validation selection metric")
+        improved = score > best_score + 1e-5
+        if improved:
+            best_score, stale = score, 0
+            torch.save({"model":model.state_dict(), "config":config, "epoch":epoch,
+                        "validation_score":score, "validation_metrics":metrics}, destination/"best.pt")
+        else:
+            stale += 1
+        scheduler.step()
+        progress = {"time":now(), "epoch":epoch+1, "train_loss":float(np.mean(losses)),
+                    "valid_selection_score":score, "best_selection_score":best_score,
+                    "valid":metrics, "seconds":time.monotonic()-begin, "stale":stale}
+        with (destination/"epochs.jsonl").open("a") as stream:
+            stream.write(json.dumps(progress)+"\n")
+        write_json(destination/"progress.json", progress)
+        print(json.dumps(progress), flush=True)
+        checkpoint = {"config":config, "model":model.state_dict(), "optimizer":optimizer.state_dict(),
+                      "scheduler":scheduler.state_dict(), "epoch":epoch, "best_score":best_score, "stale":stale,
+                      "numpy_rng":np.random.get_state(), "torch_rng":torch.get_rng_state(),
+                      "cuda_rng":torch.cuda.get_rng_state_all()}
+        temporary = destination/"last.pt.tmp"
+        torch.save(checkpoint, temporary)
+        temporary.replace(last_path)
+        if stale >= config.get("patience", 8):
+            break
+    checkpoint = torch.load(destination/"best.pt", map_location="cuda", weights_only=False)
+    model.load_state_dict(checkpoint["model"])
+    frame = prediction_frame(valid, neural_predict(model, valid, amp), valid_labels)
+    return frame
+
+
+def flat_arrays(data, config):
+    positions = data.selected_positions()
+    features = np.asarray(data.features[positions], dtype=np.float32)
+    if not config.get("context", True):
+        features = features[:, :158].copy()
+    if config.get("cs_norm", False):
+        offset = 0
+        for day in data.day_ids:
+            count = int(data.boundaries[day+1]-data.boundaries[day])
+            stock = features[offset:offset+count,:158]
+            stock -= stock.mean(0)
+            stock /= np.maximum(stock.std(0),0.1)
+            offset += count
+    return features, np.asarray(data.labels[positions]), positions
+
+
+def train_flat(config, destination):
+    import lightgbm as lgb
+    train = DailyData(config["market"], "train", purge_days=config.get("purge_days",5),
+                      train_start=config.get("train_start"), limit_days=config.get("smoke_train_days"))
+    valid = DailyData(config["market"], "valid", purge_days=config.get("purge_days",5),
+                      limit_days=config.get("smoke_valid_days"))
+    xtrain, ytrain, train_positions = flat_arrays(train, config)
+    xvalid, yvalid, valid_positions = flat_arrays(valid, config)
+    train_counts = np.diff(train.boundaries)[train.day_ids]
+    valid_counts = np.diff(valid.boundaries)[valid.day_ids]
+    weights = None
+    if config.get("half_life_years"):
+        age = (train.dates[train.day_ids].max()-train.dates[train.day_ids])/np.timedelta64(1,"D")/365.25
+        weights = np.repeat(np.exp(-np.log(2)*age/config["half_life_years"]), train_counts)
+    if config["family"] == "ridge":
+        from sklearn.linear_model import Ridge
+        model = Ridge(alpha=config.get("alpha",1000.0), solver="cholesky")
+        model.fit(xtrain, ytrain, sample_weight=weights)
+        np.savez(destination/"model.npz", coef=model.coef_, intercept=model.intercept_)
+        predictions = model.predict(xvalid)
+    else:
+        objective = config.get("objective","regression")
+        is_ranker = objective in ("lambdarank", "rank_xendcg")
+        if is_ranker:
+            def relevance(labels, index):
+                percentile = pd.Series(labels,index=index).groupby(level="datetime").rank(pct=True).to_numpy()
+                return np.minimum((percentile*16).astype(np.int32),15)
+            lgb_ytrain = relevance(ytrain,train.index[train_positions])
+            lgb_yvalid = relevance(yvalid,valid.index[valid_positions])
+        else:
+            lgb_ytrain, lgb_yvalid = ytrain, yvalid
+        params = {"objective":objective, "metric":"None", "verbosity":-1, "num_threads":4,
+                  "learning_rate":config.get("lr",0.025), "num_leaves":config.get("num_leaves",31),
+                  "max_depth":config.get("max_depth",-1), "min_data_in_leaf":config.get("min_data_in_leaf",500),
+                  "feature_fraction":config.get("feature_fraction",0.8), "bagging_fraction":0.8, "bagging_freq":1,
+                  "lambda_l1":config.get("lambda_l1",0.1), "lambda_l2":config.get("lambda_l2",10.0),
+                  "max_bin":127, "seed":config["seed"], "deterministic":True, "force_col_wise":True}
+        if is_ranker:
+            params.update(label_gain=list(range(16)), lambdarank_truncation_level=40)
+        training = lgb.Dataset(xtrain, label=lgb_ytrain, weight=weights,
+                               group=train_counts if is_ranker else None)
+        validation = lgb.Dataset(xvalid, label=lgb_yvalid, group=valid_counts if is_ranker else None, reference=training)
+        starts = np.r_[0,np.cumsum(valid_counts)[:-1]]
+        sums_y = np.add.reduceat(yvalid,starts)
+        sums_y2 = np.add.reduceat(yvalid**2,starts)
+        def rank_target_ic(prediction, _dataset):
+            sums_p = np.add.reduceat(prediction, starts)
+            covariance = np.add.reduceat(prediction*yvalid,starts)-sums_p*sums_y/valid_counts
+            variance = (np.add.reduceat(prediction**2,starts)-sums_p**2/valid_counts)*(sums_y2-sums_y**2/valid_counts)
+            return "daily_rank_target_ic",float(np.nanmean(covariance/np.sqrt(np.maximum(variance,1e-20)))),True
+        model = lgb.train(params, training, num_boost_round=config.get("rounds",2000),
+                          valid_sets=[validation], feval=rank_target_ic,
+                          callbacks=[lgb.early_stopping(config.get("patience_rounds",150),first_metric_only=True),
+                                     lgb.log_evaluation(100)])
+        model.save_model(str(destination/"model.txt"))
+        pd.DataFrame({"feature":np.arange(xtrain.shape[1]),"gain":model.feature_importance("gain")}).to_csv(destination/"importance.csv",index=False)
+        predictions = model.predict(xvalid)
+        write_json(destination/"fit.json", {"best_iteration":model.best_iteration,"params":params,
+                                          "early_stopping":"mean daily Pearson against training-style cross-sectional rank targets"})
+    labels = raw_labels(config["market"], valid.index[valid_positions])
+    return prediction_frame(valid, predictions, labels)
+
+
+def predict_test(config, trained, destination):
+    temporal = config["family"] in ("temporal_mixer","master_control")
+    device = "cuda" if config["family"] not in ("ridge","lgbm") else "cpu"
+    test = DailyData(config["market"], "test", purge_days=0, temporal=temporal, device=device)
+    if config["family"] in ("ridge","lgbm"):
+        x, _, _ = flat_arrays(test,config)
+        if config["family"] == "ridge":
+            params = np.load(trained/"model.npz")
+            predictions = x@params["coef"]+params["intercept"]
+        else:
+            import lightgbm as lgb
+            predictions = lgb.Booster(model_file=str(trained/"model.txt")).predict(x)
+    else:
+        checkpoint = torch.load(trained/"best.pt",map_location=device,weights_only=False)
+        model = make_model(config).to(device)
+        model.load_state_dict(checkpoint["model"])
+        test.preload(int(torch.cuda.mem_get_info()[0]*0.6))
+        predictions = neural_predict(model,test,config.get("amp",True))
+    frame = prediction_frame(test,predictions)
+    return evaluate_predictions(frame,config["market"],destination,backtest=True)
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--config", required=True,type=Path)
+    parser.add_argument("--out", required=True,type=Path)
+    parser.add_argument("--test-only", action="store_true")
+    parser.add_argument("--trained", type=Path)
+    args = parser.parse_args()
+    config = json.loads(args.config.read_text())
+    args.out.mkdir(parents=True,exist_ok=True)
+    seed_all(config["seed"])
+    if args.test_only:
+        if args.trained is None:
+            raise ValueError("--trained is required for locked holdout evaluation")
+        metrics = predict_test(config,args.trained,args.out)
+        print(json.dumps(metrics),flush=True)
+        return
+    started = time.monotonic()
+    write_json(args.out/"config.json",config)
+    write_json(args.out/"run.json", {"status":"running","started_at":now(),"id":config_id(config),
+                                  "code":code_fingerprint(),"device":"cpu" if config["family"] in ("ridge","lgbm") else "cuda",
+                                  "versions":{name:importlib.metadata.version(name) for name in ["torch","pyqlib","numpy","pandas","scipy","scikit-learn","lightgbm"]},
+                                  "selection":"validation only; 5 boundary days purged by default",
+                                  "smoke":bool(config.get("smoke_train_days") or config.get("smoke_valid_days"))})
+    frame = train_flat(config,args.out) if config["family"] in ("ridge","lgbm") else train_neural(config,args.out)
+    metrics = evaluate_predictions(frame,config["market"],args.out/"valid",backtest=not config.get("skip_backtest",False))
+    score,_ = validation_score(frame)
+    write_json(args.out/"result.json", {"status":"complete","completed_at":now(),"seconds":time.monotonic()-started,
+                                     "config":config,"selection_score":score,"validation":metrics,
+                                     "smoke":bool(config.get("smoke_train_days") or config.get("smoke_valid_days"))})
+    run_metadata = json.loads((args.out/"run.json").read_text())
+    run_metadata.update(status="complete",completed_at=now())
+    write_json(args.out/"run.json",run_metadata)
+    print(json.dumps({"complete":config_id(config),"seconds":time.monotonic()-started,"validation":metrics}),flush=True)
+
+
+if __name__ == "__main__":
+    main()
