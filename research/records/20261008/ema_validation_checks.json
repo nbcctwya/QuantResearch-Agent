@@ -1,0 +1,909 @@
+{
+  "created_at": "2026-10-08T20:39:17.742121+00:00",
+  "scope": "purged validation only; GPU smoke and recovery excluded from full trial counts",
+  "planned": 8,
+  "completed": 0,
+  "design": {
+    "created_at": "2026-10-08T20:17:41.634653+00:00",
+    "scope": "full purged validation only; no new-model test",
+    "queue_status": "eight matched full controls queued after four EMA GPU/recovery cases and exact disabled-EMA legacy training in both markets",
+    "comparisons": [
+      {
+        "market": "csi300",
+        "decay": null,
+        "id": "33272d345fd89d6c",
+        "config": {
+          "market": "csi300",
+          "seed": 0,
+          "purge_days": 5,
+          "family": "residual",
+          "width": 128,
+          "depth": 2,
+          "objective": "mixed",
+          "context": true,
+          "market_gate": true,
+          "lr": 0.0005,
+          "epochs": 60,
+          "patience": 8,
+          "dropout": 0.1,
+          "days_per_update": 4,
+          "feature_encoder": "ple",
+          "ple_bins": 16,
+          "ple_include_raw": false,
+          "ema_decay": null
+        }
+      },
+      {
+        "market": "sp500",
+        "decay": null,
+        "id": "c66e6d7567b124a0",
+        "config": {
+          "seed": 0,
+          "purge_days": 5,
+          "width": 128,
+          "depth": 2,
+          "dropout": 0.1,
+          "context": true,
+          "market_gate": true,
+          "lr": 0.0005,
+          "epochs": 60,
+          "patience": 8,
+          "target_kind": "raw_excess_standardized",
+          "family": "residual",
+          "objective": "mixed",
+          "market": "sp500",
+          "days_per_update": 4,
+          "ema_decay": null
+        }
+      },
+      {
+        "market": "csi300",
+        "decay": 0.99,
+        "id": "633372df152b17f2",
+        "config": {
+          "market": "csi300",
+          "seed": 0,
+          "purge_days": 5,
+          "family": "residual",
+          "width": 128,
+          "depth": 2,
+          "objective": "mixed",
+          "context": true,
+          "market_gate": true,
+          "lr": 0.0005,
+          "epochs": 60,
+          "patience": 8,
+          "dropout": 0.1,
+          "days_per_update": 4,
+          "feature_encoder": "ple",
+          "ple_bins": 16,
+          "ple_include_raw": false,
+          "ema_decay": 0.99
+        }
+      },
+      {
+        "market": "sp500",
+        "decay": 0.99,
+        "id": "b615826c1843f31b",
+        "config": {
+          "seed": 0,
+          "purge_days": 5,
+          "width": 128,
+          "depth": 2,
+          "dropout": 0.1,
+          "context": true,
+          "market_gate": true,
+          "lr": 0.0005,
+          "epochs": 60,
+          "patience": 8,
+          "target_kind": "raw_excess_standardized",
+          "family": "residual",
+          "objective": "mixed",
+          "market": "sp500",
+          "days_per_update": 4,
+          "ema_decay": 0.99
+        }
+      },
+      {
+        "market": "csi300",
+        "decay": 0.999,
+        "id": "58a26fc469b450ce",
+        "config": {
+          "market": "csi300",
+          "seed": 0,
+          "purge_days": 5,
+          "family": "residual",
+          "width": 128,
+          "depth": 2,
+          "objective": "mixed",
+          "context": true,
+          "market_gate": true,
+          "lr": 0.0005,
+          "epochs": 60,
+          "patience": 8,
+          "dropout": 0.1,
+          "days_per_update": 4,
+          "feature_encoder": "ple",
+          "ple_bins": 16,
+          "ple_include_raw": false,
+          "ema_decay": 0.999
+        }
+      },
+      {
+        "market": "sp500",
+        "decay": 0.999,
+        "id": "43365160fef2b557",
+        "config": {
+          "seed": 0,
+          "purge_days": 5,
+          "width": 128,
+          "depth": 2,
+          "dropout": 0.1,
+          "context": true,
+          "market_gate": true,
+          "lr": 0.0005,
+          "epochs": 60,
+          "patience": 8,
+          "target_kind": "raw_excess_standardized",
+          "family": "residual",
+          "objective": "mixed",
+          "market": "sp500",
+          "days_per_update": 4,
+          "ema_decay": 0.999
+        }
+      },
+      {
+        "market": "csi300",
+        "decay": 0.9999,
+        "id": "c781eaa50e730b66",
+        "config": {
+          "market": "csi300",
+          "seed": 0,
+          "purge_days": 5,
+          "family": "residual",
+          "width": 128,
+          "depth": 2,
+          "objective": "mixed",
+          "context": true,
+          "market_gate": true,
+          "lr": 0.0005,
+          "epochs": 60,
+          "patience": 8,
+          "dropout": 0.1,
+          "days_per_update": 4,
+          "feature_encoder": "ple",
+          "ple_bins": 16,
+          "ple_include_raw": false,
+          "ema_decay": 0.9999
+        }
+      },
+      {
+        "market": "sp500",
+        "decay": 0.9999,
+        "id": "a4bb34a5511a1b8a",
+        "config": {
+          "seed": 0,
+          "purge_days": 5,
+          "width": 128,
+          "depth": 2,
+          "dropout": 0.1,
+          "context": true,
+          "market_gate": true,
+          "lr": 0.0005,
+          "epochs": 60,
+          "patience": 8,
+          "target_kind": "raw_excess_standardized",
+          "family": "residual",
+          "objective": "mixed",
+          "market": "sp500",
+          "days_per_update": 4,
+          "ema_decay": 0.9999
+        }
+      }
+    ],
+    "fixed": [
+      "architecture and numerical encoder",
+      "target and selected training dates",
+      "optimizer, schedule, per-date loss and update grouping",
+      "baseline ranking/backtest"
+    ],
+    "variable": [
+      "parameter averaging decay; validation checkpoints use averaged parameters when enabled"
+    ],
+    "selection_note": "EMA may change early-stop epoch; report this as part of the method",
+    "sources": [
+      "https://docs.pytorch.org/docs/2.8/optim.html#weight-averaging-swa-and-ema",
+      "https://arxiv.org/abs/1703.01780",
+      "https://arxiv.org/abs/1803.05407"
+    ],
+    "queued_at": "2026-10-08T20:27:28.939510+00:00",
+    "verification": {
+      "cpu_checks": 72,
+      "ema_gpu_recovery_cases": 4,
+      "legacy_unchanged_gpu_markets": 2
+    }
+  },
+  "checks": {
+    "ema_cpu_checks": {
+      "started_at": "2026-10-08T19:58:53.286767+00:00",
+      "completed_at": "2026-10-08T19:58:57.134363+00:00",
+      "tests_run": 72,
+      "passed": true,
+      "failures": [],
+      "errors": [],
+      "code": {
+        "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+        "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+        "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+        "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+        "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+        "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+        "research/diagnostics.py": "7ff21c3a0f8e265700e51b5901cda45ef646f5e2503dedc4e2c83345c00bcfa7",
+        "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+        "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+        "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+        "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+        "research/models.py": "3e6a7881a19687731960376029cbc2323d26ff3de44c5e5064900c932b997627",
+        "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+        "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+        "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+        "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+        "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
+        "research/runner.py": "4851bd6f57107c02f2a6496e2f8aa4f896f45319469fde5106cf09d59246942a",
+        "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+        "research/snapshot.py": "43abd1f6ef94c2ec8058f38f23a63131aa913867c37c6f97082bc6b35d359ceb",
+        "research/train.py": "26f80e0f06504bfec78414d5051de503aee16dee4cca3f7a51cfbb56bfaf0517"
+      },
+      "scope": "CPU regressions and independent EMA arithmetic/state continuation; real GPU checks separate"
+    },
+    "ema_gpu_checks": {
+      "created_at": "2026-10-08T20:08:23.020249+00:00",
+      "planned": 4,
+      "completed": 4,
+      "passed": true,
+      "scope": "GPU smoke training/validation only; excluded from full trials",
+      "records": [
+        {
+          "market": "csi300",
+          "case": "csi_ple",
+          "config": "/home/nbcctwya/kbs-workspace/research/artifacts/smokes/ema_csi_ple_8e18ff4eef01b74a/config.json",
+          "output": "/home/nbcctwya/kbs-workspace/research/artifacts/smokes/ema_csi_ple_8e18ff4eef01b74a",
+          "bundle": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/e6c84ea2aca0904a329876f5",
+          "result": {
+            "status": "complete",
+            "completed_at": "2026-10-08T20:03:10.398194+00:00",
+            "seconds": 6.986821142985718,
+            "config": {
+              "market": "csi300",
+              "seed": 0,
+              "purge_days": 5,
+              "family": "residual",
+              "width": 128,
+              "depth": 2,
+              "objective": "mixed",
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 3,
+              "patience": 3,
+              "dropout": 0.1,
+              "days_per_update": 4,
+              "feature_encoder": "ple",
+              "ple_bins": 16,
+              "ple_include_raw": false,
+              "ema_decay": 0.999,
+              "smoke_train_days": 32,
+              "smoke_valid_days": 20,
+              "skip_backtest": true
+            },
+            "selection_score": -0.02803367482831099,
+            "validation": {
+              "IC": -0.016198265493862822,
+              "ICIR": -0.08066966768731583,
+              "RankIC": -0.02803367482831099,
+              "RankICIR": -0.15080102662111175,
+              "RankIC_2021": -0.02803367482831099
+            },
+            "calibration": null,
+            "resources": {
+              "cpu_seconds": 5.787522000000001,
+              "peak_process_rss_mib": 2825.109375,
+              "gpu_peak_allocated_mib": 965.802734375,
+              "gpu_peak_reserved_mib": 984.0,
+              "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+            },
+            "smoke": true
+          },
+          "ema_updates": 24,
+          "averaging": {
+            "method": "EMA",
+            "decay": 0.999,
+            "update": "after every training optimizer step; first update copies trained weights",
+            "optimizer_model": "unaveraged model retains optimizer and scheduler state",
+            "validation_and_best_checkpoint": "EMA weights, selected by unchanged validation ranking criterion",
+            "buffers": "copy original training-fitted feature/regime buffers; no averaging or refitting",
+            "resume": "raw training weights, EMA weights/update count, optimizer, scheduler and random states saved together",
+            "inference": "ordinary model loaded from selected averaged parameters; features only",
+            "interpretation": "parameter EMA adaptation; no Mean Teacher consistency loss or SWA learning-rate schedule"
+          },
+          "checkpoint_sha256": "ca0d1a9ce05482287448408dd1ed75ab48d7f54dadb63b434e3d04d84d3ba37a"
+        },
+        {
+          "market": "sp500",
+          "case": "sp_raw_excess",
+          "config": "/home/nbcctwya/kbs-workspace/research/artifacts/smokes/ema_sp_raw_excess_d64587e13180e66f/config.json",
+          "output": "/home/nbcctwya/kbs-workspace/research/artifacts/smokes/ema_sp_raw_excess_d64587e13180e66f",
+          "bundle": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/e6c84ea2aca0904a329876f5",
+          "result": {
+            "status": "complete",
+            "completed_at": "2026-10-08T20:03:18.938374+00:00",
+            "seconds": 6.304996241000481,
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 3,
+              "patience": 3,
+              "target_kind": "raw_excess_standardized",
+              "family": "residual",
+              "objective": "mixed",
+              "market": "sp500",
+              "days_per_update": 4,
+              "ema_decay": 0.999,
+              "smoke_train_days": 32,
+              "smoke_valid_days": 20,
+              "skip_backtest": true
+            },
+            "selection_score": -0.1263805496744682,
+            "validation": {
+              "IC": -0.12068026498505549,
+              "ICIR": -1.2260828546130074,
+              "RankIC": -0.1263805496744682,
+              "RankICIR": -1.2906184587418688,
+              "RankIC_2021": -0.1263805496744682
+            },
+            "calibration": null,
+            "resources": {
+              "cpu_seconds": 5.416863,
+              "peak_process_rss_mib": 3251.328125,
+              "gpu_peak_allocated_mib": 1319.21875,
+              "gpu_peak_reserved_mib": 1334.0,
+              "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+            },
+            "smoke": true
+          },
+          "ema_updates": 24,
+          "averaging": {
+            "method": "EMA",
+            "decay": 0.999,
+            "update": "after every training optimizer step; first update copies trained weights",
+            "optimizer_model": "unaveraged model retains optimizer and scheduler state",
+            "validation_and_best_checkpoint": "EMA weights, selected by unchanged validation ranking criterion",
+            "buffers": "copy original training-fitted feature/regime buffers; no averaging or refitting",
+            "resume": "raw training weights, EMA weights/update count, optimizer, scheduler and random states saved together",
+            "inference": "ordinary model loaded from selected averaged parameters; features only",
+            "interpretation": "parameter EMA adaptation; no Mean Teacher consistency loss or SWA learning-rate schedule"
+          },
+          "checkpoint_sha256": "70ad3194d47af78441000ec85ef821ff46435064c9708925941cb25afcf6ba57"
+        },
+        {
+          "market": "csi300",
+          "case": "csi_temporal16",
+          "config": "/home/nbcctwya/kbs-workspace/research/artifacts/smokes/ema_csi_temporal16_2e8249d5841997a8/config.json",
+          "output": "/home/nbcctwya/kbs-workspace/research/artifacts/smokes/ema_csi_temporal16_2e8249d5841997a8",
+          "bundle": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/e6c84ea2aca0904a329876f5",
+          "result": {
+            "status": "complete",
+            "completed_at": "2026-10-08T20:08:08.208090+00:00",
+            "seconds": 287.0940990819945,
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "family": "temporal_mixer",
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "cs_norm": false,
+              "latent_factors": 0,
+              "lr": 0.0005,
+              "epochs": 3,
+              "patience": 3,
+              "days_per_update": 4,
+              "objective": "mixed",
+              "market": "csi300",
+              "history_steps": 16,
+              "feature_encoder": "identity",
+              "ema_decay": 0.99,
+              "smoke_train_days": 32,
+              "smoke_valid_days": 20,
+              "skip_backtest": true
+            },
+            "selection_score": 0.011960215624860637,
+            "validation": {
+              "IC": 0.03535116334274639,
+              "ICIR": 0.14592273390265,
+              "RankIC": 0.011960215624860637,
+              "RankICIR": 0.04573412066348747,
+              "RankIC_2021": 0.011960215624860637
+            },
+            "calibration": null,
+            "resources": {
+              "cpu_seconds": 279.23847300000006,
+              "peak_process_rss_mib": 9624.99609375,
+              "gpu_peak_allocated_mib": 9049.30517578125,
+              "gpu_peak_reserved_mib": 9076.0,
+              "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+            },
+            "smoke": true
+          },
+          "ema_updates": 24,
+          "averaging": {
+            "method": "EMA",
+            "decay": 0.99,
+            "update": "after every training optimizer step; first update copies trained weights",
+            "optimizer_model": "unaveraged model retains optimizer and scheduler state",
+            "validation_and_best_checkpoint": "EMA weights, selected by unchanged validation ranking criterion",
+            "buffers": "copy original training-fitted feature/regime buffers; no averaging or refitting",
+            "resume": "raw training weights, EMA weights/update count, optimizer, scheduler and random states saved together",
+            "inference": "ordinary model loaded from selected averaged parameters; features only",
+            "interpretation": "parameter EMA adaptation; no Mean Teacher consistency loss or SWA learning-rate schedule"
+          },
+          "checkpoint_sha256": "848ec228a450c73e475328e8397d9c40024721c060684116422cbd345aacb915"
+        },
+        {
+          "market": "csi300",
+          "case": "csi_mixture2",
+          "config": "/home/nbcctwya/kbs-workspace/research/artifacts/smokes/ema_csi_mixture2_ee4142788c5c26a9/config.json",
+          "output": "/home/nbcctwya/kbs-workspace/research/artifacts/smokes/ema_csi_mixture2_ee4142788c5c26a9",
+          "bundle": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/e6c84ea2aca0904a329876f5",
+          "result": {
+            "status": "complete",
+            "completed_at": "2026-10-08T20:08:22.128800+00:00",
+            "seconds": 6.142162778007332,
+            "config": {
+              "seed": 0,
+              "purge_days": 5,
+              "family": "mixture_gaussian",
+              "encoder": "residual",
+              "width": 128,
+              "depth": 2,
+              "dropout": 0.1,
+              "context": true,
+              "market_gate": true,
+              "lr": 0.0005,
+              "epochs": 3,
+              "patience": 3,
+              "days_per_update": 4,
+              "objective": "gaussian_nll_rank",
+              "risk_exponent": 0.0,
+              "risk_penalty": 0.0,
+              "target_kind": "raw_standardized",
+              "mixture_components": 2,
+              "mixture_gate_input": "market",
+              "mixture_temperature": 1.0,
+              "market": "csi300",
+              "ema_decay": 0.999,
+              "smoke_train_days": 32,
+              "smoke_valid_days": 20,
+              "skip_backtest": true
+            },
+            "selection_score": 0.011177856926409456,
+            "validation": {
+              "IC": 0.005165105961398015,
+              "ICIR": 0.03710655211570594,
+              "RankIC": 0.011177856926409456,
+              "RankICIR": 0.08241105678942705,
+              "RankIC_2021": 0.011177856926409456
+            },
+            "calibration": {
+              "interval_80_coverage": 0.8736859669614551,
+              "uncertainty_abs_error_RankIC": -0.059356929788106784
+            },
+            "resources": {
+              "cpu_seconds": 6.03718,
+              "peak_process_rss_mib": 3046.5859375,
+              "gpu_peak_allocated_mib": 916.419921875,
+              "gpu_peak_reserved_mib": 932.0,
+              "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+            },
+            "smoke": true
+          },
+          "ema_updates": 24,
+          "averaging": {
+            "method": "EMA",
+            "decay": 0.999,
+            "update": "after every training optimizer step; first update copies trained weights",
+            "optimizer_model": "unaveraged model retains optimizer and scheduler state",
+            "validation_and_best_checkpoint": "EMA weights, selected by unchanged validation ranking criterion",
+            "buffers": "copy original training-fitted feature/regime buffers; no averaging or refitting",
+            "resume": "raw training weights, EMA weights/update count, optimizer, scheduler and random states saved together",
+            "inference": "ordinary model loaded from selected averaged parameters; features only",
+            "interpretation": "parameter EMA adaptation; no Mean Teacher consistency loss or SWA learning-rate schedule"
+          },
+          "checkpoint_sha256": "78ad8b65cd80ef909e6716c7127c2c11ce5ee42184e931d7ae60a8fd428d4977"
+        }
+      ],
+      "code": {
+        "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+        "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+        "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+        "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+        "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+        "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+        "research/diagnostics.py": "7ff21c3a0f8e265700e51b5901cda45ef646f5e2503dedc4e2c83345c00bcfa7",
+        "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+        "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+        "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+        "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+        "research/models.py": "3e6a7881a19687731960376029cbc2323d26ff3de44c5e5064900c932b997627",
+        "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+        "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+        "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+        "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+        "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
+        "research/runner.py": "4851bd6f57107c02f2a6496e2f8aa4f896f45319469fde5106cf09d59246942a",
+        "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+        "research/snapshot.py": "43abd1f6ef94c2ec8058f38f23a63131aa913867c37c6f97082bc6b35d359ceb",
+        "research/train.py": "26f80e0f06504bfec78414d5051de503aee16dee4cca3f7a51cfbb56bfaf0517"
+      }
+    },
+    "ema_resume_checks": {
+      "created_at": "2026-10-08T20:11:07.330041+00:00",
+      "passed": true,
+      "markets_completed": 4,
+      "records": [
+        {
+          "market": "csi300",
+          "config": {
+            "market": "csi300",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "residual",
+            "width": 128,
+            "depth": 2,
+            "objective": "mixed",
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 3,
+            "patience": 3,
+            "dropout": 0.1,
+            "days_per_update": 4,
+            "feature_encoder": "ple",
+            "ple_bins": 16,
+            "ple_include_raw": false,
+            "ema_decay": 0.999,
+            "smoke_train_days": 32,
+            "smoke_valid_days": 20,
+            "skip_backtest": true
+          },
+          "source_bundle": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/e6c84ea2aca0904a329876f5",
+          "interrupted_epoch": 1,
+          "final_epoch": 3,
+          "exact_model_parameters": true,
+          "exact_best_checkpoint_parameters": true,
+          "exact_losses_and_validation_predictions": true,
+          "completed_resume_artifacts_unchanged": true,
+          "artifacts": {
+            "best.pt": {
+              "sha256": "ca0d1a9ce05482287448408dd1ed75ab48d7f54dadb63b434e3d04d84d3ba37a",
+              "mtime_ns": 1791490116111815491
+            },
+            "last.pt": {
+              "sha256": "2683b78d731f6f75fe1d8d8614a2de558db769cfad775c46f25728f10314b876",
+              "mtime_ns": 1791490116311815408
+            },
+            "epochs.jsonl": {
+              "sha256": "7846b664d2687f78896293e132082166fe41be3bc9534f4ca40b8007a57ded48",
+              "mtime_ns": 1791490116281815420
+            }
+          },
+          "smoke_only": true,
+          "checkpoint_before_best_comparison": "/home/nbcctwya/kbs-workspace/research/artifacts/smokes/ema_csi_ple_8e18ff4eef01b74a/best.pt",
+          "recovered_directory": "/home/nbcctwya/kbs-workspace/research/artifacts/smokes/ema_csi_ple_8e18ff4eef01b74a_interrupted_c4318602",
+          "exact_ema_parameters_and_update_counter": true,
+          "ema_updates": 24
+        },
+        {
+          "market": "sp500",
+          "config": {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 3,
+            "patience": 3,
+            "target_kind": "raw_excess_standardized",
+            "family": "residual",
+            "objective": "mixed",
+            "market": "sp500",
+            "days_per_update": 4,
+            "ema_decay": 0.999,
+            "smoke_train_days": 32,
+            "smoke_valid_days": 20,
+            "skip_backtest": true
+          },
+          "source_bundle": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/e6c84ea2aca0904a329876f5",
+          "interrupted_epoch": 1,
+          "final_epoch": 3,
+          "exact_model_parameters": true,
+          "exact_best_checkpoint_parameters": true,
+          "exact_losses_and_validation_predictions": true,
+          "completed_resume_artifacts_unchanged": true,
+          "artifacts": {
+            "best.pt": {
+              "sha256": "70ad3194d47af78441000ec85ef821ff46435064c9708925941cb25afcf6ba57",
+              "mtime_ns": 1791490127551810735
+            },
+            "last.pt": {
+              "sha256": "225ffffdace5bc40cb954b9320158c5039d883846bf57a5933a0e6054ef3393d",
+              "mtime_ns": 1791490133041808452
+            },
+            "epochs.jsonl": {
+              "sha256": "60fa658bcb1063f283499f93fe3dc39738b74c5c426ad6b7b958271fef1cb336",
+              "mtime_ns": 1791490133021808460
+            }
+          },
+          "smoke_only": true,
+          "checkpoint_before_best_comparison": "/home/nbcctwya/kbs-workspace/research/artifacts/smokes/ema_sp_raw_excess_d64587e13180e66f/best.pt",
+          "recovered_directory": "/home/nbcctwya/kbs-workspace/research/artifacts/smokes/ema_sp_raw_excess_d64587e13180e66f_interrupted_bbec4ab9",
+          "exact_ema_parameters_and_update_counter": true,
+          "ema_updates": 24
+        },
+        {
+          "market": "csi300",
+          "config": {
+            "seed": 0,
+            "purge_days": 5,
+            "family": "temporal_mixer",
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "cs_norm": false,
+            "latent_factors": 0,
+            "lr": 0.0005,
+            "epochs": 3,
+            "patience": 3,
+            "days_per_update": 4,
+            "objective": "mixed",
+            "market": "csi300",
+            "history_steps": 16,
+            "feature_encoder": "identity",
+            "ema_decay": 0.99,
+            "smoke_train_days": 32,
+            "smoke_valid_days": 20,
+            "skip_backtest": true
+          },
+          "source_bundle": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/e6c84ea2aca0904a329876f5",
+          "interrupted_epoch": 1,
+          "final_epoch": 3,
+          "exact_model_parameters": true,
+          "exact_best_checkpoint_parameters": true,
+          "exact_losses_and_validation_predictions": true,
+          "completed_resume_artifacts_unchanged": true,
+          "artifacts": {
+            "best.pt": {
+              "sha256": "848ec228a450c73e475328e8397d9c40024721c060684116422cbd345aacb915",
+              "mtime_ns": 1791490159851797434
+            },
+            "last.pt": {
+              "sha256": "de640e4dcbb152885d650cfc6aa19d11ca725ce053201b6b409b9636fe0832a1",
+              "mtime_ns": 1791490176481790789
+            },
+            "epochs.jsonl": {
+              "sha256": "dd7468bb70f9126023b1e4144f4a0ed2414a6a4971addf8f9e6e123f6d5a0728",
+              "mtime_ns": 1791490176471790794
+            }
+          },
+          "smoke_only": true,
+          "checkpoint_before_best_comparison": "/home/nbcctwya/kbs-workspace/research/artifacts/smokes/ema_csi_temporal16_2e8249d5841997a8/best.pt",
+          "recovered_directory": "/home/nbcctwya/kbs-workspace/research/artifacts/smokes/ema_csi_temporal16_2e8249d5841997a8_interrupted_b1dac34a",
+          "exact_ema_parameters_and_update_counter": true,
+          "ema_updates": 24
+        },
+        {
+          "market": "csi300",
+          "config": {
+            "seed": 0,
+            "purge_days": 5,
+            "family": "mixture_gaussian",
+            "encoder": "residual",
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 3,
+            "patience": 3,
+            "days_per_update": 4,
+            "objective": "gaussian_nll_rank",
+            "risk_exponent": 0.0,
+            "risk_penalty": 0.0,
+            "target_kind": "raw_standardized",
+            "mixture_components": 2,
+            "mixture_gate_input": "market",
+            "mixture_temperature": 1.0,
+            "market": "csi300",
+            "ema_decay": 0.999,
+            "smoke_train_days": 32,
+            "smoke_valid_days": 20,
+            "skip_backtest": true
+          },
+          "source_bundle": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/e6c84ea2aca0904a329876f5",
+          "interrupted_epoch": 1,
+          "final_epoch": 3,
+          "exact_model_parameters": true,
+          "exact_best_checkpoint_parameters": true,
+          "exact_losses_and_validation_predictions": true,
+          "completed_resume_artifacts_unchanged": true,
+          "artifacts": {
+            "best.pt": {
+              "sha256": "78ad8b65cd80ef909e6716c7127c2c11ce5ee42184e931d7ae60a8fd428d4977",
+              "mtime_ns": 1791490253661755396
+            },
+            "last.pt": {
+              "sha256": "a39ccd8b1a3c4b4c7d95b8ce21140deee09625e8f6ab45a72371310b7a94b57f",
+              "mtime_ns": 1791490260651752414
+            },
+            "epochs.jsonl": {
+              "sha256": "24f60ecf91227d0cbe9b28f4a796f552b1c31220f69464e88e8bbdaf73654a7e",
+              "mtime_ns": 1791490260641752416
+            }
+          },
+          "smoke_only": true,
+          "checkpoint_before_best_comparison": "/home/nbcctwya/kbs-workspace/research/artifacts/smokes/ema_csi_mixture2_ee4142788c5c26a9/best.pt",
+          "recovered_directory": "/home/nbcctwya/kbs-workspace/research/artifacts/smokes/ema_csi_mixture2_ee4142788c5c26a9_interrupted_a0ce88b7",
+          "exact_ema_parameters_and_update_counter": true,
+          "ema_updates": 24
+        }
+      ],
+      "code": {
+        "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+        "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+        "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+        "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+        "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+        "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+        "research/diagnostics.py": "7ff21c3a0f8e265700e51b5901cda45ef646f5e2503dedc4e2c83345c00bcfa7",
+        "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+        "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+        "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+        "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+        "research/models.py": "3e6a7881a19687731960376029cbc2323d26ff3de44c5e5064900c932b997627",
+        "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+        "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+        "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+        "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+        "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
+        "research/runner.py": "4851bd6f57107c02f2a6496e2f8aa4f896f45319469fde5106cf09d59246942a",
+        "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+        "research/snapshot.py": "43abd1f6ef94c2ec8058f38f23a63131aa913867c37c6f97082bc6b35d359ceb",
+        "research/train.py": "26f80e0f06504bfec78414d5051de503aee16dee4cca3f7a51cfbb56bfaf0517"
+      },
+      "scope": "GPU smoke continuation and exhausted-epoch recovery; excluded from full validation counts",
+      "cases_completed": 4,
+      "distinct_markets_completed": 2,
+      "harness": "research/tests/check_mixture_recovery.py",
+      "harness_sha256": "fe94985868d14a77cdbb89a33102964cad15c16b688e12baaadf1a0558d6ecd2",
+      "ema_state_verifier": "research/tests/check_ema_gpu.py",
+      "ema_state_verifier_sha256": "e5cdf75af5e5b7af0e14f20738f3335b4b288afd7154e3ec04115adb240b5416"
+    },
+    "ema_legacy_gpu_checks": {
+      "created_at": "2026-10-08T20:18:16.581691+00:00",
+      "passed": true,
+      "markets_completed": 2,
+      "records": [
+        {
+          "market": "csi300",
+          "config": {
+            "market": "csi300",
+            "seed": 0,
+            "purge_days": 5,
+            "family": "residual",
+            "width": 128,
+            "depth": 2,
+            "objective": "mixed",
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 3,
+            "patience": 3,
+            "dropout": 0.1,
+            "days_per_update": 4,
+            "feature_encoder": "ple",
+            "ple_bins": 16,
+            "ple_include_raw": false,
+            "smoke_train_days": 32,
+            "smoke_valid_days": 20,
+            "skip_backtest": true
+          },
+          "old_bundle": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/bd60504de52434796f35fd4c",
+          "current_bundle": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/e6c84ea2aca0904a329876f5",
+          "exact_training_losses_and_validation": true,
+          "exact_raw_parameters_and_best_epoch": true,
+          "exact_validation_predictions": true,
+          "scope": "three-epoch real GPU smoke; excluded from full trials"
+        },
+        {
+          "market": "sp500",
+          "config": {
+            "seed": 0,
+            "purge_days": 5,
+            "width": 128,
+            "depth": 2,
+            "dropout": 0.1,
+            "context": true,
+            "market_gate": true,
+            "lr": 0.0005,
+            "epochs": 3,
+            "patience": 3,
+            "target_kind": "raw_excess_standardized",
+            "family": "residual",
+            "objective": "mixed",
+            "market": "sp500",
+            "days_per_update": 4,
+            "smoke_train_days": 32,
+            "smoke_valid_days": 20,
+            "skip_backtest": true
+          },
+          "old_bundle": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/bd60504de52434796f35fd4c",
+          "current_bundle": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/e6c84ea2aca0904a329876f5",
+          "exact_training_losses_and_validation": true,
+          "exact_raw_parameters_and_best_epoch": true,
+          "exact_validation_predictions": true,
+          "scope": "three-epoch real GPU smoke; excluded from full trials"
+        }
+      ],
+      "code": {
+        "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+        "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+        "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+        "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+        "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+        "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+        "research/diagnostics.py": "7ff21c3a0f8e265700e51b5901cda45ef646f5e2503dedc4e2c83345c00bcfa7",
+        "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+        "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+        "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+        "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+        "research/models.py": "3e6a7881a19687731960376029cbc2323d26ff3de44c5e5064900c932b997627",
+        "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+        "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+        "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+        "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+        "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
+        "research/runner.py": "4851bd6f57107c02f2a6496e2f8aa4f896f45319469fde5106cf09d59246942a",
+        "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+        "research/snapshot.py": "43abd1f6ef94c2ec8058f38f23a63131aa913867c37c6f97082bc6b35d359ceb",
+        "research/train.py": "26f80e0f06504bfec78414d5051de503aee16dee4cca3f7a51cfbb56bfaf0517"
+      }
+    }
+  },
+  "harnesses": {
+    "check_ema_gpu.py": "e5cdf75af5e5b7af0e14f20738f3335b4b288afd7154e3ec04115adb240b5416",
+    "check_ema_legacy.py": "3b0ace28ef5584fb1735d51cad2ec3e7b944d745b5b7bef241700194b003748f",
+    "check_mixture_recovery.py": "fe94985868d14a77cdbb89a33102964cad15c16b688e12baaadf1a0558d6ecd2"
+  },
+  "notes": [
+    "Optimized raw parameters and averaged validation/inference parameters are distinct.",
+    "Train-fitted buffers remain exact; EMA introduces no validation/test fitting.",
+    "Disabled-EMA real GPU controls reproduce prior parameters, losses and predictions exactly.",
+    "Changing early-stop epoch is an explicit part of this training method.",
+    "Correct recovery is not evidence of improved portfolio results."
+  ],
+  "experiments": []
+}

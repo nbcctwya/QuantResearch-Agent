@@ -1,12 +1,17 @@
 {
-  "created_at": "2026-10-08T19:35:19.903497+00:00",
-  "previous_commit": "d642c1f520b2dd7dd3a3b3a2d4379c0f8adb3a5c",
-  "previous_runs": 220,
-  "snapshot_runs": 229,
+  "created_at": "2026-10-08T20:41:27.996018+00:00",
+  "previous_commit": "cc9450c70a4dc16631e8db77ed697dc6945c799f",
+  "previous_runs": 229,
+  "snapshot_runs": 237,
   "previous_records_unchanged": true,
   "previous_metric_rows_exactly_unchanged": true,
   "previous_seed_ensemble_records_unchanged": true,
   "checked_code_packages": [
+    {
+      "bundle": "03e4497e576fe49c0d91220c",
+      "manifest_sha256": "6b43613e62636997c202372806a04e0ad662db6f99834e64217934d18ced79b0",
+      "files": 21
+    },
     {
       "bundle": "13f8e16a1375d73febfb9ba3",
       "manifest_sha256": "bbbda571abe401037033bc0e96a49dff8c889acb99de75c56e31a1365d2a7d7d",
@@ -108,16 +113,27 @@
       "files": 13
     },
     {
+      "bundle": "e6c84ea2aca0904a329876f5",
+      "manifest_sha256": "2404b4beea85a237c1a8573732e5ecbfcb906e5a4e83adcdfcd7a10c750a9a03",
+      "files": 21
+    },
+    {
       "bundle": "f89c8539171cb9e9fdcf191c",
       "manifest_sha256": "ff7be1d963a544058c18e26b38020ca33ee7e1d03277f6fe91d7f18d64ca8b62",
       "files": 17
     }
   ],
   "every_source_matches_saved_manifest": true,
-  "runs_with_exact_saved_package": 174,
-  "earlier_runs_without_saved_package": 55,
-  "earlier_run_note": "Early experiments predate immutable launch-time packages; recorded source hashes are retained without inventing reconstructed packages.",
+  "runs_with_exact_saved_package": 181,
+  "earlier_runs_without_saved_package": 56,
+  "earlier_run_note": "56 early runs lack a recorded immutable launch package. Original source hashes are retained; no package is reconstructed or attributed retroactively.",
   "selection_lock_exists": false,
   "new_model_holdout_records": 0,
-  "scope": "completed full validation only; previous evidence preserved"
+  "scope": "completed full validation only; score-scale diagnostics excluded; previous evidence preserved",
+  "previous_coverage_audit": {
+    "previous_reported_saved_packages": 174,
+    "previous_explicitly_recorded_frozen_packages": 173,
+    "previous_coverage_count_corrected": true,
+    "note": "Counts now require a recorded immutable launch source_package and exact matching saved manifest; old run metadata and metric rows remain unchanged."
+  }
 }

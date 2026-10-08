@@ -1,0 +1,27 @@
+{
+  "created_at": "2026-10-08T20:00:24.100348+00:00",
+  "workspace": "/home/nbcctwya/kbs-workspace",
+  "files": {
+    "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+    "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+    "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
+    "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+    "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+    "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+    "research/diagnostics.py": "7ff21c3a0f8e265700e51b5901cda45ef646f5e2503dedc4e2c83345c00bcfa7",
+    "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+    "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+    "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+    "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+    "research/models.py": "3e6a7881a19687731960376029cbc2323d26ff3de44c5e5064900c932b997627",
+    "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+    "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+    "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+    "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+    "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
+    "research/runner.py": "4851bd6f57107c02f2a6496e2f8aa4f896f45319469fde5106cf09d59246942a",
+    "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+    "research/snapshot.py": "43abd1f6ef94c2ec8058f38f23a63131aa913867c37c6f97082bc6b35d359ceb",
+    "research/train.py": "26f80e0f06504bfec78414d5051de503aee16dee4cca3f7a51cfbb56bfaf0517"
+  }
+}

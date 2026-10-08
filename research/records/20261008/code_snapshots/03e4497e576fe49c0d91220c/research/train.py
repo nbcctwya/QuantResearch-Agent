@@ -484,7 +484,6 @@ def predict_test(config, trained, destination):
 
 
 def run_training(config,destination):
-    ema_decay(config)
     destination.mkdir(parents=True,exist_ok=True)
     seed_all(config["seed"])
     started = time.monotonic()

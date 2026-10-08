@@ -11,10 +11,12 @@
     "Bounded alpha-dispersion risk conditioning; fourteen full controls, four matched CSI300 seed checks and five new three-seed validation ensembles completed",
     "Conditional shared-encoder Gaussian mixtures; all eighteen matched full controls and both CSI300 three-seed ensembles complete; ranking gains do not transfer to ensemble portfolio returns",
     "Native 8/16/32-day history controls with identity or PLE input; exact native-window and legacy prediction checks, four GPU/interruption cases, and twelve full validation controls queued",
-    "Frozen mixture-risk sources on identical alpha checkpoints; both-market GPU recovery and complete zero-penalty reproduction; twelve full controls complete and eight paired seed checks queued"
+    "Frozen mixture-risk sources on identical alpha checkpoints; both-market GPU recovery and complete zero-penalty reproduction; twelve full controls complete and eight paired seed checks queued",
+    "Optional exponential moving average of neural parameters; raw optimizer trajectory preserved; full checkpoint recovery and disabled-policy compatibility verified before eight matched full controls",
+    "Twelve three-seed score-scale validation ensemble diagnostics using the unchanged baseline avg_none and identical float64 identity controls; two normalized forecast methods queued"
   ],
   "checks": {
-    "cpu_tests": 66,
+    "cpu_tests": 72,
     "factor_gpu_smoke_markets": [
       "csi300",
       "sp500"
@@ -49,7 +51,11 @@
       "csi300",
       "sp500"
     ],
-    "frozen_mixture_zero_penalty_full_reproduction": true
+    "frozen_mixture_zero_penalty_full_reproduction": true,
+    "ema_gpu_cases": 4,
+    "ema_exact_interrupted_recovery": true,
+    "disabled_ema_legacy_gpu_markets": 2,
+    "score_scale_ensemble_diagnostics": 12
   },
   "seed_validation_checks": {
     "created_at": "2026-10-08T14:49:55.956676+00:00",
@@ -3292,10 +3298,11 @@
     },
     {
       "name": "longer_causal_feature_history",
-      "status": "implemented and verified; twelve matched full controls queued",
+      "status": "implemented and verified; 11/12 full controls completed",
       "proposal": "Consider 16/32-day windows while preserving baseline evaluation coverage. Audit stock/date gaps, histories crossing train/valid/test boundaries, and inherited sampler eligibility before implementation.",
       "evidence": "Eight train/valid history caches; all endpoint latest-feature rows identical; 512 native-window probes per cache; unchanged original cache hashes in fixture checks; four real 16/32-step GPU recovery cases exact; two trained eight-step models identical on five validation days per market",
-      "causality_note": "Native feature histories inherit original learn-row label eligibility and unverified JKP revision/release timing"
+      "causality_note": "Native feature histories inherit original learn-row label eligibility and unverified JKP revision/release timing",
+      "additional_evidence": "Identity histories show some ranking and portfolio gains, but CSI300 PLE at 32 days loses ranking and increases volatility and drawdown versus eight days."
     },
     {
       "name": "confirmation_code_freeze",
@@ -3333,14 +3340,29 @@
       "status": "twelve matched controls complete; eight paired alpha-seed checks queued",
       "evidence": "Both markets reproduce identical complete alpha predictions at zero penalty; all ten baseline metrics differ by at most 3.11e-15. Same alpha checkpoint, penalty 0.05 and baseline strategy for one/two/four components and static/regime scoring.",
       "result": "CSI300 two-component static scoring improves AR with a small STD increase. SP500 one-component regime scoring is strongest within these controls; adding components is not consistently beneficial."
+    },
+    {
+      "name": "exponential_weight_averaging",
+      "status": "implementation verified; eight matched full controls queued",
+      "proposal": "Compare disabled EMA and decay 0.99/0.999/0.9999 while fixing model, objective, optimizer and per-date batching. Validation and ordinary inference use averaged weights; recovery stores raw optimizer/RNG plus complete EMA state.",
+      "evidence": "72 CPU checks; four real GPU EMA training and exact interruption cases; two-market disabled-policy parameters, losses and predictions match the prior immutable package exactly.",
+      "source": "https://docs.pytorch.org/docs/2.8/optim.html#weight-averaging-swa-and-ema"
+    },
+    {
+      "name": "within_seed_score_normalization",
+      "status": "twelve three-seed ensemble diagnostics complete; two forecast methods queued",
+      "proposal": "Apply a current-date cross-sectional z-score inside each seed forecast, followed by unchanged baseline avg_none. Controls use the same float64 combiner without normalization. No label or future-date fitting.",
+      "evidence": "SP500 independent-regime normalization improves all ten validation metrics; CSI300 PLE returns decline. Single-source rankings remain unchanged; gains arise from altered inter-seed score scales.",
+      "scope": "Diagnostics excluded from full trial counts and automatic promotion; no holdout evidence"
     }
   ],
-  "interpretation": "The conditional mixture mean-score ensemble improves ranking but loses portfolio returns versus one component. Twelve matched frozen-risk controls show a small CSI300 two-component static benefit with slightly higher volatility; SP500 favors one component with risk-regime scaling. Eight paired alpha-seed checks are queued before trusting these seed-0 results. Full native history controls are running. Test remains sealed and the full baseline objective is unproven.",
-  "full_validation_runs_in_snapshot": 229,
-  "snapshot_at": "2026-10-08T19:35:19.289452+00:00",
+  "interpretation": "Eleven of twelve matched native-history controls are complete; longer windows are not uniformly beneficial. Score normalization improves all ten metrics for the SP500 independent-regime three-seed validation ensemble but lowers CSI300 PLE portfolio returns. These diagnostics remain separate from full trial counts. EMA correctness and recovery are verified; full matched performance controls are queued. Test remains sealed and the baseline objective is unproven.",
+  "full_validation_runs_in_snapshot": 237,
+  "snapshot_at": "2026-10-08T20:39:17.761366+00:00",
   "verification_code": {
     "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
     "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+    "research/averaging.py": "10146ad3d69e7097acb28f279c873c97a570a12bf8b6647a72f0b0be32efad6b",
     "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
     "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
     "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
@@ -3357,8 +3379,8 @@
     "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
     "research/runner.py": "4851bd6f57107c02f2a6496e2f8aa4f896f45319469fde5106cf09d59246942a",
     "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
-    "research/snapshot.py": "31d27bc4c535e64eeb1033e91b161b8b07f5ba8a4c4eb4177b4654ecb810599e",
-    "research/train.py": "8e8572a9d06b6e1206986608f975524d3caa8b86f08a03498e5a3174979e3ee5"
+    "research/snapshot.py": "43abd1f6ef94c2ec8058f38f23a63131aa913867c37c6f97082bc6b35d359ceb",
+    "research/train.py": "26f80e0f06504bfec78414d5051de503aee16dee4cca3f7a51cfbb56bfaf0517"
   },
   "holdout_opened": false,
   "previous_snapshots": [
@@ -3406,12 +3428,38 @@
         "research/snapshot.py": "2391af431c4778999ed372acc7b39a2d919b378a2ee4abfcff2c0c0043c1859a",
         "research/train.py": "84995bc1da904ed37823854ee17af05d24e118bdfb77b23c93390f366e985d0f"
       }
+    },
+    {
+      "snapshot_at": "2026-10-08T19:35:19.289452+00:00",
+      "full_validation_runs": 229,
+      "verification_code": {
+        "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+        "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+        "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+        "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+        "research/data.py": "ca56e7e0f1d7520bfdadc5a035859e7f20d5169f6b782ebf33ad87bf26ec8746",
+        "research/diagnostics.py": "7ff21c3a0f8e265700e51b5901cda45ef646f5e2503dedc4e2c83345c00bcfa7",
+        "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+        "research/history.py": "98ba34b5cca499b1b1dee2f0b3fdf7a090ec02a16e5bc4d7f0a305bdb0e2da06",
+        "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+        "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+        "research/models.py": "3e6a7881a19687731960376029cbc2323d26ff3de44c5e5064900c932b997627",
+        "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+        "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+        "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+        "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+        "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
+        "research/runner.py": "4851bd6f57107c02f2a6496e2f8aa4f896f45319469fde5106cf09d59246942a",
+        "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+        "research/snapshot.py": "31d27bc4c535e64eeb1033e91b161b8b07f5ba8a4c4eb4177b4654ecb810599e",
+        "research/train.py": "8e8572a9d06b6e1206986608f975524d3caa8b86f08a03498e5a3174979e3ee5"
+      }
     }
   ],
-  "updated_at": "2026-10-08T19:36:44.873423+00:00",
+  "updated_at": "2026-10-08T20:41:27.997612+00:00",
   "risk_regime_validation_checks": "risk_regime_validation_checks.json",
   "opportunity_validation_checks": "opportunity_validation_checks.json",
-  "snapshot_runs": 229,
+  "snapshot_runs": 237,
   "conditional_mixture_study": {
     "planned": 18,
     "completed": 18,
@@ -3419,10 +3467,14 @@
     "paired_seeds_report": "mixture_seed_validation_checks.json"
   },
   "seed_validation_ensembles_at_snapshot": 11,
-  "remaining": "Complete twelve native history controls and eight paired frozen-risk seed checks; continue validation search; freeze and run five-seed holdout confirmation after the original deadline",
+  "remaining": "Finish the last native-history control, eight frozen-risk paired seeds and eight EMA controls; continue validation research; freeze and run five-seed holdout confirmation after the original search deadline",
   "native_history_study": "history_validation_checks.json",
   "frozen_mixture_risk_study": "mixture_risk_validation_checks.json",
   "frozen_mixture_risk_seed_followups": "mixture_risk_seed_followups.json",
   "frozen_mixture_risk_controls_complete": 12,
-  "native_history_controls_complete_at_report": 3
+  "native_history_controls_complete_at_report": 11,
+  "ema_study": "ema_validation_checks.json",
+  "score_scale_study": "score_scale_validation_checks.json",
+  "score_scale_method_design": "score_scale_method_design.json",
+  "code_packages_at_snapshot": 23
 }
