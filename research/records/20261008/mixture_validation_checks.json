@@ -1,8 +1,8 @@
 {
-  "created_at": "2026-10-08T18:09:59.400302+00:00",
+  "created_at": "2026-10-08T18:21:53.929571+00:00",
   "scope": "purged validation 2021-2022 only; smoke excluded; no new-model test outputs read",
   "planned": 18,
-  "completed": 3,
+  "completed": 7,
   "design": {
     "created_at": "2026-10-08T17:52:23.732140+00:00",
     "scope": "full purged validation, no test labels or metrics",
@@ -1045,7 +1045,23 @@
       },
       "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/614f9adbcb035b87d185e2a8/research",
       "checkpoint_sha256": "016f0c1ba9dd8232c585722a81d6ba3b97b6e2f895d2d33af79a99b62f72e5d6",
-      "prediction_sha256": "bda72dca4f64162652b42b5a407bc4416d636a867750ddfcb8c664b2d966c3a1"
+      "prediction_sha256": "bda72dca4f64162652b42b5a407bc4416d636a867750ddfcb8c664b2d966c3a1",
+      "matched_one_component": {
+        "id": "860bd8760e42dd68",
+        "deltas": {
+          "IC": -0.0024665523524698488,
+          "ICIR": -0.015888664314697376,
+          "RankIC": 0.0008827734232998326,
+          "RankICIR": -0.0030296605192100534,
+          "AR": -0.10310947438935014,
+          "STD": 0.0075582299836042255,
+          "MDD": -0.07469389611429178,
+          "Sharpe": -0.3270050607189297,
+          "Sortino": -0.4773592759639565,
+          "Calmar": -0.4155571512409002
+        },
+        "negative_log_density_delta": 0.04242792962537245
+      }
     },
     {
       "variant": "one_component",
@@ -1270,6 +1286,978 @@
         },
         "negative_log_density_delta": 0.0
       }
+    },
+    {
+      "variant": "one_component",
+      "market": "sp500",
+      "id": "860bd8760e42dd68",
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "mixture_gaussian",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "gaussian_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "target_kind": "raw_standardized",
+        "mixture_components": 1,
+        "mixture_gate_input": "market",
+        "mixture_temperature": 1.0,
+        "market": "sp500"
+      },
+      "status": "complete",
+      "validation": {
+        "IC": 0.03334123015700099,
+        "ICIR": 0.1658689003582026,
+        "RankIC": 0.03098953657257589,
+        "RankICIR": 0.1550224591522217,
+        "RankIC_2021": 0.033477152866183496,
+        "RankIC_2022": 0.028441246710831515,
+        "AR": 0.10716383707043509,
+        "STD": 0.2992466114944927,
+        "MDD": -0.250365341548919,
+        "Sharpe": 0.34019313780694255,
+        "Sortino": 0.4962301193808881,
+        "Calmar": 0.4280298399429072,
+        "num_test_days": 498
+      },
+      "seconds": 168.09956684400095,
+      "resources": {
+        "cpu_seconds": 159.728327,
+        "peak_process_rss_mib": 3559.63671875,
+        "gpu_peak_allocated_mib": 1323.224609375,
+        "gpu_peak_reserved_mib": 1338.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "best_epoch": 2,
+      "parameter_count": 178144,
+      "calibration": {
+        "created_at": "2026-10-08T18:12:17.099832+00:00",
+        "market": "sp500",
+        "family": "mixture_gaussian",
+        "split": "purged validation only",
+        "samples": 235798,
+        "days": 498,
+        "target_kind": "raw_standardized",
+        "training_scale": 0.04185252839688792,
+        "scale_file_sha256": "5fc97c195a33ea8d54ed82943331f276f8f4835c1955930149a15261e28cd110",
+        "best_epoch": 2,
+        "inference": "CPU float32; diagnostic scores may differ slightly from CUDA bfloat16",
+        "labels": "unclipped observed validation returns, demeaned by date for an excess-return target",
+        "rmse": 0.04230750724673271,
+        "mae": 0.030627459287643433,
+        "interval_80_coverage": 0.8278653762966607,
+        "uncertainty_abs_error_RankIC": 0.25637611975652586,
+        "uncertainty_bins": [
+          {
+            "bin": 1,
+            "samples": 46917,
+            "predicted_uncertainty": 0.027534984052181244,
+            "observed_rmse": 0.02945517748594284,
+            "observed_mae": 0.0218777097761631
+          },
+          {
+            "bin": 2,
+            "samples": 47097,
+            "predicted_uncertainty": 0.03320750594139099,
+            "observed_rmse": 0.034213121980428696,
+            "observed_mae": 0.02562326192855835
+          },
+          {
+            "bin": 3,
+            "samples": 47207,
+            "predicted_uncertainty": 0.0382830984890461,
+            "observed_rmse": 0.03843340277671814,
+            "observed_mae": 0.02881421521306038
+          },
+          {
+            "bin": 4,
+            "samples": 47097,
+            "predicted_uncertainty": 0.04509221389889717,
+            "observed_rmse": 0.04443123936653137,
+            "observed_mae": 0.033134039491415024
+          },
+          {
+            "bin": 5,
+            "samples": 47480,
+            "predicted_uncertainty": 0.0612897053360939,
+            "observed_rmse": 0.05868539214134216,
+            "observed_mae": 0.04355373606085777
+          }
+        ],
+        "by_year": [
+          {
+            "year": 2021,
+            "samples": 118360,
+            "rmse": 0.035129696130752563,
+            "interval_80_coverage": 0.8602061507265968
+          },
+          {
+            "year": 2022,
+            "samples": 117438,
+            "rmse": 0.04847802594304085,
+            "interval_80_coverage": 0.7952706960268396
+          }
+        ],
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "229487d397c144e5132488788cc2dced6d0bd53e3509aaa7e2d049a155be09bf",
+          "research/diagnostics.py": "05b8fb1a3dd88c42020848dc16450522c51187076f1fc345abb79bee31990e60",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "9bef5918fe27bcae8547497f9fb5d0d790ee8746d054c2777a8db87938c960a4",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
+          "research/runner.py": "c451d6314f91a1c8c6bfca47fc4a6d9e88bc2ebbf8d0f3b0da193d9e042e2489",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "8c2eb22c79babbf1127309cd236dd6bdacc5439329374db4b7931447b7b17967",
+          "research/train.py": "f2b22bcc4b6b84b9929de61e78554a7a3b927aa487728e46e913dfbdd02cd889"
+        },
+        "mean_normalized_squared_error": 1.0185574293136597,
+        "quantile_coverage": {
+          "q10": 0.10517052731575331,
+          "q50": 0.5182401886360359,
+          "q90": 0.9330359036124141
+        },
+        "mixture": {
+          "components": 1,
+          "interval_method": "true conditional mixture quantiles from CDF inversion",
+          "mean_component_weights": [
+            1.0
+          ],
+          "mean_gate_entropy": 0.0,
+          "mean_effective_components": 1.0,
+          "mean_between_variance_share": 0.0,
+          "mean_negative_log_density_raw_units": -1.818203216579218,
+          "pit_histogram": [
+            24799,
+            21631,
+            23744,
+            25406,
+            26620,
+            27548,
+            26794,
+            23996,
+            19470,
+            15790
+          ],
+          "interpretation": "routing diagnostics do not establish semantic expert specialization"
+        }
+      },
+      "mean_negative_log_density_raw_units": -1.818203216579218,
+      "routing_variation": {
+        "pooled_component_weight_std": [
+          0.0
+        ],
+        "daily_mean_component_weight_std": [
+          0.0
+        ],
+        "diagnostic_scope": "variation does not demonstrate semantic expert specialization"
+      },
+      "code": {
+        "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+        "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+        "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+        "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+        "research/data.py": "229487d397c144e5132488788cc2dced6d0bd53e3509aaa7e2d049a155be09bf",
+        "research/diagnostics.py": "05b8fb1a3dd88c42020848dc16450522c51187076f1fc345abb79bee31990e60",
+        "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+        "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+        "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+        "research/models.py": "9bef5918fe27bcae8547497f9fb5d0d790ee8746d054c2777a8db87938c960a4",
+        "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+        "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+        "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+        "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+        "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
+        "research/runner.py": "c451d6314f91a1c8c6bfca47fc4a6d9e88bc2ebbf8d0f3b0da193d9e042e2489",
+        "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+        "research/snapshot.py": "8c2eb22c79babbf1127309cd236dd6bdacc5439329374db4b7931447b7b17967",
+        "research/train.py": "f2b22bcc4b6b84b9929de61e78554a7a3b927aa487728e46e913dfbdd02cd889"
+      },
+      "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/614f9adbcb035b87d185e2a8/research",
+      "checkpoint_sha256": "04b96d921cc19e00faea89385c500d5735156ea37417f9d81673a608e60b81ea",
+      "prediction_sha256": "3e024518efe23bbd9929f712ce0122a8b25950362a20acae64b3ba416329a54f",
+      "matched_one_component": {
+        "id": "860bd8760e42dd68",
+        "deltas": {
+          "IC": 0.0,
+          "ICIR": 0.0,
+          "RankIC": 0.0,
+          "RankICIR": 0.0,
+          "AR": 0.0,
+          "STD": 0.0,
+          "MDD": 0.0,
+          "Sharpe": 0.0,
+          "Sortino": 0.0,
+          "Calmar": 0.0
+        },
+        "negative_log_density_delta": 0.0
+      }
+    },
+    {
+      "variant": "two_components",
+      "market": "csi300",
+      "id": "7a70214a41474532",
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "mixture_gaussian",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "gaussian_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "target_kind": "raw_standardized",
+        "mixture_components": 2,
+        "mixture_gate_input": "market",
+        "mixture_temperature": 1.0,
+        "market": "csi300"
+      },
+      "status": "complete",
+      "validation": {
+        "IC": 0.06496878975567918,
+        "ICIR": 0.4025902294862152,
+        "RankIC": 0.07712619174036943,
+        "RankICIR": 0.44890483720221275,
+        "RankIC_2021": 0.0551414695782672,
+        "RankIC_2022": 0.09966748914708186,
+        "AR": 0.1481390819683519,
+        "STD": 0.1978590591073683,
+        "MDD": -0.18247180697561904,
+        "Sharpe": 0.6981860862106529,
+        "Sortino": 1.071775038473342,
+        "Calmar": 0.8118464130085887,
+        "num_test_days": 480
+      },
+      "seconds": 190.06125169100414,
+      "resources": {
+        "cpu_seconds": 187.551964,
+        "peak_process_rss_mib": 3089.1875,
+        "gpu_peak_allocated_mib": 916.046875,
+        "gpu_peak_reserved_mib": 932.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "best_epoch": 5,
+      "parameter_count": 180516,
+      "calibration": {
+        "created_at": "2026-10-08T18:15:39.372585+00:00",
+        "market": "csi300",
+        "family": "mixture_gaussian",
+        "split": "purged validation only",
+        "samples": 143786,
+        "days": 480,
+        "target_kind": "raw_standardized",
+        "training_scale": 0.05283498873742838,
+        "scale_file_sha256": "ee7fa3f0041fd523aa9af4461076b3380c67628704a6746f016cc0f77b6d8e6b",
+        "best_epoch": 5,
+        "inference": "CPU float32; diagnostic scores may differ slightly from CUDA bfloat16",
+        "labels": "unclipped observed validation returns, demeaned by date for an excess-return target",
+        "rmse": 0.056552138179540634,
+        "mae": 0.041078388690948486,
+        "interval_80_coverage": 0.7878583450405464,
+        "uncertainty_abs_error_RankIC": 0.3320288609523279,
+        "uncertainty_bins": [
+          {
+            "bin": 1,
+            "samples": 28320,
+            "predicted_uncertainty": 0.032071564346551895,
+            "observed_rmse": 0.03240014985203743,
+            "observed_mae": 0.02283734828233719
+          },
+          {
+            "bin": 2,
+            "samples": 28791,
+            "predicted_uncertainty": 0.04499271512031555,
+            "observed_rmse": 0.0473632775247097,
+            "observed_mae": 0.03511804714798927
+          },
+          {
+            "bin": 3,
+            "samples": 28775,
+            "predicted_uncertainty": 0.05379234626889229,
+            "observed_rmse": 0.056180115789175034,
+            "observed_mae": 0.042187921702861786
+          },
+          {
+            "bin": 4,
+            "samples": 28791,
+            "predicted_uncertainty": 0.06152816116809845,
+            "observed_rmse": 0.06363222002983093,
+            "observed_mae": 0.048450618982315063
+          },
+          {
+            "bin": 5,
+            "samples": 29109,
+            "predicted_uncertainty": 0.07270512729883194,
+            "observed_rmse": 0.07370589673519135,
+            "observed_mae": 0.056331735104322433
+          }
+        ],
+        "by_year": [
+          {
+            "year": 2021,
+            "samples": 72764,
+            "rmse": 0.06131230294704437,
+            "interval_80_coverage": 0.7865015667088121
+          },
+          {
+            "year": 2022,
+            "samples": 71022,
+            "rmse": 0.05121844261884689,
+            "interval_80_coverage": 0.7892484019036355
+          }
+        ],
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "229487d397c144e5132488788cc2dced6d0bd53e3509aaa7e2d049a155be09bf",
+          "research/diagnostics.py": "05b8fb1a3dd88c42020848dc16450522c51187076f1fc345abb79bee31990e60",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "9bef5918fe27bcae8547497f9fb5d0d790ee8746d054c2777a8db87938c960a4",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
+          "research/runner.py": "c451d6314f91a1c8c6bfca47fc4a6d9e88bc2ebbf8d0f3b0da193d9e042e2489",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "8c2eb22c79babbf1127309cd236dd6bdacc5439329374db4b7931447b7b17967",
+          "research/train.py": "f2b22bcc4b6b84b9929de61e78554a7a3b927aa487728e46e913dfbdd02cd889"
+        },
+        "mean_normalized_squared_error": 1.0211067199707031,
+        "quantile_coverage": {
+          "q10": 0.0895010640813431,
+          "q50": 0.4675559512052634,
+          "q90": 0.8773594091218895
+        },
+        "mixture": {
+          "components": 2,
+          "interval_method": "true conditional mixture quantiles from CDF inversion",
+          "mean_component_weights": [
+            0.3462373740204209,
+            0.653762625979579
+          ],
+          "mean_gate_entropy": 0.6333515855303467,
+          "mean_effective_components": 1.8859795551403922,
+          "mean_between_variance_share": 0.049673207104206085,
+          "mean_negative_log_density_raw_units": -1.6032449100785293,
+          "pit_histogram": [
+            12869,
+            13827,
+            13664,
+            13410,
+            13458,
+            13695,
+            14205,
+            14692,
+            16332,
+            17634
+          ],
+          "interpretation": "routing diagnostics do not establish semantic expert specialization"
+        }
+      },
+      "mean_negative_log_density_raw_units": -1.6032449100785293,
+      "routing_variation": {
+        "pooled_component_weight_std": [
+          0.07259093318536602,
+          0.07259093318536346
+        ],
+        "daily_mean_component_weight_std": [
+          0.07261421234983498,
+          0.07261421234983498
+        ],
+        "diagnostic_scope": "variation does not demonstrate semantic expert specialization"
+      },
+      "code": {
+        "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+        "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+        "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+        "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+        "research/data.py": "229487d397c144e5132488788cc2dced6d0bd53e3509aaa7e2d049a155be09bf",
+        "research/diagnostics.py": "05b8fb1a3dd88c42020848dc16450522c51187076f1fc345abb79bee31990e60",
+        "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+        "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+        "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+        "research/models.py": "9bef5918fe27bcae8547497f9fb5d0d790ee8746d054c2777a8db87938c960a4",
+        "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+        "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+        "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+        "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+        "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
+        "research/runner.py": "c451d6314f91a1c8c6bfca47fc4a6d9e88bc2ebbf8d0f3b0da193d9e042e2489",
+        "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+        "research/snapshot.py": "8c2eb22c79babbf1127309cd236dd6bdacc5439329374db4b7931447b7b17967",
+        "research/train.py": "f2b22bcc4b6b84b9929de61e78554a7a3b927aa487728e46e913dfbdd02cd889"
+      },
+      "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/614f9adbcb035b87d185e2a8/research",
+      "checkpoint_sha256": "83436731ed27e436778bc450b7a64ab1601303b314fb354db43dbf21d61f202d",
+      "prediction_sha256": "9191645e178cefdc154f36980a3038e484a70aafcf1a6c3c6f347cc1eba4866b",
+      "matched_one_component": {
+        "id": "2f4652527f2253e5",
+        "deltas": {
+          "IC": 0.00405262445366468,
+          "ICIR": 0.022785032108257997,
+          "RankIC": 0.0064527082882792075,
+          "RankICIR": 0.030858493177393198,
+          "AR": 0.09954839281486838,
+          "STD": -0.014560975271748072,
+          "MDD": 0.10412289438628419,
+          "Sharpe": 0.4748217413944876,
+          "Sortino": 0.7459787101413446,
+          "Calmar": 0.6423014461177855
+        },
+        "negative_log_density_delta": -0.021299131213569522
+      }
+    },
+    {
+      "variant": "two_components",
+      "market": "sp500",
+      "id": "23907c6878ff77f2",
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "mixture_gaussian",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "gaussian_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "target_kind": "raw_standardized",
+        "mixture_components": 2,
+        "mixture_gate_input": "market",
+        "mixture_temperature": 1.0,
+        "market": "sp500"
+      },
+      "status": "complete",
+      "validation": {
+        "IC": 0.029940107117099275,
+        "ICIR": 0.1586367596808942,
+        "RankIC": 0.033005698110615884,
+        "RankICIR": 0.17446686044659127,
+        "RankIC_2021": 0.042827167589687604,
+        "RankIC_2022": 0.022944680595469235,
+        "AR": -0.004868847065682913,
+        "STD": 0.300793628664062,
+        "MDD": -0.333446742482298,
+        "Sharpe": -0.01622620311929656,
+        "Sortino": -0.022925366456569465,
+        "Calmar": -0.014601573341030285,
+        "num_test_days": 498
+      },
+      "seconds": 156.64062471300713,
+      "resources": {
+        "cpu_seconds": 149.75418599999998,
+        "peak_process_rss_mib": 3570.1015625,
+        "gpu_peak_allocated_mib": 1323.25537109375,
+        "gpu_peak_reserved_mib": 1338.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "best_epoch": 1,
+      "parameter_count": 180516,
+      "calibration": {
+        "created_at": "2026-10-08T18:18:25.962386+00:00",
+        "market": "sp500",
+        "family": "mixture_gaussian",
+        "split": "purged validation only",
+        "samples": 235798,
+        "days": 498,
+        "target_kind": "raw_standardized",
+        "training_scale": 0.04185252839688792,
+        "scale_file_sha256": "5fc97c195a33ea8d54ed82943331f276f8f4835c1955930149a15261e28cd110",
+        "best_epoch": 1,
+        "inference": "CPU float32; diagnostic scores may differ slightly from CUDA bfloat16",
+        "labels": "unclipped observed validation returns, demeaned by date for an excess-return target",
+        "rmse": 0.042145274579524994,
+        "mae": 0.03043583407998085,
+        "interval_80_coverage": 0.7651634025733891,
+        "uncertainty_abs_error_RankIC": 0.24245910995506065,
+        "uncertainty_bins": [
+          {
+            "bin": 1,
+            "samples": 46917,
+            "predicted_uncertainty": 0.026161694899201393,
+            "observed_rmse": 0.029986437410116196,
+            "observed_mae": 0.022212836891412735
+          },
+          {
+            "bin": 2,
+            "samples": 47097,
+            "predicted_uncertainty": 0.030642012134194374,
+            "observed_rmse": 0.034786272794008255,
+            "observed_mae": 0.02583736926317215
+          },
+          {
+            "bin": 3,
+            "samples": 47207,
+            "predicted_uncertainty": 0.03474634513258934,
+            "observed_rmse": 0.038315072655677795,
+            "observed_mae": 0.028592519462108612
+          },
+          {
+            "bin": 4,
+            "samples": 47097,
+            "predicted_uncertainty": 0.04024361073970795,
+            "observed_rmse": 0.04335149750113487,
+            "observed_mae": 0.032310497015714645
+          },
+          {
+            "bin": 5,
+            "samples": 47480,
+            "predicted_uncertainty": 0.05331829562783241,
+            "observed_rmse": 0.058382753282785416,
+            "observed_mae": 0.04309587925672531
+          }
+        ],
+        "by_year": [
+          {
+            "year": 2021,
+            "samples": 118360,
+            "rmse": 0.03496653959155083,
+            "interval_80_coverage": 0.7909766813112538
+          },
+          {
+            "year": 2022,
+            "samples": 117438,
+            "rmse": 0.04831289127469063,
+            "interval_80_coverage": 0.7391474650453856
+          }
+        ],
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "229487d397c144e5132488788cc2dced6d0bd53e3509aaa7e2d049a155be09bf",
+          "research/diagnostics.py": "05b8fb1a3dd88c42020848dc16450522c51187076f1fc345abb79bee31990e60",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "9bef5918fe27bcae8547497f9fb5d0d790ee8746d054c2777a8db87938c960a4",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
+          "research/runner.py": "c451d6314f91a1c8c6bfca47fc4a6d9e88bc2ebbf8d0f3b0da193d9e042e2489",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "8c2eb22c79babbf1127309cd236dd6bdacc5439329374db4b7931447b7b17967",
+          "research/train.py": "f2b22bcc4b6b84b9929de61e78554a7a3b927aa487728e46e913dfbdd02cd889"
+        },
+        "mean_normalized_squared_error": 1.2285135984420776,
+        "quantile_coverage": {
+          "q10": 0.15065013274073571,
+          "q50": 0.5680031213157024,
+          "q90": 0.9158135353141248
+        },
+        "mixture": {
+          "components": 2,
+          "interval_method": "true conditional mixture quantiles from CDF inversion",
+          "mean_component_weights": [
+            0.46007530808194097,
+            0.539924691918059
+          ],
+          "mean_gate_entropy": 0.6874667387477642,
+          "mean_effective_components": 1.9887273085088275,
+          "mean_between_variance_share": 0.008863411843776703,
+          "mean_negative_log_density_raw_units": -1.8366532735122079,
+          "pit_histogram": [
+            35523,
+            28915,
+            24859,
+            22944,
+            21693,
+            21157,
+            20515,
+            20144,
+            20197,
+            19850
+          ],
+          "interpretation": "routing diagnostics do not establish semantic expert specialization"
+        }
+      },
+      "mean_negative_log_density_raw_units": -1.8366532735122079,
+      "routing_variation": {
+        "pooled_component_weight_std": [
+          0.03509128391112932,
+          0.035091283911126786
+        ],
+        "daily_mean_component_weight_std": [
+          0.03510324369038023,
+          0.03510324369038023
+        ],
+        "diagnostic_scope": "variation does not demonstrate semantic expert specialization"
+      },
+      "code": {
+        "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+        "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+        "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+        "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+        "research/data.py": "229487d397c144e5132488788cc2dced6d0bd53e3509aaa7e2d049a155be09bf",
+        "research/diagnostics.py": "05b8fb1a3dd88c42020848dc16450522c51187076f1fc345abb79bee31990e60",
+        "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+        "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+        "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+        "research/models.py": "9bef5918fe27bcae8547497f9fb5d0d790ee8746d054c2777a8db87938c960a4",
+        "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+        "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+        "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+        "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+        "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
+        "research/runner.py": "c451d6314f91a1c8c6bfca47fc4a6d9e88bc2ebbf8d0f3b0da193d9e042e2489",
+        "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+        "research/snapshot.py": "8c2eb22c79babbf1127309cd236dd6bdacc5439329374db4b7931447b7b17967",
+        "research/train.py": "f2b22bcc4b6b84b9929de61e78554a7a3b927aa487728e46e913dfbdd02cd889"
+      },
+      "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/614f9adbcb035b87d185e2a8/research",
+      "checkpoint_sha256": "bf9bc564c1e3214523385612ef1d31a8262907e38cde66e3ad390a40b78e09bb",
+      "prediction_sha256": "251a58d2722eecae599b94540cf94b23c80fd678b8074e1e17b374ea3b5103bf",
+      "matched_one_component": {
+        "id": "860bd8760e42dd68",
+        "deltas": {
+          "IC": -0.003401123039901713,
+          "ICIR": -0.007232140677308402,
+          "RankIC": 0.0020161615380399935,
+          "RankICIR": 0.019444401294369557,
+          "AR": -0.112032684136118,
+          "STD": 0.001547017169569287,
+          "MDD": -0.08308140093337901,
+          "Sharpe": -0.3564193409262391,
+          "Sortino": -0.5191554858374576,
+          "Calmar": -0.4426314132839375
+        },
+        "negative_log_density_delta": -0.018450056932989956
+      }
+    },
+    {
+      "variant": "four_components",
+      "market": "csi300",
+      "id": "e08728586462e66c",
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "mixture_gaussian",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "gaussian_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "target_kind": "raw_standardized",
+        "mixture_components": 4,
+        "mixture_gate_input": "market",
+        "mixture_temperature": 1.0,
+        "market": "csi300"
+      },
+      "status": "complete",
+      "validation": {
+        "IC": 0.06880080109165114,
+        "ICIR": 0.4179184700609853,
+        "RankIC": 0.07843592588198756,
+        "RankICIR": 0.4574886725213578,
+        "RankIC_2021": 0.04442752978319267,
+        "RankIC_2022": 0.11330529403391651,
+        "AR": 0.057823182891702185,
+        "STD": 0.22784524986032934,
+        "MDD": -0.2667838436184069,
+        "Sharpe": 0.24671655688640307,
+        "Sortino": 0.36710620722587034,
+        "Calmar": 0.21674169660142284,
+        "num_test_days": 480
+      },
+      "seconds": 183.7413019520027,
+      "resources": {
+        "cpu_seconds": 181.037004,
+        "peak_process_rss_mib": 3099.3984375,
+        "gpu_peak_allocated_mib": 916.052734375,
+        "gpu_peak_reserved_mib": 932.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "best_epoch": 4,
+      "parameter_count": 181098,
+      "calibration": {
+        "created_at": "2026-10-08T18:21:33.388339+00:00",
+        "market": "csi300",
+        "family": "mixture_gaussian",
+        "split": "purged validation only",
+        "samples": 143786,
+        "days": 480,
+        "target_kind": "raw_standardized",
+        "training_scale": 0.05283498873742838,
+        "scale_file_sha256": "ee7fa3f0041fd523aa9af4461076b3380c67628704a6746f016cc0f77b6d8e6b",
+        "best_epoch": 4,
+        "inference": "CPU float32; diagnostic scores may differ slightly from CUDA bfloat16",
+        "labels": "unclipped observed validation returns, demeaned by date for an excess-return target",
+        "rmse": 0.05301700159907341,
+        "mae": 0.03822457045316696,
+        "interval_80_coverage": 0.7851251164925653,
+        "uncertainty_abs_error_RankIC": 0.32450425238454045,
+        "uncertainty_bins": [
+          {
+            "bin": 1,
+            "samples": 28320,
+            "predicted_uncertainty": 0.03458060324192047,
+            "observed_rmse": 0.031112106516957283,
+            "observed_mae": 0.021657194942235947
+          },
+          {
+            "bin": 2,
+            "samples": 28791,
+            "predicted_uncertainty": 0.043648745864629745,
+            "observed_rmse": 0.044664934277534485,
+            "observed_mae": 0.03258639574050903
+          },
+          {
+            "bin": 3,
+            "samples": 28775,
+            "predicted_uncertainty": 0.04949195683002472,
+            "observed_rmse": 0.05253798887133598,
+            "observed_mae": 0.03904673084616661
+          },
+          {
+            "bin": 4,
+            "samples": 28791,
+            "predicted_uncertainty": 0.05449036508798599,
+            "observed_rmse": 0.0592539943754673,
+            "observed_mae": 0.044806331396102905
+          },
+          {
+            "bin": 5,
+            "samples": 29109,
+            "predicted_uncertainty": 0.06211366504430771,
+            "observed_rmse": 0.0690508708357811,
+            "observed_mae": 0.05259688198566437
+          }
+        ],
+        "by_year": [
+          {
+            "year": 2021,
+            "samples": 72764,
+            "rmse": 0.05601125210523605,
+            "interval_80_coverage": 0.793139464570392
+          },
+          {
+            "year": 2022,
+            "samples": 71022,
+            "rmse": 0.04976281523704529,
+            "interval_80_coverage": 0.776914195601363
+          }
+        ],
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "229487d397c144e5132488788cc2dced6d0bd53e3509aaa7e2d049a155be09bf",
+          "research/diagnostics.py": "05b8fb1a3dd88c42020848dc16450522c51187076f1fc345abb79bee31990e60",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "9bef5918fe27bcae8547497f9fb5d0d790ee8746d054c2777a8db87938c960a4",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
+          "research/runner.py": "c451d6314f91a1c8c6bfca47fc4a6d9e88bc2ebbf8d0f3b0da193d9e042e2489",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "8c2eb22c79babbf1127309cd236dd6bdacc5439329374db4b7931447b7b17967",
+          "research/train.py": "f2b22bcc4b6b84b9929de61e78554a7a3b927aa487728e46e913dfbdd02cd889"
+        },
+        "mean_normalized_squared_error": 1.0750402212142944,
+        "quantile_coverage": {
+          "q10": 0.0969218143630117,
+          "q50": 0.4784193175969844,
+          "q90": 0.8820469308555771
+        },
+        "mixture": {
+          "components": 4,
+          "interval_method": "true conditional mixture quantiles from CDF inversion",
+          "mean_component_weights": [
+            0.2199275280868129,
+            0.30708001534443835,
+            0.2201231992468176,
+            0.25286925732193105
+          ],
+          "mean_gate_entropy": 1.357097702099496,
+          "mean_effective_components": 3.886334298218299,
+          "mean_between_variance_share": 0.06858564168214798,
+          "mean_negative_log_density_raw_units": -1.6525804970891835,
+          "pit_histogram": [
+            13936,
+            14197,
+            13483,
+            13398,
+            13776,
+            14020,
+            14144,
+            14669,
+            15203,
+            16960
+          ],
+          "interpretation": "routing diagnostics do not establish semantic expert specialization"
+        }
+      },
+      "mean_negative_log_density_raw_units": -1.6525804970891835,
+      "routing_variation": {
+        "pooled_component_weight_std": [
+          0.02925459294195459,
+          0.04235448870225242,
+          0.06788548222802201,
+          0.04516031057172166
+        ],
+        "daily_mean_component_weight_std": [
+          0.029253622485264176,
+          0.042363212139725194,
+          0.0678904981191384,
+          0.045162768436664766
+        ],
+        "diagnostic_scope": "variation does not demonstrate semantic expert specialization"
+      },
+      "code": {
+        "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+        "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+        "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+        "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+        "research/data.py": "229487d397c144e5132488788cc2dced6d0bd53e3509aaa7e2d049a155be09bf",
+        "research/diagnostics.py": "05b8fb1a3dd88c42020848dc16450522c51187076f1fc345abb79bee31990e60",
+        "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+        "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+        "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+        "research/models.py": "9bef5918fe27bcae8547497f9fb5d0d790ee8746d054c2777a8db87938c960a4",
+        "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+        "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+        "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+        "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+        "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
+        "research/runner.py": "c451d6314f91a1c8c6bfca47fc4a6d9e88bc2ebbf8d0f3b0da193d9e042e2489",
+        "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+        "research/snapshot.py": "8c2eb22c79babbf1127309cd236dd6bdacc5439329374db4b7931447b7b17967",
+        "research/train.py": "f2b22bcc4b6b84b9929de61e78554a7a3b927aa487728e46e913dfbdd02cd889"
+      },
+      "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/614f9adbcb035b87d185e2a8/research",
+      "checkpoint_sha256": "14ca1711d4918b92e46bfdccf9619c98872f2799238412b6980c58a1d42b3c69",
+      "prediction_sha256": "cf0fca674f486d48d5f37dc83b0798358189fc9ea12b4ef64d0015cd41b51b03",
+      "matched_one_component": {
+        "id": "2f4652527f2253e5",
+        "deltas": {
+          "IC": 0.007884635789636635,
+          "ICIR": 0.03811327268302811,
+          "RankIC": 0.007762442429897334,
+          "RankICIR": 0.039442328496538226,
+          "AR": 0.009232493738218661,
+          "STD": 0.01542521548121295,
+          "MDD": 0.019810857743496335,
+          "Sharpe": 0.023352212070237716,
+          "Sortino": 0.041309878893873,
+          "Calmar": 0.04719672971061961
+        },
+        "negative_log_density_delta": -0.07063471822422374
+      }
     }
-  ]
+  ],
+  "current_findings": {
+    "csi300_two_components": {
+      "matched_control": {
+        "id": "2f4652527f2253e5",
+        "deltas": {
+          "IC": 0.00405262445366468,
+          "ICIR": 0.022785032108257997,
+          "RankIC": 0.0064527082882792075,
+          "RankICIR": 0.030858493177393198,
+          "AR": 0.09954839281486838,
+          "STD": -0.014560975271748072,
+          "MDD": 0.10412289438628419,
+          "Sharpe": 0.4748217413944876,
+          "Sortino": 0.7459787101413446,
+          "Calmar": 0.6423014461177855
+        },
+        "negative_log_density_delta": -0.021299131213569522
+      },
+      "all_ten_validation_metrics_improved": true,
+      "stability": "paired seeds 1 and 2 queued; unproven"
+    },
+    "sp500_two_components": {
+      "matched_control": {
+        "id": "860bd8760e42dd68",
+        "deltas": {
+          "IC": -0.003401123039901713,
+          "ICIR": -0.007232140677308402,
+          "RankIC": 0.0020161615380399935,
+          "RankICIR": 0.019444401294369557,
+          "AR": -0.112032684136118,
+          "STD": 0.001547017169569287,
+          "MDD": -0.08308140093337901,
+          "Sharpe": -0.3564193409262391,
+          "Sortino": -0.5191554858374576,
+          "Calmar": -0.4426314132839375
+        },
+        "negative_log_density_delta": -0.018450056932989956
+      },
+      "finding": "RankIC and density improved; IC, return, volatility and drawdown worsened"
+    },
+    "csi300_four_components": {
+      "matched_control": {
+        "id": "2f4652527f2253e5",
+        "deltas": {
+          "IC": 0.007884635789636635,
+          "ICIR": 0.03811327268302811,
+          "RankIC": 0.007762442429897334,
+          "RankICIR": 0.039442328496538226,
+          "AR": 0.009232493738218661,
+          "STD": 0.01542521548121295,
+          "MDD": 0.019810857743496335,
+          "Sharpe": 0.023352212070237716,
+          "Sortino": 0.041309878893873,
+          "Calmar": 0.04719672971061961
+        },
+        "negative_log_density_delta": -0.07063471822422374
+      },
+      "finding": "ranking and density improved, but weaker portfolio return than the two-component model"
+    },
+    "holdout": "not opened; no baseline-envelope success claim"
+  }
 }

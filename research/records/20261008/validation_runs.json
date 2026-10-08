@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-10-08T18:09:59.549606+00:00",
+  "created_at": "2026-10-08T18:21:54.006046+00:00",
   "experiments": {
     "006ec9d9570d5d97": {
       "config": {
@@ -4179,6 +4179,243 @@
         "ties": "fractional top-k membership at the boundary; no equal-return comparisons",
         "label_scope": "selected purged training rows only; labels never enter forecast inputs",
         "backtest": "unchanged baseline TopkDropoutStrategy, topk 30 and n_drop 5"
+      }
+    },
+    "23907c6878ff77f2": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "mixture_gaussian",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "gaussian_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "target_kind": "raw_standardized",
+        "mixture_components": 2,
+        "mixture_gate_input": "market",
+        "mixture_temperature": 1.0,
+        "market": "sp500"
+      },
+      "completed_at": "2026-10-08T18:18:26.912761+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T18:15:50.272473+00:00",
+        "id": "23907c6878ff77f2",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "229487d397c144e5132488788cc2dced6d0bd53e3509aaa7e2d049a155be09bf",
+          "research/diagnostics.py": "05b8fb1a3dd88c42020848dc16450522c51187076f1fc345abb79bee31990e60",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "9bef5918fe27bcae8547497f9fb5d0d790ee8746d054c2777a8db87938c960a4",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
+          "research/runner.py": "c451d6314f91a1c8c6bfca47fc4a6d9e88bc2ebbf8d0f3b0da193d9e042e2489",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "8c2eb22c79babbf1127309cd236dd6bdacc5439329374db4b7931447b7b17967",
+          "research/train.py": "f2b22bcc4b6b84b9929de61e78554a7a3b927aa487728e46e913dfbdd02cd889"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/614f9adbcb035b87d185e2a8/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T18:18:26.913097+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 149.75418599999998,
+        "peak_process_rss_mib": 3570.1015625,
+        "gpu_peak_allocated_mib": 1323.25537109375,
+        "gpu_peak_reserved_mib": 1338.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": {
+        "interval_80_coverage": 0.7651634025733891,
+        "uncertainty_abs_error_RankIC": 0.24245910995506065
+      },
+      "target_transform.json": {
+        "kind": "raw_standardized",
+        "scale": 0.04185252839688792,
+        "fit_split": "selected purged training dates only",
+        "demeaning": null,
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 1194829,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 754
+      },
+      "mixture_model.json": {
+        "components": 2,
+        "temperature": 1.0,
+        "gate_input": "market",
+        "architecture": "shared stock encoder; separate mean/variance output rows per Gaussian component",
+        "gate_features": "63 market columns",
+        "initial_gate": "uniform weights; one component has no gate and matches independent Gaussian parameterization",
+        "component_log_variance_clamp": [
+          -6,
+          4
+        ],
+        "likelihood_dtype": "float64",
+        "likelihood": "per-stock logsumexp of conditional Gaussian densities; normalizer omitted in training",
+        "objective": "0.7 distribution NLL + 0.3 selected ranking loss; gaussian_nll uses only NLL",
+        "variance": "weighted component variance plus weighted squared deviations of component means",
+        "scoring": "mean / total_sigma ** risk_exponent - risk_penalty * total_sigma",
+        "intervals": "true mixture CDF inversion for validation quantiles; no moment-matched normal interval",
+        "interpretation": "local conditional mixture adaptation; no hard routing, VQ, or demonstrated semantic expert specialization",
+        "prediction_inputs": "features only; future returns enter training loss and observed validation diagnostics only"
+      },
+      "valid/calibration/calibration.json": {
+        "created_at": "2026-10-08T18:18:25.962386+00:00",
+        "market": "sp500",
+        "family": "mixture_gaussian",
+        "split": "purged validation only",
+        "samples": 235798,
+        "days": 498,
+        "target_kind": "raw_standardized",
+        "training_scale": 0.04185252839688792,
+        "scale_file_sha256": "5fc97c195a33ea8d54ed82943331f276f8f4835c1955930149a15261e28cd110",
+        "best_epoch": 1,
+        "inference": "CPU float32; diagnostic scores may differ slightly from CUDA bfloat16",
+        "labels": "unclipped observed validation returns, demeaned by date for an excess-return target",
+        "rmse": 0.042145274579524994,
+        "mae": 0.03043583407998085,
+        "interval_80_coverage": 0.7651634025733891,
+        "uncertainty_abs_error_RankIC": 0.24245910995506065,
+        "uncertainty_bins": [
+          {
+            "bin": 1,
+            "samples": 46917,
+            "predicted_uncertainty": 0.026161694899201393,
+            "observed_rmse": 0.029986437410116196,
+            "observed_mae": 0.022212836891412735
+          },
+          {
+            "bin": 2,
+            "samples": 47097,
+            "predicted_uncertainty": 0.030642012134194374,
+            "observed_rmse": 0.034786272794008255,
+            "observed_mae": 0.02583736926317215
+          },
+          {
+            "bin": 3,
+            "samples": 47207,
+            "predicted_uncertainty": 0.03474634513258934,
+            "observed_rmse": 0.038315072655677795,
+            "observed_mae": 0.028592519462108612
+          },
+          {
+            "bin": 4,
+            "samples": 47097,
+            "predicted_uncertainty": 0.04024361073970795,
+            "observed_rmse": 0.04335149750113487,
+            "observed_mae": 0.032310497015714645
+          },
+          {
+            "bin": 5,
+            "samples": 47480,
+            "predicted_uncertainty": 0.05331829562783241,
+            "observed_rmse": 0.058382753282785416,
+            "observed_mae": 0.04309587925672531
+          }
+        ],
+        "by_year": [
+          {
+            "year": 2021,
+            "samples": 118360,
+            "rmse": 0.03496653959155083,
+            "interval_80_coverage": 0.7909766813112538
+          },
+          {
+            "year": 2022,
+            "samples": 117438,
+            "rmse": 0.04831289127469063,
+            "interval_80_coverage": 0.7391474650453856
+          }
+        ],
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "229487d397c144e5132488788cc2dced6d0bd53e3509aaa7e2d049a155be09bf",
+          "research/diagnostics.py": "05b8fb1a3dd88c42020848dc16450522c51187076f1fc345abb79bee31990e60",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "9bef5918fe27bcae8547497f9fb5d0d790ee8746d054c2777a8db87938c960a4",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
+          "research/runner.py": "c451d6314f91a1c8c6bfca47fc4a6d9e88bc2ebbf8d0f3b0da193d9e042e2489",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "8c2eb22c79babbf1127309cd236dd6bdacc5439329374db4b7931447b7b17967",
+          "research/train.py": "f2b22bcc4b6b84b9929de61e78554a7a3b927aa487728e46e913dfbdd02cd889"
+        },
+        "mean_normalized_squared_error": 1.2285135984420776,
+        "quantile_coverage": {
+          "q10": 0.15065013274073571,
+          "q50": 0.5680031213157024,
+          "q90": 0.9158135353141248
+        },
+        "mixture": {
+          "components": 2,
+          "interval_method": "true conditional mixture quantiles from CDF inversion",
+          "mean_component_weights": [
+            0.46007530808194097,
+            0.539924691918059
+          ],
+          "mean_gate_entropy": 0.6874667387477642,
+          "mean_effective_components": 1.9887273085088275,
+          "mean_between_variance_share": 0.008863411843776703,
+          "mean_negative_log_density_raw_units": -1.8366532735122079,
+          "pit_histogram": [
+            35523,
+            28915,
+            24859,
+            22944,
+            21693,
+            21157,
+            20515,
+            20144,
+            20197,
+            19850
+          ],
+          "interpretation": "routing diagnostics do not establish semantic expert specialization"
+        }
       }
     },
     "250b7800dba0ae14": {
@@ -15843,6 +16080,243 @@
         "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
       }
     },
+    "7a70214a41474532": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "mixture_gaussian",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "gaussian_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "target_kind": "raw_standardized",
+        "mixture_components": 2,
+        "mixture_gate_input": "market",
+        "mixture_temperature": 1.0,
+        "market": "csi300"
+      },
+      "completed_at": "2026-10-08T18:15:40.177828+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T18:12:30.116914+00:00",
+        "id": "7a70214a41474532",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "229487d397c144e5132488788cc2dced6d0bd53e3509aaa7e2d049a155be09bf",
+          "research/diagnostics.py": "05b8fb1a3dd88c42020848dc16450522c51187076f1fc345abb79bee31990e60",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "9bef5918fe27bcae8547497f9fb5d0d790ee8746d054c2777a8db87938c960a4",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
+          "research/runner.py": "c451d6314f91a1c8c6bfca47fc4a6d9e88bc2ebbf8d0f3b0da193d9e042e2489",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "8c2eb22c79babbf1127309cd236dd6bdacc5439329374db4b7931447b7b17967",
+          "research/train.py": "f2b22bcc4b6b84b9929de61e78554a7a3b927aa487728e46e913dfbdd02cd889"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/614f9adbcb035b87d185e2a8/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T18:15:40.178171+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 187.551964,
+        "peak_process_rss_mib": 3089.1875,
+        "gpu_peak_allocated_mib": 916.046875,
+        "gpu_peak_reserved_mib": 932.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": {
+        "interval_80_coverage": 0.7878583450405464,
+        "uncertainty_abs_error_RankIC": 0.3320288609523279
+      },
+      "target_transform.json": {
+        "kind": "raw_standardized",
+        "scale": 0.05283498873742838,
+        "fit_split": "selected purged training dates only",
+        "demeaning": null,
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 840429,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 729
+      },
+      "mixture_model.json": {
+        "components": 2,
+        "temperature": 1.0,
+        "gate_input": "market",
+        "architecture": "shared stock encoder; separate mean/variance output rows per Gaussian component",
+        "gate_features": "63 market columns",
+        "initial_gate": "uniform weights; one component has no gate and matches independent Gaussian parameterization",
+        "component_log_variance_clamp": [
+          -6,
+          4
+        ],
+        "likelihood_dtype": "float64",
+        "likelihood": "per-stock logsumexp of conditional Gaussian densities; normalizer omitted in training",
+        "objective": "0.7 distribution NLL + 0.3 selected ranking loss; gaussian_nll uses only NLL",
+        "variance": "weighted component variance plus weighted squared deviations of component means",
+        "scoring": "mean / total_sigma ** risk_exponent - risk_penalty * total_sigma",
+        "intervals": "true mixture CDF inversion for validation quantiles; no moment-matched normal interval",
+        "interpretation": "local conditional mixture adaptation; no hard routing, VQ, or demonstrated semantic expert specialization",
+        "prediction_inputs": "features only; future returns enter training loss and observed validation diagnostics only"
+      },
+      "valid/calibration/calibration.json": {
+        "created_at": "2026-10-08T18:15:39.372585+00:00",
+        "market": "csi300",
+        "family": "mixture_gaussian",
+        "split": "purged validation only",
+        "samples": 143786,
+        "days": 480,
+        "target_kind": "raw_standardized",
+        "training_scale": 0.05283498873742838,
+        "scale_file_sha256": "ee7fa3f0041fd523aa9af4461076b3380c67628704a6746f016cc0f77b6d8e6b",
+        "best_epoch": 5,
+        "inference": "CPU float32; diagnostic scores may differ slightly from CUDA bfloat16",
+        "labels": "unclipped observed validation returns, demeaned by date for an excess-return target",
+        "rmse": 0.056552138179540634,
+        "mae": 0.041078388690948486,
+        "interval_80_coverage": 0.7878583450405464,
+        "uncertainty_abs_error_RankIC": 0.3320288609523279,
+        "uncertainty_bins": [
+          {
+            "bin": 1,
+            "samples": 28320,
+            "predicted_uncertainty": 0.032071564346551895,
+            "observed_rmse": 0.03240014985203743,
+            "observed_mae": 0.02283734828233719
+          },
+          {
+            "bin": 2,
+            "samples": 28791,
+            "predicted_uncertainty": 0.04499271512031555,
+            "observed_rmse": 0.0473632775247097,
+            "observed_mae": 0.03511804714798927
+          },
+          {
+            "bin": 3,
+            "samples": 28775,
+            "predicted_uncertainty": 0.05379234626889229,
+            "observed_rmse": 0.056180115789175034,
+            "observed_mae": 0.042187921702861786
+          },
+          {
+            "bin": 4,
+            "samples": 28791,
+            "predicted_uncertainty": 0.06152816116809845,
+            "observed_rmse": 0.06363222002983093,
+            "observed_mae": 0.048450618982315063
+          },
+          {
+            "bin": 5,
+            "samples": 29109,
+            "predicted_uncertainty": 0.07270512729883194,
+            "observed_rmse": 0.07370589673519135,
+            "observed_mae": 0.056331735104322433
+          }
+        ],
+        "by_year": [
+          {
+            "year": 2021,
+            "samples": 72764,
+            "rmse": 0.06131230294704437,
+            "interval_80_coverage": 0.7865015667088121
+          },
+          {
+            "year": 2022,
+            "samples": 71022,
+            "rmse": 0.05121844261884689,
+            "interval_80_coverage": 0.7892484019036355
+          }
+        ],
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "229487d397c144e5132488788cc2dced6d0bd53e3509aaa7e2d049a155be09bf",
+          "research/diagnostics.py": "05b8fb1a3dd88c42020848dc16450522c51187076f1fc345abb79bee31990e60",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "9bef5918fe27bcae8547497f9fb5d0d790ee8746d054c2777a8db87938c960a4",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
+          "research/runner.py": "c451d6314f91a1c8c6bfca47fc4a6d9e88bc2ebbf8d0f3b0da193d9e042e2489",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "8c2eb22c79babbf1127309cd236dd6bdacc5439329374db4b7931447b7b17967",
+          "research/train.py": "f2b22bcc4b6b84b9929de61e78554a7a3b927aa487728e46e913dfbdd02cd889"
+        },
+        "mean_normalized_squared_error": 1.0211067199707031,
+        "quantile_coverage": {
+          "q10": 0.0895010640813431,
+          "q50": 0.4675559512052634,
+          "q90": 0.8773594091218895
+        },
+        "mixture": {
+          "components": 2,
+          "interval_method": "true conditional mixture quantiles from CDF inversion",
+          "mean_component_weights": [
+            0.3462373740204209,
+            0.653762625979579
+          ],
+          "mean_gate_entropy": 0.6333515855303467,
+          "mean_effective_components": 1.8859795551403922,
+          "mean_between_variance_share": 0.049673207104206085,
+          "mean_negative_log_density_raw_units": -1.6032449100785293,
+          "pit_histogram": [
+            12869,
+            13827,
+            13664,
+            13410,
+            13458,
+            13695,
+            14205,
+            14692,
+            16332,
+            17634
+          ],
+          "interpretation": "routing diagnostics do not establish semantic expert specialization"
+        }
+      }
+    },
     "7dd433869a4a7afb": {
       "config": {
         "seed": 0,
@@ -17229,6 +17703,242 @@
         "application": "stock features encoded before learned market gating; context remains scalar",
         "tail_clip": 2.0,
         "minimum_bin_width": 0.0001
+      }
+    },
+    "860bd8760e42dd68": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "mixture_gaussian",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "gaussian_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "target_kind": "raw_standardized",
+        "mixture_components": 1,
+        "mixture_gate_input": "market",
+        "mixture_temperature": 1.0,
+        "market": "sp500"
+      },
+      "completed_at": "2026-10-08T18:12:17.993540+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T18:09:29.894349+00:00",
+        "id": "860bd8760e42dd68",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "229487d397c144e5132488788cc2dced6d0bd53e3509aaa7e2d049a155be09bf",
+          "research/diagnostics.py": "05b8fb1a3dd88c42020848dc16450522c51187076f1fc345abb79bee31990e60",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "9bef5918fe27bcae8547497f9fb5d0d790ee8746d054c2777a8db87938c960a4",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
+          "research/runner.py": "c451d6314f91a1c8c6bfca47fc4a6d9e88bc2ebbf8d0f3b0da193d9e042e2489",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "8c2eb22c79babbf1127309cd236dd6bdacc5439329374db4b7931447b7b17967",
+          "research/train.py": "f2b22bcc4b6b84b9929de61e78554a7a3b927aa487728e46e913dfbdd02cd889"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/614f9adbcb035b87d185e2a8/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T18:12:17.993856+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 159.728327,
+        "peak_process_rss_mib": 3559.63671875,
+        "gpu_peak_allocated_mib": 1323.224609375,
+        "gpu_peak_reserved_mib": 1338.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": {
+        "interval_80_coverage": 0.8278653762966607,
+        "uncertainty_abs_error_RankIC": 0.25637611975652586
+      },
+      "target_transform.json": {
+        "kind": "raw_standardized",
+        "scale": 0.04185252839688792,
+        "fit_split": "selected purged training dates only",
+        "demeaning": null,
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 1194829,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 754
+      },
+      "mixture_model.json": {
+        "components": 1,
+        "temperature": 1.0,
+        "gate_input": "market",
+        "architecture": "shared stock encoder; separate mean/variance output rows per Gaussian component",
+        "gate_features": "63 market columns",
+        "initial_gate": "uniform weights; one component has no gate and matches independent Gaussian parameterization",
+        "component_log_variance_clamp": [
+          -6,
+          4
+        ],
+        "likelihood_dtype": "float64",
+        "likelihood": "per-stock logsumexp of conditional Gaussian densities; normalizer omitted in training",
+        "objective": "0.7 distribution NLL + 0.3 selected ranking loss; gaussian_nll uses only NLL",
+        "variance": "weighted component variance plus weighted squared deviations of component means",
+        "scoring": "mean / total_sigma ** risk_exponent - risk_penalty * total_sigma",
+        "intervals": "true mixture CDF inversion for validation quantiles; no moment-matched normal interval",
+        "interpretation": "local conditional mixture adaptation; no hard routing, VQ, or demonstrated semantic expert specialization",
+        "prediction_inputs": "features only; future returns enter training loss and observed validation diagnostics only"
+      },
+      "valid/calibration/calibration.json": {
+        "created_at": "2026-10-08T18:12:17.099832+00:00",
+        "market": "sp500",
+        "family": "mixture_gaussian",
+        "split": "purged validation only",
+        "samples": 235798,
+        "days": 498,
+        "target_kind": "raw_standardized",
+        "training_scale": 0.04185252839688792,
+        "scale_file_sha256": "5fc97c195a33ea8d54ed82943331f276f8f4835c1955930149a15261e28cd110",
+        "best_epoch": 2,
+        "inference": "CPU float32; diagnostic scores may differ slightly from CUDA bfloat16",
+        "labels": "unclipped observed validation returns, demeaned by date for an excess-return target",
+        "rmse": 0.04230750724673271,
+        "mae": 0.030627459287643433,
+        "interval_80_coverage": 0.8278653762966607,
+        "uncertainty_abs_error_RankIC": 0.25637611975652586,
+        "uncertainty_bins": [
+          {
+            "bin": 1,
+            "samples": 46917,
+            "predicted_uncertainty": 0.027534984052181244,
+            "observed_rmse": 0.02945517748594284,
+            "observed_mae": 0.0218777097761631
+          },
+          {
+            "bin": 2,
+            "samples": 47097,
+            "predicted_uncertainty": 0.03320750594139099,
+            "observed_rmse": 0.034213121980428696,
+            "observed_mae": 0.02562326192855835
+          },
+          {
+            "bin": 3,
+            "samples": 47207,
+            "predicted_uncertainty": 0.0382830984890461,
+            "observed_rmse": 0.03843340277671814,
+            "observed_mae": 0.02881421521306038
+          },
+          {
+            "bin": 4,
+            "samples": 47097,
+            "predicted_uncertainty": 0.04509221389889717,
+            "observed_rmse": 0.04443123936653137,
+            "observed_mae": 0.033134039491415024
+          },
+          {
+            "bin": 5,
+            "samples": 47480,
+            "predicted_uncertainty": 0.0612897053360939,
+            "observed_rmse": 0.05868539214134216,
+            "observed_mae": 0.04355373606085777
+          }
+        ],
+        "by_year": [
+          {
+            "year": 2021,
+            "samples": 118360,
+            "rmse": 0.035129696130752563,
+            "interval_80_coverage": 0.8602061507265968
+          },
+          {
+            "year": 2022,
+            "samples": 117438,
+            "rmse": 0.04847802594304085,
+            "interval_80_coverage": 0.7952706960268396
+          }
+        ],
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "229487d397c144e5132488788cc2dced6d0bd53e3509aaa7e2d049a155be09bf",
+          "research/diagnostics.py": "05b8fb1a3dd88c42020848dc16450522c51187076f1fc345abb79bee31990e60",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "9bef5918fe27bcae8547497f9fb5d0d790ee8746d054c2777a8db87938c960a4",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
+          "research/runner.py": "c451d6314f91a1c8c6bfca47fc4a6d9e88bc2ebbf8d0f3b0da193d9e042e2489",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "8c2eb22c79babbf1127309cd236dd6bdacc5439329374db4b7931447b7b17967",
+          "research/train.py": "f2b22bcc4b6b84b9929de61e78554a7a3b927aa487728e46e913dfbdd02cd889"
+        },
+        "mean_normalized_squared_error": 1.0185574293136597,
+        "quantile_coverage": {
+          "q10": 0.10517052731575331,
+          "q50": 0.5182401886360359,
+          "q90": 0.9330359036124141
+        },
+        "mixture": {
+          "components": 1,
+          "interval_method": "true conditional mixture quantiles from CDF inversion",
+          "mean_component_weights": [
+            1.0
+          ],
+          "mean_gate_entropy": 0.0,
+          "mean_effective_components": 1.0,
+          "mean_between_variance_share": 0.0,
+          "mean_negative_log_density_raw_units": -1.818203216579218,
+          "pit_histogram": [
+            24799,
+            21631,
+            23744,
+            25406,
+            26620,
+            27548,
+            26794,
+            23996,
+            19470,
+            15790
+          ],
+          "interpretation": "routing diagnostics do not establish semantic expert specialization"
+        }
       }
     },
     "864aa4c8d3da77b5": {
@@ -29178,6 +29888,245 @@
       },
       "resources": {},
       "calibration": null
+    },
+    "e08728586462e66c": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "mixture_gaussian",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "gaussian_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "target_kind": "raw_standardized",
+        "mixture_components": 4,
+        "mixture_gate_input": "market",
+        "mixture_temperature": 1.0,
+        "market": "csi300"
+      },
+      "completed_at": "2026-10-08T18:21:34.200191+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T18:18:30.459228+00:00",
+        "id": "e08728586462e66c",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "229487d397c144e5132488788cc2dced6d0bd53e3509aaa7e2d049a155be09bf",
+          "research/diagnostics.py": "05b8fb1a3dd88c42020848dc16450522c51187076f1fc345abb79bee31990e60",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "9bef5918fe27bcae8547497f9fb5d0d790ee8746d054c2777a8db87938c960a4",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
+          "research/runner.py": "c451d6314f91a1c8c6bfca47fc4a6d9e88bc2ebbf8d0f3b0da193d9e042e2489",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "8c2eb22c79babbf1127309cd236dd6bdacc5439329374db4b7931447b7b17967",
+          "research/train.py": "f2b22bcc4b6b84b9929de61e78554a7a3b927aa487728e46e913dfbdd02cd889"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/614f9adbcb035b87d185e2a8/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T18:21:34.200509+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 181.037004,
+        "peak_process_rss_mib": 3099.3984375,
+        "gpu_peak_allocated_mib": 916.052734375,
+        "gpu_peak_reserved_mib": 932.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": {
+        "interval_80_coverage": 0.7851251164925653,
+        "uncertainty_abs_error_RankIC": 0.32450425238454045
+      },
+      "target_transform.json": {
+        "kind": "raw_standardized",
+        "scale": 0.05283498873742838,
+        "fit_split": "selected purged training dates only",
+        "demeaning": null,
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 840429,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 4,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 729
+      },
+      "mixture_model.json": {
+        "components": 4,
+        "temperature": 1.0,
+        "gate_input": "market",
+        "architecture": "shared stock encoder; separate mean/variance output rows per Gaussian component",
+        "gate_features": "63 market columns",
+        "initial_gate": "uniform weights; one component has no gate and matches independent Gaussian parameterization",
+        "component_log_variance_clamp": [
+          -6,
+          4
+        ],
+        "likelihood_dtype": "float64",
+        "likelihood": "per-stock logsumexp of conditional Gaussian densities; normalizer omitted in training",
+        "objective": "0.7 distribution NLL + 0.3 selected ranking loss; gaussian_nll uses only NLL",
+        "variance": "weighted component variance plus weighted squared deviations of component means",
+        "scoring": "mean / total_sigma ** risk_exponent - risk_penalty * total_sigma",
+        "intervals": "true mixture CDF inversion for validation quantiles; no moment-matched normal interval",
+        "interpretation": "local conditional mixture adaptation; no hard routing, VQ, or demonstrated semantic expert specialization",
+        "prediction_inputs": "features only; future returns enter training loss and observed validation diagnostics only"
+      },
+      "valid/calibration/calibration.json": {
+        "created_at": "2026-10-08T18:21:33.388339+00:00",
+        "market": "csi300",
+        "family": "mixture_gaussian",
+        "split": "purged validation only",
+        "samples": 143786,
+        "days": 480,
+        "target_kind": "raw_standardized",
+        "training_scale": 0.05283498873742838,
+        "scale_file_sha256": "ee7fa3f0041fd523aa9af4461076b3380c67628704a6746f016cc0f77b6d8e6b",
+        "best_epoch": 4,
+        "inference": "CPU float32; diagnostic scores may differ slightly from CUDA bfloat16",
+        "labels": "unclipped observed validation returns, demeaned by date for an excess-return target",
+        "rmse": 0.05301700159907341,
+        "mae": 0.03822457045316696,
+        "interval_80_coverage": 0.7851251164925653,
+        "uncertainty_abs_error_RankIC": 0.32450425238454045,
+        "uncertainty_bins": [
+          {
+            "bin": 1,
+            "samples": 28320,
+            "predicted_uncertainty": 0.03458060324192047,
+            "observed_rmse": 0.031112106516957283,
+            "observed_mae": 0.021657194942235947
+          },
+          {
+            "bin": 2,
+            "samples": 28791,
+            "predicted_uncertainty": 0.043648745864629745,
+            "observed_rmse": 0.044664934277534485,
+            "observed_mae": 0.03258639574050903
+          },
+          {
+            "bin": 3,
+            "samples": 28775,
+            "predicted_uncertainty": 0.04949195683002472,
+            "observed_rmse": 0.05253798887133598,
+            "observed_mae": 0.03904673084616661
+          },
+          {
+            "bin": 4,
+            "samples": 28791,
+            "predicted_uncertainty": 0.05449036508798599,
+            "observed_rmse": 0.0592539943754673,
+            "observed_mae": 0.044806331396102905
+          },
+          {
+            "bin": 5,
+            "samples": 29109,
+            "predicted_uncertainty": 0.06211366504430771,
+            "observed_rmse": 0.0690508708357811,
+            "observed_mae": 0.05259688198566437
+          }
+        ],
+        "by_year": [
+          {
+            "year": 2021,
+            "samples": 72764,
+            "rmse": 0.05601125210523605,
+            "interval_80_coverage": 0.793139464570392
+          },
+          {
+            "year": 2022,
+            "samples": 71022,
+            "rmse": 0.04976281523704529,
+            "interval_80_coverage": 0.776914195601363
+          }
+        ],
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+          "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+          "research/data.py": "229487d397c144e5132488788cc2dced6d0bd53e3509aaa7e2d049a155be09bf",
+          "research/diagnostics.py": "05b8fb1a3dd88c42020848dc16450522c51187076f1fc345abb79bee31990e60",
+          "research/ensembles.py": "9e934dbb58498d162b8eab6ade165e6be856a6dd26c48784e78094900a029ee7",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/mixture.py": "b5d219bb75bff5ac390ff41e3832835c19937ca603addd0b3319fd3c55a9574a",
+          "research/models.py": "9bef5918fe27bcae8547497f9fb5d0d790ee8746d054c2777a8db87938c960a4",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/opportunity.py": "5f983b459d230250b059341140b2185c16cb8639f99b8bc8294fba1a1d06ce05",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+          "research/risk_regime.py": "2d2b58fe27db0008effa13d4cf49fd2db7120e8b851ac7fb4389acd11ae35171",
+          "research/runner.py": "c451d6314f91a1c8c6bfca47fc4a6d9e88bc2ebbf8d0f3b0da193d9e042e2489",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "8c2eb22c79babbf1127309cd236dd6bdacc5439329374db4b7931447b7b17967",
+          "research/train.py": "f2b22bcc4b6b84b9929de61e78554a7a3b927aa487728e46e913dfbdd02cd889"
+        },
+        "mean_normalized_squared_error": 1.0750402212142944,
+        "quantile_coverage": {
+          "q10": 0.0969218143630117,
+          "q50": 0.4784193175969844,
+          "q90": 0.8820469308555771
+        },
+        "mixture": {
+          "components": 4,
+          "interval_method": "true conditional mixture quantiles from CDF inversion",
+          "mean_component_weights": [
+            0.2199275280868129,
+            0.30708001534443835,
+            0.2201231992468176,
+            0.25286925732193105
+          ],
+          "mean_gate_entropy": 1.357097702099496,
+          "mean_effective_components": 3.886334298218299,
+          "mean_between_variance_share": 0.06858564168214798,
+          "mean_negative_log_density_raw_units": -1.6525804970891835,
+          "pit_histogram": [
+            13936,
+            14197,
+            13483,
+            13398,
+            13776,
+            14020,
+            14144,
+            14669,
+            15203,
+            16960
+          ],
+          "interpretation": "routing diagnostics do not establish semantic expert specialization"
+        }
+      }
     },
     "e0f879ca0da2f35c": {
       "config": {

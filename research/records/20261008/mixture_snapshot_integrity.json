@@ -1,8 +1,8 @@
 {
-  "created_at": "2026-10-08T18:12:36.664816+00:00",
-  "previous_commit": "de5fab526788745d833b632f01ad5ac632fb4ff3",
-  "previous_runs": 182,
-  "snapshot_runs": 195,
+  "created_at": "2026-10-08T18:23:29.798418+00:00",
+  "previous_commit": "5df3e440805fc31d0e0fe5bfe9f238be49cd7b0c",
+  "previous_runs": 195,
+  "snapshot_runs": 199,
   "previous_records_unchanged": true,
   "checked_code_packages": [
     "13f8e16a1375d73febfb9ba3",
@@ -28,5 +28,5 @@
   "every_source_matches_saved_manifest": true,
   "selection_lock_exists": false,
   "new_model_holdout_records": 0,
-  "scope": "integrity check of saved validation records and exact launch-time packages"
+  "scope": "saved validation records and exact launch-time packages"
 }

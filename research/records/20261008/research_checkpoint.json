@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-10-08T18:10:40.234670+00:00",
+  "created_at": "2026-10-08T18:23:29.768424+00:00",
   "scope": "validation 2021-2022 only; no new-model test results observed",
   "changes": [
     "Conditional diagonal-plus-factor Gaussian likelihood; twelve full controls completed",
@@ -3317,7 +3317,7 @@
   ],
   "interpretation": "CSI300 opportunity scoring retains a small return/risk improvement over matched static scoring in three-seed validation, while its ICIR/RankICIR decline slightly. SP500 seed-0 results overstate ensemble returns; stronger penalties and opportunity conditioning show clear tradeoffs. The next trainable hypothesis is a conditional Gaussian mixture with likelihood-driven expert competition. Test remains sealed and the research objective is unproven.",
   "full_validation_runs_in_snapshot": 182,
-  "snapshot_at": "2026-10-08T18:09:59.549606+00:00",
+  "snapshot_at": "2026-10-08T18:21:54.006046+00:00",
   "verification_code": {
     "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
     "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
@@ -3389,13 +3389,15 @@
   "updated_at": "2026-10-08T17:19:17.703451+00:00",
   "risk_regime_validation_checks": "risk_regime_validation_checks.json",
   "opportunity_validation_checks": "opportunity_validation_checks.json",
-  "snapshot_runs": 195,
+  "snapshot_runs": 199,
   "conditional_mixture_study": {
     "planned": 18,
-    "completed_at_snapshot": 3,
+    "completed_at_snapshot": 7,
     "details": "mixture_validation_checks.json",
     "status": "ongoing; no test opened",
-    "architecture": "shared encoder, distribution heads, dense conditional gate; no VQ or sparse expert reproduction"
+    "architecture": "shared encoder, distribution heads, dense conditional gate; no VQ or sparse expert reproduction",
+    "paired_csi300_seed_checks_queued": 4,
+    "first_findings": "CSI300 two components improved all ten validation metrics over the matched one-component control; SP500 did not reproduce the portfolio gain; four components did not improve CSI300 portfolio return"
   },
   "seed_validation_ensembles_at_snapshot": 9,
   "remaining": "Complete matched mixture controls and multi-seed validation; continue validation search; freeze and run five-seed holdout confirmation after search deadline"
