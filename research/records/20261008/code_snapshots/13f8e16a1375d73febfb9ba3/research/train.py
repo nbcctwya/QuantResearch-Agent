@@ -173,15 +173,6 @@ def train_neural(config, destination):
         "loss":"equal-weight mean of separate daily losses, preserving optional date age weights",
         "cross_stock_models":"separate forward passes for each date; one accumulated optimizer update",
         "optimizer_updates_per_epoch":int(np.ceil(len(train.day_ids)/days_per_update))})
-    if config.get("objective") == "top30_pair":
-        write_json(destination/"ranking_objective.json",{
-            "name":"top30_pair","topk":30,
-            "pair_target":"true selected training-date top 30 versus other stocks of the same date",
-            "base_loss":"0.3 MSE + 0.3 (1 - Pearson correlation) + 0.4 mean weighted logistic pair loss",
-            "pair_sampling":"all eligible pairs, deterministic",
-            "ties":"fractional top-k membership at the boundary; no equal-return comparisons",
-            "label_scope":"selected purged training rows only; labels never enter forecast inputs",
-            "backtest":"unchanged baseline TopkDropoutStrategy, topk 30 and n_drop 5"})
     weights = np.ones(len(train.dates), dtype=float)
     if half_life:
         ages = (train.dates[train.day_ids].max()-train.dates)/np.timedelta64(1,"D")/365.25

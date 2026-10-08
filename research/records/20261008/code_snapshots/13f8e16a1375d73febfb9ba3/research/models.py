@@ -11,7 +11,6 @@ from . import ARTIFACTS
 from .common import config_id
 from .covariance import low_rank_gaussian_nll
 from .numerical import make_feature_encoder
-from .ranking import topk_membership_loss
 
 
 class ResidualBlock(nn.Module):
@@ -334,9 +333,6 @@ def rank_loss(predictions, labels, objective):
         weights = 1 + 2*(torch.maximum(labels[first], labels[second]) > 1.0).float()
         pair = F.softplus(-direction*(scores[first]-scores[second]))
         return 0.3*mse + 0.3*(1-correlation) + 0.4*(pair*weights).mean()
-    if objective == "top30_pair":
-        pair = topk_membership_loss(scores,labels,topk=30)
-        return 0.3*mse + 0.3*(1-correlation) + 0.4*pair
     if objective == "listwise":
         distribution = F.softmax(labels / 0.7, dim=0)
         return 0.3*mse + 0.7*(-distribution*F.log_softmax(scores/0.7, dim=0)).sum()

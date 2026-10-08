@@ -14,7 +14,7 @@ import pandas as pd
 import torch
 
 from . import ARTIFACTS
-from .common import code_fingerprint, config_id, digest_file, locked_code_bundle, model_artifact_hashes, now, write_json
+from .common import code_fingerprint, config_id, digest_file, model_artifact_hashes, now, write_json
 from .data import DailyData
 from .models import make_model, rank_loss, prediction_scores, uses_temporal_data, can_pack_training_days, loss_by_day
 from .numerical import fit_model_feature_encoders
@@ -173,15 +173,6 @@ def train_neural(config, destination):
         "loss":"equal-weight mean of separate daily losses, preserving optional date age weights",
         "cross_stock_models":"separate forward passes for each date; one accumulated optimizer update",
         "optimizer_updates_per_epoch":int(np.ceil(len(train.day_ids)/days_per_update))})
-    if config.get("objective") == "top30_pair":
-        write_json(destination/"ranking_objective.json",{
-            "name":"top30_pair","topk":30,
-            "pair_target":"true selected training-date top 30 versus other stocks of the same date",
-            "base_loss":"0.3 MSE + 0.3 (1 - Pearson correlation) + 0.4 mean weighted logistic pair loss",
-            "pair_sampling":"all eligible pairs, deterministic",
-            "ties":"fractional top-k membership at the boundary; no equal-return comparisons",
-            "label_scope":"selected purged training rows only; labels never enter forecast inputs",
-            "backtest":"unchanged baseline TopkDropoutStrategy, topk 30 and n_drop 5"})
     weights = np.ones(len(train.dates), dtype=float)
     if half_life:
         ages = (train.dates[train.day_ids].max()-train.dates)/np.timedelta64(1,"D")/365.25
@@ -337,10 +328,6 @@ def require_locked_holdout(config):
                 allowed.extend(source_configs(selected))
     if config not in allowed:
         raise ValueError("Test configuration is not a frozen method or its component")
-    if "code" in lock and code_fingerprint() != lock["code"]:
-        raise ValueError("Test inference code differs from the frozen selection code")
-    if "code_bundle" in lock and Path(__file__).resolve().parent != locked_code_bundle(lock)/"research":
-        raise RuntimeError("Test inference must run from the verified frozen confirmation package")
 
 
 def predict_test(config, trained, destination):

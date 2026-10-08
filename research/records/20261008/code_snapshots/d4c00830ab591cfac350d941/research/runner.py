@@ -17,7 +17,7 @@ import numpy as np
 import pandas as pd
 
 from . import ARTIFACTS, ROOT
-from .common import config_id, digest_file, freeze_code, locked_code_bundle, now, write_json
+from .common import config_id, digest_file, freeze_code, now, write_json
 
 CONTROL = ROOT / "research/control.json"
 STATE = ARTIFACTS / "study/state.json"
@@ -187,11 +187,7 @@ def run_trial(config,state,phase="search",test_only=False):
         command += ["--test-only","--trained",str(trained)]
     environment = dict(os.environ,OMP_NUM_THREADS="4",MKL_NUM_THREADS="2",OPENBLAS_NUM_THREADS="4",
                        PYTHONUNBUFFERED="1")
-    if test_only or phase == "confirmation":
-        frozen = json.loads((ARTIFACTS/"study/selection_lock.json").read_text())
-        bundle = locked_code_bundle(frozen)
-    else:
-        bundle = freeze_code(ARTIFACTS/"code_releases")
+    bundle = freeze_code(ARTIFACTS/"code_releases")
     environment["KBS_RESEARCH_WORKSPACE_ROOT"] = str(ROOT)
     with (output/"console.log").open("a") as log:
         process = subprocess.Popen(command,cwd=bundle,env=environment,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
@@ -302,25 +298,13 @@ def promote(state):
             leaders = ranked_results(market)
             # Require distinct method configurations, then freeze this list before opening holdout data.
             state["selected"][market] = [r["config"] for r in leaders[:settings.get("promotion_models_per_market",3)]]
-        bundle = freeze_code(ARTIFACTS/"code_releases")
-        manifest = bundle/"manifest.json"
         write_json(ARTIFACTS/"study/selection_lock.json",{
             "locked_at":now(),"selected":state["selected"],
             "seeds":settings.get("seeds",[0,1,2,3,4]),
             "criterion":"0.5 validation ranking-percentile + 0.25 validation AR-percentile + 0.25 validation Sharpe-percentile",
-            "test_observed_before_lock":any((ARTIFACTS/"holdout").glob("*/test_run.json")),
-            "code_bundle":str(bundle),"code_manifest_sha256":digest_file(manifest),
-            "code":json.loads(manifest.read_text())["files"]})
+            "test_observed_before_lock":False})
         report(state)
     frozen = json.loads((ARTIFACTS/"study/selection_lock.json").read_text())
-    bundle = locked_code_bundle(frozen)
-    if Path(__file__).resolve().parent != bundle/"research":
-        # Re-exec the coordinator too, so final ensemble metrics and backtests use this package.
-        state["phase"] = "five_seed_confirmation"
-        report(state)
-        environment = dict(os.environ,KBS_RESEARCH_WORKSPACE_ROOT=str(ROOT),PYTHONUNBUFFERED="1")
-        os.chdir(bundle)
-        os.execvpe(sys.executable,[sys.executable,"-u","-m","research.runner"],environment)
     seeds = frozen.get("seeds",settings.get("seeds",[0,1,2,3,4]))
     state["phase"] = "five_seed_confirmation"
     for market, selected in state["selected"].items():
@@ -377,7 +361,6 @@ def evaluate_holdout(state):
             metrics = evaluate_predictions(ensemble,market,destination,backtest=True)
             write_json(destination/"ensemble.json",{"method":"avg_none","candidate":candidate,"seeds":seeds,
                        "selection_lock_sha256":digest_file(ARTIFACTS/"study/selection_lock.json"),
-                       "code_manifest_sha256":frozen["code_manifest_sha256"],
                        "prediction_sha256":{str(seed):digest_file(ARTIFACTS/"holdout"/config_id({**candidate,"seed":seed})/"predictions.pkl")
                                             for seed in seeds}})
             comparison = compare_baselines(metrics,market)

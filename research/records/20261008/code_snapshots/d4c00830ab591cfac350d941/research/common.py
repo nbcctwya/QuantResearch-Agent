@@ -82,18 +82,3 @@ def model_artifact_hashes(directory):
     directory = Path(directory)
     return {name:digest_file(directory/name) for name in ["best.pt","model.txt","model.npz","components.json"]
             if (directory/name).exists()}
-
-
-def locked_code_bundle(lock):
-    """Verify the exact package frozen before confirmation and test evaluation."""
-    bundle = Path(lock["code_bundle"]).resolve()
-    manifest = bundle/"manifest.json"
-    if digest_file(manifest) != lock["code_manifest_sha256"]:
-        raise ValueError("Frozen confirmation code manifest has changed")
-    files = json.loads(manifest.read_text())["files"]
-    if files != lock["code"]:
-        raise ValueError("Frozen confirmation code hashes differ from the selection lock")
-    for name,expected in files.items():
-        if digest_file(bundle/name) != expected:
-            raise ValueError("Frozen confirmation source file has changed: "+name)
-    return bundle

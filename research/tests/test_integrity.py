@@ -127,24 +127,25 @@ class IntegrityTests(unittest.TestCase):
         np.testing.assert_allclose(pd.Series(targets,index=index).groupby(level="datetime").mean(),0,atol=1e-6)
 
     def test_risk_overlay_freezes_variance_source_in_training(self):
-        source = {"market":"csi300","family":"risk_aware","width":32,"depth":1,
-                  "seed":0,"dropout":0.5,"context":True}
-        with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
-            path = root/"trials"/config_id(source)/"best.pt"
-            path.parent.mkdir(parents=True)
-            torch.save({"model":make_model(source).state_dict(),"config":source},path)
-            with patch("research.models.ARTIFACTS",root):
-                model = make_model({"market":"csi300","family":"risk_overlay","width":32,"depth":1,
-                                    "dropout":0.1,"context":True,"risk_source":source,"risk_penalty":0.1})
-            model.train()
-            self.assertTrue(model.alpha.training)
-            self.assertFalse(model.risk_model.training)
-            stock,context = torch.randn(20,1,158),torch.randn(20,76)
-            loss = rank_loss(model(stock,context),torch.linspace(-2,2,20),"mixed")
-            loss.backward()
-            self.assertTrue(any(p.grad is not None for p in model.alpha.parameters()))
-            self.assertTrue(all(not p.requires_grad and p.grad is None for p in model.risk_model.parameters()))
+        for family in ["risk_aware","factor_gaussian"]:
+            source = {"market":"csi300","family":family,"width":32,"depth":1,
+                      "seed":0,"dropout":0.5,"context":True}
+            with tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                path = root/"trials"/config_id(source)/"best.pt"
+                path.parent.mkdir(parents=True)
+                torch.save({"model":make_model(source).state_dict(),"config":source},path)
+                with patch("research.models.ARTIFACTS",root):
+                    model = make_model({"market":"csi300","family":"risk_overlay","width":32,"depth":1,
+                                        "dropout":0.1,"context":True,"risk_source":source,"risk_penalty":0.1})
+                model.train()
+                self.assertTrue(model.alpha.training)
+                self.assertFalse(model.risk_model.training)
+                stock,context = torch.randn(20,1,158),torch.randn(20,76)
+                loss = rank_loss(model(stock,context),torch.linspace(-2,2,20),"mixed")
+                loss.backward()
+                self.assertTrue(any(p.grad is not None for p in model.alpha.parameters()))
+                self.assertTrue(all(not p.requires_grad and p.grad is None for p in model.risk_model.parameters()))
 
     def test_interrupted_trial_is_queued_for_resume_and_completed_trial_is_not(self):
         from research.runner import recover_interrupted

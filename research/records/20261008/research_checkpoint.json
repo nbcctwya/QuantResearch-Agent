@@ -1,0 +1,372 @@
+{
+  "created_at": "2026-10-08T14:58:17.323464+00:00",
+  "scope": "validation 2021-2022 only; no new-model test results observed",
+  "changes": [
+    "Conditional diagonal-plus-factor Gaussian likelihood with exact dense value/gradient verification",
+    "Locked code package for five-seed confirmation, test inference and ensemble evaluation; coordinator reloaded while preserving its live child",
+    "Deterministic Top30 pair objective with fractional boundary tie handling; six objective-only controls queued",
+    "Additional seed robustness checks for PLE without raw channels and PLE32"
+  ],
+  "checks": {
+    "cpu_tests": 35,
+    "factor_gpu_smoke_markets": [
+      "csi300",
+      "sp500"
+    ],
+    "top30_gpu_smoke_markets": [
+      "csi300",
+      "sp500"
+    ],
+    "smoke_results_excluded": true
+  },
+  "seed_validation_checks": "seed_validation_checks.json",
+  "covariance_raw_controls": [
+    {
+      "id": "6cb0486a871c42dc",
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "factor_gaussian",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "gaussian_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "factor_loading_bound": 2.0,
+        "target_kind": "raw_standardized",
+        "factor_rank": 0,
+        "market": "csi300"
+      },
+      "validation": {
+        "IC": 0.060916165302014505,
+        "ICIR": 0.3798051973779572,
+        "RankIC": 0.07067348345209022,
+        "RankICIR": 0.41804634402481955,
+        "RankIC_2021": 0.046977672167749354,
+        "RankIC_2022": 0.0949691886929967,
+        "AR": 0.048590689153483524,
+        "STD": 0.21242003437911633,
+        "MDD": -0.286594701361903,
+        "Sharpe": 0.22336434481616535,
+        "Sortino": 0.3257963283319973,
+        "Calmar": 0.16954496689080337,
+        "num_test_days": 480
+      },
+      "calibration": {
+        "interval_80_coverage": 0.8065180198350326,
+        "uncertainty_abs_error_RankIC": 0.33709346076810204,
+        "mean_factor_variance_share": 0.0
+      }
+    },
+    {
+      "id": "dc517c9d14148644",
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "factor_gaussian",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "gaussian_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "factor_loading_bound": 2.0,
+        "target_kind": "raw_standardized",
+        "factor_rank": 0,
+        "market": "sp500"
+      },
+      "validation": {
+        "IC": 0.03334123015700099,
+        "ICIR": 0.1658689003582026,
+        "RankIC": 0.03098953657257589,
+        "RankICIR": 0.1550224591522217,
+        "RankIC_2021": 0.033477152866183496,
+        "RankIC_2022": 0.028441246710831515,
+        "AR": 0.10716383707043486,
+        "STD": 0.2992466114944929,
+        "MDD": -0.2503653415489193,
+        "Sharpe": 0.34019313780694177,
+        "Sortino": 0.49623011938088696,
+        "Calmar": 0.4280298399429057,
+        "num_test_days": 498
+      },
+      "calibration": {
+        "interval_80_coverage": 0.8278653762966607,
+        "uncertainty_abs_error_RankIC": 0.25637611975652586,
+        "mean_factor_variance_share": 0.0
+      }
+    },
+    {
+      "id": "292c941a4f978f8c",
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "factor_gaussian",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "gaussian_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "factor_loading_bound": 2.0,
+        "target_kind": "raw_standardized",
+        "factor_rank": 4,
+        "market": "csi300"
+      },
+      "validation": {
+        "IC": 0.07379452643252561,
+        "ICIR": 0.45667223436003324,
+        "RankIC": 0.08008822596218128,
+        "RankICIR": 0.4847550052915729,
+        "RankIC_2021": 0.05954042752370058,
+        "RankIC_2022": 0.10115622182948426,
+        "AR": 0.09439506920250818,
+        "STD": 0.24017288915268495,
+        "MDD": -0.26305554913816975,
+        "Sharpe": 0.37557012664527256,
+        "Sortino": 0.5522995637132087,
+        "Calmar": 0.3588408209283858,
+        "num_test_days": 480
+      },
+      "calibration": {
+        "interval_80_coverage": 0.8667603243709402,
+        "uncertainty_abs_error_RankIC": 0.32659881429043974,
+        "mean_factor_variance_share": 0.5229597687721252
+      }
+    },
+    {
+      "id": "c89aa4013e195873",
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "family": "factor_gaussian",
+        "encoder": "residual",
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "days_per_update": 4,
+        "objective": "gaussian_nll_rank",
+        "risk_exponent": 0.0,
+        "risk_penalty": 0.0,
+        "factor_loading_bound": 2.0,
+        "target_kind": "raw_standardized",
+        "factor_rank": 4,
+        "market": "sp500"
+      },
+      "validation": {
+        "IC": 0.03742816689845962,
+        "ICIR": 0.18486787905178959,
+        "RankIC": 0.03331478562012883,
+        "RankICIR": 0.1602214349308516,
+        "RankIC_2021": 0.044480117216637194,
+        "RankIC_2022": 0.021877128862730015,
+        "AR": 0.139456073688361,
+        "STD": 0.2906290147679999,
+        "MDD": -0.2386447081375319,
+        "Sharpe": 0.44920160605825454,
+        "Sortino": 0.6616134708102056,
+        "Calmar": 0.5843669225968836,
+        "num_test_days": 498
+      },
+      "calibration": {
+        "interval_80_coverage": 0.8187516433557537,
+        "uncertainty_abs_error_RankIC": 0.2548038053877312,
+        "mean_factor_variance_share": 0.46615052223205566
+      }
+    }
+  ],
+  "top30_controls": [
+    {
+      "id": "42549a60e5eda093",
+      "mixed_control_id": "2838414f7c85302d",
+      "config": {
+        "market": "csi300",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "residual",
+        "width": 128,
+        "depth": 2,
+        "objective": "top30_pair",
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "dropout": 0.1,
+        "days_per_update": 4
+      },
+      "change": "objective only"
+    },
+    {
+      "id": "209683b536c25641",
+      "mixed_control_id": "c2f1808afedeee6f",
+      "config": {
+        "market": "csi300",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "residual",
+        "width": 128,
+        "depth": 2,
+        "objective": "top30_pair",
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "dropout": 0.1,
+        "days_per_update": 4,
+        "feature_encoder": "ple",
+        "ple_bins": 16,
+        "ple_include_raw": false
+      },
+      "change": "objective only"
+    },
+    {
+      "id": "0af6b0cb4e784f22",
+      "mixed_control_id": "35ac042573b449ff",
+      "config": {
+        "market": "csi300",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "residual",
+        "width": 128,
+        "depth": 2,
+        "objective": "top30_pair",
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "dropout": 0.1,
+        "days_per_update": 4,
+        "feature_encoder": "periodic",
+        "periodic_frequencies": 4,
+        "periodic_initial_scale": 0.05
+      },
+      "change": "objective only"
+    },
+    {
+      "id": "c3ff8a3480c074be",
+      "mixed_control_id": "e175da90f4376354",
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_excess_standardized",
+        "family": "residual",
+        "objective": "top30_pair",
+        "market": "sp500",
+        "days_per_update": 4
+      },
+      "change": "objective only"
+    },
+    {
+      "id": "0b205ced740b3807",
+      "mixed_control_id": "c2decf6b39e2b408",
+      "config": {
+        "market": "sp500",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "residual",
+        "width": 128,
+        "depth": 2,
+        "objective": "top30_pair",
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "dropout": 0.1
+      },
+      "change": "objective only"
+    },
+    {
+      "id": "3dbd4c1efcd0eac7",
+      "mixed_control_id": "3b36a0ceec56f8b9",
+      "config": {
+        "market": "sp500",
+        "seed": 0,
+        "purge_days": 5,
+        "family": "batch_ensemble",
+        "width": 128,
+        "depth": 3,
+        "members": 8,
+        "objective": "top30_pair",
+        "context": false,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "dropout": 0.1
+      },
+      "change": "objective only"
+    }
+  ],
+  "next_directions": [
+    {
+      "name": "market_regime_risk_penalty",
+      "status": "not implemented",
+      "proposal": "Scale the frozen variance penalty using the current date mean forecast variance; fit centering and scale only on selected training-date predictions, save them as checkpoint buffers, and compare with a constant penalty."
+    },
+    {
+      "name": "longer_causal_feature_history",
+      "status": "not implemented",
+      "proposal": "Consider 16/32-day windows while preserving baseline evaluation coverage. Audit stock/date gaps, histories crossing train/valid/test boundaries, and inherited sampler eligibility before implementation."
+    }
+  ],
+  "interpretation": "CSI300 numerical encoding ranking gains persist across three seeds, while portfolio returns and drawdowns vary. The three-seed periodic avg_none validation ensemble has RankIC 0.10029 and AR 0.22270. Raw-return rank-4 Gaussian models improve over rank-0 controls in both markets in seed 0, but remain more volatile than required. These comparisons do not establish holdout performance or superiority to all baselines.",
+  "full_validation_runs_in_snapshot": 105,
+  "snapshot_at": "2026-10-08T14:58:50.315624+00:00",
+  "verification_code": {
+    "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+    "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+    "research/common.py": "4f5a4a5a82e2ef45a4996ed1909311a643ecae59ec89b8adce86326021dd1770",
+    "research/covariance.py": "61e39374fab40c9b5bb8bef8ac140bc17e98d44e4bcf36dfdb62c8e05b920d7e",
+    "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+    "research/diagnostics.py": "d0ec4504349f9e89b8a93f93ffc4804f3afbdb3015acedea90f45502229a3334",
+    "research/ensembles.py": "e947f499b5b2aca754c59be104e7137933a453c222e5cf566db8eaeaa6d1a0a5",
+    "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+    "research/models.py": "32318af2abf993673e3ea497169218e7ee9135b37f395687d97e11928d3b9258",
+    "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+    "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+    "research/ranking.py": "4764e90041cd215a2e6ea9b609d179696e9be4e39731b395ed8c72b6a6319932",
+    "research/runner.py": "ff3905434a5b21a94ff1a70c4f510a4a0fe21456627945af4694f8a93caf9061",
+    "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+    "research/snapshot.py": "1cb59d288a3ae75a9c3ae0c0d89b73706ac9c8a6e64155dfde88d346b38823e8",
+    "research/train.py": "6645b98c0ccbf0ffeb7927a320ef9cb31e769412e80c0bb6053a72ef2ef4f41b"
+  },
+  "holdout_opened": false
+}

@@ -37,8 +37,7 @@ def snapshot(destination):
             if not saved.exists():
                 saved.parent.mkdir(parents=True,exist_ok=True)
                 shutil.copytree(package.parent,saved,ignore=shutil.ignore_patterns("__pycache__","*.pyc"))
-        for name in ["target_transform.json","risk_source.json","components.json","batching.json","feature_encoder.json",
-                     "covariance_model.json","ranking_objective.json","valid/calibration/calibration.json"]:
+        for name in ["target_transform.json","risk_source.json","components.json","batching.json","feature_encoder.json"]:
             if (folder/name).exists():
                 details[identifier][name] = json.loads((folder/name).read_text())
     destination.mkdir(parents=True,exist_ok=True)

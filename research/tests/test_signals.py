@@ -1,4 +1,7 @@
 """Protect causal scoring, component identity, and the complete holdout comparison."""
+import json
+import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -7,7 +10,8 @@ from unittest.mock import patch
 import numpy as np
 import pandas as pd
 
-from research.common import config_id, digest_file, freeze_code, write_json
+from research import ROOT
+from research.common import config_id, digest_file, freeze_code, locked_code_bundle, write_json
 from research.ensembles import predict_blend, source_configs
 from research.protocol import compare_baselines
 from research.signals import blend_predictions
@@ -15,6 +19,76 @@ from research.train import require_locked_holdout
 
 
 class SignalTests(unittest.TestCase):
+    def test_locked_package_survives_workspace_edits_and_rejects_package_tampering(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root/"research").mkdir()
+            (root/"research/__init__.py").write_text("")
+            source = root/"research/models.py"
+            source.write_text("version = 1\n")
+            with patch("research.common.ROOT",root):
+                bundle = freeze_code(root/"releases")
+            manifest = bundle/"manifest.json"
+            frozen = {"code_bundle":str(bundle),"code_manifest_sha256":digest_file(manifest),
+                      "code":json.loads(manifest.read_text())["files"]}
+            source.write_text("version = 2\n")
+            self.assertEqual(locked_code_bundle(frozen),bundle)
+            (bundle/"research/models.py").write_text("version = 3\n")
+            with self.assertRaisesRegex(ValueError,"source file has changed"):
+                locked_code_bundle(frozen)
+
+    def test_confirmation_coordinator_reexecutes_from_locked_package_and_reacquires_lock(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root/"research").mkdir()
+            (root/"research/__init__.py").write_text("")
+            # A tiny finalizer proves module provenance without opening any market data.
+            (root/"research/runner.py").write_text(
+                "import fcntl,json,os\nfrom pathlib import Path\n"
+                "root=Path(os.environ['KBS_RESEARCH_WORKSPACE_ROOT'])\n"
+                "guard=(root/'artifacts/runner.lock').open('w')\n"
+                "fcntl.flock(guard,fcntl.LOCK_EX|fcntl.LOCK_NB)\n"
+                "(root/'finalizer.json').write_text(json.dumps({'source':str(Path(__file__).resolve()),'pid':os.getpid()}))\n")
+            with patch("research.common.ROOT",root):
+                bundle=freeze_code(root/"releases")
+            manifest=bundle/"manifest.json"
+            artifacts=root/"artifacts"
+            candidate={"market":"csi300","family":"ridge","seed":0}
+            write_json(artifacts/"study/selection_lock.json",{
+                "selected":{"csi300":[candidate]},"seeds":[0],"code_bundle":str(bundle),
+                "code_manifest_sha256":digest_file(manifest),"code":json.loads(manifest.read_text())["files"]})
+            script="""
+import fcntl,json,sys
+from pathlib import Path
+from unittest.mock import patch
+from research.runner import promote
+root=Path(sys.argv[1])
+artifacts=root/'artifacts'
+guard=(artifacts/'runner.lock').open('w')
+fcntl.flock(guard,fcntl.LOCK_EX|fcntl.LOCK_NB)
+frozen=json.loads((artifacts/'study/selection_lock.json').read_text())
+state={'selected':frozen['selected'],'phase':'validation_search','completed':[]}
+with patch('research.runner.ARTIFACTS',artifacts),patch('research.runner.ROOT',root),patch('research.runner.report'),patch('research.runner.control',return_value={'seeds':[0]}):
+    promote(state)
+raise AssertionError('Coordinator must re-execute instead of continuing in workspace code')
+"""
+            subprocess.run([sys.executable,"-c",script,str(root)],cwd=ROOT,check=True,capture_output=True,timeout=20)
+            marker=json.loads((root/"finalizer.json").read_text())
+            self.assertEqual(Path(marker["source"]),bundle/"research/runner.py")
+
+    def test_changed_test_code_is_rejected_before_test_data_is_loaded(self):
+        from research.train import predict_test
+        candidate={"market":"csi300","family":"ridge","seed":0}
+        with tempfile.TemporaryDirectory() as temporary,patch("research.train.ARTIFACTS",Path(temporary)):
+            root=Path(temporary)
+            write_json(root/"study/selection_lock.json",{
+                "selected":{"csi300":[candidate]},"seeds":[0],"code":{"research/models.py":"frozen"}})
+            with patch("research.train.code_fingerprint",return_value={"research/models.py":"edited"}),\
+                    patch("research.train.DailyData") as data:
+                with self.assertRaisesRegex(ValueError,"differs from the frozen"):
+                    predict_test(candidate,root/"trained",root/"output")
+                data.assert_not_called()
+
     def test_launch_code_snapshot_remains_unchanged_after_workspace_edits(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
