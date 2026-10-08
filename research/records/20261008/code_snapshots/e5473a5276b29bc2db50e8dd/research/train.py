@@ -16,8 +16,7 @@ import torch
 from . import ARTIFACTS
 from .common import code_fingerprint, config_id, digest_file, model_artifact_hashes, now, write_json
 from .data import DailyData
-from .models import make_model, rank_loss, prediction_scores, uses_temporal_data, can_pack_training_days, loss_by_day
-from .numerical import fit_model_feature_encoders
+from .models import make_model, rank_loss, prediction_scores, uses_temporal_data
 from .protocol import evaluate_predictions, prediction_metrics, raw_labels
 
 
@@ -79,26 +78,6 @@ def neural_predict(model, data, amp):
     return np.concatenate(result)
 
 
-def training_group_losses(model, data, days, config, weights, amp):
-    batches = [data.batch(day) for day in days]
-    objective = config.get("objective","mse")
-    pack = len(days)>1 and can_pack_training_days(config)
-    if pack:
-        stock,context,labels = [torch.cat([batch[i] for batch in batches],dim=0) for i in range(3)]
-        counts = [len(batch[2]) for batch in batches]
-        with torch.autocast(data.device.type,dtype=torch.bfloat16,enabled=amp and data.device.type=="cuda"):
-            predictions = model(stock,context)
-        predictions = {key:value.float() for key,value in predictions.items()} if isinstance(predictions,dict) else predictions.float()
-        return loss_by_day(predictions,labels.float(),counts,objective,weights[days])
-    losses = []
-    for day,(stock,context,labels) in zip(days,batches):
-        with torch.autocast(data.device.type,dtype=torch.bfloat16,enabled=amp and data.device.type=="cuda"):
-            predictions = model(stock,context)
-        predictions = {key:value.float() for key,value in predictions.items()} if isinstance(predictions,dict) else predictions.float()
-        losses.append(rank_loss(predictions,labels.float(),objective)*weights[day])
-    return torch.stack(losses)
-
-
 def train_neural(config, destination):
     if not torch.cuda.is_available():
         raise RuntimeError("CUDA is required for neural trials; run the authorized worker with GPU access")
@@ -126,11 +105,7 @@ def train_neural(config, destination):
     valid.preload(max(0, budget-used))
     positions = valid.selected_positions()
     valid_labels = raw_labels(config["market"], valid.index[positions])
-    last_path = destination / "last.pt"
-    model = make_model(config)
-    if not last_path.exists():
-        fit_model_feature_encoders(model,train,config,destination)
-    model = model.cuda()
+    model = make_model(config).cuda()
     if config["family"] == "risk_overlay":
         source_path = ARTIFACTS/"trials"/config_id(config["risk_source"])/"best.pt"
         write_json(destination/"risk_source.json",{"config":config["risk_source"],
@@ -142,6 +117,7 @@ def train_neural(config, destination):
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epochs,
                                                           eta_min=config.get("lr",0.0005)*0.1)
     best_score, stale, start_epoch = -np.inf, 0, 0
+    last_path = destination / "last.pt"
     amp = config.get("amp", True)
     if last_path.exists():
         checkpoint = torch.load(last_path, map_location="cuda", weights_only=False)
@@ -156,14 +132,6 @@ def train_neural(config, destination):
         torch.cuda.set_rng_state_all([state.cpu() for state in checkpoint["cuda_rng"]])
         print(f"Resuming epoch {start_epoch+1}", flush=True)
     half_life = config.get("half_life_years")
-    days_per_update = config.get("days_per_update",1)
-    if not isinstance(days_per_update,int) or days_per_update<1:
-        raise ValueError("days_per_update must be a positive integer")
-    write_json(destination/"batching.json",{
-        "days_per_update":days_per_update,"packed_forward":days_per_update>1 and can_pack_training_days(config),
-        "loss":"equal-weight mean of separate daily losses, preserving optional date age weights",
-        "cross_stock_models":"separate forward passes for each date; one accumulated optimizer update",
-        "optimizer_updates_per_epoch":int(np.ceil(len(train.day_ids)/days_per_update))})
     weights = np.ones(len(train.dates), dtype=float)
     if half_life:
         ages = (train.dates[train.day_ids].max()-train.dates)/np.timedelta64(1,"D")/365.25
@@ -173,20 +141,19 @@ def train_neural(config, destination):
         begin = time.monotonic()
         model.train()
         losses = []
-        order = np.random.permutation(train.day_ids)
-        optimizer_steps = 0
-        for start in range(0,len(order),days_per_update):
-            days = order[start:start+days_per_update]
+        for day in np.random.permutation(train.day_ids):
+            stock, context, label = train.batch(day)
             optimizer.zero_grad(set_to_none=True)
-            daily_losses = training_group_losses(model,train,days,config,weights,amp)
-            loss = daily_losses.mean()
+            with torch.autocast("cuda", dtype=torch.bfloat16, enabled=amp):
+                predictions = model(stock, context)
+            predictions = {key:value.float() for key,value in predictions.items()} if isinstance(predictions,dict) else predictions.float()
+            loss = rank_loss(predictions,label.float(),config.get("objective","mse"))*weights[day]
             if not torch.isfinite(loss):
                 raise ValueError("Non-finite training loss")
             loss.backward()
             torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
             optimizer.step()
-            optimizer_steps += 1
-            losses.extend(daily_losses.detach().cpu().tolist())
+            losses.append(float(loss.detach()))
         predictions = neural_predict(model, valid, amp)
         frame = prediction_frame(valid, predictions, valid_labels)
         score, metrics = validation_score(frame)
@@ -202,8 +169,7 @@ def train_neural(config, destination):
         scheduler.step()
         progress = {"time":now(), "epoch":epoch+1, "train_loss":float(np.mean(losses)),
                     "valid_selection_score":score, "best_selection_score":best_score,
-                    "valid":metrics, "seconds":time.monotonic()-begin, "stale":stale,
-                    "optimizer_steps":optimizer_steps,"days_per_update":days_per_update}
+                    "valid":metrics, "seconds":time.monotonic()-begin, "stale":stale}
         with (destination/"epochs.jsonl").open("a") as stream:
             stream.write(json.dumps(progress)+"\n")
         write_json(destination/"progress.json", progress)

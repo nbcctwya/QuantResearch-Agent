@@ -35,6 +35,12 @@ worker 需要正常访问 CUDA。当前操作系统的受限沙箱会阻止 GPU�
 
 来源：[表格残差网络研究](https://arxiv.org/abs/2106.11959)、[TabM 论文](https://arxiv.org/abs/2410.24210)、[TabM 官方实现](https://github.com/yandex-research/tabm)、[LightGBM 排序目标文档](https://lightgbm.readthedocs.io/en/stable/Parameters.html)、[TimeMixer 官方实现](https://github.com/kwuking/TimeMixer)，以及 `references/papers` 中的 MASTER、FactorVAE、TimeMixer 等论文总结。这里的 BatchEnsemble、时序混合和因子聚合是适配股票任务的实验方案，不宣称完整复现论文模型。
 
+`days_per_update` 比较逐日更新与 4/8 日梯度合并。没有截面归一化或股票间注意力时，多个日期可合并为一次网络前向，但先按日期切开预测，再分别计算排序/分布损失，最后等权平均；不把不同日期的股票作为同一截面。带截面操作的模型仍逐日前向，只合并梯度更新。保存 `batching.json` 及每轮真实更新次数；增大这个参数会减少每轮优化器更新，较长训练、学习率与 patience 的变化是明确记录的实验变量。
+
+数值编码参考 [On Embeddings for Numerical Features in Tabular Deep Learning](https://arxiv.org/abs/2203.05556) 与 [官方实现说明](https://github.com/yandex-research/rtdl-num-embeddings/tree/main/package)。`feature_encoder=ple` 对 158 个股票特征使用训练分位数构建分段线性通道，随后由网络投影学习非线性关系；`periodic` 比较可学习的逐特征 sin/cos 频率。这里保留原始标量通道，编码发生在市场门控之前，76 维上下文继续使用原始标量。这些是本地适配方案，未宣称复现原论文的表格数据结果或证明其股票预测效果。
+
+PLE 默认从当前已剔除边界日、已应用训练历史范围的训练行中，以固定种子抽取最多 65,536 行，完全不读取标签、验证特征或测试特征。同一配置的多个模型种子共用分箱抽样种子。重复/间隔小于 `1e-4` 的分位点合并，常量特征的新增通道置零；外侧通道允许线性外推，再截断到 `[-2,3]`，另保留原始标量通道。边界作为 checkpoint buffer 保存；恢复、验证和测试只加载已有边界，不重新拟合。`feature_encoder.json` 记录抽样行与特征哈希、日期范围、实际每列分箱数和变换参数。
+
 新增风险感知路线：同时预测 5 日收益均值与条件方差，使用 Gaussian NLL 和排序损失联合训练，再比较均值排序、收益/标准差排序及均值减风险惩罚排序。该方案借鉴 [输入相关不确定性研究](https://arxiv.org/abs/1703.04977)，在本任务中的效用需要实验验证。其原始收益训练标签仅取已剔除边界日的训练期，标准差只在这些训练样本上拟合，再截断到 ±8 倍尺度；验证/测试指标仍使用原始收益、原 baseline 公式和策略。预测函数不读取标签，测试阶段不重新拟合尺度。
 
 进一步的对照包括：

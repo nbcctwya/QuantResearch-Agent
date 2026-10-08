@@ -17,7 +17,6 @@ from . import ARTIFACTS
 from .common import code_fingerprint, config_id, digest_file, model_artifact_hashes, now, write_json
 from .data import DailyData
 from .models import make_model, rank_loss, prediction_scores, uses_temporal_data, can_pack_training_days, loss_by_day
-from .numerical import fit_model_feature_encoders
 from .protocol import evaluate_predictions, prediction_metrics, raw_labels
 
 
@@ -86,13 +85,13 @@ def training_group_losses(model, data, days, config, weights, amp):
     if pack:
         stock,context,labels = [torch.cat([batch[i] for batch in batches],dim=0) for i in range(3)]
         counts = [len(batch[2]) for batch in batches]
-        with torch.autocast(data.device.type,dtype=torch.bfloat16,enabled=amp and data.device.type=="cuda"):
+        with torch.autocast("cuda",dtype=torch.bfloat16,enabled=amp):
             predictions = model(stock,context)
         predictions = {key:value.float() for key,value in predictions.items()} if isinstance(predictions,dict) else predictions.float()
         return loss_by_day(predictions,labels.float(),counts,objective,weights[days])
     losses = []
     for day,(stock,context,labels) in zip(days,batches):
-        with torch.autocast(data.device.type,dtype=torch.bfloat16,enabled=amp and data.device.type=="cuda"):
+        with torch.autocast("cuda",dtype=torch.bfloat16,enabled=amp):
             predictions = model(stock,context)
         predictions = {key:value.float() for key,value in predictions.items()} if isinstance(predictions,dict) else predictions.float()
         losses.append(rank_loss(predictions,labels.float(),objective)*weights[day])
@@ -126,11 +125,7 @@ def train_neural(config, destination):
     valid.preload(max(0, budget-used))
     positions = valid.selected_positions()
     valid_labels = raw_labels(config["market"], valid.index[positions])
-    last_path = destination / "last.pt"
-    model = make_model(config)
-    if not last_path.exists():
-        fit_model_feature_encoders(model,train,config,destination)
-    model = model.cuda()
+    model = make_model(config).cuda()
     if config["family"] == "risk_overlay":
         source_path = ARTIFACTS/"trials"/config_id(config["risk_source"])/"best.pt"
         write_json(destination/"risk_source.json",{"config":config["risk_source"],
@@ -142,6 +137,7 @@ def train_neural(config, destination):
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epochs,
                                                           eta_min=config.get("lr",0.0005)*0.1)
     best_score, stale, start_epoch = -np.inf, 0, 0
+    last_path = destination / "last.pt"
     amp = config.get("amp", True)
     if last_path.exists():
         checkpoint = torch.load(last_path, map_location="cuda", weights_only=False)
@@ -160,7 +156,7 @@ def train_neural(config, destination):
     if not isinstance(days_per_update,int) or days_per_update<1:
         raise ValueError("days_per_update must be a positive integer")
     write_json(destination/"batching.json",{
-        "days_per_update":days_per_update,"packed_forward":days_per_update>1 and can_pack_training_days(config),
+        "days_per_update":days_per_update,"packed_forward":can_pack_training_days(config),
         "loss":"equal-weight mean of separate daily losses, preserving optional date age weights",
         "cross_stock_models":"separate forward passes for each date; one accumulated optimizer update",
         "optimizer_updates_per_epoch":int(np.ceil(len(train.day_ids)/days_per_update))})

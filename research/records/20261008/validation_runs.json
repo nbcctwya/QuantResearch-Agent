@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-10-08T12:53:41.780707+00:00",
+  "created_at": "2026-10-08T13:19:34.634041+00:00",
   "experiments": {
     "043af3aabecd377b": {
       "config": {
@@ -1778,6 +1778,85 @@
         "smoothing": "causal within this split; starts afresh on its first date; resets after long instrument gaps"
       }
     },
+    "40bc4e24bc7b00c7": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_excess_standardized",
+        "family": "quantile_aware",
+        "encoder": "residual",
+        "objective": "quantile_rank",
+        "risk_penalty": 0.5,
+        "risk_exponent": 0.0,
+        "market": "csi300"
+      },
+      "completed_at": "2026-10-08T12:56:12.397692+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:52:13.126844+00:00",
+        "id": "40bc4e24bc7b00c7",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "4f1c5447607b4734594496a6b78966f2f9bdb88d64630689ef08038afc4f965a",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "77d69212c7014b1962bd429f42e4461125cf17ff432196ebfccd0e5bc1561031",
+          "research/train.py": "778a6cfab66e7ee233e506d3b4a6a05fa575dfe29aa16a6e5a3975e78a51c358"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/e5473a5276b29bc2db50e8dd/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T12:56:12.398025+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 233.56858599999998,
+        "peak_process_rss_mib": 3019.02734375,
+        "gpu_peak_allocated_mib": 907.71044921875,
+        "gpu_peak_reserved_mib": 922.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": {
+        "interval_80_coverage": 0.6498268259774943,
+        "uncertainty_abs_error_RankIC": 0.2890137997699191
+      },
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.04048788682162931,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 840429,
+        "test_targets_used": false
+      }
+    },
     "464644a2ce0a7ba9": {
       "config": {
         "market": "csi300",
@@ -1930,6 +2009,92 @@
       },
       "resources": {},
       "calibration": null
+    },
+    "508ffcc4d304ab94": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_standardized",
+        "family": "risk_aware",
+        "encoder": "residual",
+        "objective": "gaussian_nll_rank",
+        "risk_penalty": 0.25,
+        "risk_exponent": 0.0,
+        "market": "sp500"
+      },
+      "completed_at": "2026-10-08T13:12:28.443553+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:08:33.484103+00:00",
+        "id": "508ffcc4d304ab94",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "4f1c5447607b4734594496a6b78966f2f9bdb88d64630689ef08038afc4f965a",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "efa52e72b89734a8c570e71028ff0eb9a08eb23afe5f7e14c63797b8f90f9f15",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "77d69212c7014b1962bd429f42e4461125cf17ff432196ebfccd0e5bc1561031",
+          "research/train.py": "097c56c0d24e45cb1e7af862a4e7c9b0305e468eee33779a33376ad77d8b040d"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/9e4acaf234b2c05c389033a9/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:12:28.443848+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 223.96912100000003,
+        "peak_process_rss_mib": 3354.25,
+        "gpu_peak_allocated_mib": 1309.9443359375,
+        "gpu_peak_reserved_mib": 1326.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": {
+        "interval_80_coverage": 0.7644170009923749,
+        "uncertainty_abs_error_RankIC": 0.25934682778393453
+      },
+      "target_transform.json": {
+        "kind": "raw_standardized",
+        "scale": 0.04185252839688792,
+        "fit_split": "selected purged training dates only",
+        "demeaning": null,
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 1194829,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 1,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 3016
+      }
     },
     "5ded7f510198dcb9": {
       "config": {
@@ -2460,6 +2625,85 @@
       "resources": {},
       "calibration": null
     },
+    "733c1bc7f33df6aa": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_excess_standardized",
+        "family": "quantile_aware",
+        "encoder": "residual",
+        "objective": "quantile_rank",
+        "risk_penalty": 0.5,
+        "risk_exponent": 0.0,
+        "market": "sp500"
+      },
+      "completed_at": "2026-10-08T13:03:41.009258+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T12:56:33.195753+00:00",
+        "id": "733c1bc7f33df6aa",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "4f1c5447607b4734594496a6b78966f2f9bdb88d64630689ef08038afc4f965a",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "77d69212c7014b1962bd429f42e4461125cf17ff432196ebfccd0e5bc1561031",
+          "research/train.py": "778a6cfab66e7ee233e506d3b4a6a05fa575dfe29aa16a6e5a3975e78a51c358"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/e5473a5276b29bc2db50e8dd/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:03:41.009578+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 416.555166,
+        "peak_process_rss_mib": 3432.79296875,
+        "gpu_peak_allocated_mib": 1309.96142578125,
+        "gpu_peak_reserved_mib": 1326.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": {
+        "interval_80_coverage": 0.6966852984334049,
+        "uncertainty_abs_error_RankIC": 0.1916625090072136
+      },
+      "target_transform.json": {
+        "kind": "raw_excess_standardized",
+        "scale": 0.033585798422536894,
+        "fit_split": "selected purged training dates only",
+        "demeaning": "selected training cross-section per date",
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 1194829,
+        "test_targets_used": false
+      }
+    },
     "73921b00e5b99844": {
       "config": {
         "market": "sp500",
@@ -2807,6 +3051,92 @@
         "test_targets_used": false
       }
     },
+    "864aa4c8d3da77b5": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_standardized",
+        "family": "risk_aware",
+        "encoder": "residual",
+        "objective": "gaussian_nll_rank",
+        "risk_penalty": 0.25,
+        "risk_exponent": 0.0,
+        "market": "csi300"
+      },
+      "completed_at": "2026-10-08T13:08:25.907489+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:03:53.355229+00:00",
+        "id": "864aa4c8d3da77b5",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "4f1c5447607b4734594496a6b78966f2f9bdb88d64630689ef08038afc4f965a",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "efa52e72b89734a8c570e71028ff0eb9a08eb23afe5f7e14c63797b8f90f9f15",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "77d69212c7014b1962bd429f42e4461125cf17ff432196ebfccd0e5bc1561031",
+          "research/train.py": "097c56c0d24e45cb1e7af862a4e7c9b0305e468eee33779a33376ad77d8b040d"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/9e4acaf234b2c05c389033a9/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:08:25.907786+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 266.821046,
+        "peak_process_rss_mib": 2930.28125,
+        "gpu_peak_allocated_mib": 907.69775390625,
+        "gpu_peak_reserved_mib": 922.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": {
+        "interval_80_coverage": 0.7667019042187696,
+        "uncertainty_abs_error_RankIC": 0.33179451191329484
+      },
+      "target_transform.json": {
+        "kind": "raw_standardized",
+        "scale": 0.05283498873742838,
+        "fit_split": "selected purged training dates only",
+        "demeaning": null,
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 840429,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 1,
+        "packed_forward": true,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 2913
+      }
+    },
     "8c50b0e3431200f3": {
       "config": {
         "market": "csi300",
@@ -3149,6 +3479,93 @@
         ],
         "train_samples": 1194829,
         "test_targets_used": false
+      }
+    },
+    "96daa39c99a1d20f": {
+      "config": {
+        "seed": 0,
+        "purge_days": 5,
+        "width": 128,
+        "depth": 2,
+        "dropout": 0.1,
+        "context": true,
+        "market_gate": true,
+        "lr": 0.0005,
+        "epochs": 60,
+        "patience": 8,
+        "target_kind": "raw_standardized",
+        "family": "risk_aware",
+        "encoder": "residual",
+        "objective": "gaussian_nll_rank",
+        "risk_penalty": 0.5,
+        "risk_exponent": 0.0,
+        "market": "csi300"
+      },
+      "completed_at": "2026-10-08T13:17:08.200819+00:00",
+      "run": {
+        "status": "complete",
+        "started_at": "2026-10-08T13:12:33.534379+00:00",
+        "id": "96daa39c99a1d20f",
+        "code": {
+          "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+          "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+          "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+          "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+          "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+          "research/ensembles.py": "4f1c5447607b4734594496a6b78966f2f9bdb88d64630689ef08038afc4f965a",
+          "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+          "research/models.py": "e729fd37a121bb3aaa8b3d50846907dd8e4daa9e4c871562776f58ffabf0cc28",
+          "research/numerical.py": "6cce3af30a0944c2be0b0c7a4890efbc76bc21a937d19d222f46ff3ac749613b",
+          "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+          "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+          "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+          "research/snapshot.py": "f4094cef6b5da36e3870a07cc9c45c8e4f305087b4b9446e54cfc63847a07f55",
+          "research/train.py": "c0980643eadba3072a098a5b06d234fbef42cc16b5e51b999ccc0f7e6602860b"
+        },
+        "device": "cuda",
+        "source_package": "/home/nbcctwya/kbs-workspace/research/artifacts/code_releases/142df20a0739454788cd6e3c/research",
+        "versions": {
+          "torch": "2.8.0+cu129",
+          "pyqlib": "0.9.7",
+          "numpy": "2.4.4",
+          "pandas": "2.3.3",
+          "scipy": "1.17.1",
+          "scikit-learn": "1.8.0",
+          "lightgbm": "4.6.0"
+        },
+        "selection": "validation only; 5 boundary days purged by default",
+        "smoke": false,
+        "completed_at": "2026-10-08T13:17:08.201179+00:00"
+      },
+      "resources": {
+        "cpu_seconds": 268.90093299999995,
+        "peak_process_rss_mib": 2929.375,
+        "gpu_peak_allocated_mib": 907.78857421875,
+        "gpu_peak_reserved_mib": 922.0,
+        "peak_scope": "process lifetime; nested components share the process; parent time includes component fits"
+      },
+      "calibration": {
+        "interval_80_coverage": 0.7597679885385226,
+        "uncertainty_abs_error_RankIC": 0.3329292845653265
+      },
+      "target_transform.json": {
+        "kind": "raw_standardized",
+        "scale": 0.05283498873742838,
+        "fit_split": "selected purged training dates only",
+        "demeaning": null,
+        "clipping": [
+          -8,
+          8
+        ],
+        "train_samples": 840429,
+        "test_targets_used": false
+      },
+      "batching.json": {
+        "days_per_update": 1,
+        "packed_forward": false,
+        "loss": "equal-weight mean of separate daily losses, preserving optional date age weights",
+        "cross_stock_models": "separate forward passes for each date; one accumulated optimizer update",
+        "optimizer_updates_per_epoch": 2913
       }
     },
     "9ae1aa4f2135d981": {

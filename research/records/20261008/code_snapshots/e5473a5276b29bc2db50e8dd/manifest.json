@@ -1,0 +1,19 @@
+{
+  "created_at": "2026-10-08T12:52:11.852304+00:00",
+  "workspace": "/home/nbcctwya/kbs-workspace",
+  "files": {
+    "research/__init__.py": "69692270d20d9e11b49a4bb3720b69cfbd5d0bc218f41496254a97e732c867ff",
+    "research/audit_protocol.py": "03eee2ec344e78a2f1bc15dcf20c4dc7ea430c298cf49ab42afb49f647b51634",
+    "research/common.py": "24e139c1fd5d02a1179315ffa15a73bce439045e704a6c7bc488df270b4cc16c",
+    "research/data.py": "850b8bac26950bf05f71fed5f960fee9f08b70b3c4473e20f3cf4ca1d3c70c7c",
+    "research/diagnostics.py": "79cc63036d9e8a299102e8cfa818db4e4ffc8306b6fb8d1636c32001ee25e3b1",
+    "research/ensembles.py": "4f1c5447607b4734594496a6b78966f2f9bdb88d64630689ef08038afc4f965a",
+    "research/keep_awake.py": "db48f23d1b855352bf4b50753fbb9060536c58701575adbdf4d85e5ce00e2462",
+    "research/models.py": "1bf1f29677ff1f3e92a9c99f3ae7bff42e7e677366a81596b86e20794ab7f7bd",
+    "research/protocol.py": "0f9564b36025defc1889543519afca381f73ebae302db2cd1640d403c9ae5cba",
+    "research/runner.py": "608afefe1e6eb19cbd11a2c9d8a13658a3aee98f66940fc424e1a868861ac029",
+    "research/signals.py": "2a081e763d5056cc7a063eabcd1c1399151d1176c6251729ad17114755ee9eac",
+    "research/snapshot.py": "77d69212c7014b1962bd429f42e4461125cf17ff432196ebfccd0e5bc1561031",
+    "research/train.py": "778a6cfab66e7ee233e506d3b4a6a05fa575dfe29aa16a6e5a3975e78a51c358"
+  }
+}

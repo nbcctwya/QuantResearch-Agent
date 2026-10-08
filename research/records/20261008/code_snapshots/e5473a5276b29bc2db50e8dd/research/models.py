@@ -7,7 +7,6 @@ from torch.nn import functional as F
 
 from . import ARTIFACTS
 from .common import config_id
-from .numerical import make_feature_encoder
 
 
 class ResidualBlock(nn.Module):
@@ -45,12 +44,11 @@ class StockRanker(nn.Module):
         self.market_gate = config.get("market_gate", False)
         self.temporal = config["family"] == "temporal_mixer"
         self.cs_norm = config.get("cs_norm", False)
-        self.feature_encoder = make_feature_encoder(config)
         if self.market_gate:
             self.gate = nn.Sequential(nn.Linear(76, 64), nn.SiLU(), nn.Linear(64, 158))
             nn.init.zeros_(self.gate[-1].weight)
             nn.init.zeros_(self.gate[-1].bias)
-        input_width = self.feature_encoder.output_features + (76 if self.context_enabled and not self.temporal else 0)
+        input_width = 158 + (76 if self.context_enabled and not self.temporal else 0)
         self.project = nn.Linear(input_width, width)
         self.blocks = nn.Sequential(*[ResidualBlock(width, dropout) for _ in range(config.get("depth", 2))])
         if self.temporal:
@@ -63,10 +61,8 @@ class StockRanker(nn.Module):
     def forward(self, stock, context):
         if self.cs_norm:
             stock = (stock-stock.mean(0, keepdim=True)) / stock.std(0, keepdim=True, correction=0).clamp_min(0.1)
-        stock = self.feature_encoder(stock)
         if self.market_gate:
-            importance = (1 + torch.tanh(self.gate(context))).repeat_interleave(self.feature_encoder.channels,dim=-1)
-            stock = stock * importance[:, None]
+            stock = stock * (1 + torch.tanh(self.gate(context)))[:, None]
         if self.temporal:
             x = self.project(stock)
             x = x + self.time_mix(x.transpose(1, 2)).transpose(1, 2)
@@ -172,9 +168,8 @@ class BatchEnsembleRanker(nn.Module):
         super().__init__()
         self.context_enabled = config.get("context", True)
         self.cs_norm = config.get("cs_norm", False)
-        self.feature_encoder = make_feature_encoder(config)
         members, width = config.get("members", 8), config.get("width", 128)
-        dimensions = [self.feature_encoder.output_features+(76 if self.context_enabled else 0)] + [width]*config.get("depth", 3) + [1]
+        dimensions = [234 if self.context_enabled else 158] + [width]*config.get("depth", 3) + [1]
         self.layers = nn.ModuleList([EnsembleLinear(a, b, members) for a, b in zip(dimensions[:-1], dimensions[1:])])
         self.dropout = nn.Dropout(config.get("dropout", 0.1))
 
@@ -182,7 +177,6 @@ class BatchEnsembleRanker(nn.Module):
         x = stock[:, -1]
         if self.cs_norm:
             x = (x-x.mean(0)) / x.std(0, correction=0).clamp_min(0.1)
-        x = self.feature_encoder(x)
         if self.context_enabled:
             x = torch.cat([x, context], -1)
         x = x[:, None, :]
@@ -206,8 +200,6 @@ class MasterControl(nn.Module):
 
 
 def make_model(config):
-    if config["family"] == "master_control" and config.get("feature_encoder","identity") != "identity":
-        raise ValueError("Numerical feature encoders are not implemented in MASTER control")
     if config["family"] == "risk_aware":
         return RiskAwareRanker(config)
     if config["family"] == "quantile_aware":
@@ -235,27 +227,6 @@ def prediction_scores(predictions):
         return predictions["score"].float()
     predictions = predictions.float()
     return predictions.mean(1) if predictions.ndim == 2 else predictions
-
-
-def can_pack_training_days(config):
-    # All stock normalization and attention must stay inside an individual date.
-    return config["family"] in ("residual","temporal_mixer","batch_ensemble","risk_aware","quantile_aware","risk_overlay") and not (
-        config.get("cs_norm",False) or config.get("latent_factors",0))
-
-
-def loss_by_day(predictions, labels, counts, objective, weights=None):
-    """Split a packed forward pass before computing any ranking or distribution loss."""
-    if sum(counts) != len(labels) or not counts or min(counts)<1:
-        raise ValueError("Invalid packed day boundaries")
-    weights = [1.]*len(counts) if weights is None else weights
-    if len(weights) != len(counts):
-        raise ValueError("Packed day weight/boundary mismatch")
-    losses,offset = [],0
-    for count,weight in zip(counts,weights):
-        part = {key:value[offset:offset+count] for key,value in predictions.items()} if isinstance(predictions,dict) else predictions[offset:offset+count]
-        losses.append(rank_loss(part,labels[offset:offset+count],objective)*weight)
-        offset += count
-    return torch.stack(losses)
 
 
 def rank_loss(predictions, labels, objective):
