@@ -1,8 +1,8 @@
 {
-  "created_at": "2026-10-08T22:49:38.667361+00:00",
-  "previous_commit": "cdef96026084352412d3aa5018366e29deb6f249",
-  "previous_runs": 302,
-  "snapshot_runs": 309,
+  "created_at": "2026-10-08T23:07:26.503099+00:00",
+  "previous_commit": "bc2f4f67a49f377f2ef74e2630b681c0046673e0",
+  "previous_runs": 309,
+  "snapshot_runs": 318,
   "previous_records_unchanged": true,
   "previous_metric_rows_exactly_unchanged": true,
   "previous_seed_ensemble_records_unchanged": true,
@@ -100,6 +100,11 @@
       "files": 20
     },
     {
+      "bundle": "c61ad3d501de94aab30c4eb5",
+      "manifest_sha256": "1b3f5865585c2eaf62451da99a08da41cedcd0f4c16b74397caaaad1e46fa89c",
+      "files": 25
+    },
+    {
       "bundle": "d044891d84498e4c49e86953",
       "manifest_sha256": "752fa325d5fa091d33564ee752945609628c9d9aef76793ba6305d4e71573f77",
       "files": 17
@@ -141,7 +146,7 @@
     }
   ],
   "every_source_matches_saved_manifest": true,
-  "runs_with_exact_saved_package": 253,
+  "runs_with_exact_saved_package": 262,
   "earlier_runs_without_saved_package": 56,
   "earlier_run_note": "Early runs without a recorded immutable launch package retain original source hashes; no package is attributed retroactively.",
   "selection_lock_exists": false,

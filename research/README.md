@@ -89,6 +89,12 @@ PLE 默认从当前已剔除边界日、已应用训练历史范围的训练行�
 
 这一路线参考 [Frazzini 与 Pedersen 的 Betting Against Beta 原论文](https://pages.stern.nyu.edu/~afrazzin/pdf/Betting%20Against%20Beta%20-%20Frazzini%20and%20Pedersen.pdf) 的风险研究，并遵循所提供 [Fama–French 总结](../references/papers/finance/Fama_French_1992_Cross_Section_Expected_Stock_Returns.md) 对全样本 beta 的时间边界提醒。原 BAB 策略包含杠杆和卖空，本地只检验 baseline 多头 Top30 中的评分惩罚；不将论文结果当作本任务收益保证。`components.json` 保存收益 checkpoint、价格缓存及其哈希；缓存包括实际价格、回归特征和时间范围。测试价格查询和收益推断均要求冻结选择及源码锁，选中的组合可以递归核验其历史风险组件。
 
+`historical_risk` 的新对照支持 `alpha_norm="native"` 和 `risk_score_transform="positive"`。原始尺度评分为 `score - λ × max(std(score), 1e-6) × g(risk_z)`，标准差按当前预测日、`ddof=0` 计算；`g` 可取原风险 z-score 或 `max(risk_z, 0)`。原始尺度保留各收益种子的预测分散程度，单向变换只扣除高于截面均值的风险，不奖励低风险股票。默认标准化/双向评分保留原 version 1 规格及计算路径；新选项采用 version 2，组件与测试缓存照常核验哈希。
+
+这轮预先固定 38 组完整验证评分：两市场、beta/总波动、惩罚 0.25/0.5/1.0、原始尺度双向／标准化单向／原始尺度单向，以及两个零惩罚控制。收益来源仍为各市场已有的三个同配置种子，最终逐种子评分后按 baseline `avg_none` 平均并重新回测。原始尺度与标准化尺度的单个种子排名相同，多种子平均可能不同；它们不是可直接合并的重复方法。固定网格在独立 CPU 目录运行，完成后自动执行三种子复核；全部结果与文件哈希核验、集成进程结束后才导入调度器。[风险评分报告](records/20261008/risk_shaping_validation_checks.json) 区分完整结果、待完成项及未经正式晋级的诊断，不重复计入两个复用的零惩罚审计。
+
+这项评分适配受风险管理研究启发，未改变基准的仓位、Top30 或成交规则，不是波动率择时策略的复现。[Moreira–Muir 原论文](https://www.nber.org/papers/w22208) 报告了风险调整收益改善，[后续大样本检验](https://www.sciencedirect.com/science/article/pii/S0304405X2030132X) 则报告了样本外的不稳定性；新对照不预设改进必然成立。
+
 `python -m research.diagnostics --trained research/artifacts/trials/<id>` 只读取剔除边界日的验证集，检查风险预测与绝对误差的日均 RankIC、预测风险分档、80% 区间覆盖率和年份稳定性。新风险/分位数 trial 也会自动保存 `valid/calibration/` 诊断。诊断使用 CPU float32，正式排序与回测仍使用对应 trial 保存的预测；不以诊断分数替换正式预测。超额收益诊断中的真实截面均值只用于定义已实现的验证目标，不参与模型预测。
 
 `scores_blend` 将同市场模型的预测按固定权重组合，比较原始分数、当日截面 z-score 和截面排名归一化。组件配置、权重、归一化方式、平滑系数和模型哈希都写入实验配置/`components.json`。五种子确认会为每个组件设置对应的组合种子，训练缺失组件并复用已完成的组件；每个种子的组合分数仍按 `avg_none` 平均并重新回测。
@@ -142,6 +148,10 @@ EMA 实现通过 72 项 CPU 检查、四类真实 GPU 训练与精确中断恢�
 验证筛选流程通过 108 项 CPU 检查，其中新增 19 项覆盖真实预测平均、指标方向、重复方法、篡改拒绝、恢复和测试入口。六个代表性方案的三种子平均预测及 dtype 与原集成完全相同，原 baseline 回测重算的十项指标最大差异为 `3.56e-15`。恢复后不重复训练或回测，90 个来源文件和 42 个集成文件的哈希与修改时间保持一致。这六组复算不增加独立训练次数或既有 35 组三种子研究的计数，也不构成正式 shortlist 或最终选模。初次检查脚本遗漏生产读取函数补充的目录 ID，以及误用旧结果路径，均保留日志并修正；没有修改模型或放宽容差。
 
 重做筛选检查时，从 [已保存源码包](records/20261008/code_snapshots/e45324989b5cf7885dde32cd/manifest.json) 对应的本机冻结包启动 `records/20261008/check_validation_selection.py`，并设置 `KBS_RESEARCH_WORKSPACE_ROOT`。检查只允许在正式确认计划和新模型测试都未建立时执行；它复用既有三种子训练，保存 [实际核验结果](records/20261008/validation_selection_checks.json)，不会创建正式选模锁。
+
+新风险评分通过 116 项 CPU 检查，新增 8 项核验原始尺度公式、单向惩罚、种子权重、标签及未来日期扰动、常数输入和默认兼容性。实际 20 组旧完整预测及规格精确复现；两个市场的新零惩罚完整预测/dtype 保持相同，十项指标最大差异 `7.11e-15`，原价格缓存的全部价格与回归特征也精确相同。104 个来源文件的哈希和修改时间保持一致。初次 CPU 检查发现非零变换丢失了 Series 的 `score` 名称，已修正名称并保留日志，没有改动数值公式或放宽容差。
+
+重做时，从 [实际执行源码包](records/20261008/code_snapshots/c61ad3d501de94aab30c4eb5/manifest.json) 对应的本机包启动 `tests/run_risk_shaping_validation.py`，设置 `KBS_RESEARCH_WORKSPACE_ROOT`；`--ensembles` 重做固定三种子回测。两个脚本均核验执行包并复用匹配缓存。`tests/follow_risk_shaping_ensembles.py --worker-pid <当前完整网格 PID>` 只跟随指定进程，检测到它未完成就退出时报告失败，不自动重启。`tests/import_risk_shaping_validation.py` 仅在完整网格及集成进程都完成后移动真实产物；重复导入复核原哈希，不覆盖已有实验。`python -m research.records.20261008.summarize_risk_shaping_validation` 导出当前完整项和待完成项。
 
 可重做验证汇总：`python -m research.records.20261008.summarize_mixture_validation`、`python -m research.records.20261008.summarize_history_and_risk`、`python -m research.records.20261008.summarize_ema_validation`、`python -m research.records.20261008.summarize_student_validation`、`python -m research.records.20261008.summarize_historical_risk_validation`。`python -m research.records.20261008.check_mixture_seed_validation` 及 `python -m research.records.20261008.check_mixture_risk_seed_validation` 从三个种子的实际验证预测重新平均并回测，保存来源及 checkpoint 哈希；缺失的种子记录为 pending。冻结风险评分复核中的收益模型跟随种子，风险来源继续共用 seed 0，报告保留这一差异。
 

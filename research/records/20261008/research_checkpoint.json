@@ -16,10 +16,11 @@
     "Twelve three-seed score-scale validation ensemble diagnostics using the unchanged baseline avg_none and identical float64 identity controls; two normalized forecast methods queued",
     "Fixed-df Student-t return distributions with total-variance scoring and true intervals; isolated implementation, eighty CPU checks and both-market exact GPU recovery before twelve full candidates were queued against four existing float64 Gaussian controls",
     "Past-price beta/total-volatility/idiosyncratic-volatility scoring: twenty complete matched validation controls and twenty actual three-seed averages; CSI300 downside and SP500 ranking/return tradeoffs preserved",
-    "Validation-first recoverable method selection: fixed twelve-method shortlist per market, actual three-seed avg_none baseline backtests and ten-metric Pareto/percentile selection; complete frozen five-seed evidence required before test access"
+    "Validation-first recoverable method selection: fixed twelve-method shortlist per market, actual three-seed avg_none baseline backtests and ten-metric Pareto/percentile selection; complete frozen five-seed evidence required before test access",
+    "Native alpha-unit risk penalties and positive-only high-risk shaping: fixed 38-control CPU grid plus 38 actual three-seed ensembles scheduled; exact 20 legacy prediction controls and both-market zero backtests before installation"
   ],
   "checks": {
-    "cpu_tests": 108,
+    "cpu_tests": 116,
     "factor_gpu_smoke_markets": [
       "csi300",
       "sp500"
@@ -66,7 +67,10 @@
     "frozen_mixture_risk_paired_ensembles": 4,
     "validation_selection_new_checks": 19,
     "validation_selection_real_ensembles": 6,
-    "validation_selection_restart_extra_backtests": 0
+    "validation_selection_restart_extra_backtests": 0,
+    "risk_shaping_new_tests": 8,
+    "risk_shaping_legacy_full_predictions": 20,
+    "risk_shaping_real_zero_controls": 2
   },
   "seed_validation_checks": {
     "created_at": "2026-10-08T14:49:55.956676+00:00",
@@ -6385,10 +6389,10 @@
       }
     }
   ],
-  "updated_at": "2026-10-08T22:49:13.943609+00:00",
+  "updated_at": "2026-10-08T23:09:13.526762+00:00",
   "risk_regime_validation_checks": "risk_regime_validation_checks.json",
   "opportunity_validation_checks": "opportunity_validation_checks.json",
-  "snapshot_runs": 309,
+  "snapshot_runs": 318,
   "conditional_mixture_study": {
     "planned": 18,
     "completed": 18,
@@ -6396,7 +6400,7 @@
     "paired_seeds_report": "mixture_seed_validation_checks.json"
   },
   "seed_validation_ensembles_at_snapshot": 35,
-  "remaining": "Continue autonomous validation search to the original deadline; freeze 12 candidate methods per market and confirm actual three-seed validation ensembles, then lock three methods per market and complete all five-seed fits before any holdout inference. Exceeding all baselines remains unproven.",
+  "remaining": "Finish the fixed risk-shaping score grid and its actual three-seed ensembles, preserve positive and negative results and import only after complete hash verification; continue autonomous validation search to the original deadline, then fixed shortlist confirmation and frozen five-seed holdout. Exceeding all baselines remains unproven.",
   "native_history_study": "history_validation_checks.json",
   "frozen_mixture_risk_study": "mixture_risk_validation_checks.json",
   "frozen_mixture_risk_seed_followups": "mixture_risk_seed_followups.json",
@@ -6405,7 +6409,7 @@
   "ema_study": "ema_validation_checks.json",
   "score_scale_study": "score_scale_validation_checks.json",
   "score_scale_method_design": "score_scale_method_design.json",
-  "code_packages_at_snapshot": 26,
+  "code_packages_at_snapshot": 27,
   "frozen_mixture_risk_seed_checks_complete": 8,
   "frozen_mixture_risk_paired_report": "mixture_risk_seed_validation_checks.json",
   "ema_controls_complete_at_report": 5,
@@ -6415,5 +6419,12 @@
   "validation_selection_study": "validation_selection_implementation_checks.json",
   "historical_risk_study": "historical_risk_validation_checks.json",
   "historical_risk_complete_controls": 20,
-  "historical_risk_complete_three_seed_ensembles": 20
+  "historical_risk_complete_three_seed_ensembles": 20,
+  "risk_shaping_study": "risk_shaping_validation_checks.json",
+  "risk_shaping_grid_at_report": {
+    "completed": 22,
+    "planned": 38,
+    "independent_outputs_not_yet_imported": true,
+    "completed_three_seed_diagnostics": 0
+  }
 }
