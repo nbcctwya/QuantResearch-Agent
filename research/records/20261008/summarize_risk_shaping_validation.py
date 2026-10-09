@@ -95,6 +95,24 @@ def summarize():
         "penalty":row["config"]["risk_penalty"],"alpha_norm":row["config"]["alpha_norm"],"risk_transform":row["config"]["risk_score_transform"],
         **row["ensemble"]} for row in seeds["records"]],columns=["id","market","risk_mode","penalty","alpha_norm","risk_transform",*KEYS]).to_csv(
         destination/"risk_shaping_seed_validation_metrics.csv",index=False)
+    if seeds["completed"] == seeds["planned"] == 38 and seeds["source_files_unchanged"]:
+        path = destination/"seed_validation_checks.json"
+        existing = json.loads(path.read_text())
+        names = {row["name"]:row for row in existing["records"]}
+        for row in seeds["records"]:
+            for source in row["sources"]:
+                folder = ARTIFACTS/"trials"/source["id"]
+                assert config_id(source["config"]) == source["id"]
+                assert digest_file(folder/"valid/predictions.pkl") == source["prediction_sha256"]
+                assert {name:digest_file(folder/name) for name in source["model_sha256"]} == source["model_sha256"]
+            record = {**row,"candidate":row["config"],"seeds":row["alpha_seeds"],"code":seeds["code"],
+                "scope":"actual full three-alpha-seed validation avg_none and baseline backtest; shared deterministic past-price risk; no additional neural fits; no test"}
+            if row["name"] in names:
+                assert names[row["name"]] == record
+            else:
+                existing["records"].append(record)
+        existing["updated_at"] = now()
+        write_json(path,existing)
     shutil.copy2(study/"risk_shaping_cpu_checks.log",destination/"risk_shaping_cpu_checks.log")
     print({"full_score_runs":len(rows),"planned":38,"three_seed_ensembles":seeds["completed"],
            "native_affine_controls":len(affine_checks),"cpu_checks":116,"test_evaluated":False})

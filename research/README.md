@@ -35,6 +35,16 @@ worker 需要正常访问 CUDA。当前操作系统的受限沙箱会阻止 GPU�
 
 来源：[表格残差网络研究](https://arxiv.org/abs/2106.11959)、[TabM 论文](https://arxiv.org/abs/2410.24210)、[TabM 官方实现](https://github.com/yandex-research/tabm)、[LightGBM 排序目标文档](https://lightgbm.readthedocs.io/en/stable/Parameters.html)、[TimeMixer 官方实现](https://github.com/kwuking/TimeMixer)，以及 `references/papers` 中的 MASTER、FactorVAE、TimeMixer 等论文总结。这里的 BatchEnsemble、时序混合和因子聚合是适配股票任务的实验方案，不宣称完整复现论文模型。
 
+`target_kind="market_residual_standardized"` 比较训练标签中的市场成分。训练目标为 `stock_return - strength × clip(past_beta, -3, 3) × market_return`；股票与 benchmark 都采用原标签的 `close[t+5]/close[t+1]-1`。beta 用预测当天及此前 120 个交易日、至少 60 对有效日收益的带截距 OLS 估计，不填充价格，无法估计时使用 beta=1。只在选定的训练行计算目标标准差，再按既有原始收益训练路径缩放及截断到 ±8。未来 benchmark 收益仅用于训练监督，不进入预测输入；验证和测试仍对原始股票收益计算全部指标。
+
+这一路线借用了所提供 [FactorVAE 总结](../references/papers/baseline/FactorVAE_2022.md) 的市场与个股成分区分，采用本地确定性 beta 标签适配，未实现原论文的潜在因子模型。每个市场固定同一模型结构，预先比较原始收益、截面超额收益、strength=0.5/1.0 四种目标，共 8 组，其中 SP500 超额收益对照复用已有完整实验，新增 7 次训练。原 CSI300 CSRank 及 SP500 超额收益模型同时保留为结构来源对照。搜索、三种子筛选与五种子最终确认规则继续一致。
+
+单次对照启动后又固定了全部 8 组目标的三种子复核，包含 24 个来源模型；复用 SP500 已有三个超额收益种子，其余新增 14 次种子补充训练。所有目标都纳入，不按 seed 0 的结果挑选。独立跟随进程等待来源训练全部完成，再调用已经核验的 `selection.ensemble_validation` 路径，按实际 dtype 平均预测并执行 8 次原 baseline 回测；诊断命名空间与正式筛选计划分开，不写最终选模锁。该阶段新训练固定使用同一源码包，跟随进程核验原来源哈希并拒绝源码包变化；期间新增实现可在暂存目录开发。
+
+安装前通过 126 项 CPU 检查，两个市场的完整训练数据分别核验 12 组独立 OLS、原 Qlib 标签时点、未来价格扰动、输入文件哈希及缓存恢复。CSI300/SP500 的最后预测日分别为 2020-12-24/2020-12-23，benchmark 远期标签终点均为 2020-12-31。显式双精度 endpoint 计算与 Qlib 单精度标签的最大差异低于 `6e-8`；OLS 与独立回归误差低于 `1.4e-15`。六次 GPU 小实验确认 strength=0 与旧实现的权重、损失和验证预测完全相同，两市场的中断恢复及已完成任务重入也精确复现。小实验不计入完整结果；[目标对照报告](records/20261008/market_residual_validation_checks.json) 明确区分已完成和待完成项。
+
+`market_residual.json` 保存目标数据、标准差、源文件哈希、训练价格时间范围及目标签名；checkpoint 恢复时拒绝签名变化。训练期市场价格缓存与历史风险评分缓存分开保存，验证/测试请求在读取市场监督缓存前就拒绝。检查脚本首轮导入环境遗漏、独立 OLS 参考误用单精度输入的失败日志保留，修正环境与参考精度，未调整通过阈值。重做 GPU 检查时使用报告中的实际冻结包，显式设置 `PYTHONPATH=<冻结包>` 和 `KBS_RESEARCH_WORKSPACE_ROOT`；完整训练通过常规调度器执行。
+
 `days_per_update` 比较逐日更新与 4/8 日梯度合并。没有截面归一化或股票间注意力时，多个日期可合并为一次网络前向，但先按日期切开预测，再分别计算排序/分布损失，最后等权平均；不把不同日期的股票作为同一截面。带截面操作的模型仍逐日前向，只合并梯度更新。保存 `batching.json` 及每轮真实更新次数；增大这个参数会减少每轮优化器更新，较长训练、学习率与 patience 的变化是明确记录的实验变量。
 
 `temporal_mixer` 的 `history_steps=8/16/32` 对照扩展历史 Alpha158 窗口，继续使用相同终点日期、股票成员、最新 76 维上下文和原五日收益标签。通过临时加载的原 Qlib sampler 改变 `step_len` 构建独立缓存；随机 512 个窗口与原生 sampler 逐项核对，所有最新 Alpha158 行与原缓存精确核对。原 sampler pickle、8 天缓存和标签缓存保留原样。该路线延续所提供 TimeMixer 总结的多尺度历史建模思路，未实现其完整分解网络；时间混合层的容量随窗口长度增长，作为显式实验变量记录。
@@ -150,6 +160,8 @@ EMA 实现通过 72 项 CPU 检查、四类真实 GPU 训练与精确中断恢�
 重做筛选检查时，从 [已保存源码包](records/20261008/code_snapshots/e45324989b5cf7885dde32cd/manifest.json) 对应的本机冻结包启动 `records/20261008/check_validation_selection.py`，并设置 `KBS_RESEARCH_WORKSPACE_ROOT`。检查只允许在正式确认计划和新模型测试都未建立时执行；它复用既有三种子训练，保存 [实际核验结果](records/20261008/validation_selection_checks.json)，不会创建正式选模锁。
 
 新风险评分通过 116 项 CPU 检查，新增 8 项核验原始尺度公式、单向惩罚、种子权重、标签及未来日期扰动、常数输入和默认兼容性。实际 20 组旧完整预测及规格精确复现；两个市场的新零惩罚完整预测/dtype 保持相同，十项指标最大差异 `7.11e-15`，原价格缓存的全部价格与回归特征也精确相同。104 个来源文件的哈希和修改时间保持一致。初次 CPU 检查发现非零变换丢失了 Series 的 `score` 名称，已修正名称并保留日志，没有改动数值公式或放宽容差。
+
+38 组风险评分完整实验及 38 组真实三种子集成都已完成，来源文件保持原哈希，已导入调度记录。这 38 组是固定收益模型上的评分及回测实验，没有新增 38 次神经网络训练。SP500 标准化/单向 beta 惩罚 0.5 相对同一来源的原双向惩罚，AR 从 `0.10612` 到 `0.11503`，STD 从 `0.20768` 到 `0.24668`，MDD 从 `-0.15555` 到 `-0.16036`；收益提高伴随风险变差。原始尺度/双向 beta 惩罚 1.0 的 MDD 为 `-0.10185`，较原标准化对照更浅，但 AR 为 `0.08914`、排序下降。CSI300 仍由原始无惩罚收益来源取得较高 AR，强惩罚普遍损失收益。[完整三种子图](records/20261008/risk_shaping_seeds012.png) 与 [指标 CSV](records/20261008/risk_shaping_seed_validation_metrics.csv) 保留所有取舍；这些验证结果未证明测试期超过 baseline。
 
 重做时，从 [实际执行源码包](records/20261008/code_snapshots/c61ad3d501de94aab30c4eb5/manifest.json) 对应的本机包启动 `tests/run_risk_shaping_validation.py`，设置 `KBS_RESEARCH_WORKSPACE_ROOT`；`--ensembles` 重做固定三种子回测。两个脚本均核验执行包并复用匹配缓存。`tests/follow_risk_shaping_ensembles.py --worker-pid <当前完整网格 PID>` 只跟随指定进程，检测到它未完成就退出时报告失败，不自动重启。`tests/import_risk_shaping_validation.py` 仅在完整网格及集成进程都完成后移动真实产物；重复导入复核原哈希，不覆盖已有实验。`python -m research.records.20261008.summarize_risk_shaping_validation` 导出当前完整项和待完成项。
 

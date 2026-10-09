@@ -1,0 +1,58 @@
+{
+  "created_at": "2026-10-08T23:49:32.911675+00:00",
+  "status": "primary_sources_read; proposed adaptation; not yet implemented or queued",
+  "sources": [
+    {
+      "title": "Enhancing Time Series Momentum Strategies Using Deep Neural Networks",
+      "url": "https://arxiv.org/html/1904.04912",
+      "authors": [
+        "Bryan Lim",
+        "Stefan Zohren",
+        "Stephen Roberts"
+      ],
+      "verified_passage": "Section III-B, equation 10 uses volatility-normalized returns as regression targets; section III uses ex-ante volatility scaling. Paper changes positions and optimizes Sharpe in other variants."
+    },
+    {
+      "title": "Volatility Managed Portfolios",
+      "url": "https://www.nber.org/papers/w22208",
+      "verified_scope": "Factor portfolio volatility timing; not a direct stock Top30 prediction experiment"
+    }
+  ],
+  "hypothesis": "Past volatility scaling during label construction may reduce noisy high-volatility examples and learn risk-aware rankings without changing the baseline strategy.",
+  "proposed_targets": [
+    {
+      "base": "raw stock baseline-horizon return",
+      "scale": "past total volatility",
+      "power": 0.5
+    },
+    {
+      "base": "raw stock baseline-horizon return",
+      "scale": "past total volatility",
+      "power": 1.0
+    },
+    {
+      "base": "past-beta market residual with strength1",
+      "scale": "past idiosyncratic volatility",
+      "power": 0.5
+    },
+    {
+      "base": "past-beta market residual with strength1",
+      "scale": "past idiosyncratic volatility",
+      "power": 1.0
+    }
+  ],
+  "proposed_controls": [
+    "current raw_standardized",
+    "current market_residual_standardized strength1"
+  ],
+  "adaptation_differences": [
+    "Five-day baseline label rather than the paper one-day target",
+    "Current cross-sectional residual architecture and inputs rather than paper futures/LSTM implementation",
+    "Existing 120-day paired-price risk estimates rather than paper 60-day EWMA",
+    "Training-only volatility floor/missing-value fallback and target scaling to be specified and tested",
+    "Only scalar forecasts enter unchanged baseline Top30/drop5; no volatility position sizing or leverage"
+  ],
+  "implementation_gate": "Keep live core 60290c50da7c6776dca62812 until all24 current target source fits finish; stage code independently; CPU, real-data and GPU recovery checks before installation.",
+  "selection": "validation-only actual seed averages; five-seed held-out evaluation remains locked",
+  "holdout_success_established": false
+}

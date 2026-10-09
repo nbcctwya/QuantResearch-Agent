@@ -1,0 +1,12 @@
+{
+  "created_at": "2026-10-08T23:38:53.949215+00:00",
+  "scope": "complete fixed three-seed validation grid and original matched scoring controls; no test",
+  "files": {
+    "/home/nbcctwya/kbs-workspace/research/records/20261008/risk_shaping_seed_validation_metrics.csv": "40e9b2cfd3e3b2d68ffefc5d79a5f5e92567db98ee9a1e3154cd7b1ec8599889",
+    "/home/nbcctwya/kbs-workspace/research/records/20261008/historical_risk_seed_validation_metrics.csv": "8ef81074680cb76b82ce4e1a3d8d4d4fed27e1cad31b1d56ad43061b1ea91be7",
+    "/home/nbcctwya/kbs-workspace/research/records/20261008/risk_shaping_seeds012.png": "dbb8aea06766f8de38cdc7b46735e573587abf7aff09e1a89a1d3faf01130a91",
+    "/home/nbcctwya/kbs-workspace/research/records/20261008/risk_shaping_seeds012.svg": "76f8c9613b51a3a581464c3d67cf5b5ac6bc59b747e7651950472282e2cfe0e1"
+  },
+  "new_grid_rows": 38,
+  "old_nonzero_controls": 12
+}
