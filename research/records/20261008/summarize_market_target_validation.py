@@ -151,6 +151,14 @@ def main():
         "preexisting_control":row["preexisting_complete"],"seconds":row["seconds"],**row["validation"]}
         for row in rows],columns=["id","market","target_kind","strength","preexisting_control","seconds",*keys]).to_csv(
         destination/"market_residual_validation_metrics.csv",index=False)
+    if seed_study and seed_study["actual_seed_ensembles"]:
+        pd.DataFrame([{"name":row["name"],"market":row["config"]["market"],
+            "target_kind":row["config"]["target_kind"],
+            "strength":row["config"].get("market_residual_strength"),
+            "seeds":"0,1,2",**row["validation"]}
+            for row in seed_study["actual_seed_ensembles"]["records"]],
+            columns=["name","market","target_kind","strength","seeds",*keys]).to_csv(
+                destination/"market_residual_seed_validation_metrics.csv",index=False)
     shutil.copy2(study/"market_residual_cpu_checks.log",destination/"market_residual_cpu_checks.log")
     print({"completed_configs":len(rows),"new_full_fits":sum(not row["preexisting_complete"] for row in rows),
            "pending":len(pending),"cpu_checks":126,"data_markets":2,"gpu_smokes":6,"test_accessed":False})

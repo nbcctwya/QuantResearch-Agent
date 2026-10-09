@@ -1,13 +1,13 @@
 {
-  "created_at": "2026-10-08T23:57:58.700891+00:00",
-  "previous_commit": "b230ef5b5996e3129568caa6c544d31661e321c6",
-  "previous_runs": 318,
-  "snapshot_runs": 377,
+  "created_at": "2026-10-09T00:51:09.526834+00:00",
+  "previous_commit": "79b94fcb1d680593c1a7c5040c5bc68fc1d4365e",
+  "previous_runs": 377,
+  "snapshot_runs": 407,
   "previous_records_unchanged": true,
   "previous_metric_rows_exactly_unchanged": true,
   "previous_seed_ensemble_records_unchanged": true,
-  "prior_seed_ensembles": 35,
-  "current_seed_ensembles": 73,
+  "prior_seed_ensembles": 73,
+  "current_seed_ensembles": 80,
   "checked_code_packages": [
     {
       "bundle": "03e4497e576fe49c0d91220c",
@@ -28,6 +28,11 @@
       "bundle": "142df20a0739454788cd6e3c",
       "manifest_sha256": "51d804b98fa427c2c89fa3c56c46a5e318a6a55a2936e68f48a2145a3453fa6c",
       "files": 14
+    },
+    {
+      "bundle": "25181e44948631bdef032b2a",
+      "manifest_sha256": "d04321f721b2c8c83261ddac2190239daae73e613e4d28d4ee1b657e837cc70f",
+      "files": 28
     },
     {
       "bundle": "3a49c0393b2ab3a17c961146",
@@ -110,6 +115,11 @@
       "files": 25
     },
     {
+      "bundle": "cc45e62adf16652556ba1511",
+      "manifest_sha256": "27ee1fa4ee89ea8f84fc938e309032c7ee66129a85a78fbd8542e7551cae20f8",
+      "files": 27
+    },
+    {
       "bundle": "d044891d84498e4c49e86953",
       "manifest_sha256": "752fa325d5fa091d33564ee752945609628c9d9aef76793ba6305d4e71573f77",
       "files": 17
@@ -151,7 +161,7 @@
     }
   ],
   "every_source_matches_saved_manifest": true,
-  "runs_with_exact_saved_package": 321,
+  "runs_with_exact_saved_package": 351,
   "earlier_runs_without_saved_package": 56,
   "earlier_run_note": "Early runs without a recorded immutable launch package retain original source hashes; no package is attributed retroactively.",
   "selection_lock_exists": false,

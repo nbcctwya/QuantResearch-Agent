@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/tmp/kbs-robust-loss-20261009/check_robust_loss_data.py", line 62, in <module>
+    if __name__=="__main__":main()
+                            ^^^^^^
+  File "/tmp/kbs-robust-loss-20261009/check_robust_loss_data.py", line 23, in main
+    assert Path(__import__("research").__file__).parent==Path(design["bundle"])/"research"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

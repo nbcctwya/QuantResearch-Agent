@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/tmp/kbs-robust-loss-20261009/check_robust_loss_gpu.py", line 81, in <module>
+    main()
+  File "/tmp/kbs-robust-loss-20261009/check_robust_loss_gpu.py", line 19, in main
+    assert Path(__import__("research").__file__).parent == Path(design["bundle"])/"research"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

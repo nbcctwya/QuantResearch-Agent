@@ -1,6 +1,6 @@
 {
   "created_at": "2026-10-08T23:49:32.911675+00:00",
-  "status": "primary_sources_read; proposed adaptation; not yet implemented or queued",
+  "status": "volatility-target adaptation implemented, checked and eight full models complete; sixteen fixed seed followups queued; robust loss next adaptation checked and twelve full models running",
   "sources": [
     {
       "title": "Enhancing Time Series Momentum Strategies Using Deep Neural Networks",
@@ -49,10 +49,39 @@
     "Five-day baseline label rather than the paper one-day target",
     "Current cross-sectional residual architecture and inputs rather than paper futures/LSTM implementation",
     "Existing 120-day paired-price risk estimates rather than paper 60-day EWMA",
-    "Training-only volatility floor/missing-value fallback and target scaling to be specified and tested",
+    "Training-only positive-sigma5% floor and positive-median missing fallback specified, fitted and verified before full runs",
     "Only scalar forecasts enter unchanged baseline Top30/drop5; no volatility position sizing or leverage"
   ],
-  "implementation_gate": "Keep live core 60290c50da7c6776dca62812 until all24 current target source fits finish; stage code independently; CPU, real-data and GPU recovery checks before installation.",
+  "implementation_gate": "Current volatility source27 remains until all24 source fits complete; checked source28 can run independent full Huber models, but install before importing and exposing robust configs to main adaptation.",
   "selection": "validation-only actual seed averages; five-seed held-out evaluation remains locked",
-  "holdout_success_established": false
+  "holdout_success_established": false,
+  "updated_at": "2026-10-09T00:50:07.220222+00:00",
+  "implemented_volatility_target": {
+    "source_code_bundle": "cc45e62adf16652556ba1511",
+    "source_files": 27,
+    "cpu_tests": 136,
+    "full_new_models_complete": 8,
+    "extra_seed_fits_queued": 16,
+    "planned_source_fits": 24,
+    "real_three_seed_ensembles_complete": 0,
+    "report": "volatility_target_validation_checks.json",
+    "floor_and_fallback": "selected training positive sigma linear5% quantile with1e-6 floor; missing/negative use positive median; exact zero uses floor",
+    "installed_after_old_target_source_fits_complete": 24
+  },
+  "next_robust_loss_adaptation": {
+    "source_code_bundle": "25181e44948631bdef032b2a",
+    "source_files": 28,
+    "report": "robust_loss_validation_checks.json",
+    "source_urls": [
+      "https://academic.oup.com/rfs/article/33/5/2223/5758276",
+      "https://docs.pytorch.org/docs/2.8/generated/torch.nn.HuberLoss.html"
+    ],
+    "cpu_tests": 146,
+    "full_training_data_checks_passed": true,
+    "GPU_checks_passed": true,
+    "planned_new_full_models": 12,
+    "complete_at_report": 1,
+    "planned_extra_seeds_not_queued": 24,
+    "current_live_install": false
+  }
 }

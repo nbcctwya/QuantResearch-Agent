@@ -1,0 +1,52 @@
+{
+  "created_at": "2026-10-09T00:35:41.523493+00:00",
+  "source": "market_residual_validation_checks.json",
+  "source_sha256": "e8d71031141369d9302611a99bd211483fe0eefe21859fa338fcd7266ab9e95f",
+  "actual_ensembles": 8,
+  "actual_individual_fits": 24,
+  "individual_result_files": {
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/87943074a16fc77b/result.json": "a088c644d7fff761df506fe309762d12896e3ea9c63e94a620757801b51335e2",
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/b9a32e0500bffff0/result.json": "cce663febcf015bedaa3fc7850676e219a4eb4ea3e01e570295aecc15245dbd7",
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/acef23a2b3dea801/result.json": "0e32eea997bdbac2c727c566732c5cfc57d395cd5ec369f3a8910892df279343",
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/2df6cb3338a9fe43/result.json": "2d59f015ebde1f462cb3c77eda9f8a1d5385ab492634884135d542af4ad59d6f",
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/0213d621f7fdaef6/result.json": "9d911882fe44cf27b49c2de20130c0cf87cf782e895420a67723fb1ccbf4a378",
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/e0319ed00bd79aa9/result.json": "c2b20351d691a98e5bd845eed91269059692e2054f471868388723496454ce94",
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/e379a6fd0d83facb/result.json": "1f53fdee8c94766ecb4e26b8552c86ebaf6ad8dc16df8b781cf302b4f7639fa9",
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/bb78867494a36914/result.json": "bf4066df8e19ef33dc2b9407faf275d42088817e2beac19c8a50303cc091dadd",
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/3b776642de943789/result.json": "9e6f1d8b01e118fb9871d03bf9125d5dcfd1e517ee378d22a8012b29a0a98be2",
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/cb6471f21597a555/result.json": "847659ec51fa4e4a7b6ba02d788c29a93606fe736e243b55a271feba0fbd0e90",
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/97d43764081222a4/result.json": "592a8e0d7d31d4f8e9fddeb4af45af259c6f17ff247cf3a73d362869bd24259c",
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/66f5bc4207f43188/result.json": "43840dd3b43d960fbd1a9d2bd6742a9fe6300c0e07dcf5e5753ec42e6d00f81f",
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/b7e37b6ad42f1807/result.json": "71f405eaa5934ba83d3888311487a2740cb88aeb6c44cea1b53737e4f520adb5",
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/46db1d1be1692e8f/result.json": "d48a4711c00596699ce2becd60c4cdc64d4112ac04f519ff775164005fa78847",
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/33d0b059035f4bc0/result.json": "5fb061a907015363aa38f560df6a59f5ffaf00dc3b7264b78e055af3f45d2cf5",
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/e175da90f4376354/result.json": "20594507cb986bd23e603e4c5128484043f9932a85cbf5eada400b545f726a84",
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/3e5f7d7dd03230f4/result.json": "87120504dc36876edaaa24ac39480ebcd425e0bc05fd6d5fa708611168168f84",
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/c882af663fe3bdff/result.json": "dab770be6aa69f1cca9fef88bc36eb36f3c5a6c2a3cebe3e0ad871ab4b4a8f4d",
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/26b032f3af375df1/result.json": "0fb5726b637ccff45d99fcacd0ca1f056f99f6bb30637578d84c41bc75709a9c",
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/228698b89a2b5ea3/result.json": "6b59b174254db34d62fa22dd2ce14d1d6c4b98f8d3c916b2ae6d5f4c31bb2e55",
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/a6be80788324128a/result.json": "402a7635f356280024d56e02faa5a86b2bccb7935336209f3dc834348caba368",
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/41dd7cb357c3e058/result.json": "4ba9fcf280000094fb573627efe5d1b38ddadd75a9173f74f1af3a3084e6ca77",
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/3e946cb309289f64/result.json": "66d65a9d4fa7ee32c1a5c801d50a448c275549fd76b25b2a565a7c247fc7579a",
+    "/home/nbcctwya/kbs-workspace/research/artifacts/trials/305c08d6302b628d/result.json": "c878bab142945d44840cd08ffa12b2c158aa4ea393c56f72f144050ea480b287"
+  },
+  "files": {
+    "market_targets_seeds012.png": "2f6142f67a49941b0674acb56ab422c8c1ab93a69cbec0db54afacd1da483021",
+    "market_targets_seeds012.svg": "78039ed77e43be206902aea84c9b4b96f09e5f9d3aa17acfca1a13b148033e00"
+  },
+  "scope": "seed dots are individual validation metrics; diamonds recompute all metrics from averaged predictions, not averages of individual metrics; no holdout",
+  "initial_harness_events": [
+    {
+      "recorded_at": "2026-10-09T00:36:26.412519+00:00",
+      "phase": "first plot command",
+      "exit_code": 1,
+      "error_type": "ModuleNotFoundError",
+      "error": "Script-directory import path omitted workspace root.",
+      "correction": "Set explicit PYTHONPATH to workspace root.",
+      "training_affected": false,
+      "metric_tolerances_changed": false,
+      "corrected_plot_exit_code": 0
+    }
+  ],
+  "svg_geometry_unchanged_after_whitespace_normalization": true
+}
